@@ -1,0 +1,524 @@
+.brochure-dropdown-menu{
+	min-width: 272px;
+}
+
+.agent-dropdown-menu{
+	min-width: 160px;
+}
+
+.navigation-container{
+	width: 1330px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.website-logo-image{
+	width: 167px;
+}
+
+.usa-summer-program-menu{
+	min-width: 515px;
+	left: -230px !important;
+}
+
+.usa-summer-program-menu li a{
+	text-align: left !important;
+	margin-left: 20px;
+	/*color: #333 !important*/
+}
+
+.usa-summer-program-menu li a:hover{
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+
+.li-menu-title{
+	margin-left: 5px !important;
+	font-family: "Roboto Condensed", sans-serif;
+	color: #656565;
+	font-size: 17px;
+	font-weight: 500;
+	margin-bottom: 25px !important;
+}
+
+.about-experience-class{
+	font-weight: bold !important;
+	color: #000000;
+}
+
+.europe-summer-program-menu{
+	min-width: 1258px;
+	left: -490px !important;
+}
+
+.europe-summer-program-menu li a{
+	text-align: left !important;
+	margin-left: 2px;
+}
+
+.europe-summer-program-menu li a:hover{
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+
+.country-flag-menu{
+	width: 23px;
+	margin-right: 5px;
+}
+
+.country-name-menu-class{
+	color: #16214e !important;
+}
+
+.junior-mini-stay-program-menu{
+	min-width: 910px;
+	left: -666px !important;
+}
+
+.junior-mini-stay-program-menu li a{
+	text-align: left !important;
+	margin-left: 20px;
+}
+
+.junior-mini-stay-program-menu li a:hover{
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+
+.adult-courses-program-menu{
+	min-width: 195px;
+	left: -70px !important;
+}
+
+.adult-courses-program-menu li a:hover{
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+
+
+.top-header-menu{
+	margin-top: 6px !important;
+	margin-bottom: 6px !important;
+}
+
+.top-header-menu li a{
+	color: #aaaaaa !important;
+	font-size: 12px !important;
+	font-weight: 600 !important;
+}
+
+.top-header-menu li a:hover{
+	color: #FFFFFF !important;
+}
+
+.top-header-menu li ul li a:hover{
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+
+.multi-column-dropdown li a:hover{
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+
+.navigation-header-menu li a{
+	color:#656565 !important;
+}
+
+.carousel-indicators{
+	margin-bottom: 0px;
+}
+
+.hero-heading span{
+	font-size: 50px;
+	color: #fff;
+	font-weight: 500;
+	/*line-height: 5.4;*/
+	font-family: "Roboto Condensed", sans-serif;
+	background-color: rgba(0, 0, 0, 0.5)
+}
+
+.carousel-caption{
+	/*line-height: 8.8;*/
+	top: 35px;
+}
+
+.learn-more-button-wrapper{
+	line-height: 8.8em !important;
+}
+
+.lead{
+	color: #fff;
+}
+
+.carousel-caption .hero-button:hover, .carousel-caption .hero-button:focus{
+	background: #406da4;
+	color: #fff;
+}
+
+.carousel-caption .hero-button{
+	border: 3px solid #fff;
+	color: #fff;
+}
+
+.hero-button{
+	margin-top: -76px;
+}
+
+.carousel-control-left-btn , .carousel-control-right-btn{
+	width: 45px;
+	height: 45px;
+	margin-top: 175px;
+}
+
+.glyphicon{
+	color: #fff;
+}
+
+.view-details-btn{
+	background-color: #4474af;
+	border: 1px solid #396192;
+	color: white;
+}
+
+.figcaption-title-class-courses{
+	margin-top: 110px !important;
+}
+
+.figcaption-title-class-campus{
+	margin-top: 50px !important;
+}
+
+.figcaption-title-class-europe-program{
+	margin-top: 43px !important;
+}
+
+.large-image-europe-program{
+	width: 334px;
+	height: 484px !important;
+	margin-top: 0 !important;
+}
+
+.europe-program-right-box-image{
+	height: 485px;
+}
+
+.figcaption-title-class-europe-program-right-box{
+	margin-top: 175px !important;
+}
+
+
+/*****Footer link Section CSS (Copied from : http://www.studyholidays.com/_styles/shsh.css?v6)*****/
+.footer h2,
+.footer p { color: #fff; }
+.footer h2 { font-size: 1.5em; }
+.footer p { font-size: 0.9em; }
+.footer .whiteBar { background: #fff; padding: 20px 0; overflow: auto; }
+.footer a.fbFind { background: url(http://www.studyholidays.com/_img/btn-fb1200.png) no-repeat left center; color: #00b3f0; padding-left: 40px; float: left; margin: 10px 0 20px 5px; line-height: 22px; }
+.footer a:hover.fbFind { color: #0078a1; }
+.footer .credits { float: left; margin: 0; }
+.footer .credits > div { margin-top: 10px; }
+.footer .credits > div:first-child { margin-top: 0; }
+.footer .credits p { display: block; vertical-align: middle; margin: 0 0 0 12px; color: #999; font-size: 83%; max-width: 110px; }
+.footer .credits a { height: 63px; display: inline-block; vertical-align: middle; }
+.footer .credits a:hover { background-position: bottom center; }
+.logo-bc { background: url(http://www.studyholidays.com/_img/logo-bc.jpg) no-repeat top center; width: 106px; }
+.logo-enuk { background: url(http://www.studyholidays.com/_img/logo-enuk.jpg) no-repeat top center; width: 196px; }
+.logo-yleuk { background: url(http://www.studyholidays.com/_img/logo-yleuk.jpg) no-repeat top center; width: 101px; }
+.logo-accet { background: url(http://www.studyholidays.com/_img/logo-accet.jpg) no-repeat top center; width: 128px; }
+.logo-cea { background: url(http://www.studyholidays.com/_img/logo-cea.jpg) no-repeat top center; width: 106px; }
+.inner { max-width: 1200px; margin: 0 auto; }
+.footer a.fbFind { margin: 10px 0 10px 5px; }
+.footer .credits { float: right; }
+.footer .credits > div { margin: 0 0 0 10px; display: inline-block; }
+.footer .credits p { display: inline-block; margin: 0; }
+.zone {
+	background: #212121;
+	padding: 5em 0;
+	margin: 0;
+	padding: 0;
+	color: #777777;
+	font-size: 1em;
+	text-align: left;
+	font-family: 'Museo Sans W01', Arial, 'Helvetica Neue', Helvetica, Sans-Serif;
+	font-weight: normal;
+}
+/***************************************END*********************************************/
+
+
+.footer-link-container{
+	padding-left: 23px;
+	padding-right: 36px;
+	margin-top: 0em;
+}
+
+.footer-heading-container{
+	background-color: #f2f2f2;
+	font-weight: normal;
+	color: #8f8f8f;
+	border-top: 1px solid #dedede;
+	padding: 2em;
+	padding-bottom: 0;
+}
+
+.footer .logo {
+	width: 100px;
+	margin-bottom: 15px;
+}
+
+.footer-logo-name{
+	font-weight: normal;
+	color: #8f8f8f !important;
+}
+
+.footer-heading{
+	margin: 0 0 13px 0;
+	font-size: 16px;
+	line-height: 2;
+	font-family: "Roboto Condensed", sans-serif;
+}
+
+.footer-nav > li {
+	margin-bottom: 10px;
+}
+
+.footer-nav > li > a {
+	color: #8f8f8f;
+}
+
+.footer-section-container{
+	width: 1320px !important;
+}
+
+.first-footer-box{
+	width: 20%;
+	margin-left: 75px;
+}
+
+.second-footer-box{
+	width: 20%;
+	margin-left: 33px;
+}
+
+.third-footer-box{
+	width: 28%;
+	margin-left: 33px;
+}
+
+.fourth-footer-box{
+	width: 27%;
+	margin-left: -76px;
+}
+
+.policy-li-wrapper{
+	border-top: 1px solid;
+	border-color: #8f8f8f;
+}
+
+.copyright{
+	background-color: #f2f2f2;
+	border-top: 1px solid #dedede;
+	padding: 15px 0;
+	font-size: 12px;
+}
+
+.footer-heading-container a:hover, .footer-heading-container a:focus {
+	color: #8f8f8f;
+	text-decoration: underline;
+}
+
+.welcome-title{
+	margin-top: 25px;
+}
+
+.about-title{
+	text-align: center !important;
+}
+
+.course-overview{
+	width : 100% !important;
+}
+
+.welcome-title p{
+	margin-bottom : 0px;
+}
+
+.junior-course-main-summary{
+	border-right: 1px solid #999;
+}
+
+.vc_row{
+	border: 1px solid #ccc;
+	padding-top: 10px;
+}
+
+.vc_custom_heading{
+	text-align: center;
+}
+
+.vc_custom_heading{
+	font-size: 16px !important;
+	font-family: 'FrutigerLTPro-Roman' !important;
+	font-weight: 500 !important;
+	color: #666666;
+	margin-bottom: 35px;
+}
+
+.vc_custom_heading_text{
+	font-size: 16px !important;
+	font-family: 'FrutigerLTPro-Roman' !important;
+	font-weight: 600 !important;
+	color: #666666 !important;
+	margin-bottom: 15px !important;
+}
+
+.box-detail-text{
+	color: #999 !important;
+	font-weight: normal !important;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-transform: none !important;
+	border-top: 1px solid #ccc;
+	padding-top: 5px;
+}
+
+.team{
+	padding : 25px;
+}
+
+.w3_agile_team_grids{
+	margin : 0;
+}
+
+.w3_agile_team_grid{
+	margin-top: 15px;
+}
+
+.showDetails{
+	cursor:pointer;
+}
+
+.destination_heading{
+	margin: 20px 0;
+	font-size: 24px;
+	font-family: "Roboto Condensed", sans-serif;
+	color: #656565;
+	font-weight: 500;
+}
+
+.destination_container{
+	padding-left: 60px;
+	padding-right: 60px;
+}
+
+.figcaption-title-class-destination{
+	margin-top: 55px !important;
+}
+
+.choose-program-title{
+	color:#68839c;
+	font-family: "Roboto Condensed", sans-serif;
+}
+
+.container-fluid{
+	border-bottom: 5px solid #68839c;
+	border-top: 5px solid #68839c;
+}
+
+.foto-icon-class{
+	border: 2px solid #fff;
+	border-radius: 50px;
+	margin: 0 15px;
+	padding: 15px;
+}
+
+.video-icon-class{
+	border: 2px solid #fff;
+	border-radius: 50px;
+	display: inline-block;
+	height: 60px;
+	margin: 0 15px;
+	padding: 15px;
+	width: 60px;
+}
+
+.icon-inner-play{
+	display: inline-block;
+	height: 85px;
+	position: relative;
+	width: 92px;
+}
+
+.centre-container-wrapper{
+	background-color:#dce6ea;
+	padding: 50px 20px;
+	border-bottom:5px solid #68839c;
+}
+
+.collapse-title{
+	font-family: "Roboto Condensed", sans-serif;
+}
+
+.panel-body p{
+	font-weight: normal;
+	margin: 0 0 10px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 13px;
+	color: #7b7b7b;
+	line-height: 1.6;
+}
+
+.panel-body ul{
+	font-weight: normal;
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 13px;
+	color: #7b7b7b;
+	line-height: 1.6;
+	margin-left: 43px;
+}
+
+.show-date-table > tbody> tr > td{
+	color : #7b7b7b;
+}
+
+.negativo {
+	background-color: #3c7099;
+	padding: 10px 0;
+	padding-left: 0px;
+	color: #fff;
+	border-radius: 4px 4px 4px 4px;
+	font-size: 21px;
+}
+
+.inside-box-image{
+	width: 530px;
+	height: 183px;
+}
+
+.panel-heading h4 a{
+	text-transform: uppercase;
+}
+
+.amcharts-legend-div{
+	display : none;
+}
+
+.amcharts-chart-div a{
+	display : none !important;
+}
+
+#chartdiv {
+	width: 100%;
+	height: 400px;
+}
+
+#myVideoModal .modal-header{
+	padding: 5px 15px 0px 15px;
+	border:0;
+}
+
+#myVideoModal .modal-body{
+	padding: 5px;
+}
