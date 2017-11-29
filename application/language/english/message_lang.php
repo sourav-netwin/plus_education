@@ -12,4 +12,5 @@
 	$lang['image_type_error_msg'] = 'Please upload JPG|PNG|JPEG image.';
 	$lang['required_upload_image'] = 'Please upload image';
 	$lang['delete_confirmation'] = 'Are you sure to delete ?';
+	$lang['minimum_image_dimension'] = 'Image dimension should be greater or equal to **width** X **height** pixel';
 ?>

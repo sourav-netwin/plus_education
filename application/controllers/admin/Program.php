@@ -5,6 +5,7 @@
 		{
 			parent::__construct();
 			$this->lang->load('general_lang' , 'english');
+			$this->lang->load('message_lang' , 'english');
 			$this->load->helper('backend');
 			$this->load->model('Admin_model' , '' , TRUE);
 			$this->load->library('image_upload');
@@ -58,10 +59,11 @@
 			{
 				if($_FILES['program_image']['name'] != '')
 				{
-					$uploadData = $this->image_upload->do_upload('./uploads/program/' , 'program_image' , 500 , 1920 , 550);
+					$uploadData = $this->image_upload->do_upload('./uploads/program/' , 'program_image' , 6000 , 1920 , 500);
 					if($uploadData['errorFlag'] == 0)
 					{
 						$this->Admin_model->addProgram($this->input->post() , $uploadData['fileName']);
+						$this->_handleCropping($uploadData['fileName'] , 'add');
 						redirect(base_url().'admin/program/index?success=add');
 					}
 					else
@@ -112,5 +114,90 @@
 			$this->Admin_model->deleteProgram($id);
 			redirect(base_url().'admin/program/index?success=delete');
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*---------------------------Image Cropping functionality Start-------------------------*/
+
+		// function test(){
+			// $file_name = "my-test.jpg";
+			// $this->_handleCropping($file_name);
+		// }
+
+		public function _handleCropping($fileName = NULL , $flag = NULL)
+		{
+			// $oldImage = $this->input->post("oldImage");
+			// if(!empty($oldImage))
+			// {
+				// @unlink(PROGRAM_IMAGE_PATH . $oldImage);
+				// // Note: getThumbnailName defined this in helper to get
+				// // thumnail image eg. sample.jpg to sample_thumb.jpg
+				// $thumbnailImage = getThumbnailName($oldImage);
+				// if(!empty($thumbnailImage))
+					// @unlink(PROGRAM_IMAGE_PATH . $thumbnailImage);
+			// }
+			$this->cropInit($fileName , $flag);
+			$this->cropping->image();
+			exit();
+		}
+
+		public function process($action = NULL)
+		{
+			$this->cropInit();
+			$this->cropping->process($action);
+		}
+
+		public function cropInit($file_name = NULL , $flag = NULL)
+		{
+			$param = array();
+			if(empty($file_name))
+				$param = $this->session->userdata("cropData");
+			else
+			{
+				$param = array(
+					'imageAbsPath' => FCPATH . PROGRAM_IMAGE_PATH,
+					'imageDestPath' => FCPATH . PROGRAM_IMAGE_PATH,
+					'imageName' => $file_name,
+					'imageNewName' => $file_name,
+					'imagePath' => base_url() . PROGRAM_IMAGE_PATH,
+					'imageWidth' => PROGRAM_WIDTH,
+					'imageHeight' => PROGRAM_HEIGHT,
+					'thumbWidth' => PROGRAM_THUMB_WIDTH,
+					'thumbHeight' => PROGRAM_THUMB_HEIGHT,
+					'redirectTo' => 'admin/program',
+					'formCallbackAction' => 'admin/program/process?success='.$flag
+				);
+				$this->session->set_userdata("cropData" , $param);
+			}
+			$this->load->library("cropping" , $param);
+		}
+
+/*---------------------------Image Cropping functionality End-------------------------*/
+
 	}
 ?>

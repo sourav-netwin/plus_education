@@ -10,7 +10,7 @@
 		}
 
 		//Function is used to upload image through codeigniter file upload library
-		public function do_upload($uploadPath = NULL , $fieldName = NULL , $max_size = NULL , $max_width = NULL , $max_height = NULL)
+		public function do_upload($uploadPath = NULL , $fieldName = NULL , $max_size = NULL , $min_width = NULL , $min_height = NULL)
 		{
 			$ext = pathinfo($_FILES[$fieldName]['name'] , PATHINFO_EXTENSION);
 			if(!is_dir($uploadPath))
@@ -22,8 +22,8 @@
 			$config['upload_path'] = $uploadPath;
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['max_size'] = $max_size;
-			$config['max_width'] = $max_width;
-			$config['max_height'] = $max_height;
+			$config['min_width'] = $min_width;
+			$config['min_height'] = $min_height;
 
 			$CI->upload->initialize($config);
 			if(!$CI->upload->do_upload($fieldName))

@@ -96,3 +96,14 @@ define('TABLE_COURSE_MASTER' , 'tbl_course_master');
 define('TABLE_COURSE_LANGUAGE' , 'tbl_course_language');
 define('TABLE_COURSE_SPECIFICATION' , 'tbl_course_specification');
 define('TABLE_COURSE_FEATURE' , 'tbl_course_feature');
+define('TABLE_REGION_MASTER' , 'tbl_region_master');
+define('TABLE_CENTRE_MASTER' , 'tbl_centre_master');
+
+//For Image cropping
+define('CROPPING_ASSETS_PATH','assets/cropping/');
+
+define('PROGRAM_IMAGE_PATH','uploads/program/');
+define('PROGRAM_WIDTH',1920);
+define('PROGRAM_HEIGHT',500);
+define('PROGRAM_THUMB_WIDTH',250);
+define('PROGRAM_THUMB_HEIGHT',65);

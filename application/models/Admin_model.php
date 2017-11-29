@@ -306,5 +306,13 @@
 							->where('course_id' , $id)
 							->get(TABLE_COURSE_FEATURE)->result_array();
 		}
+
+		//This function is used to delete old feature data and insert the new one
+		function updateCourseFeature($id =  NULL , $data = NULL)
+		{
+			$data = array_merge($data);
+			$this->db->where('course_id' , $id)->delete(TABLE_COURSE_FEATURE);
+			$this->db->insert_batch(TABLE_COURSE_FEATURE , $data);
+		}
 	}
 ?>

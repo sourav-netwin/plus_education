@@ -82,7 +82,7 @@
 								echo form_input($inputFieldAttribute);
 ?>
 								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; image size should be less than 500 X 500 pixel )
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to 1920 X 500 pixel )
 								</small>
 								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
 							</div>
@@ -122,7 +122,7 @@
 			}else{
 				return true;
 			}
-		},"Please enter valid data.");
+		},"<?php echo $this->lang->line('valid_data_error_msg'); ?>");
 
 		jQuery.validator.addMethod("checkImageWidth",function(value,element){
 			if($('#imgWidthErrorFlag').val() == 2){
@@ -130,7 +130,7 @@
 			}else{
 				return true;
 			}
-		},"Image size should be exact 1920 X 500 pixel");
+		},"<?php echo str_replace(array('**width**' , '**height**') , array('1920' , '500') , $this->lang->line('minimum_image_dimension')); ?>");
 
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
@@ -142,7 +142,7 @@
 			}
 			else
 				return true;
-		} , "Please upload JPG|PNG|JPEG image.");
+		} , "<?php echo $this->lang->line('image_type_error_msg'); ?>");
 
 		$('#programDetails').validate({
 			errorElement : 'span',
@@ -169,19 +169,19 @@
 			},
 			messages : {
 				language_id : {
-					required : 'Please select language'
+					required : "<?php echo str_replace('**field**' , 'Language' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_title : {
-					required : 'Please enter program title'
+					required : "<?php echo str_replace('**field**' , 'Program Title' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_short_description : {
-					required : 'Please enter short description'
+					required : "<?php echo str_replace('**field**' , 'Short Description' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_description : {
-					required : 'Please enter description'
+					required : "<?php echo str_replace('**field**' , 'Description' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_image : {
-					required : 'Please upload image'
+					required : "<?php echo $this->lang->line('required_upload_image'); ?>"
 				}
 			}
 		});
@@ -199,10 +199,10 @@
 					image.src = this.result;
 					image.onload = function(){
 						$('.uploadImageProgramClass').attr('src' , this.src);
-						if(!(this.height == 500 && this.width == 1920))
+						if(!(this.height >= 500 && this.width >= 1920))
 						{
 							$('#imgWidthErrorFlag').val('2');
-							$('#imgErrorMessage').text('Image size should be exact 1920 X 500 pixel');
+							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array('1920' , '500') , $this->lang->line('minimum_image_dimension')); ?>");
 							return false;
 						}
 						else

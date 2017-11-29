@@ -28,7 +28,24 @@
 			$result['course_specification'] = $this->db->select('specification_option , specification_value')
 													->where('course_id' , $id)
 													->get(TABLE_COURSE_SPECIFICATION)->result_array();
-			//echo "<pre>";print_r($result);die('[popop]');
+			$result['course_feature'] = $this->db->select('feature_title , feature_description , feature_image')
+													->where('course_id' , $id)
+													->get(TABLE_COURSE_FEATURE)->result_array();
+			return $result;
+		}
+
+		//Function is used to get all destination details (region and centre)
+		function getDestinationDetails($isRegion = NULL , $regionId = NULL)
+		{
+			$returnArr = array();
+			if($isRegion == 1)
+				$returnArr['region'] = $this->db->select('region_id , region_name')
+												->get(TABLE_REGION_MASTER)->result_array();
+			$this->db->select('centre_id , centre_name , centre_image');
+			if($regionId != '')
+				$this->db->where('region_id' , $regionId);
+			$returnArr['centre'] = $this->db->get(TABLE_CENTRE_MASTER)->result_array();
+			return $returnArr;
 		}
 	}
 ?>
