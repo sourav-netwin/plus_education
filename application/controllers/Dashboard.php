@@ -11,16 +11,18 @@
 		//This function is used to show home page
 		public function index()
 		{
-			$data['bannerDetails'] = $this->Front_model->getProgramDetails(1);
+			$languageId = 1;
+			$data['bannerDetails'] = $this->Front_model->getProgramDetails($languageId);
+			$data['courseDetails'] = $this->Front_model->getCourseDetails($languageId);
 			$data['show_banner'] = 1;
 			$this->template->view('dashboard' , $data);
 		}
 
 		//This function is used to show JUNIOR SUMMER COURSES page
-		public function junior_summer_courses()
+		public function junior_summer_courses($id = NULL)
 		{
 			$languageId = 1;
-			$data['courseDetails'] = $this->Front_model->getJuniorSummerCourseDetails($languageId);
+			$data['courseDetails'] = $this->Front_model->getJuniorSummerCourseDetails($languageId , $id);
 			$data['destinationDetails'] = $this->Front_model->getDestinationDetails(1);
 			$data['show_banner'] = 0;
 			$this->template->view('junior_summer_courses' , $data);

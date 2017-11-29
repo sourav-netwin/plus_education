@@ -3,7 +3,7 @@
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Program Banner</h2>
+					<h2>Program Course</h2>
 					<ul class="nav navbar-right panel_toolbox"></ul>
 					<div class="clearfix"></div>
 				</div>
@@ -14,80 +14,50 @@
 						'id' => 'programDetails',
 						'method' =>'post'
 					);
-					echo form_open_multipart(base_url().'admin/program/add' , $formAttribute);
+					echo form_open_multipart(base_url().'admin/program_course/edit/'.$post['program_course_id'] , $formAttribute);
 ?>
 						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Language<span class="required">*</span></label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-<?php
-								echo form_dropdown('language_id' , getLanguageDetails() , '1' , 'class="form-control" id="language_id"');
-?>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Program Title<span class="required">*</span></label>
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Program Name<span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 <?php
 								$inputFieldAttribute = array(
-									'name' => 'program_title',
-									'id' => 'program_title',
+									'name' => 'program_course_name',
+									'id' => 'program_course_name',
 									'class' => 'form-control',
-									'placeholder' => 'Program Title'
+									'placeholder' => 'Program Name',
+									'value' => $post['program_course_name']
 								);
 								echo form_input($inputFieldAttribute);
-?>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Short Description<span class="required">*</span></label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-<?php
-								$inputFieldAttribute = array(
-									'name' => 'program_short_description',
-									'id' => 'program_short_description',
-									'class' => 'form-control',
-									'placeholder' => 'Short Description'
-								);
-								echo form_input($inputFieldAttribute);
-?>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Description<span class="required">*</span></label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-<?php
-								$inputFieldAttribute = array(
-									'name' => 'program_description',
-									'id' => 'program_description',
-									'class' => 'form-control'
-								);
-								echo form_textarea($inputFieldAttribute);
 ?>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload image <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="hidden" name="imageChangeFlag" id="imageChangeFlag" value="1" />
 								<input type="hidden" id="imgWidthErrorFlag" value="1" />
-								<label for="program_image">
-									<img class="uploadImageProgramClass" height="50" width="180" src="<?php echo base_url().'images/no_flag.jpg'; ?>"/>
+								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo $post['program_course_logo']; ?>" />
+								<label for="program_course_logo">
+<?php
+									$imgPath = ($post['program_course_logo'] != '') ? base_url().PROGRAM_COURSE_IMAGE_PATH.getThumbnailName($post['program_course_logo']) : base_url().'images/no_flag.jpg';
+?>
+									<img height="87" width="90" class="uploadImageProgramClass" src="<?php echo $imgPath; ?>"/>
 								</label>
 <?php
 								$inputFieldAttribute = array(
-									'id' => 'program_image',
-									'name' => 'program_image',
+									'id' => 'program_course_logo',
+									'name' => 'program_course_logo',
 									'type' => 'file',
 									'style' => 'visibility: hidden;'
 								);
 								echo form_input($inputFieldAttribute);
 ?>
 								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo PROGRAM_WIDTH; ?> X <?php echo PROGRAM_HEIGHT; ?> pixel )
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo PROGRAM_COURSE_WIDTH; ?> X <?php echo PROGRAM_COURSE_HEIGHT; ?> pixel )
 								</small>
 								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
 							</div>
 						</div>
-						<span id="multiLanProgramFormError" class="error col-lg-offset-3"></span>
 						<div class="ln_solid"></div>
 						<div class="form-group">
 							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -101,7 +71,7 @@
 								$inputFieldAttribute = array(
 									'class' => 'btn btn-primary',
 									'content' => 'Cancel',
-									'onclick' => "window.location = '".base_url()."admin/program/index'"
+									'onclick' => "window.location = '".base_url()."admin/program_course/index'"
 								);
 								echo form_button($inputFieldAttribute);
 ?>
@@ -130,7 +100,7 @@
 			}else{
 				return true;
 			}
-		},"<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_WIDTH , PROGRAM_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
+		},"<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_COURSE_WIDTH , PROGRAM_COURSE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
@@ -147,46 +117,23 @@
 		$('#programDetails').validate({
 			errorElement : 'span',
 			rules : {
-				language_id : {
-					required : true ,
-				},
-				program_title : {
+				program_course_name : {
 					required : true,
 					validData : true
 				},
-				program_short_description : {
-					required : true,
-					validData : true
-				},
-				program_description : {
-					required : true
-				},
-				program_image : {
-					required : true ,
+				program_course_logo : {
 					checkImageWidth : true,
 					checkImageExt : true
 				}
 			},
 			messages : {
-				language_id : {
-					required : "<?php echo str_replace('**field**' , 'Language' , $this->lang->line('please_enter_dynamic')); ?>"
-				},
-				program_title : {
-					required : "<?php echo str_replace('**field**' , 'Program Title' , $this->lang->line('please_enter_dynamic')); ?>"
-				},
-				program_short_description : {
-					required : "<?php echo str_replace('**field**' , 'Short Description' , $this->lang->line('please_enter_dynamic')); ?>"
-				},
-				program_description : {
-					required : "<?php echo str_replace('**field**' , 'Description' , $this->lang->line('please_enter_dynamic')); ?>"
-				},
-				program_image : {
-					required : "<?php echo $this->lang->line('required_upload_image'); ?>"
+				program_course_name : {
+					required : "<?php echo str_replace('**field**' , 'Program Name' , $this->lang->line('please_enter_dynamic')); ?>"
 				}
 			}
 		});
 
-		$('#program_image').on('change' , function(){
+		$('#program_course_logo').on('change' , function(){
 			var files = (this.files) ? this.files : [];
 			if(!files.length || !window.FileReader)
 				return;
@@ -199,15 +146,16 @@
 					image.src = this.result;
 					image.onload = function(){
 						$('.uploadImageProgramClass').attr('src' , this.src);
-						if(!(this.height >= <?php echo PROGRAM_HEIGHT; ?> && this.width >= <?php echo PROGRAM_WIDTH; ?>))
+						if(!(this.height >= <?php echo PROGRAM_COURSE_HEIGHT; ?> && this.width >= <?php echo PROGRAM_COURSE_WIDTH; ?>))
 						{
 							$('#imgWidthErrorFlag').val('2');
-							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_WIDTH , PROGRAM_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
+							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_COURSE_WIDTH , PROGRAM_COURSE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 							return false;
 						}
 						else
 						{
 							$('#imgWidthErrorFlag').val('1');
+							$('#imageChangeFlag').val('2');
 							$('#imgErrorMessage').text('');
 							return true;
 						}

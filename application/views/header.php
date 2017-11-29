@@ -1,5 +1,5 @@
 <!-----------Header Section Start------------>
-<div class="top-nav w3-agiletop">
+<div class="top-nav w3-agiletop" style="position: relative;z-index: 99999;">
 	<div class="container navigation-container">
 		<div class="navbar-header w3llogo">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">

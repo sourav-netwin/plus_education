@@ -3,7 +3,7 @@
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Program</h2>
+					<h2>Program Banner</h2>
 					<ul class="nav navbar-right panel_toolbox"></ul>
 					<div class="clearfix"></div>
 				</div>
@@ -76,7 +76,7 @@
 								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo $post['program_image']; ?>" />
 								<label for="program_image">
 <?php
-									$imgPath = ($post['program_image'] != '') ? base_url().'uploads/program/'.$post['program_image'] : base_url().'images/no_flag.jpg';
+									$imgPath = ($post['program_image'] != '') ? base_url().PROGRAM_IMAGE_PATH.getThumbnailName($post['program_image']) : base_url().'images/no_flag.jpg';
 ?>
 									<img height="50" width="180" class="uploadImageProgramClass" src="<?php echo $imgPath; ?>"/>
 								</label>
@@ -90,7 +90,7 @@
 								echo form_input($inputFieldAttribute);
 ?>
 								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; image size should be less than 500 X 500 pixel )
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo PROGRAM_WIDTH; ?> X <?php echo PROGRAM_HEIGHT; ?> pixel )
 								</small>
 								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
 							</div>
@@ -130,7 +130,7 @@
 			}else{
 				return true;
 			}
-		},"Please enter valid data.");
+		},"<?php echo $this->lang->line('valid_data_error_msg'); ?>");
 
 		jQuery.validator.addMethod("checkImageWidth",function(value,element){
 			if($('#imgWidthErrorFlag').val() == 2){
@@ -138,7 +138,7 @@
 			}else{
 				return true;
 			}
-		},"Image size should be exact 1920 X 500 pixel");
+		},"<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_WIDTH , PROGRAM_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
@@ -150,7 +150,7 @@
 			}
 			else
 				return true;
-		} , "Please upload JPG|PNG|JPEG image.");
+		} , "<?php echo $this->lang->line('image_type_error_msg'); ?>");
 
 		$('#programDetails').validate({
 			errorElement : 'span',
@@ -176,16 +176,16 @@
 			},
 			messages : {
 				language_id : {
-					required : 'Please select language'
+					required : "<?php echo str_replace('**field**' , 'Language' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_title : {
-					required : 'Please enter program title'
+					required : "<?php echo str_replace('**field**' , 'Program Title' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_short_description : {
-					required : 'Please enter short description'
+					required : "<?php echo str_replace('**field**' , 'Short Description' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				program_description : {
-					required : 'Please enter description'
+					required : "<?php echo str_replace('**field**' , 'Description' , $this->lang->line('please_enter_dynamic')); ?>"
 				}
 			}
 		});
@@ -203,10 +203,10 @@
 					image.src = this.result;
 					image.onload = function(){
 						$('.uploadImageProgramClass').attr('src' , this.src);
-						if(!(this.height == 500 && this.width == 1920))
+						if(!(this.height >= <?php echo PROGRAM_HEIGHT; ?> && this.width >= <?php echo PROGRAM_WIDTH; ?>))
 						{
 							$('#imgWidthErrorFlag').val('2');
-							$('#imgErrorMessage').text('Image size should be exact 1920 X 500 pixel');
+							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_WIDTH , PROGRAM_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 							return false;
 						}
 						else

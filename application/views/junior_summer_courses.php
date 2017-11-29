@@ -1,4 +1,4 @@
-<div class="w3ls-banner-1" style="background: url(<?php echo base_url().'uploads/course/'.$courseDetails['course_image']; ?>)no-repeat center;"></div>
+<div class="w3ls-banner-1" style="background: url(<?php echo base_url().COURSE_IMAGE_PATH.$courseDetails['course_image']; ?>)no-repeat center;"></div>
 
 <div class="welcome welcome-title">
 	<div class="container">

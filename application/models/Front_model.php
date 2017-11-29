@@ -18,7 +18,7 @@
 		}
 
 		//This function is used to get the details of junior summer courses from DB as added from back-end
-		function getJuniorSummerCourseDetails($languageId = NULL , $id = 1)
+		function getJuniorSummerCourseDetails($languageId = NULL , $id = NULL)
 		{
 			$result = $this->db->select('a.course_master_id , a.course_image , b.course_name , b.corse_description')
 							->from(TABLE_COURSE_MASTER.' a')
@@ -46,6 +46,17 @@
 				$this->db->where('region_id' , $regionId);
 			$returnArr['centre'] = $this->db->get(TABLE_CENTRE_MASTER)->result_array();
 			return $returnArr;
+		}
+
+		//Function is used to get course details form database and show on the homepage
+		function getCourseDetails($languageId = NULL)
+		{
+			return $this->db->select('a.course_master_id , a.course_front_image , b.course_name')
+							->from(TABLE_COURSE_MASTER . ' a')
+							->join(TABLE_COURSE_LANGUAGE . ' b' , 'a.course_master_id = b.course_id AND b.language_id = '.$languageId , 'left')
+							->where('a.course_status' , 1)
+							->where('a.delete_flag' , 0)
+							->get()->result_array();
 		}
 	}
 ?>

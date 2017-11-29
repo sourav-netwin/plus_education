@@ -27,7 +27,7 @@
 	cursor: pointer;
 }
 
-.uploadImageProgramClass{
+.uploadImageProgramClass , .uploadImageProgramClassHome{
 	border: 1px solid #a1a1a1;
 	background: #dddddd;
 	cursor: pointer;

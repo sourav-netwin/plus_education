@@ -27,10 +27,13 @@
 						<a href="<?php echo base_url(); ?>admin/dashboard/index"><i class="fa fa-home"></i> Home</a>
 					</li>
 					<li>
-						<a href="<?php echo base_url(); ?>admin/program/index"><i class="fa fa-sliders"></i> Manage Program</a>
+						<a href="<?php echo base_url(); ?>admin/program/index"><i class="fa fa-sliders"></i> Manage Program Banner</a>
 					</li>
 					<li>
 						<a href="<?php echo base_url(); ?>admin/course/index"><i class="fa fa-sliders"></i> Manage Course</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>admin/program_course/index"><i class="fa fa-sliders"></i> Manage Program Course</a>
 					</li>
 					<!-- <li>
 						<a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>

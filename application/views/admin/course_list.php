@@ -70,7 +70,7 @@
 
 <!---------------------Feature Modal Start--------------------->
 <div class="modal fade" id="courseFeature" role="dialog">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>

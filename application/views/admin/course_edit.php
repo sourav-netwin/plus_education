@@ -54,14 +54,14 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload image <span class="required">*</span></label>
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Course image <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<input type="hidden" name="imageChangeFlag" id="imageChangeFlag" value="1" />
 								<input type="hidden" id="imgWidthErrorFlag" value="1" />
 								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo $post['course_image']; ?>" />
 								<label for="course_image">
 <?php
-									$imgPath = ($post['course_image'] != '') ? base_url().'uploads/course/'.$post['course_image'] : base_url().'images/no_flag.jpg';
+									$imgPath = ($post['course_image'] != '') ? base_url().COURSE_IMAGE_PATH.getThumbnailName($post['course_image']) : base_url().'images/no_flag.jpg';
 ?>
 									<img height="50" width="180" class="uploadImageProgramClass" src="<?php echo $imgPath; ?>"/>
 								</label>
@@ -70,14 +70,44 @@
 									'id' => 'course_image',
 									'name' => 'course_image',
 									'type' => 'file',
-									'style' => 'visibility: hidden;'
+									'style' => 'visibility: hidden;',
+									'data-widthErrorClassRef' => 'imgWidthErrorFlag'
 								);
 								echo form_input($inputFieldAttribute);
 ?>
 								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; image size should be less than 500 X 500 pixel )
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo COURSE_WIDTH; ?> X <?php echo COURSE_HEIGHT; ?> pixel )
 								</small>
 								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Home page image <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="hidden" name="imageChangeFlagHome" id="imageChangeFlagHome" value="1" />
+								<input type="hidden" id="imgWidthErrorFlagHome" value="1" />
+								<input type="hidden" name="oldImgHome" id="oldImgHome" value="<?php echo $post['course_front_image']; ?>" />
+								<label for="course_front_image">
+<?php
+									$imgPath = ($post['course_front_image'] != '') ? base_url().COURSE_FRONT_IMAGE_PATH.getThumbnailName($post['course_front_image']) : base_url().'images/no_flag.jpg';
+?>
+									<img height="50" width="180" class="uploadImageProgramClassHome" src="<?php echo $imgPath; ?>"/>
+								</label>
+<?php
+								$inputFieldAttribute = array(
+									'id' => 'course_front_image',
+									'name' => 'course_front_image',
+									'type' => 'file',
+									'style' => 'visibility: hidden;',
+									'data-widthErrorClassRef' => 'imgWidthErrorFlagHome'
+								);
+								echo form_input($inputFieldAttribute);
+?>
+								<small style="display:block">
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo COURSE_FRONT_WIDTH; ?> X <?php echo COURSE_FRONT_HEIGHT; ?> pixel )
+								</small>
+								<span id="imgErrorMessageHome" style="color:#ff0000"><?php echo ($imageErrorHome != '') ? $imageErrorHome : ''; ?></span>
 							</div>
 						</div>
 						<div class="ln_solid"></div>
@@ -174,12 +204,12 @@
 		},"<?php echo $this->lang->line('valid_data_error_msg'); ?>");
 
 		jQuery.validator.addMethod("checkImageWidth",function(value,element){
-			if($('#imgWidthErrorFlag').val() == 2){
+			if($('#'+element.getAttribute('data-widthErrorClassRef')).val() == 2){
 					return false;
 			}else{
 				return true;
 			}
-		},"<?php echo str_replace(array('**width**' , '**height**') , array('1920' , '500') , $this->lang->line('exact_image_size')); ?>");
+		},"");
 
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
@@ -210,6 +240,10 @@
 				course_image : {
 					checkImageWidth : true,
 					checkImageExt : true
+				},
+				course_front_image : {
+					checkImageWidth : true,
+					checkImageExt : true
 				}
 			},
 			messages : {
@@ -238,10 +272,10 @@
 					image.src = this.result;
 					image.onload = function(){
 						$('.uploadImageProgramClass').attr('src' , this.src);
-						if(!(this.height == 500 && this.width == 1920))
+						if(!(this.height >= <?php echo COURSE_HEIGHT; ?> && this.width >= <?php echo COURSE_WIDTH; ?>))
 						{
 							$('#imgWidthErrorFlag').val('2');
-							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array('1920' , '500') , $this->lang->line('exact_image_size')); ?>");
+							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array(COURSE_WIDTH , COURSE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 							return false;
 						}
 						else
@@ -249,6 +283,37 @@
 							$('#imgWidthErrorFlag').val('1');
 							$('#imageChangeFlag').val('2');
 							$('#imgErrorMessage').text('');
+							return true;
+						}
+					}
+				}
+			}
+		});
+
+		$('#course_front_image').on('change' , function(){
+			var files = (this.files) ? this.files : [];
+			if(!files.length || !window.FileReader)
+				return;
+			if(/^image/.test(files[0]['type']))
+			{
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function(){
+					var image = new Image();
+					image.src = this.result;
+					image.onload = function(){
+						$('.uploadImageProgramClassHome').attr('src' , this.src);
+						if(!(this.height >= <?php echo COURSE_FRONT_HEIGHT; ?> && this.width >= <?php echo COURSE_FRONT_WIDTH; ?>))
+						{
+							$('#imgWidthErrorFlagHome').val('2');
+							$('#imgErrorMessageHome').text("<?php echo str_replace(array('**width**' , '**height**') , array(COURSE_FRONT_WIDTH , COURSE_FRONT_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
+							return false;
+						}
+						else
+						{
+							$('#imgWidthErrorFlagHome').val('1');
+							$('#imageChangeFlagHome').val('2');
+							$('#imgErrorMessageHome').text('');
 							return true;
 						}
 					}

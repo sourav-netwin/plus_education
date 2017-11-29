@@ -53,49 +53,77 @@
 		//This function is used to add courses in DB
 		public function add()
 		{
-			$imageError = '';
+			$imageError = $imageErrorHome = '';
 			if($this->input->post())
 			{
 				if($_FILES['course_image']['name'] != '')
+					$uploadData = $this->image_upload->do_upload('./'.COURSE_IMAGE_PATH , 'course_image' , UPLOAD_IMAGE_SIZE , COURSE_WIDTH , COURSE_HEIGHT);
+				if($_FILES['course_front_image']['name'] != '')
+					$uploadDataFront = $this->image_upload->do_upload('./'.COURSE_FRONT_IMAGE_PATH , 'course_front_image' , UPLOAD_IMAGE_SIZE , COURSE_FRONT_WIDTH , COURSE_FRONT_HEIGHT);
+				if($uploadData['errorFlag'] == 0 && $uploadDataFront['errorFlag'] == 0)
 				{
-					$uploadData = $this->image_upload->do_upload('./uploads/course/' , 'course_image' , 500 , 1920 , 550);
-					if($uploadData['errorFlag'] == 0)
-					{
-						$this->Admin_model->addCourse($this->input->post() , $uploadData['fileName']);
-						redirect(base_url().'admin/course/index?success=add');
-					}
-					else
-						$imageError = $uploadData['errorMessage'];
+					$this->Admin_model->addCourse($this->input->post() , $uploadData['fileName'] , $uploadDataFront['fileName']);
+					$this->_handleCropping($uploadData['fileName'] , 'add' , 'course_image' , COURSE_WIDTH , COURSE_HEIGHT , COURSE_THUMB_WIDTH , COURSE_THUMB_HEIGHT , 1 , $uploadDataFront['fileName']);
+					redirect(base_url().'admin/course/index?success=add');
+				}
+				else
+				{
+					$imageError = $uploadData['errorMessage'];
+					$imageErrorHome = $uploadDataFront['errorMessage'];
 				}
 			}
 			$data['imageError'] = $imageError;
+			$data['imageErrorHome'] = $imageErrorHome;
 			$this->template->admin_view('admin/course_add' , $data);
 		}
 
 		//This function is used to show edit page and edit record from DB
 		function edit($id = NULL)
 		{
-			$imageError = '';
+			$imageError = $imageErrorHome = '';
 			if($this->input->post())
 			{
 				$file_name = $this->input->post('oldImg');
+				$file_name_front = $this->input->post('oldImgHome');
 				if($this->input->post('imageChangeFlag') == 2)
 				{
-					$uploadData = $this->image_upload->do_upload('./uploads/course/' , 'course_image' , 500 , 1920 , 550);
-
+					$uploadData = $this->image_upload->do_upload('./'.COURSE_IMAGE_PATH , 'course_image' , UPLOAD_IMAGE_SIZE , COURSE_WIDTH , COURSE_HEIGHT);
 					if($uploadData['errorFlag'] == 0)
 					{
 						//Delete old file
-						if(file_exists('./uploads/course/'.$file_name))
-							unlink('./uploads/course/'.$file_name);
+						if(file_exists('./'.COURSE_IMAGE_PATH.$file_name))
+							unlink('./'.COURSE_IMAGE_PATH.$file_name);
+						if(file_exists('./'.COURSE_IMAGE_PATH.getThumbnailName($file_name)))
+							unlink('./'.COURSE_IMAGE_PATH.getThumbnailName($file_name));
 						$file_name = $uploadData['fileName'];
 					}
 					else
 						$imageError = $uploadData['errorMessage'];
 				}
-				if($imageError == '')
+				if($this->input->post('imageChangeFlagHome') == 2)
 				{
-					$this->Admin_model->updateCourseData($id , $this->input->post() , $file_name);
+					$uploadDataFront = $this->image_upload->do_upload('./'.COURSE_FRONT_IMAGE_PATH , 'course_front_image' , UPLOAD_IMAGE_SIZE , COURSE_FRONT_WIDTH , COURSE_FRONT_HEIGHT);
+					if($uploadDataFront['errorFlag'] == 0)
+					{
+						//Delete old file
+						if(file_exists('./'.COURSE_FRONT_IMAGE_PATH.$file_name_front))
+							unlink('./'.COURSE_FRONT_IMAGE_PATH.$file_name_front);
+						if(file_exists('./'.COURSE_FRONT_IMAGE_PATH.getThumbnailName($file_name_front)))
+							unlink('./'.COURSE_FRONT_IMAGE_PATH.getThumbnailName($file_name_front));
+						$file_name_front = $uploadDataFront['fileName'];
+					}
+					else
+						$imageErrorHome = $uploadData['errorMessage'];
+				}
+				if($imageError == '' && $imageErrorHome == '')
+				{
+					$this->Admin_model->updateCourseData($id , $this->input->post() , $file_name , $file_name_front);
+					if($this->input->post('imageChangeFlag') == 2 && $this->input->post('imageChangeFlagHome') == 2)
+						$this->_handleCropping($file_name , 'edit' , 'course_image' , COURSE_WIDTH , COURSE_HEIGHT , COURSE_THUMB_WIDTH , COURSE_THUMB_HEIGHT , 1 , $file_name_front);
+					elseif($this->input->post('imageChangeFlag') == 2)
+						$this->_handleCropping($file_name , 'edit' , 'course_image' , COURSE_WIDTH , COURSE_HEIGHT , COURSE_THUMB_WIDTH , COURSE_THUMB_HEIGHT);
+					elseif($this->input->post('imageChangeFlagHome') == 2)
+						$this->_handleCropping($file_name_front , 'edit' , 'course_front_image' , COURSE_FRONT_WIDTH , COURSE_FRONT_HEIGHT , COURSE_FRONT_THUMB_WIDTH , COURSE_FRONT_THUMB_HEIGHT);
 					redirect(base_url().'admin/course/index?success=edit');
 				}
 			}
@@ -103,6 +131,7 @@
 			$post = $this->Admin_model->getEditCourseData($id , 1);
 			$data['post'] = $post;
 			$data['imageError'] = $imageError;
+			$data['imageErrorHome'] = $imageErrorHome;
 			$this->template->admin_view('admin/course_edit' , $data);
 		}
 
@@ -271,5 +300,56 @@
 				redirect(base_url().'admin/course/index?success=edit');
 			}
 		}
+
+		/****************Image Cropping functionality Start******************/
+		public function crop_again($fileName = NULL , $flag = NULL , $pathFlag = NULL , $width = NULL , $height = NULL , $thumbWidth = NULL , $thumbHeight = NULL)
+		{
+			$this->_handleCropping($fileName , $flag , $pathFlag , $width , $height , $thumbWidth , $thumbHeight);
+		}
+
+		public function _handleCropping($fileName = NULL , $flag = NULL , $pathFlag = NULL , $width = NULL , $height = NULL , $thumbWidth = NULL , $thumbHeight = NULL , $actionForFront = NULL , $frontFileName = NULL)
+		{
+			$this->cropInit($fileName , $flag , $pathFlag , $width , $height , $thumbWidth , $thumbHeight , $actionForFront , $frontFileName);
+			$this->cropping->image();
+			exit();
+		}
+
+		public function process($action = NULL)
+		{
+			$this->cropInit();
+			$this->cropping->process($action);
+		}
+
+		public function cropInit($file_name = NULL , $flag = NULL , $pathFlag = NULL , $width = NULL , $height = NULL , $thumbWidth = NULL , $thumbHeight = NULL , $actionForFront = NULL , $frontFileName = NULL)
+		{
+			if($pathFlag == 'course_image')
+				$path = COURSE_IMAGE_PATH;
+			elseif($pathFlag == 'course_front_image')
+				$path = COURSE_FRONT_IMAGE_PATH;
+			$param = array();
+			if(empty($file_name))
+				$param = $this->session->userdata("cropData");
+			else
+			{
+				$param = array(
+					'imageAbsPath' => FCPATH . $path,
+					'imageDestPath' => FCPATH . $path,
+					'imageName' => $file_name,
+					'imageNewName' => $file_name,
+					'imagePath' => base_url() . $path,
+					'imageWidth' => $width,
+					'imageHeight' => $height,
+					'thumbWidth' => $thumbWidth,
+					'thumbHeight' => $thumbHeight,
+					'redirectTo' => 'admin/course/index?success='.$flag,
+					'formCallbackAction' => 'admin/course/process'
+				);
+				if($actionForFront == 1)
+					$param['redirectTo'] = 'admin/course/crop_again/'.$frontFileName.'/'.$flag.'/course_front_image/'.COURSE_FRONT_WIDTH.'/'.COURSE_FRONT_HEIGHT.'/'.COURSE_FRONT_THUMB_WIDTH.'/'.COURSE_FRONT_THUMB_HEIGHT;
+				$this->session->set_userdata("cropData" , $param);
+			}
+			$this->load->library("cropping" , $param);
+		}
+		/******************Image Cropping functionality End*********************/
 	}
 ?>

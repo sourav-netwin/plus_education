@@ -7,25 +7,25 @@
 
 		<div class="welcome-agileinfo">
 			<div class="col-md-12 agile-welcome-left">
-<?php
-				if(!empty($courseDetails))
-				{
-					foreach($courseDetails as $value)
-					{
-?>
-						<div class="col-sm-6 col-xs-6 welcome-w3imgs">
-							<figure class="effect-chico">
-								<img src="<?php echo base_url().COURSE_FRONT_IMAGE_PATH.$value['course_front_image']; ?>" />
-								<figcaption>
-									<p class="figcaption-title-class-courses"><?php echo $value['course_name']; ?></p>
-									<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_summer_courses/<?php echo $value['course_master_id']; ?>"><?php echo $this->lang->line('view_details'); ?></a></p>
-								</figcaption>
-							</figure>
-						</div>
-<?php
-					}
-				}
-?>
+				<div class="col-sm-6 col-xs-6 welcome-w3imgs">
+					<figure class="effect-chico">
+						<img src="http://plus-ed.com/htmlsite/assets/img/portfolio/800x500/work5.jpg" alt=" " />
+						<figcaption>
+							<p class="figcaption-title-class-courses"><?php echo $this->lang->line('junior_summer_courses'); ?></p>
+							<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_summer_courses"><?php echo $this->lang->line('view_details'); ?></a></p>
+						</figcaption>
+					</figure>
+				</div>
+				<div class="col-sm-6 col-xs-6 welcome-w3imgs">
+					<figure class="effect-chico">
+						<img src="http://plus-ed.com/htmlsite/assets/img/portfolio/800x500/work6.jpg" alt=" " />
+						<figcaption>
+							<p class="figcaption-title-class-courses"><?php echo $this->lang->line('adult_cources'); ?></p>
+							<p><a class="btn view-details-btn" href=""><?php echo $this->lang->line('view_details'); ?></a></p>
+						</figcaption>
+					</figure>
+				</div>
+				<div class="clearfix"> </div>
 			</div>
 			<div class="clearfix"> </div>
 		</div>

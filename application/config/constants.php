@@ -89,8 +89,8 @@ define('ENCRYPTKEY' , 'STUDYTOURS@!123456');
 
 //Database table names
 define('TABLE_USERS' , 'tbl_users');
-define('TABLE_PROGRAM' , 'tbl_program');
-define('TABLE_PROGRAM_LANGUAGE' , 'tbl_program_language');
+define('TABLE_PROGRAM' , 'tbl_program_banner');
+define('TABLE_PROGRAM_LANGUAGE' , 'tbl_program_banner_language');
 define('TABLE_LANGUAGE' , 'tbl_language');
 define('TABLE_COURSE_MASTER' , 'tbl_course_master');
 define('TABLE_COURSE_LANGUAGE' , 'tbl_course_language');
@@ -98,12 +98,37 @@ define('TABLE_COURSE_SPECIFICATION' , 'tbl_course_specification');
 define('TABLE_COURSE_FEATURE' , 'tbl_course_feature');
 define('TABLE_REGION_MASTER' , 'tbl_region_master');
 define('TABLE_CENTRE_MASTER' , 'tbl_centre_master');
+define('TABLE_PROGRAM_COURSE' , 'tbl_program_course');
 
-//For Image cropping
-define('CROPPING_ASSETS_PATH','assets/cropping/');
+//For Image cropping - path of css and js
+define('CROPPING_ASSETS_PATH' , 'assets/cropping/');
 
-define('PROGRAM_IMAGE_PATH','uploads/program/');
-define('PROGRAM_WIDTH',1920);
-define('PROGRAM_HEIGHT',500);
-define('PROGRAM_THUMB_WIDTH',250);
-define('PROGRAM_THUMB_HEIGHT',65);
+//Define the upload image size
+define('UPLOAD_IMAGE_SIZE' , 6000);
+
+//Define image location , height , width , thumb details for program banner module images
+define('PROGRAM_IMAGE_PATH' , 'uploads/program/');
+define('PROGRAM_WIDTH' , 1920);
+define('PROGRAM_HEIGHT' , 500);
+define('PROGRAM_THUMB_WIDTH' , 250);
+define('PROGRAM_THUMB_HEIGHT' , 65);
+
+//Define image location , height , width , thumb details for program module images
+define('COURSE_IMAGE_PATH' , 'uploads/course/');
+define('COURSE_WIDTH' , 1920);
+define('COURSE_HEIGHT' , 500);
+define('COURSE_THUMB_WIDTH' , 250);
+define('COURSE_THUMB_HEIGHT' , 65);
+
+define('COURSE_FRONT_IMAGE_PATH' , 'uploads/course_front/');
+define('COURSE_FRONT_WIDTH' , 800);
+define('COURSE_FRONT_HEIGHT' , 500);
+define('COURSE_FRONT_THUMB_WIDTH' , 250);
+define('COURSE_FRONT_THUMB_HEIGHT' , 156);
+
+//Define image location , height , width , thumb details for program course module images
+define('PROGRAM_COURSE_IMAGE_PATH' , 'uploads/program_course/');
+define('PROGRAM_COURSE_WIDTH' , 146);
+define('PROGRAM_COURSE_HEIGHT' , 137);
+define('PROGRAM_COURSE_THUMB_WIDTH' , 90);
+define('PROGRAM_COURSE_THUMB_HEIGHT' , 87);
