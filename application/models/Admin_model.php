@@ -318,7 +318,7 @@
 		}
 
 		//This function is used to get program course details from DB and show through datatable
-		function getProgramCourseDetails($start = NULL , $length = NULL , $search_string = NULL , $order_column = NULL , $order_dir = NULL , $languageId = 1)
+		function getProgramCourseDetails($start = NULL , $length = NULL , $search_string = NULL , $order_column = NULL , $order_dir = NULL)
 		{
 			$resultData = array();
 			$colomnArr = array('a.program_course_id' , 'a.program_course_name' , 'a.program_course_logo' , 'a.program_course_status');
@@ -383,9 +383,135 @@
 		//This function is used to get data from DB to show in edit page
 		function getEditProgramCourseData($id = NULL)
 		{
-			return $this->db->select('program_course_id , program_course_name , program_course_logo')
+			return $this->db->select('program_course_id , program_course_name , program_course_description , program_course_logo')
 							->where('program_course_id' , $id)
 							->get(TABLE_PROGRAM_COURSE)->row_array();
+		}
+
+		//This function is used to get junior centre details from DB and show through datatable
+		function getjuniorCentreDetails($start = NULL , $length = NULL , $search_string = NULL , $order_column = NULL , $order_dir = NULL)
+		{
+			$resultData = array();
+			$colomnArr = array('a.junior_centre_id' , 'b.centre_name' , 'a.centre_banner' , 'a.junior_centre_status');
+			$this->db->select(implode(',' , $colomnArr));
+			$this->db->from(TABLE_JUNIOR_CENTRE . ' a');
+			$this->db->join(TABLE_CENTRE_MASTER.' b' , 'a.centre_id = b.centre_id' , 'left');
+
+			//For checking soft deleted record
+			$this->db->where('a.delete_flag' , 0);
+
+			//For searching
+			if($search_string != '')
+				$this->db->where("(".$colomnArr[1]." LIKE '%".$search_string."%')");
+
+			//For Ordering
+			if($order_column != '' && $order_dir != '')
+				$this->db->order_by($colomnArr[$order_column] , $order_dir);
+
+			//For limit
+			if($start != '' && $length != '')
+				$this->db->limit($length , $start);
+
+			$result = $this->db->get()->result_array();
+			if(!empty($result))
+			{
+				$siNo = 1;
+				foreach($result as $value)
+				{
+					$actionStr = '<a href="'.base_url().'admin/junior_centre/edit/'.$value['junior_centre_id'].'"><i class="fa fa-lg fa-pencil-square-o global-list-icon" aria-hidden="true"></i></a>';
+					$actionStr .= '<a href="'.base_url().'admin/junior_centre/delete/'.$value['junior_centre_id'].'" onclick="return confirm_delete()"><i style="margin-left: 9px;" class="fa fa-lg fa-trash-o global-list-icon" aria-hidden="true"></i></a>';
+					$statusClass = ($value['junior_centre_status'] == 1) ? 'fa-check-circle-o' : 'fa-times-circle-o';
+					$resultData[] = array(
+						0 => $siNo++,
+						1 => "<img src = '".base_url().JUNIOR_CENTRE_IMAGE_PATH.getThumbnailName($value['centre_banner'])."' width = 180 height = 50 />",
+						2 => $value['centre_name'],
+						3 => '<i class="fa fa-lg '.$statusClass.' global-list-status-icon" aria-hidden="true" data-toggle="modal" data-target="#juniorCentreStatus" data-status_type = '.$value['junior_centre_status'].' data-junior_centre_id = '.$value['junior_centre_id'].' ></i>',
+						4 => $actionStr
+					);
+				}
+			}
+
+			$count_all = $this->db->select('count(*) as total')->get(TABLE_JUNIOR_CENTRE)->row_array();
+			return array(
+				'count_all' => $count_all['total'],
+				'count_filtered' => count($result),
+				'data' => $resultData
+			);
+		}
+
+		//Function is used to add junior centre related data in DB
+		function addJuniorCentre($data = NULL , $fileName = NULL)
+		{
+			$insertData = array(
+				'centre_id' => $data['centre_id'],
+				'centre_address' => $data['centre_address'],
+				'centre_description' => $data['centre_description'],
+				'centre_banner' => $fileName
+			);
+			$this->db->insert(TABLE_JUNIOR_CENTRE , $insertData);
+			$id = $this->db->insert_id();
+
+			//Add multiple program data
+			if(!empty($data['centre_program']))
+			{
+				foreach($data['centre_program'] as $value)
+				{
+					$insertData = array(
+						'program_id' => $value,
+						'junior_centre_id' => $id
+					);
+					$this->db->insert(TABLE_JUNIOR_CENTRE_PROGRAM , $insertData);
+				}
+			}
+		}
+
+		//Function is used to update junior program realated record in DB
+		function updateJuniorCentre($id = NULL , $data = NULL , $fileName = NULL , $flag = NULL)
+		{
+			if($flag == 1)
+			{
+				$updateData = array(
+					'centre_id' => $data['centre_id'],
+					'centre_address' => $data['centre_address'],
+					'centre_description' => $data['centre_description'],
+					'centre_banner' => $fileName
+				);
+				$this->db->where('junior_centre_id' , $id)
+						->update(TABLE_JUNIOR_CENTRE , $updateData);
+
+				//Update multiple program data
+				$this->db->where('junior_centre_id' , $id)
+						->delete(TABLE_JUNIOR_CENTRE_PROGRAM);
+				if(!empty($data['centre_program']))
+				{
+					foreach($data['centre_program'] as $value)
+					{
+						$insertData = array(
+							'program_id' => $value,
+							'junior_centre_id' => $id
+						);
+						$this->db->insert(TABLE_JUNIOR_CENTRE_PROGRAM , $insertData);
+					}
+				}
+			}
+			else
+			{
+				$this->db->where('junior_centre_id' , $id)
+						->update(TABLE_JUNIOR_CENTRE , $data);
+			}
+		}
+
+		//This function is used to get data from DB to show in edit page
+		function getEditJuniorCentreData($id = NULL)
+		{
+			$result = $this->db->select('junior_centre_id , centre_id , centre_banner , centre_description , centre_address')
+							->where('junior_centre_id' , $id)
+							->get(TABLE_JUNIOR_CENTRE)->row_array();
+			$result['centre_program'] = $this->db->select('program_id')
+											->where('junior_centre_id' , $id)
+											->get(TABLE_JUNIOR_CENTRE_PROGRAM)->result_array();
+			$result['centre_program'] = array_column($result['centre_program'] , 'program_id');
+			return $result;
 		}
 	}
 ?>

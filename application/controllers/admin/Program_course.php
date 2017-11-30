@@ -64,6 +64,7 @@
 					{
 						$insertData = array(
 							'program_course_name' => $this->input->post('program_course_name'),
+							'program_course_description' => $this->input->post('program_course_description'),
 							'program_course_logo' => $uploadData['fileName']
 						);
 						$this->Admin_model->addProgramCourse($insertData);
@@ -104,6 +105,7 @@
 				{
 					$updateData = array(
 						'program_course_name' => $this->input->post('program_course_name'),
+						'program_course_description' => $this->input->post('program_course_description'),
 						'program_course_logo' => $file_name
 					);
 					$this->Admin_model->updateProgramCourse($id , $updateData);

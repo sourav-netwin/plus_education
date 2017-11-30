@@ -1,7 +1,6 @@
 <?php
 	$lang['please_enter_dynamic'] = 'Please Enter **field**';
 	$lang['csrf_error_message'] = 'Invalid login form is submitted. Please try again.';
-
 	$lang['add_success_message'] = '**module** Added Successfully';
 	$lang['edit_success_message'] = '**module** Edited Successfully';
 	$lang['delete_success_message'] = '**module** Deleted Successfully';
@@ -13,4 +12,6 @@
 	$lang['required_upload_image'] = 'Please upload image';
 	$lang['delete_confirmation'] = 'Are you sure to delete ?';
 	$lang['minimum_image_dimension'] = 'Image dimension should be greater or equal to **width** X **height** pixel';
+	$lang['please_select_dynamic'] = 'Please Select **field**';
+
 ?>

@@ -8,20 +8,20 @@
 <?php
 			$message = '';
 			if($this->input->get('success') == 'add')
-				$message = str_replace('**module**' , 'Program' , $this->lang->line('add_success_message'));
+				$message = str_replace('**module**' , 'Junior Centre' , $this->lang->line('add_success_message'));
 			elseif($this->input->get('success') == 'edit')
-				$message = str_replace('**module**' , 'Program' , $this->lang->line('edit_success_message'));
+				$message = str_replace('**module**' , 'Junior Centre' , $this->lang->line('edit_success_message'));
 			elseif($this->input->get('success') == 'delete')
-				$message = str_replace('**module**' , 'Program' , $this->lang->line('delete_success_message'));
+				$message = str_replace('**module**' , 'Junior Centre' , $this->lang->line('delete_success_message'));
 			echo $message;
 ?>
 		</div>
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Course Program List</h2>
+					<h2>Junior Centre List</h2>
 					<div class="buttons pull-right">
-						<a class="btn btn-primary" href="<?php echo base_url(); ?>admin/program_course/add"><i class="fa fa-plus" aria-hidden="true"></i> Add Course Program</a>
+						<a class="btn btn-primary" href="<?php echo base_url(); ?>admin/junior_centre/add"><i class="fa fa-plus" aria-hidden="true"></i> Add Junior Centre</a>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -30,8 +30,8 @@
 						<thead>
 							<tr>
 								<th>SI No.</th>
-								<th>Icon</th>
-								<th>Program Name</th>
+								<th>Image</th>
+								<th>Centre Name</th>
 								<th>Status</th>
 								<th>Action</th>
 							</tr>
@@ -44,12 +44,12 @@
 </div>
 
 <!---------------------Status Modal Start--------------------->
-<div class="modal fade" id="programStatus" role="dialog">
+<div class="modal fade" id="juniorCentreStatus" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Update Program</h4>
+				<h4 class="modal-title">Update Junior Centre</h4>
 			</div>
 			<div class="modal-body">
 				<p id = "statusUpdateMessage"></p>
@@ -70,7 +70,7 @@
 			stateSave : true,
 			serverSide : true,
 			ajax : {
-				url : '<?php echo base_url(); ?>admin/program_course/get_program',
+				url : '<?php echo base_url(); ?>admin/junior_centre/get_junior_centre',
 				type : 'POST'
 			},
 			aoColumnDefs: [
@@ -79,19 +79,19 @@
 		});
 
 		$(document).on('click' , '.global-list-status-icon' , function(e){
-			var message = ($(this).data('status_type') == 1) ? '<?php echo str_replace("**module**" , "Program" , $this->lang->line("inactive_confirmation")); ?>' : '<?php echo str_replace("**module**" , "Program" , $this->lang->line("active_confirmation")); ?>';
+			var message = ($(this).data('status_type') == 1) ? '<?php echo str_replace("**module**" , "Centre" , $this->lang->line("inactive_confirmation")); ?>' : '<?php echo str_replace("**module**" , "Centre" , $this->lang->line("active_confirmation")); ?>';
 			$('#statusUpdateMessage').text(message);
-			$('#statusUpdateMessage').append('<input type="hidden" id="program_id" value="'+$(this).data('program_id')+'"><input type="hidden" id="program_status" value="'+$(this).data('status_type')+'">');
-			$('#programStatus').modal();
+			$('#statusUpdateMessage').append('<input type="hidden" id="junior_centre_id" value="'+$(this).data('junior_centre_id')+'"><input type="hidden" id="junior_centre_status" value="'+$(this).data('status_type')+'">');
+			$('#juniorCentreStatus').modal();
 		});
 
 		$(document).on('click' , '#updateStatusBtn' , function(){
 			$.ajax({
-				url : '<?php echo base_url(); ?>admin/program_course/update_status',
+				url : '<?php echo base_url(); ?>admin/junior_centre/update_status',
 				type : 'POST',
-				data : {'program_id' : $('#program_id').val() , 'program_status' : $('#program_status').val()},
+				data : {'junior_centre_id' : $('#junior_centre_id').val() , 'junior_centre_status' : $('#junior_centre_status').val()},
 				success : function(){
-					$('#programStatus').modal('hide');
+					$('#juniorCentreStatus').modal('hide');
 					table.ajax.reload();
 				}
 			});

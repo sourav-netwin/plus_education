@@ -99,6 +99,8 @@ define('TABLE_COURSE_FEATURE' , 'tbl_course_feature');
 define('TABLE_REGION_MASTER' , 'tbl_region_master');
 define('TABLE_CENTRE_MASTER' , 'tbl_centre_master');
 define('TABLE_PROGRAM_COURSE' , 'tbl_program_course');
+define('TABLE_JUNIOR_CENTRE' , 'tbl_junior_centre');
+define('TABLE_JUNIOR_CENTRE_PROGRAM' , 'tbl_junior_centre_program');
 
 //For Image cropping - path of css and js
 define('CROPPING_ASSETS_PATH' , 'assets/cropping/');
@@ -132,3 +134,10 @@ define('PROGRAM_COURSE_WIDTH' , 146);
 define('PROGRAM_COURSE_HEIGHT' , 137);
 define('PROGRAM_COURSE_THUMB_WIDTH' , 90);
 define('PROGRAM_COURSE_THUMB_HEIGHT' , 87);
+
+//Define image location , height , width , thumb details for Junior Centre module images
+define('JUNIOR_CENTRE_IMAGE_PATH' , 'uploads/junior_centre/');
+define('JUNIOR_CENTRE_WIDTH' , 1920);
+define('JUNIOR_CENTRE_HEIGHT' , 500);
+define('JUNIOR_CENTRE_THUMB_WIDTH' , 250);
+define('JUNIOR_CENTRE_THUMB_HEIGHT' , 65);

@@ -78,3 +78,33 @@
 			return $thumbnailImage;
 		}
 	}
+
+	//This function is used to get centre details from DB and use in dropdown
+	function getCentreDetails()
+	{
+		$returnArr[''] = 'Please Select';
+		$CI = &get_instance();
+		$result = $CI->db->select('centre_id , centre_name')
+						->get(TABLE_CENTRE_MASTER)->result_array();
+		if(!empty($result))
+		{
+			foreach($result as $value)
+				$returnArr[$value['centre_id']] = $value['centre_name'];
+		}
+		return $returnArr;
+	}
+
+	//This function is used to get centre details from DB and use in dropdown
+	function getCourseProgramDetails()
+	{
+		$returnArr = array();
+		$CI = &get_instance();
+		$result = $CI->db->select('program_course_id , program_course_name')
+						->get(TABLE_PROGRAM_COURSE)->result_array();
+		if(!empty($result))
+		{
+			foreach($result as $value)
+				$returnArr[$value['program_course_id']] = $value['program_course_name'];
+		}
+		return $returnArr;
+	}

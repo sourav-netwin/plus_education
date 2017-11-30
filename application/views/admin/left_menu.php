@@ -33,7 +33,10 @@
 						<a href="<?php echo base_url(); ?>admin/course/index"><i class="fa fa-sliders"></i> Manage Course</a>
 					</li>
 					<li>
-						<a href="<?php echo base_url(); ?>admin/program_course/index"><i class="fa fa-sliders"></i> Manage Program Course</a>
+						<a href="<?php echo base_url(); ?>admin/program_course/index"><i class="fa fa-sliders"></i> Manage Course Program</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>admin/junior_centre/index"><i class="fa fa-sliders"></i> Manage Junior Centre</a>
 					</li>
 					<!-- <li>
 						<a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>

@@ -26,7 +26,7 @@
 		</div>
 		<div style="padding-top:20px" class="row">
 			<div class="col-lg-3">
-				<a style="cursor: pointer;" class="centreProgram" data-ref_id="collapseEight2">
+				<a href="http://plus-ed.com/apps/index.php/destinations/collegenew/36/DUBLIN/classic">
 				<img style="margin:0 auto;width: 146px;" class="img-rounded img-responsive" src="http://plus-ed.com/apps/img/bollo_classic_programme.jpg" alt="" title="">
 				</a>
 			</div>
@@ -879,17 +879,6 @@
 				$(this).attr('class' , 'fa fa-angle-down pull-right switch-icon');
 			else
 				$(this).attr('class' , 'fa fa-angle-up pull-right switch-icon');
-		});
-
-		$('.centreProgram').click(function(){
-			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').attr('class' , 'fa fa-angle-up pull-right switch-icon');
-			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').parent().attr('aria-expanded' , 'true');
-			$('#'+$(this).data('ref_id')).attr('class' , 'panel-collapse collapse in');
-			$('#'+$(this).data('ref_id')).attr('aria-expanded' , 'true');
-			$('#'+$(this).data('ref_id')).removeAttr('style');
-			 $('html,body').animate({
-				scrollTop : ($('#'+$(this).data('ref_id')).offset().top)-40
-			} , 600);
 		});
 	});
 </script>

@@ -8,11 +8,11 @@
 <?php
 			$message = '';
 			if($this->input->get('success') == 'add')
-				$message = 'Program Added Successfully';
+				$message = str_replace('**module**' , 'Program' , $this->lang->line('add_success_message'));
 			elseif($this->input->get('success') == 'edit')
-				$message = 'Program Edited Successfully';
+				$message = str_replace('**module**' , 'Program' , $this->lang->line('edit_success_message'));
 			elseif($this->input->get('success') == 'delete')
-				$message = 'Program Deleted Successfully';
+				$message = str_replace('**module**' , 'Program' , $this->lang->line('delete_success_message'));
 			echo $message;
 ?>
 		</div>

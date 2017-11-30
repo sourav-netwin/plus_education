@@ -54,7 +54,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Course image <span class="required">*</span></label>
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Course image (Banner) <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<input type="hidden" name="imageChangeFlag" id="imageChangeFlag" value="1" />
 								<input type="hidden" id="imgWidthErrorFlag" value="1" />

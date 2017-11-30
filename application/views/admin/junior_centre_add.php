@@ -2,12 +2,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
+<!-------------Bootstrap multiselect css and js---------------->
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/bootstrap-multiselect.css" />
+<script src="<?php echo base_url(); ?>js/admin/bootstrap-multiselect.js"></script>
+
 <div class="right_col" role="main">
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Course Program</h2>
+					<h2>Junior Centre</h2>
 					<ul class="nav navbar-right panel_toolbox"></ul>
 					<div class="clearfix"></div>
 				</div>
@@ -15,22 +19,39 @@
 <?php
 					$formAttribute = array(
 						'class' => 'form-horizontal form-label-left show-custom-error-tag',
-						'id' => 'programDetails',
+						'id' => 'juniorCentre',
 						'method' =>'post'
 					);
-					echo form_open_multipart(base_url().'admin/program_course/add' , $formAttribute);
+					echo form_open_multipart(base_url().'admin/junior_centre/add' , $formAttribute);
 ?>
 						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Program Name<span class="required">*</span></label>
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Select Centre<span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+<?php
+								echo form_dropdown('centre_id' , getCentreDetails() , '' , 'class="form-control" id="centre_id"');
+?>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Select Program<span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+<?php
+								echo form_dropdown('centre_program[]' , getCourseProgramDetails() , '' , 'class="form-control" id="centre_program" multiple="multiple"');
+?>
+								<span id="programErrorMessage" style="color:#ff0000;display: inline-block;margin-top: 8px;"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Address<span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 <?php
 								$inputFieldAttribute = array(
-									'name' => 'program_course_name',
-									'id' => 'program_course_name',
+									'name' => 'centre_address',
+									'id' => 'centre_address',
 									'class' => 'form-control',
-									'placeholder' => 'Program Name'
+									'rows' =>2
 								);
-								echo form_input($inputFieldAttribute);
+								echo form_textarea($inputFieldAttribute);
 ?>
 							</div>
 						</div>
@@ -39,8 +60,8 @@
 							<div class="col-md-6 col-sm-6 col-xs-12">
 <?php
 								$inputFieldAttribute = array(
-									'name' => 'program_course_description',
-									'id' => 'program_course_description',
+									'name' => 'centre_description',
+									'id' => 'centre_description',
 									'class' => 'form-control summernote'
 								);
 								echo form_textarea($inputFieldAttribute);
@@ -48,24 +69,25 @@
 							<span id="descriptionErrorMessage" style="color:#ff0000"></span>
 							</div>
 						</div>
+
 						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload Logo <span class="required">*</span></label>
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload Banner Image <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<input type="hidden" id="imgWidthErrorFlag" value="1" />
-								<label for="program_course_logo">
-									<img class="uploadImageProgramClass" height="87" width="90" src="<?php echo base_url().'images/no_flag.jpg'; ?>"/>
+								<label for="centre_banner">
+									<img class="uploadImageProgramClass" width = 180 height = 50 src="<?php echo base_url().'images/no_flag.jpg'; ?>"/>
 								</label>
 <?php
 								$inputFieldAttribute = array(
-									'id' => 'program_course_logo',
-									'name' => 'program_course_logo',
+									'id' => 'centre_banner',
+									'name' => 'centre_banner',
 									'type' => 'file',
 									'style' => 'visibility: hidden;'
 								);
 								echo form_input($inputFieldAttribute);
 ?>
 								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo PROGRAM_COURSE_WIDTH; ?> X <?php echo PROGRAM_COURSE_HEIGHT; ?> pixel )
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo JUNIOR_CENTRE_WIDTH; ?> X <?php echo JUNIOR_CENTRE_HEIGHT; ?> pixel )
 								</small>
 								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
 							</div>
@@ -83,7 +105,7 @@
 								$inputFieldAttribute = array(
 									'class' => 'btn btn-primary',
 									'content' => 'Cancel',
-									'onclick' => "window.location = '".base_url()."admin/program_course/index'"
+									'onclick' => "window.location = '".base_url()."admin/junior_centre/index'"
 								);
 								echo form_button($inputFieldAttribute);
 ?>
@@ -97,22 +119,13 @@
 </div>
 <script type = "text/javascript">
 	$(window).ready(function(){
-		var selectedLanguage = [];
-		jQuery.validator.addMethod("validData",function(value,element){
-			if(/[()+<>\"\'%&;]/.test(value)){
-					return false;
-			}else{
-				return true;
-			}
-		},"<?php echo $this->lang->line('valid_data_error_msg'); ?>");
-
 		jQuery.validator.addMethod("checkImageWidth",function(value,element){
 			if($('#imgWidthErrorFlag').val() == 2){
 					return false;
 			}else{
 				return true;
 			}
-		},"<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_COURSE_WIDTH , PROGRAM_COURSE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
+		},"<?php echo str_replace(array('**width**' , '**height**') , array(JUNIOR_CENTRE_WIDTH , JUNIOR_CENTRE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
@@ -126,43 +139,65 @@
 				return true;
 		} , "<?php echo $this->lang->line('image_type_error_msg'); ?>");
 
-		$('#programDetails').validate({
+		$('#juniorCentre').validate({
 			errorElement : 'span',
 			rules : {
-				program_course_name : {
-					required : true,
-					validData : true
+				centre_id : {
+					required : true
 				},
-				program_course_logo : {
+				centre_address : {
+					required : true
+				},
+				centre_banner : {
 					required : true ,
 					checkImageWidth : true,
 					checkImageExt : true
 				}
 			},
 			messages : {
-				program_course_name : {
-					required : "<?php echo str_replace('**field**' , 'Program Name' , $this->lang->line('please_enter_dynamic')); ?>"
+				centre_id : {
+					required : "<?php echo str_replace('**field**' , 'Centre' , $this->lang->line('please_select_dynamic')); ?>"
 				},
-				program_course_logo : {
+				centre_address : {
+					required : "<?php echo str_replace('**field**' , 'Address' , $this->lang->line('please_enter_dynamic')); ?>"
+				},
+				centre_banner : {
 					required : "<?php echo $this->lang->line('required_upload_image'); ?>"
 				}
 			},
 			submitHandler : function(){
-				var textareaStr = $('#program_course_description').summernote('isEmpty') ? '' : $('#program_course_description').summernote('code');
+				$programErrorFlag = $descriptionErrorFlag = 1;
+				if($('#centre_program').val() == null)
+				{
+					$programErrorFlag = 2;
+					$('#programErrorMessage').text("<?php echo str_replace('**field**' , 'Program' , $this->lang->line('please_select_dynamic')); ?>");
+				}
+				else
+				{
+					$('#programErrorMessage').text('');
+					$programErrorFlag = 1;
+				}
+
+				var textareaStr = $('#centre_description').summernote('isEmpty') ? '' : $('#centre_description').summernote('code');
 				if(strip_html_tags(textareaStr) == '')
 				{
+					$descriptionErrorFlag = 2;
 					$('#descriptionErrorMessage').text("<?php echo str_replace('**field**' , 'Description' , $this->lang->line('please_enter_dynamic')); ?>");
-					return false;
 				}
 				else
 				{
 					$('#descriptionErrorMessage').text('');
-					return true;
+					$descriptionErrorFlag = 1;
 				}
+
+				if($descriptionErrorFlag == 1 && $programErrorFlag == 1)
+					return true;
+				else
+					return false;
 			}
 		});
 
-		$('#program_course_logo').on('change' , function(){
+		$('#centre_banner').on('change' , function(){
 			var files = (this.files) ? this.files : [];
 			if(!files.length || !window.FileReader)
 				return;
@@ -175,10 +210,10 @@
 					image.src = this.result;
 					image.onload = function(){
 						$('.uploadImageProgramClass').attr('src' , this.src);
-						if(!(this.height >= <?php echo PROGRAM_COURSE_HEIGHT; ?> && this.width >= <?php echo PROGRAM_COURSE_WIDTH; ?>))
+						if(!(this.height >= <?php echo JUNIOR_CENTRE_HEIGHT; ?> && this.width >= <?php echo JUNIOR_CENTRE_WIDTH; ?>))
 						{
 							$('#imgWidthErrorFlag').val('2');
-							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array(PROGRAM_COURSE_WIDTH , PROGRAM_COURSE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
+							$('#imgErrorMessage').text("<?php echo str_replace(array('**width**' , '**height**') , array(JUNIOR_CENTRE_WIDTH , JUNIOR_CENTRE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 							return false;
 						}
 						else
@@ -192,9 +227,15 @@
 			}
 		});
 
-		//initialize summernote
+		//Initialize summernote
 		$('.summernote').summernote({
 			height: 200
+		});
+
+		//Initialize bootstrap multiselect
+		$('#centre_program').multiselect({
+			buttonWidth : '498px',
+			nonSelectedText: 'Please Select'
 		});
 	});
 
