@@ -15,6 +15,7 @@
 			$data['bannerDetails'] = $this->Front_model->getProgramDetails($languageId);
 			$data['courseDetails'] = $this->Front_model->getCourseDetails($languageId);
 			$data['show_banner'] = 1;
+			$data['page_title'] = 'Home';
 			$this->template->view('dashboard' , $data);
 		}
 
@@ -25,6 +26,7 @@
 			$data['courseDetails'] = $this->Front_model->getJuniorSummerCourseDetails($languageId , $id);
 			$data['destinationDetails'] = $this->Front_model->getDestinationDetails(1);
 			$data['show_banner'] = 0;
+			$data['page_title'] = 'Junior Summer Courses';
 			$this->template->view('junior_summer_courses' , $data);
 		}
 
@@ -45,7 +47,7 @@
 										<img src="'.base_url().'uploads/centre/'.$value['centre_image'].'" />
 										<figcaption>
 											<p class="figcaption-title-class-destination">'.$value['centre_name'].'</p>
-											<p><a class="btn view-details-btn" href="'.base_url().'dashboard/junior_centre">'.$this->lang->line('read_more').'</a></p>
+											<p><a class="btn view-details-btn" href="'.base_url().'dashboard/junior_centre/'.$value['centre_id'].'">'.$this->lang->line('read_more').'</a></p>
 										</figcaption>
 									</figure>
 								</div>';
@@ -59,9 +61,11 @@
 		}
 
 		//This function is used to show junior summer course centre template
-		public function junior_centre()
+		public function junior_centre($centreId = NULL)
 		{
+			$data['centreDetails'] = $this->Front_model->getJuniorCentreDetails($centreId);
 			$data['show_banner'] = 0;
+			$data['page_title'] = 'Junior Centre';
 			$this->template->view('junior_centre' , $data);
 		}
 	}

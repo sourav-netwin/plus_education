@@ -446,6 +446,8 @@
 				'centre_id' => $data['centre_id'],
 				'centre_address' => $data['centre_address'],
 				'centre_description' => $data['centre_description'],
+				'centre_latitude' => $data['centre_latitude'],
+				'centre_longitude' => $data['centre_longitude'],
 				'centre_banner' => $fileName
 			);
 			$this->db->insert(TABLE_JUNIOR_CENTRE , $insertData);
@@ -473,6 +475,8 @@
 				$updateData = array(
 					'centre_id' => $data['centre_id'],
 					'centre_address' => $data['centre_address'],
+					'centre_latitude' => $data['centre_latitude'],
+					'centre_longitude' => $data['centre_longitude'],
 					'centre_description' => $data['centre_description'],
 					'centre_banner' => $fileName
 				);
@@ -504,7 +508,7 @@
 		//This function is used to get data from DB to show in edit page
 		function getEditJuniorCentreData($id = NULL)
 		{
-			$result = $this->db->select('junior_centre_id , centre_id , centre_banner , centre_description , centre_address')
+			$result = $this->db->select('junior_centre_id , centre_id , centre_banner , centre_description , centre_address , centre_latitude , centre_longitude')
 							->where('junior_centre_id' , $id)
 							->get(TABLE_JUNIOR_CENTRE)->row_array();
 			$result['centre_program'] = $this->db->select('program_id')
@@ -512,6 +516,17 @@
 											->get(TABLE_JUNIOR_CENTRE_PROGRAM)->result_array();
 			$result['centre_program'] = array_column($result['centre_program'] , 'program_id');
 			return $result;
+		}
+
+		//Function is used to get centre and region name according to the centre name
+		function getCentreRegionName($centreId = NULL)
+		{
+			$result = $this->db->select("concat_ws(',' , centre_name , region_name) as address")
+								->from(TABLE_CENTRE_MASTER)
+								->join(TABLE_REGION_MASTER , TABLE_CENTRE_MASTER.'.region_id = '.TABLE_REGION_MASTER.'.region_id' , 'left')
+								->where('centre_id' , $centreId)
+								->get()->row_array();
+			return (!empty($result)) ? $result['address'] : '';
 		}
 	}
 ?>

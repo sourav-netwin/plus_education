@@ -5,7 +5,7 @@
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle navigation</span>
 			</button>
-			<a href=""><img class="website-logo-image" src="<?php echo base_url(); ?>images/logo_plus.png"></a>
+			<a href="<?php echo base_url(); ?>"><img class="website-logo-image" src="<?php echo base_url(); ?>images/logo_plus.png"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<div class="w3menu navbar-right">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title><?php echo $this->lang->line('plus_educational_developments'); ?></title>
+		<title><?php echo $page_title; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="<?php echo $this->lang->line('plus_educational_developments'); ?>" />

@@ -24,6 +24,9 @@
 					);
 					echo form_open_multipart(base_url().'admin/junior_centre/add' , $formAttribute);
 ?>
+						<input type="hidden" name="centre_latitude" id="centre_latitude" />
+						<input type="hidden" name="centre_longitude" id="centre_longitude" />
+						<input type="hidden" id="addressErrorFlag" value="1" />
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Select Centre<span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
@@ -49,10 +52,12 @@
 									'name' => 'centre_address',
 									'id' => 'centre_address',
 									'class' => 'form-control',
-									'rows' =>2
+									'rows' =>2,
+									'disabled' => 'disabled'
 								);
 								echo form_textarea($inputFieldAttribute);
 ?>
+								<span id="addressErrorMessage" style="color:#ff0000"></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -114,6 +119,10 @@
 					<?php echo form_close(); ?>
 				</div>
 			</div>
+			<!----------Ajax Loader HTML--------->
+			<div class="waitClass" style="display: none;">
+				<img src='<?php echo base_url(); ?>images/loader.gif' class="waitClassImg" />
+			</div>
 		</div>
 	</div>
 </div>
@@ -166,7 +175,8 @@
 				}
 			},
 			submitHandler : function(){
-				$programErrorFlag = $descriptionErrorFlag = 1;
+				$programErrorFlag = $descriptionErrorFlag = $addresssErrorFlag = 1;
+				//Check for program section
 				if($('#centre_program').val() == null)
 				{
 					$programErrorFlag = 2;
@@ -178,6 +188,7 @@
 					$programErrorFlag = 1;
 				}
 
+				//Check for description section
 				var textareaStr = $('#centre_description').summernote('isEmpty') ? '' : $('#centre_description').summernote('code');
 				if(strip_html_tags(textareaStr) == '')
 				{
@@ -190,7 +201,19 @@
 					$descriptionErrorFlag = 1;
 				}
 
-				if($descriptionErrorFlag == 1 && $programErrorFlag == 1)
+				//Check for address section
+				if($('#addressErrorFlag').val() == 2)
+				{
+					$('#addressErrorMessage').text('<?php echo $this->lang->line('geocode_invalid_address'); ?>');
+					$addresssErrorFlag = 2;
+				}
+				else
+				{
+					$('#addressErrorMessage').text('');
+					$addresssErrorFlag = 1;
+				}
+
+				if($descriptionErrorFlag == 1 && $programErrorFlag == 1 && $addresssErrorFlag == 1)
 					return true;
 				else
 					return false;
@@ -236,6 +259,44 @@
 		$('#centre_program').multiselect({
 			buttonWidth : '498px',
 			nonSelectedText: 'Please Select'
+		});
+
+		/*On blur of address field get latitude and longitude according to the address
+		and set the values in the hidden field*/
+		$('#centre_address').blur(function(){
+			$('.waitClass').css('display' , 'block');
+			$.ajax({
+				url : '<?php echo base_url(); ?>admin/junior_centre/getLatLongFromAddress',
+				data : {'address' : $(this).val() , 'centreId' : $('#centre_id').val()},
+				type : 'POST',
+				dataType : 'JSON',
+				async : false,
+				success : function(response){
+					$('.waitClass').css('display' , 'none');
+					if(response.status == 'OK')
+					{
+						$('#centre_latitude').val(response.latitude);
+						$('#centre_longitude').val(response.longitude);
+						$('#addressErrorFlag').val(1);
+						$('#addressErrorMessage').text('');
+					}
+					else
+					{
+						$('#centre_latitude').val('');
+						$('#centre_longitude').val('');
+						$('#addressErrorFlag').val(2);
+						$('#addressErrorMessage').text('<?php echo $this->lang->line('geocode_invalid_address'); ?>');
+					}
+				}
+			});
+		});
+
+		//On change of centre dropdown it enable/disable address field
+		$('#centre_id').on('change' , function(){
+			if($(this).val() != '')
+				$('#centre_address').removeAttr('disabled');
+			else
+				$('#centre_address').attr('disabled' , 'disabled');
 		});
 	});
 

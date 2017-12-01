@@ -13,5 +13,6 @@
 	$lang['delete_confirmation'] = 'Are you sure to delete ?';
 	$lang['minimum_image_dimension'] = 'Image dimension should be greater or equal to **width** X **height** pixel';
 	$lang['please_select_dynamic'] = 'Please Select **field**';
+	$lang['geocode_invalid_address'] = 'Invalid address as per geocode';
 
 ?>

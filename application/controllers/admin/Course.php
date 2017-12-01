@@ -14,7 +14,8 @@
 		//This function is used to show listing page for the course
 		public function index()
 		{
-			$this->template->admin_view('admin/course_list');
+			$data['page_title'] = 'Course';
+			$this->template->admin_view('admin/course_list' , $data);
 		}
 
 		//This function is used to get all course details from DB and display in datatable
@@ -74,6 +75,7 @@
 			}
 			$data['imageError'] = $imageError;
 			$data['imageErrorHome'] = $imageErrorHome;
+			$data['page_title'] = 'Course';
 			$this->template->admin_view('admin/course_add' , $data);
 		}
 
@@ -132,6 +134,7 @@
 			$data['post'] = $post;
 			$data['imageError'] = $imageError;
 			$data['imageErrorHome'] = $imageErrorHome;
+			$data['page_title'] = 'Course';
 			$this->template->admin_view('admin/course_edit' , $data);
 		}
 

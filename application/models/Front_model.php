@@ -58,5 +58,21 @@
 							->where('a.delete_flag' , 0)
 							->get()->result_array();
 		}
+
+		//This function is used to get junior centre details , centre wise and show in details page
+		function getJuniorCentreDetails($centreId = NULL)
+		{
+			$result = $this->db->select('a.junior_centre_id , b.centre_name , a.centre_banner , a.centre_description , a.centre_latitude , a.centre_longitude')
+							->from(TABLE_JUNIOR_CENTRE.' a')
+							->join(TABLE_CENTRE_MASTER.' b' , 'a.centre_id = b.centre_id' , 'left')
+							->where('a.centre_id' , $centreId)
+							->get()->row_array();
+			$result['program'] = $this->db->select('a.program_id , b.program_course_name , b.program_course_description , b.program_course_logo')
+										->from(TABLE_JUNIOR_CENTRE_PROGRAM.' a')
+										->join(TABLE_PROGRAM_COURSE.' b' , 'a.program_id = b.program_course_id' , 'left')
+										->where('a.junior_centre_id' , $result['junior_centre_id'])
+										->get()->result_array();
+			return $result;
+		}
 	}
 ?>

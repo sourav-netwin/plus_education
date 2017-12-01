@@ -15,7 +15,8 @@
 		//This function is used to show listing page for all programs
 		public function index()
 		{
-			$this->template->admin_view('admin/program_list');
+			$data['page_title'] = 'Program Banner';
+			$this->template->admin_view('admin/program_list' , $data);
 		}
 
 		//This function is used to get all program details from DB and display in datatable
@@ -71,6 +72,7 @@
 				}
 			}
 			$data['imageError'] = $imageError;
+			$data['page_title'] = 'Program Banner';
 			$this->template->admin_view('admin/program_add' , $data);
 		}
 
@@ -108,6 +110,7 @@
 			$post = $this->Admin_model->getEditProgramData($id , 1);
 			$data['post'] = $post;
 			$data['imageError'] = $imageError;
+			$data['page_title'] = 'Program Banner';
 			$this->template->admin_view('admin/program_edit' , $data);
 		}
 

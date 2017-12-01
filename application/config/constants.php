@@ -87,6 +87,9 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //For creating encrypted data
 define('ENCRYPTKEY' , 'STUDYTOURS@!123456');
 
+//Google API Key
+define('GOOGLE_API_KEY' , 'AIzaSyAxAOuX6VZ3411GsROuhn-SxYbNC0skt9M');
+
 //Database table names
 define('TABLE_USERS' , 'tbl_users');
 define('TABLE_PROGRAM' , 'tbl_program_banner');
@@ -141,3 +144,10 @@ define('JUNIOR_CENTRE_WIDTH' , 1920);
 define('JUNIOR_CENTRE_HEIGHT' , 500);
 define('JUNIOR_CENTRE_THUMB_WIDTH' , 250);
 define('JUNIOR_CENTRE_THUMB_HEIGHT' , 65);
+
+//Define image location , height , width , thumb details for My profile module images
+define('MY_PROFILE_IMAGE_PATH' , 'uploads/users/');
+define('MY_PROFILE_WIDTH' , 128);
+define('MY_PROFILE_HEIGHT' , 128);
+define('MY_PROFILE_THUMB_WIDTH' , 57);
+define('MY_PROFILE_THUMB_HEIGHT' , 57);

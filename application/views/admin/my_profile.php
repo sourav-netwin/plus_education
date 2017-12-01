@@ -81,7 +81,7 @@
 								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo $post['userImage']; ?>" />
 								<label for="userImage">
 <?php
-									$imgPath = ($post['userImage'] != '') ? base_url().'uploads/users/'.$post['userImage'] : base_url().'images/no_flag.jpg';
+									$imgPath = ($post['userImage'] != '') ? base_url().MY_PROFILE_IMAGE_PATH.$post['userImage'] : base_url().'images/no_flag.jpg';
 ?>
 									<img class="uploadImageClass" src="<?php echo $imgPath; ?>"/>
 								</label>
@@ -95,7 +95,7 @@
 								echo form_input($inputFieldAttribute);
 ?>
 								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; image size should be less than 500 X 500 pixel )
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo MY_PROFILE_WIDTH; ?> X <?php echo MY_PROFILE_HEIGHT; ?> pixel )
 								</small>
 								<span id="imgErrorMessage" style="color:#ff0000"></span>
 							</div>
@@ -141,7 +141,7 @@
 				image.src = this.result;
 				image.onload = function(){
 					$('.uploadImageClass').attr('src' , this.src);
-					if(this.height > 500 || this.width > 500)
+					if(!(this.height >= <?php echo MY_PROFILE_HEIGHT; ?> || this.width >= <?php echo MY_PROFILE_WIDTH; ?>))
 					{
 						$('#imgWidthErrorFlag').val('2');
 						$('#imgErrorMessage').text('Image size should be less than 500 X 500 pixel');
@@ -166,7 +166,7 @@
 			}else{
 				return true;
 			}
-		},"Please enter valid data.");
+		},"<?php echo $this->lang->line('valid_data_error_msg'); ?>");
 
 		jQuery.validator.addMethod("checkImageWidth",function(value,element){
 			if($('#imgWidthErrorFlag').val() == 2){
@@ -174,7 +174,7 @@
 			}else{
 				return true;
 			}
-		},"Image size should be less than 500 X 500 pixel");
+		},"<?php echo str_replace(array('**width**' , '**height**') , array(MY_PROFILE_WIDTH , MY_PROFILE_HEIGHT) , $this->lang->line('minimum_image_dimension')); ?>");
 
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
@@ -186,7 +186,7 @@
 			}
 			else
 				return true;
-		} , "Please upload JPG|PNG|JPEG image.");
+		} , "<?php echo $this->lang->line('image_type_error_msg'); ?>");
 
 		$('#myProfileForm').validate({
 			errorElement : 'span',
@@ -218,16 +218,16 @@
 			},
 			messages : {
 				userName : {
-					required : 'Please enter name'
+					required : "<?php echo str_replace('**field**' , 'Name' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				userEmail : {
-					required : 'Please enter email'
+					required : "<?php echo str_replace('**field**' , 'Email' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				userId : {
-					required : 'Please enter user id'
+					required : "<?php echo str_replace('**field**' , 'User Id' , $this->lang->line('please_enter_dynamic')); ?>"
 				},
 				userImage : {
-					required : 'Please enter an image'
+					required : "<?php echo $this->lang->line('required_upload_image'); ?>"
 				}
 			}
 		});

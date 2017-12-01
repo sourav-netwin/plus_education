@@ -9,7 +9,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<div class="w3menu navbar-right">
 				<ul class="nav navbar top-header-menu">
-					<li><a href="<?php echo base_url(); ?>dashboard/index"><?php echo $this->lang->line('home'); ?></a></li>
+					<li><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('brochure'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown brochure-dropdown-menu">

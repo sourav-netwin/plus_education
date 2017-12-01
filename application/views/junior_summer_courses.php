@@ -102,7 +102,7 @@
 									<img src="<?php echo base_url().'uploads/centre/'.$value['centre_image']; ?>" />
 									<figcaption>
 										<p class="figcaption-title-class-destination"><?php echo $value['centre_name']; ?></p>
-										<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_centre"><?php echo $this->lang->line('read_more'); ?></a></p>
+										<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_centre/<?php echo $value['centre_id']; ?>"><?php echo $this->lang->line('read_more'); ?></a></p>
 									</figcaption>
 								</figure>
 							</div>

@@ -10,7 +10,7 @@
 
 		<div class="profile clearfix">
 			<div class="profile_pic">
-				<img src="<?php echo base_url(); ?>uploads/users/<?php echo $this->session->userdata('user_image'); ?>" alt="" class="img-circle profile_img">
+				<img src="<?php echo base_url().MY_PROFILE_IMAGE_PATH.getThumbnailName($this->session->userdata('user_image')); ?>" class="img-circle profile_img">
 			</div>
 			<div class="profile_info">
 				<span>Welcome,</span>

@@ -15,7 +15,8 @@
 		//This function is used to show the listing page for program course
 		public function index()
 		{
-			$this->template->admin_view('admin/program_course_list');
+			$data['page_title'] = 'Course Program';
+			$this->template->admin_view('admin/program_course_list' , $data);
 		}
 
 		//This function is used to get all program course details from DB and display in datatable
@@ -76,6 +77,7 @@
 				}
 			}
 			$data['imageError'] = $imageError;
+			$data['page_title'] = 'Course Program';
 			$this->template->admin_view('admin/program_course_add' , $data);
 		}
 
@@ -118,6 +120,7 @@
 			$post = $this->Admin_model->getEditProgramCourseData($id , 1);
 			$data['post'] = $post;
 			$data['imageError'] = $imageError;
+			$data['page_title'] = 'Course Program';
 			$this->template->admin_view('admin/program_course_edit' , $data);
 		}
 

@@ -14,7 +14,8 @@
 		//This function is used to show listing page for the course
 		public function index()
 		{
-			$this->template->admin_view('admin/junior_centre_list');
+			$data['page_title'] = 'Junior Centre';
+			$this->template->admin_view('admin/junior_centre_list' , $data);
 		}
 
 		//This function is used to get all course details from DB and display in datatable
@@ -72,6 +73,7 @@
 				}
 			}
 			$data['imageError'] = $imageError;
+			$data['page_title'] = 'Junior Centre';
 			$this->template->admin_view('admin/junior_centre_add' , $data);
 		}
 
@@ -109,6 +111,7 @@
 			$post = $this->Admin_model->getEditJuniorCentreData($id);
 			$data['post'] = $post;
 			$data['imageError'] = $imageError;
+			$data['page_title'] = 'Junior Centre';
 			$this->template->admin_view('admin/junior_centre_edit' , $data);
 		}
 
@@ -120,6 +123,29 @@
 			);
 			$this->Admin_model->updateJuniorCentre($id , $updateData);
 			redirect(base_url().'admin/junior_centre/index?success=delete');
+		}
+
+		//This function is used to get latitude and longitude for the provided address through ajax
+		function getLatLongFromAddress()
+		{
+			if($this->input->post())
+			{
+				$data = array();
+				$address = $this->input->post('address').','.$this->Admin_model->getCentreRegionName($this->input->post('centreId'));
+				$addressDetails = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.str_replace(' ' , '+' , $address).'&key='.GOOGLE_API_KEY);
+				$addressDetails = json_decode($addressDetails , TRUE);
+				if($addressDetails['status'] == 'OK')
+					$data = array(
+						'status' => $addressDetails['status'],
+						'latitude' => $addressDetails['results'][0]['geometry']['location']['lat'],
+						'longitude' => $addressDetails['results'][0]['geometry']['location']['lng']
+					);
+				else
+					$data = array(
+						'status' => $addressDetails['status']
+					);
+				echo json_encode($data);
+			}
 		}
 
 		/****************Image Cropping functionality Start******************/

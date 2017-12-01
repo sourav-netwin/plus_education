@@ -8,7 +8,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						<img src="<?php echo base_url(); ?>uploads/users/<?php echo $this->session->userdata('user_image'); ?>" alt="">
+						<img src="<?php echo base_url().MY_PROFILE_IMAGE_PATH.getThumbnailName($this->session->userdata('user_image')); ?>">
 						<?php echo $this->session->userdata('user_name'); ?>
 						<span class=" fa fa-angle-down"></span>
 					</a>

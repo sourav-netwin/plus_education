@@ -14,7 +14,8 @@
 		//This function is used to show dashboard
 		public function index()
 		{
-			$this->template->admin_view('admin/dashboard');
+			$data['page_title'] = 'Dashboard';
+			$this->template->admin_view('admin/dashboard' , $data);
 		}
 
 		//This function is used to show profile information of the user
@@ -38,12 +39,14 @@
 					{
 						if($this->input->post('imageChangeFlag') == 2)
 						{
-							$uploadData = $this->image_upload->do_upload('./uploads/users/' , 'userImage' , 100 , 1024 , 768);
+							$uploadData = $this->image_upload->do_upload('./'.MY_PROFILE_IMAGE_PATH , 'userImage' , UPLOAD_IMAGE_SIZE , MY_PROFILE_WIDTH , MY_PROFILE_HEIGHT);
 							if($uploadData['errorFlag'] == 0)
 							{
 								//Delete old file
-								if(file_exists('./uploads/users/'.$post['userImage']))
-									unlink('./uploads/users/'.$post['userImage']);
+								if(file_exists('./'.MY_PROFILE_IMAGE_PATH.$post['userImage']))
+									unlink('./'.MY_PROFILE_IMAGE_PATH.$post['userImage']);
+								if(file_exists('./'.MY_PROFILE_IMAGE_PATH.getThumbnailName($post['userImage'])))
+									unlink('./'.MY_PROFILE_IMAGE_PATH.getThumbnailName($post['userImage']));
 
 								$post['userImage'] = $uploadData['fileName'];
 								$this->session->set_userdata('user_image' , $post['userImage']);
@@ -54,6 +57,8 @@
 						if($imageError == '')
 						{
 							$this->Admin_model->updateUserData($this->session->userdata('user_id') , $post);
+							if($this->input->post('imageChangeFlag') == 2)
+								$this->_handleCropping($post['userImage']);
 							redirect(base_url().'admin/dashboard/index?success=my_profile');
 						}
 					}
@@ -62,10 +67,51 @@
 					$post = $this->Admin_model->getUserData($this->session->userdata('user_id'));
 				$data['post'] = $post;
 				$data['imageError'] = $imageError;
+				$data['page_title'] = 'My Profile';
 				$this->template->admin_view('admin/my_profile' , $data);
 			}
 			else
 				redirect(base_url().'admin/dashboard/index');
 		}
+
+		/****************Image Cropping functionality Start******************/
+		public function _handleCropping($fileName = NULL)
+		{
+			$this->cropInit($fileName);
+			$this->cropping->image();
+			exit();
+		}
+
+		public function process($action = NULL)
+		{
+			$this->cropInit();
+			$this->cropping->process($action);
+		}
+
+		public function cropInit($file_name = NULL)
+		{
+			$param = array();
+			if(empty($file_name))
+				$param = $this->session->userdata("cropData");
+			else
+			{
+				$param = array(
+					'imageAbsPath' => FCPATH . MY_PROFILE_IMAGE_PATH,
+					'imageDestPath' => FCPATH . MY_PROFILE_IMAGE_PATH,
+					'imageName' => $file_name,
+					'imageNewName' => $file_name,
+					'imagePath' => base_url() . MY_PROFILE_IMAGE_PATH,
+					'imageWidth' => MY_PROFILE_WIDTH,
+					'imageHeight' => MY_PROFILE_HEIGHT,
+					'thumbWidth' => MY_PROFILE_THUMB_WIDTH,
+					'thumbHeight' => MY_PROFILE_THUMB_HEIGHT,
+					'redirectTo' => 'admin/dashboard/index?success=my_profile',
+					'formCallbackAction' => 'admin/dashboard/process'
+				);
+				$this->session->set_userdata("cropData" , $param);
+			}
+			$this->load->library("cropping" , $param);
+		}
+		/******************Image Cropping functionality End*********************/
 	}
 ?>

@@ -5,7 +5,9 @@
 		{
 			parent::__construct();
 			$this->load->helper('backend');
+			$this->load->helper('language');
 			$this->lang->load('general_lang' , 'english');
+			$this->lang->load('message_lang' , 'english');
 			$this->load->model('Admin_model' , '' , TRUE);
 		}
 
@@ -34,6 +36,7 @@
 				);
 				$data['captcha'] = create_captcha($vals);
 				$this->session->set_userdata('admin_login_captcha_word', $data['captcha']['word']);
+				$data['page_title'] = 'Login | '.$this->lang->line('plus_educational_developments');
 				$this->load->view('admin/login' , $data);
 			}
 		}
@@ -110,6 +113,7 @@
 					$data['errors'] = $error;
 					$data['captcha'] = create_captcha($vals);
 					$this->session->set_userdata('admin_login_captcha_word', $data['captcha']['word']);
+					$data['page_title'] = 'Login | '.$this->lang->line('plus_educational_developments');
 					$this->load->view('admin/login' , $data);
 				}
 			}
