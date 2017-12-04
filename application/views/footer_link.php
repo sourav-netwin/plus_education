@@ -14,10 +14,14 @@
 						<a href="http://www.englishuk.com/" class="logo-enuk" target="_blank"></a>
 						<a href="http://www.yleuk.com/" class="logo-yleuk" target="_blank"></a>
 					</div>
-					<div>
+					<!-- <div>
 						<p>Courses in the USA accredited by</p>
 						<a href="http://accet.org/" class="logo-accet" target="_blank"></a>
 						<a href="http://www.cae.com/" class="logo-cea" target="_blank"></a>
+					</div> -->
+					<div>
+						<p>Trinity College</p>
+						<a href="http://www.trincoll.edu/" class="logo-accet" target="_blank"></a>
 					</div>
 				</div>
 			</div>

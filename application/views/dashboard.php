@@ -155,8 +155,8 @@
 				<div class="clearfix"> </div>
 			</div>
 			<div class="col-md-4 agile-welcome-left">
-				<div class="col-sm-12 col-xs-12 welcome-w3imgs">
-					<figure class="effect-chico welcome-img2 large-image-europe-program">
+				<div class="welcome-w3imgs">
+					<figure class="effect-chico welcome-img2 large-image-europe-program" style="width: 96%;">
 						<img src="http://www.studytoursinternational.com/apps/images/cdl/promotional/1507886325.jpg" alt=" " class="europe-program-right-box-image" />
 						<figcaption>
 							<p class="figcaption-title-class-europe-program-right-box"><?php echo $this->lang->line('add_on_package'); ?></p>

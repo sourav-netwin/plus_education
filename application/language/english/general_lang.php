@@ -51,7 +51,7 @@
 	$lang['chelmsford'] = 'Chelmsford';
 	$lang['loughborough'] = 'Loughborough';
 	$lang['liverpool'] = 'Liverpool';
-	$lang['about_premium_weekend'] = 'About the Premium + Weekend away';
+	$lang['about_premium_weekend'] = 'About the Classic Premium + Weekend away';
 	$lang['uk_residential'] = 'UK Residential ';
 	$lang['london'] = 'London';
 	$lang['herforshire'] = 'Herforshire';

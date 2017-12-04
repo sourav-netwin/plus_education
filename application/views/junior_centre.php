@@ -166,7 +166,7 @@
 									</p>
 									<div style="clear:both;" class="row">
 										<div class="col-12">
-											<h2 style="padding-left:4px;" class="negativo">On Campus</h2>
+											<h2 style="padding-left:4px;margin: 0px 4px;" class="negativo">On Campus</h2>
 											<div style="padding:4px; background-color:#fafafa">
 												<img class="img-responsive inside-box-image" src="http://www.plus-ed.com/apps/images/collegefrontale.jpg">
 												<p>Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to  ensure that you are comfortable, safe and happy during your stay.Our residences are a really fun, international environment
@@ -183,7 +183,7 @@
 											</div>
 										</div>
 										<div class="col-12">
-											<h2 style="padding-left:4px;" class="negativo">Home Stay</h2>
+											<h2 style="padding-left:4px;margin: 0px 4px;" class="negativo">Home Stay</h2>
 											<div style="padding:4px; background-color:#fafafa">
 												<img class="img-responsive inside-box-image" src="http://www.plus-ed.com/apps/images/casafamiglia.jpg">
 												<p>Our hosts have been chosen for their interest in
@@ -310,7 +310,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -321,7 +321,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -332,7 +332,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -444,7 +444,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -455,7 +455,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -466,7 +466,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -494,7 +494,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -505,7 +505,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -516,7 +516,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -544,7 +544,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -555,7 +555,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -566,7 +566,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -594,7 +594,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -605,7 +605,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>
@@ -616,7 +616,7 @@
 										</div>
 										<div class="col-md-1">
 											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i
+												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 											</a>
 										</div>
 									</div>

@@ -16,7 +16,7 @@
 							<li>
 								<div class="row">
 									<div class="col-md-6">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('experience'); ?></h5>
+										<h5 class="menu-heading li-menu-title-small"><?php echo $this->lang->line('experience'); ?></h5>
 										<ul>
 											<li><a href=""><?php echo $this->lang->line('los_angeles'); ?></a></li>
 											<li><a href=""><?php echo $this->lang->line('miami'); ?></a></li>
@@ -26,7 +26,7 @@
 										</ul>
 									</div>
 									<div class="col-md-6">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('classic_superior'); ?></h5>
+										<h5 class="menu-heading li-menu-title-small"><?php echo $this->lang->line('classic_superior'); ?></h5>
 										<ul>
 											<li><a href=""><?php echo $this->lang->line('los_angeles'); ?></a></li>
 											<li><a href=""><?php echo $this->lang->line('new_york_central'); ?></a></li>
@@ -62,7 +62,7 @@
 											</li>
 											<li><a href=""><?php echo $this->lang->line('qawra_bugiba'); ?></a></li>
 											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_the_classic'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
+											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
 										</ul>
 									</div>
 									<div class="col-md-2">
@@ -102,7 +102,7 @@
 											<li><a href=""><?php echo $this->lang->line('effingham'); ?></a></li>
 											<li><a href=""><?php echo $this->lang->line('windsor'); ?></a></li>
 											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_classic_plus'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
+											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
 										</ul>
 									</div>
 									<div class="col-md-3">
@@ -115,7 +115,7 @@
 											<li><a href=""><?php echo $this->lang->line('chelmsford'); ?></a></li>
 											<li><a href=""><?php echo $this->lang->line('loughborough'); ?></a></li>
 											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_premium_academy'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
+											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
 										</ul>
 									</div>
 									<div class="col-md-3">
@@ -141,7 +141,10 @@
 							<li>
 								<div class="row">
 									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('uk_residential'); ?></h5>
+										<h5 class="menu-heading li-menu-title-small">
+											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
+											<?php echo $this->lang->line('uk_residential'); ?>
+										</h5>
 										<ul>
 											<li><a href=""><?php echo $this->lang->line('london'); ?></a></li>
 											<li><a href=""><?php echo $this->lang->line('herforshire'); ?></a></li>
@@ -154,20 +157,29 @@
 										</ul>
 									</div>
 									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('uk_family_stay'); ?></h5>
+										<h5 class="menu-heading li-menu-title-small">
+											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
+											<?php echo $this->lang->line('uk_family_stay'); ?>
+										</h5>
 										<ul>
 											<li><a href=""><?php echo $this->lang->line('london'); ?></a></li>
 											<li><a href=""><?php echo $this->lang->line('oxford'); ?></a></li>
 										</ul>
 									</div>
 									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('scotland_residential'); ?></h5>
+										<h5 class="menu-heading li-menu-title-small">
+											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/scotland.png" />
+											<?php echo $this->lang->line('scotland_residential'); ?>
+										</h5>
 										<ul>
 											<li><a href=""><?php echo $this->lang->line('stirling'); ?></a></li>
 										</ul>
 									</div>
 									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('usa_family_stay'); ?></h5>
+										<h5 class="menu-heading li-menu-title-small">
+											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/usa.png" />
+											<?php echo $this->lang->line('usa_family_stay'); ?>
+										</h5>
 										<ul>
 											<li><a href=""><?php echo $this->lang->line('new_york'); ?></a></li>
 										</ul>
