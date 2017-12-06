@@ -49,7 +49,7 @@
 						<ul class="list-unstyled footer-nav">
 							<li><a href="#"><?php echo $this->lang->line('language_level'); ?></a></li>
 							<li><a href="#"><?php echo $this->lang->line('insurance'); ?></a></li>
-							<li><a href="#"><?php echo $this->lang->line('visa_information'); ?></a></li>
+							<li><a href="#"><b><?php echo $this->lang->line('visa_information'); ?></b></a></li>
 							<li class="policy-li-wrapper"><h3 class="footer-heading"><?php echo $this->lang->line('policies'); ?></h3></li>
 							<li><a href="#"><?php echo $this->lang->line('welfare_form'); ?></a></li>
 							<li><a href="#"><?php echo $this->lang->line('customer_satisfaction_policy'); ?></a></li>

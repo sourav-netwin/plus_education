@@ -26,7 +26,7 @@
 	$lang['classic_superior'] = 'Classic Superior';
 	$lang['classic'] = 'Classic';
 	$lang['classic_premium'] = 'Classic Premium';
-	$lang['classic_plus_academy'] = 'Classic plus Academy';
+	$lang['classic_plus_academy'] = 'Classic + Academy';
 	$lang['premium_academy'] = 'Classic Premium + Academy';
 	$lang['premium_weekend'] = 'Classic Premium + Weekend away';
 	$lang['uk'] = 'UK';
@@ -83,13 +83,13 @@
 	$lang['workshop_find_plus'] = 'WHICH WORKSHOP TO FIND PLUS';
 	$lang['quality_form'] = 'Quality form';
 	$lang['report_complaint'] = 'Report a complaint';
-	$lang['jobs'] = 'Jobs';
+	$lang['jobs'] = 'JOBS';
 	$lang['apply_campus_manager'] = 'Apply for campus manager';
 	$lang['apply_course_director'] = 'Apply for course director';
 	$lang['apply_teaching_position'] = 'Apply for teaching position';
 	$lang['apply_leader_position'] = 'Apply for activity leader position';
 	$lang['apply_office_position'] = 'Apply for an office position';
-	$lang['useful_information'] = 'Useful information';
+	$lang['useful_information'] = 'USEFUL INFORMATION';
 	$lang['language_level'] = 'Language levels';
 	$lang['insurance'] = 'Insurance';
 	$lang['visa_information'] = 'Visa information';

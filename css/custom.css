@@ -62,7 +62,7 @@
 
 .europe-summer-program-menu{
 	min-width: 1258px;
-	left: -490px !important;
+	left: -520px !important;
 }
 
 .europe-summer-program-menu li a{
@@ -535,4 +535,22 @@
 
 #myVideoModal .modal-body{
 	padding: 5px;
+}
+
+.show-destination-class{
+	position: absolute;
+	color: white;
+	top: 5%;
+	right: 5%;
+	left: 5%;
+	bottom: 5%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 1px solid #396192;"
+}
+
+.show-destination-class p{
+	margin-top: 87px !important;
+	color: #fff !important;
+	opacity: 1 !important;
+	font-size: 10px;
 }

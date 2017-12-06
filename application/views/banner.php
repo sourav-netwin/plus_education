@@ -18,7 +18,7 @@
 			{
 ?>
 				<div class="item <?php echo ($key == 0) ? 'active' : ''; ?>">
-					<img src="<?php echo base_url(); ?>uploads/program/<?php echo $value['program_image']; ?>" style="width:100%;">
+					<img src="<?php echo ADMIN_PANEL_URL.PROGRAM_IMAGE_PATH.$value['program_image']; ?>" style="width:100%;">
 					<div class="carousel-caption">
 						<div class="hero-heading">
 							<span><?php echo $value['program_title']; ?></span>

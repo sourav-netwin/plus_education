@@ -12,7 +12,7 @@
 	<div class="tab-content">
 		<div id="photo" class="tab-pane fade in active">
 			<div class="gallery">
-				<div class="container">
+				<div>
 					<div class="gallery-grids">
 						<div class="col-md-4 gallery-grid">
 							<div class="grid">

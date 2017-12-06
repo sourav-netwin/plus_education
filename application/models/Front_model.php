@@ -39,12 +39,15 @@
 		{
 			$returnArr = array();
 			if($isRegion == 1)
-				$returnArr['region'] = $this->db->select('region_id , region_name')
-												->get(TABLE_REGION_MASTER)->result_array();
-			$this->db->select('centre_id , centre_name , centre_image');
+				$returnArr['region'] = $this->db->select('distinct(located_in) as region')
+												->where("located_in != ''")
+												->where('attivo' , 1)
+												->get(TABLE_CENTRE)->result_array();
+			$this->db->select("id as centre_id , nome_centri as centre_name , website_image as centre_image");
 			if($regionId != '')
-				$this->db->where('region_id' , $regionId);
-			$returnArr['centre'] = $this->db->get(TABLE_CENTRE_MASTER)->result_array();
+				$this->db->where('located_in' , str_replace('_' , ' ' , $regionId));
+			$this->db->where('attivo' , 1);
+			$returnArr['centre'] = $this->db->get(TABLE_CENTRE)->result_array();
 			return $returnArr;
 		}
 
@@ -62,9 +65,9 @@
 		//This function is used to get junior centre details , centre wise and show in details page
 		function getJuniorCentreDetails($centreId = NULL)
 		{
-			$result = $this->db->select('a.junior_centre_id , b.centre_name , a.centre_banner , a.centre_description , a.centre_latitude , a.centre_longitude')
+			$result = $this->db->select('a.junior_centre_id , b.nome_centri as centre_name , a.centre_banner , a.centre_description , a.centre_latitude , a.centre_longitude')
 							->from(TABLE_JUNIOR_CENTRE.' a')
-							->join(TABLE_CENTRE_MASTER.' b' , 'a.centre_id = b.centre_id' , 'left')
+							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('a.centre_id' , $centreId)
 							->get()->row_array();
 			$result['program'] = $this->db->select('a.program_id , b.program_course_name , b.program_course_description , b.program_course_logo')

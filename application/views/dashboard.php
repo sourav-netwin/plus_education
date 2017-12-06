@@ -10,12 +10,12 @@
 <?php
 				if(!empty($courseDetails))
 				{
-					foreach($courseDetails as $value)
+					foreach($courseDetails as $key => $value)
 					{
 ?>
 						<div class="col-sm-6 col-xs-6 welcome-w3imgs">
 							<figure class="effect-chico">
-								<img src="<?php echo base_url().COURSE_FRONT_IMAGE_PATH.$value['course_front_image']; ?>" />
+								<img src="<?php echo ADMIN_PANEL_URL.COURSE_FRONT_IMAGE_PATH.$value['course_front_image']; ?>" />
 								<figcaption>
 									<p class="figcaption-title-class-courses"><?php echo $value['course_name']; ?></p>
 									<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_summer_courses/<?php echo $value['course_master_id']; ?>"><?php echo $this->lang->line('view_details'); ?></a></p>
@@ -23,6 +23,8 @@
 							</figure>
 						</div>
 <?php
+						if(($key+1) % 2 == 0)
+							echo "<div style='margin-top:30px;' class='col-lg-12 col-md-12'></div>";
 					}
 				}
 ?>

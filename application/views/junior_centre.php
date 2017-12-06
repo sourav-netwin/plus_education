@@ -1,5 +1,5 @@
 <!------------------Header image section (Start)------------------->
-<div class="w3ls-banner-1" style="background: url(<?php echo base_url().JUNIOR_CENTRE_IMAGE_PATH.$centreDetails['centre_banner']; ?>)no-repeat center;"></div>
+<div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.JUNIOR_CENTRE_IMAGE_PATH.$centreDetails['centre_banner']; ?>)no-repeat center;"></div>
 <div style="padding-top: 140px;" class="carousel-caption">
 	<h2 class="hero-heading"><span style="background-color: rgba(0, 0, 0, 0.5);padding:10px"><?php echo $centreDetails['centre_name']; ?></span></h2>
 	<div class="school-img-inner-icon" style="margin-top: 50px;">
@@ -33,7 +33,7 @@
 ?>
 					<div class="col-lg-<?php echo 12/count($centreDetails['program']); ?>">
 						<a style="cursor: pointer;" class="centreProgram" data-ref_id="program_<?php echo $value['program_id']; ?>">
-						<img style="margin:0 auto;width: 146px;" class="img-rounded img-responsive" src="<?php echo base_url().PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
+						<img style="margin:0 auto;width: 146px;" class="img-rounded img-responsive" src="<?php echo ADMIN_PANEL_URL.PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
 						</a>
 					</div>
 <?php
@@ -60,7 +60,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapse-title" aria-expanded="true">
 										CENTRE DESCRIPTION
-										<i class="fa fa-angle-up pull-right switch-icon"></i>
+										<i class="fa fa-minus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -75,7 +75,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed collapse-title" aria-expanded="false">
 										MAPS
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -98,7 +98,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" class="collapsed collapse-title" aria-expanded="false">
 										DATES
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -155,7 +155,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2" class="collapsed collapse-title" aria-expanded="false">
 										ACCOMMODATION
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -209,7 +209,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseThree2" class="collapsed collapse-title" aria-expanded="false">
 										COURSE
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -250,7 +250,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFour2" class="collapsed collapse-title" aria-expanded="false">
 										SOCIAL PROGRAMMES AND SPORT
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -298,7 +298,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFive2" class="collapsed collapse-title" aria-expanded="false">
 										WALKING TOUR
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -348,7 +348,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseSix2" class="collapsed collapse-title" aria-expanded="false">
 										TRAVEL CARD
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -373,7 +373,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven2" class="collapsed collapse-title" aria-expanded="false">
 										PLUS TEAM
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -412,7 +412,7 @@
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion2" href="#program_<?php echo $value['program_id']; ?>" class="collapsed collapse-title" aria-expanded="false">
 												<?php echo $value['program_course_name']; ?>
-												<i class="fa fa-angle-down pull-right switch-icon"></i>
+												<i class="fa fa-plus pull-right switch-icon"></i>
 											</a>
 										</h4>
 									</div>
@@ -432,7 +432,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseThirteen2" class="collapsed collapse-title" aria-expanded="false">
 										Add ON
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -482,7 +482,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFourteen2" class="collapsed collapse-title" aria-expanded="false">
 										Fact Sheet
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -532,7 +532,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFifteen2" class="collapsed collapse-title" aria-expanded="false">
 										Activity Programmes
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -582,7 +582,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapsesixteen2" class="collapsed collapse-title" aria-expanded="false">
 										Menu
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -632,7 +632,7 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseseventeen2" class="collapsed collapse-title" aria-expanded="false">
 										International Mix
-										<i class="fa fa-angle-down pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
@@ -681,15 +681,15 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.switch-icon').on('click' , function(){
-			$($(this).parent().data('parent')).find('.switch-icon').attr('class' , 'fa fa-angle-down pull-right switch-icon');
+			$($(this).parent().data('parent')).find('.switch-icon').attr('class' , 'fa fa-plus pull-right switch-icon');
 			if($(this).parent().attr('aria-expanded') == 'true')
-				$(this).attr('class' , 'fa fa-angle-down pull-right switch-icon');
+				$(this).attr('class' , 'fa fa-plus pull-right switch-icon');
 			else
-				$(this).attr('class' , 'fa fa-angle-up pull-right switch-icon');
+				$(this).attr('class' , 'fa fa-minus pull-right switch-icon');
 		});
 
 		$('.centreProgram').click(function(){
-			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').attr('class' , 'fa fa-angle-up pull-right switch-icon');
+			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').attr('class' , 'fa fa-minus pull-right switch-icon');
 			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').parent().attr('aria-expanded' , 'true');
 			$('#'+$(this).data('ref_id')).attr('class' , 'panel-collapse collapse in');
 			$('#'+$(this).data('ref_id')).attr('aria-expanded' , 'true');

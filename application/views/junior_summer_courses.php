@@ -1,4 +1,4 @@
-<div class="w3ls-banner-1" style="background: url(<?php echo base_url().COURSE_IMAGE_PATH.$courseDetails['course_image']; ?>)no-repeat center;"></div>
+<div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.COURSE_IMAGE_PATH.$courseDetails['course_image']; ?>)no-repeat center;"></div>
 
 <div class="welcome welcome-title">
 	<div class="container">
@@ -42,7 +42,7 @@
 ?>
 							<div class="col-md-12 w3_agile_team_grid">
 								<div class="hover14 column">
-									<figure><img style="height: 230px;" src="<?php echo base_url().'uploads/course_feature/'.$value['feature_image']; ?>" class="img-responsive" /></figure>
+									<figure><img style="height: 230px;" src="<?php echo ADMIN_PANEL_URL.COURSE_FEATURE_IMAGE_PATH.$value['feature_image']; ?>" class="img-responsive" /></figure>
 								</div>
 								<div class="vc_row">
 									<div class="vc_custom_heading">
@@ -53,9 +53,9 @@
 											<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="<?php echo 'box'.($key+1); ?>"></i>
 										</div>
 									</div>
-									<p class="box-detail-text" id="<?php echo 'box'.($key+1); ?>" style="display: none;">
+									<span class="box-detail-text" id="<?php echo 'box'.($key+1); ?>" style="display: none;">
 										<?php echo html_entity_decode($value['feature_description']); ?>
-									</p>
+									</span>
 								</div>
 							</div>
 <?php
@@ -81,7 +81,7 @@
 			foreach($destinationDetails['region'] as $value)
 			{
 ?>
-				<li><a data-region_id = <?php echo $value['region_id']; ?> href="#reg_<?php echo $value['region_id']; ?>"><?php echo $value['region_name']; ?></a></li>
+				<li><a data-region_id = <?php echo str_replace(' ' , '_' , $value['region']); ?> href="#reg_<?php echo str_replace(' ' , '_' , $value['region']); ?>"><?php echo $value['region']; ?></a></li>
 <?php
 			}
 		}
@@ -99,7 +99,8 @@
 ?>
 							<div class="col-sm-3 col-xs-3 welcome-w3imgs">
 								<figure class="effect-chico">
-									<img src="<?php echo base_url().'uploads/centre/'.$value['centre_image']; ?>" />
+									<img src="<?php echo ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$value['centre_image']; ?>" />
+									<span class="show-destination-class"><p><?php echo $value['centre_name']; ?></p></span>
 									<figcaption>
 										<p class="figcaption-title-class-destination"><?php echo $value['centre_name']; ?></p>
 										<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_centre/<?php echo $value['centre_id']; ?>"><?php echo $this->lang->line('read_more'); ?></a></p>
@@ -122,7 +123,7 @@
 		{
 			foreach($destinationDetails['region'] as $value)
 			{
-				echo '<div id="reg_'.$value['region_id'].'" class="tab-pane fade"></div>';
+				echo '<div id="reg_'.str_replace(' ' , '_' , $value['region']).'" class="tab-pane fade"></div>';
 			}
 		}
 ?>
@@ -157,6 +158,13 @@
 				}
 			});
 			$(this).tab('show');
+		});
+
+		$(document).on('mouseenter' , '.effect-chico' , function(){
+			$(this).find('.show-destination-class').css('display' , 'none');
+		});
+		$(document).on('mouseleave' , '.effect-chico' , function(){
+			$(this).find('.show-destination-class').css('display' , 'block');
 		});
 	});
 </script>
