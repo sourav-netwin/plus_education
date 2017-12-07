@@ -65,7 +65,8 @@
 		//This function is used to get junior centre details , centre wise and show in details page
 		function getJuniorCentreDetails($centreId = NULL)
 		{
-			$result = $this->db->select('a.junior_centre_id , b.nome_centri as centre_name , a.centre_banner , a.centre_description , a.centre_latitude , a.centre_longitude')
+			$result = $this->db->select('a.junior_centre_id , b.nome_centri as centre_name , a.centre_banner , b.page_1 as centre_description ,
+										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude')
 							->from(TABLE_JUNIOR_CENTRE.' a')
 							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('a.centre_id' , $centreId)

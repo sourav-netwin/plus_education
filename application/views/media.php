@@ -3,13 +3,13 @@
 <script src="<?php echo base_url(); ?>js/lightbox-plus-jquery.min.js"> </script>
 
 <!-----------------Media Section Start------------------->
-<div class="container destination_container" id="media">
+<div class="col-lg-12" id="media">
 	<h1 class="destination_heading">MEDIA</h1><hr>
 	<ul class="nav nav-pills" style="padding-left: 420px;">
-		<li class="active"><a data-toggle="tab" href="#photo">PHOTGALLERY</a></li>
-		<li><a data-toggle="tab" href="#video">VIDEO</a></li>
+		<li class="active"><a data-toggle="tab" id='refPhotogalleryId' href="#photo">PHOTGALLERY</a></li>
+		<li><a data-toggle="tab" id='refVideoId' href="#video">VIDEO</a></li>
 	</ul>
-	<div class="tab-content">
+	<div class="tab-content" style="margin-left: -15px;margin-right: -15px;">
 		<div id="photo" class="tab-pane fade in active">
 			<div class="gallery">
 				<div>
@@ -189,10 +189,17 @@
 <!-------------Video Modal END------------>
 
 <script src="<?php echo base_url(); ?>js/modal.js"> </script>
+<script src="<?php echo base_url(); ?>js/bootstrap-tab.js"> </script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#firstVideo , #secondVideo , #thirdVideo').on('click' , function(){
 			$("#myVideoModal").modal();
 		});
+
+		$(".nav-pills a").click(function(){
+			$(this).tab('show');
+		});
+
 	});
 </script>

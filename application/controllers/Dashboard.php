@@ -42,9 +42,10 @@
 								<div class="col-md-12 agile-welcome-left">';
 					foreach($centreDetails['centre'] as $key => $value)
 					{
+						$centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'default.jpg';
 						$str.= '<div class="col-sm-3 col-xs-3 welcome-w3imgs">
 									<figure class="effect-chico">
-										<img src="'.ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$value['centre_image'].'" />
+										<img src="'.ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$centreImage.'" />
 										<span class="show-destination-class"><p>'.$value['centre_name'].'</p></span>
 										<figcaption>
 											<p class="figcaption-title-class-destination">'.$value['centre_name'].'</p>

@@ -1,13 +1,13 @@
 <!------------------Header image section (Start)------------------->
 <div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.JUNIOR_CENTRE_IMAGE_PATH.$centreDetails['centre_banner']; ?>)no-repeat center;"></div>
-<div style="padding-top: 140px;" class="carousel-caption">
+<div style="padding-top: 140px;height: 370px;" class="carousel-caption">
 	<h2 class="hero-heading"><span style="background-color: rgba(0, 0, 0, 0.5);padding:10px"><?php echo $centreDetails['centre_name']; ?></span></h2>
 	<div class="school-img-inner-icon" style="margin-top: 50px;">
-		<a style="color:#fff" class="icon-inner-play icon-inner-camera" href="#media">
+		<a style="color:#fff" class="icon-inner-play icon-inner-camera bannerRefIcon" href="#media" data-ref_id = "refPhotogalleryId">
 			<i class="fa-2x fa fa-camera foto-icon-class" aria-hidden="true"></i>
 			<label>Foto</label>
 		</a>
-		<a style="color:#fff" class="icon-inner-play no-youtube-popup" href="#media">
+		<a style="color:#fff" class="icon-inner-play no-youtube-popup bannerRefIcon" href="#media" data-ref_id = "refVideoId">
 			<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
 			<label>Video</label>
 		</a>
@@ -33,7 +33,7 @@
 ?>
 					<div class="col-lg-<?php echo 12/count($centreDetails['program']); ?>">
 						<a style="cursor: pointer;" class="centreProgram" data-ref_id="program_<?php echo $value['program_id']; ?>">
-						<img style="margin:0 auto;width: 146px;" class="img-rounded img-responsive" src="<?php echo ADMIN_PANEL_URL.PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
+						<img style="margin:0 auto;width: 160px;" class="img-rounded img-responsive1" src="<?php echo ADMIN_PANEL_URL.PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
 						</a>
 					</div>
 <?php
@@ -665,7 +665,7 @@
 	{
 		var uluru = {lat : <?php echo $centreDetails['centre_latitude']; ?> , lng : <?php echo $centreDetails['centre_longitude']; ?>};
 		var map = new google.maps.Map(document.getElementById('map') , {
-			zoom : 4,
+			zoom : 17,
 			center : uluru
 		});
 		var marker = new google.maps.Marker({
@@ -680,6 +680,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(document).on('click' , '.bannerRefIcon' , function(){
+			$('#'+$(this).data('ref_id')).tab('show');
+		});
+
 		$('.switch-icon').on('click' , function(){
 			$($(this).parent().data('parent')).find('.switch-icon').attr('class' , 'fa fa-plus pull-right switch-icon');
 			if($(this).parent().attr('aria-expanded') == 'true')
