@@ -76,6 +76,26 @@
 										->join(TABLE_PROGRAM_COURSE.' b' , 'a.program_id = b.program_course_id' , 'left')
 										->where('a.junior_centre_id' , $result['junior_centre_id'])
 										->get()->result_array();
+			$result['addon'] = $this->db->select('a.file_name , a.file_description')
+										->from(TABLE_JUNIOR_CENTRE_ADDON. ' a')
+										->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+										->where('b.centre_id' , $centreId)
+										->get()->result_array();
+			$result['factsheet'] = $this->db->select('a.file_name , a.file_description')
+										->from(TABLE_JUNIOR_CENTRE_FACTSHEET. ' a')
+										->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+										->where('b.centre_id' , $centreId)
+										->get()->result_array();
+			$result['activity_program'] = $this->db->select('a.file_name , a.file_description')
+										->from(TABLE_JUNIOR_CENTRE_ACTIVITY_PROGRAM. ' a')
+										->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+										->where('b.centre_id' , $centreId)
+										->get()->result_array();
+			$result['menu'] = $this->db->select('a.file_name , a.file_description')
+										->from(TABLE_JUNIOR_CENTRE_MENU. ' a')
+										->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+										->where('b.centre_id' , $centreId)
+										->get()->result_array();
 			return $result;
 		}
 	}

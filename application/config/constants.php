@@ -99,6 +99,10 @@ define('TABLE_PROGRAM_COURSE' , 'frontweb_program_course');
 define('TABLE_JUNIOR_CENTRE' , 'frontweb_junior_centre');
 define('TABLE_JUNIOR_CENTRE_PROGRAM' , 'frontweb_junior_centre_program');
 define('TABLE_CENTRE' , 'centri');
+define('TABLE_JUNIOR_CENTRE_ADDON' , 'frontweb_junior_centre_addon');
+define('TABLE_JUNIOR_CENTRE_FACTSHEET' , 'frontweb_junior_centre_fact_sheet');
+define('TABLE_JUNIOR_CENTRE_ACTIVITY_PROGRAM' , 'frontweb_junior_centre_activity_program');
+define('TABLE_JUNIOR_CENTRE_MENU' , 'frontweb_junior_centre_menu');
 
 //Admin panel base url path to access images
 define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
@@ -121,3 +125,16 @@ define('COURSE_FEATURE_IMAGE_PATH' , 'uploads/course_feature/');
 
 //Define image location details for centre master module images
 define('CENTRE_MASTER_IMAGE_PATH' , 'uploads/campus_image/');
+
+//Define file upload location details for add on module
+define('ADD_ON_FILE_PATH' , 'uploads/addon/');
+
+//Define file upload location details for fact sheet module
+define('FACTSHEET_FILE_PATH' , 'uploads/factsheet/');
+
+//Define file upload location details for activity program module
+define('ACTIVITY_PROGRAM_FILE_PATH' , 'uploads/activity_program/');
+
+//Define file upload location details for menu module
+define('MENU_FILE_PATH' , 'uploads/menu/');
+

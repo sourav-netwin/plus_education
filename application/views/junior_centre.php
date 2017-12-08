@@ -401,6 +401,7 @@
 						</div>
 						<!----------PLUS TEAM section END---------->
 
+						<!----------Dynamic Program section Start---------->
 <?php
 						if(!empty($centreDetails['program']))
 						{
@@ -426,204 +427,174 @@
 							}
 						}
 ?>
+						<!----------Dynamic Program section END---------->
+
 						<!----------Add ON section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseThirteen2" class="collapsed collapse-title" aria-expanded="false">
-										Add ON
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseThirteen2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
+<?php
+						if(!empty($centreDetails['addon']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#addonId" class="collapsed collapse-title" aria-expanded="false">
+											Add ON
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="addonId" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+<?php
+										foreach($centreDetails['addon'] as $value)
+										{
+?>
+											<div class="col-md-12">
+												<div class="col-md-11">
+													<p><?php echo $value['file_description']; ?></p>
+												</div>
+												<div class="col-md-1">
+													<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ADD_ON_FILE_PATH.$value['file_name']; ?>">
+														<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+													</a>
+												</div>
+											</div>
+											<div class="clearfix"></div><hr>
+<?php
+										}
+?>
 									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.Many desktop publishing packages and web page editors now use Lorem Ipsum .</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------Add ON section END---------->
 
 						<!----------Fact Sheet section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFourteen2" class="collapsed collapse-title" aria-expanded="false">
-										Fact Sheet
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseFourteen2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
+<?php
+						if(!empty($centreDetails['factsheet']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFourteen2" class="collapsed collapse-title" aria-expanded="false">
+											Fact Sheet
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseFourteen2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+<?php
+										foreach($centreDetails['factsheet'] as $value)
+										{
+?>
+											<div class="col-md-12">
+												<div class="col-md-11">
+													<p><?php echo $value['file_description']; ?></p>
+												</div>
+												<div class="col-md-1">
+													<a target="_blank" href="<?php echo ADMIN_PANEL_URL.FACTSHEET_FILE_PATH.$value['file_name']; ?>">
+														<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+													</a>
+												</div>
+											</div>
+											<div class="clearfix"></div><hr>
+<?php
+										}
+?>
 									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.Many desktop publishing packages and web page editors now use Lorem Ipsum .</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------Fact Sheet section END---------->
 
 						<!----------Activity Programmes section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFifteen2" class="collapsed collapse-title" aria-expanded="false">
-										Activity Programmes
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseFifteen2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
+<?php
+						if(!empty($centreDetails['activity_program']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFifteen2" class="collapsed collapse-title" aria-expanded="false">
+											Activity Programmes
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseFifteen2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+<?php
+										foreach($centreDetails['activity_program'] as $value)
+										{
+?>
+											<div class="col-md-12">
+												<div class="col-md-11">
+													<p><?php echo $value['file_description']; ?></p>
+												</div>
+												<div class="col-md-1">
+													<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ACTIVITY_PROGRAM_FILE_PATH.$value['file_name']; ?>">
+														<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+													</a>
+												</div>
+											</div>
+											<div class="clearfix"></div><hr>
+<?php
+										}
+?>
 									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.Many desktop publishing packages and web page editors now use Lorem Ipsum .</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------Activity Programmes section END---------->
 
 						<!----------Menu section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapsesixteen2" class="collapsed collapse-title" aria-expanded="false">
-										Menu
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapsesixteen2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
+<?php
+						if(!empty($centreDetails['menu']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapsesixteen2" class="collapsed collapse-title" aria-expanded="false">
+											Menu
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapsesixteen2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+<?php
+										foreach($centreDetails['menu'] as $value)
+										{
+?>
+											<div class="col-md-12">
+												<div class="col-md-11">
+													<p><?php echo $value['file_description']; ?></p>
+												</div>
+												<div class="col-md-1">
+													<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MENU_FILE_PATH.$value['file_name']; ?>">
+														<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+													</a>
+												</div>
+											</div>
+											<div class="clearfix"></div><hr>
+<?php
+										}
+?>
 									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.Many desktop publishing packages and web page editors now use Lorem Ipsum .</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------Menu section END---------->
 
 						<!----------International Mix section Start---------->
