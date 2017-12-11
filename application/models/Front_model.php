@@ -44,10 +44,12 @@
 												->where('attivo' , 1)
 												->get(TABLE_CENTRE)->result_array();
 			$this->db->select("id as centre_id , nome_centri as centre_name , website_image as centre_image");
+			$this->db->from(TABLE_JUNIOR_CENTRE);
+			$this->db->join(TABLE_CENTRE , 'id = centre_id' , 'left');
 			if($regionId != '')
 				$this->db->where('located_in' , str_replace('_' , ' ' , $regionId));
 			$this->db->where('attivo' , 1);
-			$returnArr['centre'] = $this->db->get(TABLE_CENTRE)->result_array();
+			$returnArr['centre'] = $this->db->get()->result_array();
 			return $returnArr;
 		}
 
@@ -96,6 +98,35 @@
 										->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
 										->where('b.centre_id' , $centreId)
 										->get()->result_array();
+			$result['walking_tour'] = $this->db->select('a.file_name , a.file_description')
+										->from(TABLE_JUNIOR_CENTRE_WALKING_TOUR. ' a')
+										->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+										->where('b.centre_id' , $centreId)
+										->get()->result_array();
+			$result['social_program_sports'] = $this->db->select('jn_cpsg_text as details')
+													->where('jn_cpsg_idc' , $centreId)
+													->where('jn_cpsg_ids' , 6)
+													->get(TABLE_CENTRI_PSG)->row_array();
+			$result['travel_card'] = $this->db->select('jn_cpsg_text as details')
+													->where('jn_cpsg_idc' , $centreId)
+													->where('jn_cpsg_ids' , 8)
+													->get(TABLE_CENTRI_PSG)->row_array();
+			$result['dates'] = $this->db->select("a.date , a.overnight ,
+													(select GROUP_CONCAT(b.week) from ".TABLE_JUNIOR_CENTRE_DATES_WEEK." b
+													where a.junior_centre_dates_id=b.junior_centre_dates_id) as week , (select
+													group_concat(d.program_course_name) from ".TABLE_JUNIOR_CENTRE_DATES_PROGRAM."
+													c join ".TABLE_PROGRAM_COURSE." d on c.program_id=d.program_course_id where
+													a.junior_centre_dates_id=c.junior_centre_dates_id) as program")
+										->from(TABLE_JUNIOR_CENTRE_DATES.' a')
+										->join(TABLE_JUNIOR_CENTRE.' e' , 'a.junior_centre_id = e.junior_centre_id' , 'left')
+										->where('e.centre_id' , $centreId)
+										->get()->result_array();
+			$result['accomodation'] = $this->db->select('cont_content as details')
+												->where('cont_menuid' , 9)
+												->get(TABLE_CONTENT_MST)->row_array();
+			$result['plus_team'] = $this->db->select('cont_content as details')
+												->where('cont_menuid' , 10)
+												->get(TABLE_CONTENT_MST)->row_array();
 			return $result;
 		}
 	}

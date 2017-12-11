@@ -103,6 +103,13 @@ define('TABLE_JUNIOR_CENTRE_ADDON' , 'frontweb_junior_centre_addon');
 define('TABLE_JUNIOR_CENTRE_FACTSHEET' , 'frontweb_junior_centre_fact_sheet');
 define('TABLE_JUNIOR_CENTRE_ACTIVITY_PROGRAM' , 'frontweb_junior_centre_activity_program');
 define('TABLE_JUNIOR_CENTRE_MENU' , 'frontweb_junior_centre_menu');
+define('TABLE_JUNIOR_CENTRE_WALKING_TOUR' , 'frontweb_junior_centre_walking_tour');
+define('TABLE_CENTRI_PSG' , 'plused_join_centri_psg');
+define('TABLE_JUNIOR_CENTRE_DATES' , 'frontweb_junior_centre_dates');
+define('TABLE_JUNIOR_CENTRE_DATES_WEEK' , 'frontweb_junior_centre_dates_week');
+define('TABLE_JUNIOR_CENTRE_DATES_PROGRAM' , 'frontweb_junior_centre_dates_program');
+define('TABLE_CONTENT_MST' , 'frontweb_contentmst');
+define('TABLE_MENU_MST' , 'frontweb_menumst');
 
 //Admin panel base url path to access images
 define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
@@ -137,4 +144,7 @@ define('ACTIVITY_PROGRAM_FILE_PATH' , 'uploads/activity_program/');
 
 //Define file upload location details for menu module
 define('MENU_FILE_PATH' , 'uploads/menu/');
+
+//Define file upload location details for menu module
+define('WALKING_TOUR_FILE_PATH' , 'uploads/walking_tour/');
 

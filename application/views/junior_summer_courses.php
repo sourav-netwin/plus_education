@@ -99,7 +99,7 @@
 ?>
 							<div class="col-sm-3 col-xs-3 welcome-w3imgs">
 								<figure class="effect-chico">
-									<?php $centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'default.jpg'; ?>
+									<?php $centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'front_default.jpg'; ?>
 									<img src="<?php echo ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$centreImage; ?>" />
 									<span class="show-destination-class"><p><?php echo $value['centre_name']; ?></p></span>
 									<figcaption>

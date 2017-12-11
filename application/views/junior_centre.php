@@ -93,114 +93,75 @@
 				<div class="col-lg-6 text-left">
 					<div class="panel-group" id="accordion2">
 						<!----------Dates section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" class="collapsed collapse-title" aria-expanded="false">
-										DATES
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseOne2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-								<div class="panel-body">
-									<table class="table table-striped show-date-table">
-										<tbody>
-											<tr>
-												<th style="background-color:#ddd; color:#fff">Arrival Dates</th>
-												<th style="background-color:#ddd; color:#fff">Weeks</th>
-												<th style="background-color:#ddd; color:#fff">Programmes</th>
-												<th style="background-color:#ddd; color:#fff">Overnight</th>
-											</tr>
-											<tr>
-												<td style="background-color:#fff;">20-06-2018 </td>
-												<td style="background-color:#fff;">2/3/4 weeks</td>
-												<td style="background-color:#fff;">Classic; Classic Premium</td>
-												<td style="background-color:#fff;"></td>
-											</tr>
-											<tr>
-												<td style="background-color:#f9f9f9;">27-06-2018 </td>
-												<td style="background-color:#f9f9f9;">2/3/4 weeks</td>
-												<td style="background-color:#f9f9f9;">Classic; Classic Premium</td>
-												<td style="background-color:#f9f9f9;"></td>
-											</tr>
-											<tr>
-												<td style="background-color:#fff;">04-07-2018 </td>
-												<td style="background-color:#fff;">2/3/4 weeks</td>
-												<td style="background-color:#fff;">Classic; Classic Premium</td>
-												<td style="background-color:#fff;"></td>
-											</tr>
-											<tr>
-												<td style="background-color:#f9f9f9;">18-07-2018 </td>
-												<td style="background-color:#f9f9f9;">2/3/4 weeks</td>
-												<td style="background-color:#f9f9f9;">Classic; Classic Premium</td>
-												<td style="background-color:#f9f9f9;"></td>
-											</tr>
-											<tr>
-												<td style="background-color:#fff;">31-07-2018 </td>
-												<td style="background-color:#fff;">2 weeks</td>
-												<td style="background-color:#fff;">Classic; Classic Premium</td>
-												<td style="background-color:#fff;"></td>
-											</tr>
-										</tbody>
-									</table>
+<?php
+						if(!empty($centreDetails['dates']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" class="collapsed collapse-title" aria-expanded="false">
+											DATES
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
 								</div>
-							</div>
-						</div>
-						<!----------Dates section END---------->
-
-						<!----------Accomodation section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2" class="collapsed collapse-title" aria-expanded="false">
-										ACCOMMODATION
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseTwo2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-								<div class="panel-body">
-									<p class="MsoNormal" style="font-weight: normal;">
-										Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to ensure that you are comfortable, safe and happy during your stay.
-									</p>
-									<div style="clear:both;" class="row">
-										<div class="col-12">
-											<h2 style="padding-left:4px;margin: 0px 4px;" class="negativo">On Campus</h2>
-											<div style="padding:4px; background-color:#fafafa">
-												<img class="img-responsive inside-box-image" src="http://www.plus-ed.com/apps/images/collegefrontale.jpg">
-												<p>Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to  ensure that you are comfortable, safe and happy during your stay.Our residences are a really fun, international environment
-												where students from around the world live together
-												and get to use English as the only true way of global
-												communication.
-												The residences are supervised by staff who are on hand
-												to helps students day and night. Each residential centre
-												differs slightly in the room and bathroom type, so please
-												take a look at the programme pages in this brochure.
-												Residential accommodation is popular with parents who
-												are sending younger children or those who want their
-												children to experience the tremendous fun of college life<br></p>
-											</div>
-										</div>
-										<div class="col-12">
-											<h2 style="padding-left:4px;margin: 0px 4px;" class="negativo">Home Stay</h2>
-											<div style="padding:4px; background-color:#fafafa">
-												<img class="img-responsive inside-box-image" src="http://www.plus-ed.com/apps/images/casafamiglia.jpg">
-												<p>Our hosts have been chosen for their interest in
-												welcoming young people from around the world. They are
-												picked because of the care and comfort they can offer to
-												students who may be travelling overseas for the first time.
-												Choosing to stay in home stay is the right option for those
-												who want to experience real life living in that country: it
-												will give a student the opportunity to use English in a real
-												environment and integrate with the family. Home stay is
-												often the first choice for slightly older students.</p>
-											</div>
-										</div>
+								<div id="collapseOne2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+									<div class="panel-body">
+										<table class="table table-striped show-date-table">
+											<tbody>
+												<tr>
+													<th style="background-color:#ddd; color:#fff">Arrival Dates</th>
+													<th style="background-color:#ddd; color:#fff">Weeks</th>
+													<th style="background-color:#ddd; color:#fff">Programmes</th>
+													<th style="background-color:#ddd; color:#fff">Overnight</th>
+												</tr>
+<?php
+												foreach($centreDetails['dates'] as $value)
+												{
+?>
+													<tr>
+														<td style="background-color:#fff;"><?php echo date('d-m-Y' , strtotime($value['date'])); ?></td>
+														<td style="background-color:#fff;"><?php echo str_replace(',' , '/' , $value['week']).' weeks'; ?></td>
+														<td style="background-color:#fff;"><?php echo str_replace(',' , ' ; ' , $value['program']); ?></td>
+														<td style="background-color:#fff;"><?php echo $value['overnight']; ?></td>
+													</tr>
+<?php
+												}
+?>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
+						<!----------Dates section END---------->
+
+						<!----------Accomodation section Start---------->
+<?php
+						if(!empty($centreDetails['accomodation']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2" class="collapsed collapse-title" aria-expanded="false">
+											ACCOMMODATION
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseTwo2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+									<div class="panel-body">
+										<?php echo $centreDetails['accomodation']['details']; ?>
+									</div>
+								</div>
+							</div>
+<?php
+						}
+?>
 						<!----------Accomodation section END---------->
 
 						<!----------Course section Start---------->
@@ -245,160 +206,126 @@
 						<!----------Course section END---------->
 
 						<!----------SOCIAL PROGRAMMES AND SPORT section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFour2" class="collapsed collapse-title" aria-expanded="false">
-										SOCIAL PROGRAMMES AND SPORT
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseFour2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div style="clear:both;" class="row">
-										<div class="col-12">
-											<div style="padding:4px; background-color:#fafafa">
-												<img class="img-responsive inside-box-image" src="https://studentaffairs.jhu.edu/recreation/wp-content/uploads/sites/24/2017/04/ice-hockey-team.jpg">
-												<p style="margin-top: 10px;">Once students are on the campus our PLUS staff will organise the following events: </p>
-												<ul style="font-weight: normal;">
-													<li>
-														<span style="text-indent: -18pt;">- Welcome and Farewell Party </span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Themed Disco Nights </span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Karaoke and Talent Shows </span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Treasure Hunt </span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Movie Night </span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Sports: Football, Basketball, Volleyball </span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Dance Sessions with professional choreographers. </span>
-													</li>
-												</ul>
+<?php
+						if(!empty($centreDetails['social_program_sports']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFour2" class="collapsed collapse-title" aria-expanded="false">
+											SOCIAL PROGRAMMES AND SPORT
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseFour2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+										<div style="clear:both;" class="row">
+											<div class="col-12">
+												<div style="padding:4px; background-color:#fafafa">
+													<?php echo $centreDetails['social_program_sports']['details']; ?>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------SOCIAL PROGRAMMES AND SPORT section END---------->
 
 						<!----------WALKING TOUR section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFive2" class="collapsed collapse-title" aria-expanded="false">
-										WALKING TOUR
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseFive2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
+<?php
+						if(!empty($centreDetails['walking_tour']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseFive2" class="collapsed collapse-title" aria-expanded="false">
+											WALKING TOUR
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseFive2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+<?php
+										foreach($centreDetails['walking_tour'] as $value)
+										{
+?>
+											<div class="col-md-12">
+												<div class="col-md-11">
+													<p><?php echo $value['file_description']; ?></p>
+												</div>
+												<div class="col-md-1">
+													<a target="_blank" href="<?php echo ADMIN_PANEL_URL.WALKING_TOUR_FILE_PATH.$value['file_name']; ?>">
+														<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+													</a>
+												</div>
+											</div>
+											<div class="clearfix"></div><hr>
+<?php
+										}
+?>
 									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.Many desktop publishing packages and web page editors now use Lorem Ipsum .</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
-									<div class="col-md-12">
-										<div class="col-md-11">
-											<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-										</div>
-										<div class="col-md-1">
-											<a target="_blank" href="/vision_ag/downloads/canterbury_6/01.Canterbury_Factsheet.pdf">
-												<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-											</a>
-										</div>
-									</div>
-									<div class="clearfix"></div><hr>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------WALKING TOUR section END---------->
 
 						<!----------TRAVEL CARD section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseSix2" class="collapsed collapse-title" aria-expanded="false">
-										TRAVEL CARD
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseSix2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-md-12">
-										<div class="col-md-3">
-											<img class="pull-left img-rounded img-responsive" src="http://plus-ed.com/apps/img/sg_8.jpg" alt="Travelcard" title="Travelcard">
-										</div>
-										<div class="col-md-9">
-											<p>Students are provided with a daily travelcard on their planned visits to London.</p>
-										</div>
+<?php
+						if(!empty($centreDetails['travel_card']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseSix2" class="collapsed collapse-title" aria-expanded="false">
+											TRAVEL CARD
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseSix2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+										<?php echo $centreDetails['travel_card']['details']; ?>
 									</div>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------TRAVEL CARD section END---------->
 
 						<!----------PLUS TEAM section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven2" class="collapsed collapse-title" aria-expanded="false">
-										PLUS TEAM
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseSeven2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div class="col-12">
-										<div style="padding:4px; background-color:#fafafa">
-											<img class="img-responsive inside-box-image" src="https://www.kintecglobal.com/uploads/team-banner-img.jpg">
-											<p style="margin-top: 10px;">The members of our team have been carefully selected for their responsible and caring attitude and for being fun-loving and outgoing. They are the people you can turn to at any time for assistance. Our PLUS Team will ensure that students enjoy their holidays in an exciting and safe environment. PLUS promises a wonderful, memorable and enriching summer camp experience. </p>
-											<ul style="font-weight: normal;margin-top: 10px;">
-												<li>
-													<span style="text-indent: -18pt;">- Qualified, experienced choreographers who are skilled to teach a variety of dance sessions.</span>
-												</li>
-												<li>
-													<span style="text-indent: -18pt;">- Sports Leaders who are trained and experienced to a professional level.</span>
-												</li>
-												<li>
-													<span style="text-indent: -18pt;">- Enthusiastic and energetic Activity Leaders who stimulate and entertain students.</span>
-												</li>
-											</ul>
-										</div>
+<?php
+						if(!empty($centreDetails['plus_team']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven2" class="collapsed collapse-title" aria-expanded="false">
+											PLUS TEAM
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseSeven2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+										<?php echo $centreDetails['plus_team']['details']; ?>
 									</div>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------PLUS TEAM section END---------->
 
 						<!----------Dynamic Program section Start---------->
@@ -677,15 +604,12 @@
 </script>
 
 <!------------------------------Map JS Section Start-------------------------->
-<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-<script src="https://www.amcharts.com/lib/3/maps/js/worldHigh.js"></script>
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-<!-- <script src="<?php echo base_url(); ?>map/ammap.js"></script>
-<script src="<?php echo base_url(); ?>map/worldHigh.js"></script>
-<script src="<?php echo base_url(); ?>map/light.js"></script> -->
+<script src="<?php echo base_url(); ?>js/map/ammap.js"></script>
+<script src="<?php echo base_url(); ?>js/map/worldHigh.js"></script>
+<script src="<?php echo base_url(); ?>js/map/light.js"></script>
 
 <script type = "text/javascript">
+//alert('poop = '+AmCharts.maps.worldHigh['svg']['g']['path'][1]['title']);
 	var map = AmCharts.makeChart("chartdiv" , {
 		"type" : "map",
 		"theme" : "light",

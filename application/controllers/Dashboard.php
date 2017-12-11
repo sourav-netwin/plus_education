@@ -35,6 +35,7 @@
 		{
 			if($this->input->post())
 			{
+				$str = '';
 				$centreDetails = $this->Front_model->getDestinationDetails(2 , $this->input->post('region_id'));
 				if(!empty($centreDetails['centre']))
 				{
@@ -42,7 +43,7 @@
 								<div class="col-md-12 agile-welcome-left">';
 					foreach($centreDetails['centre'] as $key => $value)
 					{
-						$centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'default.jpg';
+						$centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'front_default.jpg';
 						$str.= '<div class="col-sm-3 col-xs-3 welcome-w3imgs">
 									<figure class="effect-chico">
 										<img src="'.ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$centreImage.'" />
