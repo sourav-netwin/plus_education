@@ -110,6 +110,9 @@ define('TABLE_JUNIOR_CENTRE_DATES_WEEK' , 'frontweb_junior_centre_dates_week');
 define('TABLE_JUNIOR_CENTRE_DATES_PROGRAM' , 'frontweb_junior_centre_dates_program');
 define('TABLE_CONTENT_MST' , 'frontweb_contentmst');
 define('TABLE_MENU_MST' , 'frontweb_menumst');
+define('TABLE_JUNIOR_CENTRE_PHOTO_GALLERY' , 'frontweb_junior_centre_photo_gallery');
+define('TABLE_JUNIOR_CENTRE_VIDEO_GALLERY' , 'frontweb_junior_centre_video_gallery');
+define('TABLE_JUNIOR_CENTRE_INTERNATIONAL_MIX' , 'frontweb_junior_centre_international_mix');
 
 //Admin panel base url path to access images
 define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
@@ -148,3 +151,8 @@ define('MENU_FILE_PATH' , 'uploads/menu/');
 //Define file upload location details for menu module
 define('WALKING_TOUR_FILE_PATH' , 'uploads/walking_tour/');
 
+//Define image location details for junior centre photo gallery images
+define('PHOTO_GALLERY_IMAGE_PATH' , 'uploads/photo_gallery/');
+
+//Define image location details for junior centre photo gallery images
+define('VIDEO_GALLERY_IMAGE_PATH' , 'uploads/video_gallery/');

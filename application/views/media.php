@@ -12,160 +12,57 @@
 	<div class="tab-content" style="margin-left: -15px;margin-right: -15px;">
 		<div id="photo" class="tab-pane fade in active">
 			<div class="gallery">
-				<div>
-					<div class="gallery-grids">
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478696935_canterbury-12.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478696935_canterbury-12.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
+				<div class="gallery-grids">
+<?php
+					if(!empty($centreDetails['photo_gallery']))
+					{
+						foreach($centreDetails['photo_gallery'] as $value)
+						{
+?>
+							<div class="col-md-4 gallery-grid">
+								<div class="grid">
+									<figure class="effect-apollo">
+										<a class="example-image-link" href="<?php echo ADMIN_PANEL_URL.PHOTO_GALLERY_IMAGE_PATH.$value['photo']; ?>" data-lightbox="example-set" data-title="<?php echo $value['description']; ?>">
+											<img src="<?php echo ADMIN_PANEL_URL.PHOTO_GALLERY_IMAGE_PATH.$value['photo']; ?>" />
+											<figcaption>
+												<p><?php echo $value['short_description']; ?></p>
+											</figcaption>
+										</a>
+									</figure>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478696949_canterbury-9.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478696949_canterbury-9.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478696970_canterbury-13.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478696970_canterbury-13.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="clearfix" style="margin-bottom: 10px;"></div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478697028_canterbury-1.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478697028_canterbury-1.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478697038_canterbury-4.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478697038_canterbury-4.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478697061_canterbury-5.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478697061_canterbury-5.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="clearfix" style="margin-bottom: 10px;"></div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478697080_canterbury-6.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478697080_canterbury-6.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478697090_canterbury-7.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478697090_canterbury-7.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="col-md-4 gallery-grid">
-							<div class="grid">
-								<figure class="effect-apollo">
-									<a class="example-image-link" href="http://plus-ed.com/teacherApplications/campus/images/1478697101_canterbury-14.jpg" data-lightbox="example-set" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut sem ac lectus mattis sagittis. Donec pulvinar quam sit amet est vestibulum volutpat. Phasellus sed nibh odio. Phasellus posuere at purus sit amet porttitor. Cras euismod egestas enim eget molestie. Aenean ornare condimentum odio, in lacinia felis finibus non. Nam faucibus libero et lectus finibus, sed porttitor velit pellentesque.">
-										<img src="http://plus-ed.com/teacherApplications/campus/images/1478697101_canterbury-14.jpg" alt="" />
-										<figcaption>
-											<p>Proin vitae luctus dui, sit amet ultricies leo</p>
-										</figcaption>
-									</a>
-								</figure>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</div>
+<?php
+						}
+					}
+?>
+					<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
 		<div id="video" style="margin-top: 60px;" class="tab-pane fade">
-			<div class="col-sm-4 col-xs-4 welcome-w3imgs">
-				<figure class="effect-chico">
-					<img src="http://plus-ed.com/teacherApplications/campus/images/1478697564_dublin2.jpg" alt=" " />
-					<figcaption>
-						<p class="figcaption-title-class-destination">
-							<a id="firstVideo" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup">
-								<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
-							</a>
-						</p>
-					</figcaption>
-				</figure>
-			</div>
-			<div class="col-sm-4 col-xs-4 welcome-w3imgs">
-				<figure class="effect-chico">
-					<img src="http://plus-ed.com/teacherApplications/campus/images/1478697578_dublin.jpg" alt=" " />
-					<figcaption>
-						<p class="figcaption-title-class-destination">
-							<a id="secondVideo" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup">
-								<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
-							</a>
-						</p>
-					</figcaption>
-				</figure>
-			</div>
-			<div class="col-sm-4 col-xs-4 welcome-w3imgs">
-				<figure class="effect-chico">
-					<img src="http://plus-ed.com/teacherApplications/campus/images/1478697592_dublin3.jpg" alt=" " />
-					<figcaption>
-						<p class="figcaption-title-class-destination">
-							<a id="thirdVideo" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup">
-								<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
-							</a>
-						</p>
-					</figcaption>
-				</figure>
-			</div>
+<?php
+			if(!empty($centreDetails['video_gallery']))
+			{
+				foreach($centreDetails['video_gallery'] as $value)
+				{
+?>
+					<div class="col-sm-4 col-xs-4 welcome-w3imgs">
+						<figure class="effect-chico">
+							<img src="<?php echo ADMIN_PANEL_URL.VIDEO_GALLERY_IMAGE_PATH.$value['video_image']; ?>" alt=" " />
+							<figcaption>
+								<p class="figcaption-title-class-destination">
+									<a data-ref_url = "<?php echo $value['video_url']; ?>" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup videoModalClass">
+										<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
+									</a>
+								</p>
+							</figcaption>
+						</figure>
+						<p><?php echo $value['description']; ?></p>
+					</div>
+<?php
+				}
+			}
+?>
 		</div>
 	</div>
 </div>
@@ -178,11 +75,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<div class="modal-body">
-				<video width="550" controls>
-					<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-				</video>
-			</div>
+			<div class="modal-body videoModalBodyClass"></div>
 		</div>
 	</div>
 </div>
@@ -193,7 +86,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#firstVideo , #secondVideo , #thirdVideo').on('click' , function(){
+		$('.videoModalClass').on('click' , function(){
+			if($(this).data('ref_url').indexOf('www.youtube.com') != -1)
+				var str = '<iframe src="'+$(this).data('ref_url')+'" allowfullscreen="" width="550" height="300" frameborder="0"></iframe>';
+			else
+				var str = '<video width="550" controls>\
+								<source src="'+$(this).data('ref_url')+'">\
+							</video>';
+			$('.videoModalBodyClass').empty();
+			$('.videoModalBodyClass').append(str);
 			$("#myVideoModal").modal();
 		});
 

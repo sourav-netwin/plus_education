@@ -127,6 +127,24 @@
 			$result['plus_team'] = $this->db->select('cont_content as details')
 												->where('cont_menuid' , 10)
 												->get(TABLE_CONTENT_MST)->row_array();
+			$result['photo_gallery'] = $this->db->select('a.short_description , a.description , a.photo')
+												->from(TABLE_JUNIOR_CENTRE_PHOTO_GALLERY.' a')
+												->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+												->where('b.centre_id' , $centreId)
+												->get()->result_array();
+			$result['video_gallery'] = $this->db->select('a.video_url , a.description , a.video_image')
+												->from(TABLE_JUNIOR_CENTRE_VIDEO_GALLERY.' a')
+												->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+												->where('b.centre_id' , $centreId)
+												->get()->result_array();
+			$result['international_mix'] = $this->db->select('a.country_name , a.percentage , a.color_code')
+													->from(TABLE_JUNIOR_CENTRE_INTERNATIONAL_MIX.' a')
+													->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
+													->where('b.centre_id' , $centreId)
+													->get()->result_array();
+			$result['course'] = $this->db->select('cont_content as details')
+												->where('cont_menuid' , 11)
+												->get(TABLE_CONTENT_MST)->row_array();
 			return $result;
 		}
 	}

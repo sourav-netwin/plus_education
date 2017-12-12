@@ -165,44 +165,28 @@
 						<!----------Accomodation section END---------->
 
 						<!----------Course section Start---------->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion2" href="#collapseThree2" class="collapsed collapse-title" aria-expanded="false">
-										COURSE
-										<i class="fa fa-plus pull-right switch-icon"></i>
-									</a>
-								</h4>
-							</div>
-							<div id="collapseThree2" class="panel-collapse collapse" aria-expanded="false" style="">
-								<div class="panel-body">
-									<div style="clear:both;" class="row">
-										<div class="col-12">
-											<div style="padding:4px; background-color:#fafafa">
-												<img class="img-responsive inside-box-image" src="http://www.twenty19.com/blog/wp-content/uploads/2017/06/2015117-18245511-4544-group-study1.jpg">
-												<ul style="font-weight: normal;margin-top: 10px;">
-													<li>
-														<span style="text-indent: -18pt;">- Placement test - written and oral test</span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- 15 hours English lessons per week</span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- Maximum class size 15 students</span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- PLUS text book and all supplementary material for the course</span>
-													</li>
-													<li>
-														<span style="text-indent: -18pt;">- PLUS end of course certificate </span>
-													</li>
-												</ul>
-											</div>
-										</div>
+<?php
+						if(!empty($centreDetails['course']))
+						{
+?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapseThree2" class="collapsed collapse-title" aria-expanded="false">
+											COURSE
+											<i class="fa fa-plus pull-right switch-icon"></i>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseThree2" class="panel-collapse collapse" aria-expanded="false" style="">
+									<div class="panel-body">
+										<?php echo $centreDetails['course']['details']; ?>
 									</div>
 								</div>
 							</div>
-						</div>
+<?php
+						}
+?>
 						<!----------Course section END---------->
 
 						<!----------SOCIAL PROGRAMMES AND SPORT section Start---------->
@@ -609,7 +593,6 @@
 <script src="<?php echo base_url(); ?>js/map/light.js"></script>
 
 <script type = "text/javascript">
-//alert('poop = '+AmCharts.maps.worldHigh['svg']['g']['path'][1]['title']);
 	var map = AmCharts.makeChart("chartdiv" , {
 		"type" : "map",
 		"theme" : "light",
@@ -618,175 +601,25 @@
 			"zoomLevel": 3.5,
 			"zoomLongitude": 10,
 			"zoomLatitude": 52,
-			"areas": [ {
-				"title": "Austria",
-				"id": "AT",
-				"color": "#67b7dc",
-				"customData": "1995",
-				"groupId": "before2004"
-			}, {
-				"title": "Ireland",
-				"id": "IE",
-				"color": "#67b7dc",
-				"customData": "1973",
-				"groupId": "before2004"
-			}, {
-				"title": "Denmark",
-				"id": "DK",
-				"color": "#67b7dc",
-				"customData": "1973",
-				"groupId": "before2004"
-			}, {
-				"title": "Finland",
-				"id": "FI",
-				"color": "#67b7dc",
-				"customData": "67.92%",
-				"groupId": "before2004"
-			}, {
-				"title": "Sweden",
-				"id": "SE",
-				"color": "#67b7dc",
-				"customData": "1995",
-				"groupId": "before2004"
-			}, {
-				"title": "Great Britain",
-				"id": "GB",
-				"color": "#67b7dc",
-				"customData": "35.5%",
-				"groupId": "before2004"
-			  }, {
-				"title": "Italy",
-				"id": "IT",
-				"color": "#67b7dc",
-				"customData": "1957",
-				"groupId": "before2004"
-			}, {
-				"title": "France",
-				"id": "FR",
-				"color": "#67b7dc",
-				"customData": "20%",
-				"groupId": "before2004"
-			}, {
-				"title": "Spain",
-				"id": "ES",
-				"color": "#67b7dc",
-				"customData": "1986",
-				"groupId": "before2004"
-			}, {
-				"title": "Greece",
-				"id": "GR",
-				"color": "#67b7dc",
-				"customData": "1981",
-				"groupId": "before2004"
-			}, {
-				"title": "Germany",
-				"id": "DE",
-				"color": "#67b7dc",
-				"customData": "1957",
-				"groupId": "before2004"
-			}, {
-				"title": "Belgium",
-				"id": "BE",
-				"color": "#67b7dc",
-				"customData": "1957",
-				"groupId": "before2004"
-			}, {
-				"title": "Luxembourg",
-				"id": "LU",
-				"color": "#67b7dc",
-				"customData": "1957",
-				"groupId": "before2004"
-			}, {
-				"title": "Netherlands",
-				"id": "NL",
-				"color": "#67b7dc",
-				"customData": "1957",
-				"groupId": "before2004"
-			}, {
-				"title": "Portugal",
-				"id": "PT",
-				"color": "#67b7dc",
-				"customData": "1986",
-				"groupId": "before2004"
-			}, {
-				"title": "Lithuania",
-				"id": "LT",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Latvia",
-				"id": "LV",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Czech Republic ",
-				"id": "CZ",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Slovakia",
-				"id": "SK",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Slovenia",
-				"id": "SI",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Estonia",
-				"id": "EE",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Hungary",
-				"id": "HU",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Cyprus",
-				"id": "CY",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Malta",
-				"id": "MT",
-				"color": "#ebdb8b",
-				"customData": "2004",
-				"groupId": "2004"
-			}, {
-				"title": "Poland",
-				"id": "PL",
-				"color": "#ebdb8b",
-				"customData": "13.7%",
-				"groupId": "2004"
-			}, {
-				"title": "Romania",
-				"id": "RO",
-				"color": "#83c2ba",
-				"customData": "4.9%",
-				"groupId": "2007"
-			}, {
-				"title": "Bulgaria",
-				"id": "BG",
-				"color": "#83c2ba",
-				"customData": "2007",
-				"groupId": "2007"
-			}, {
-				"title": "Croatia",
-				"id": "HR",
-				"color": "#db8383",
-				"customData": "2013",
-				"groupId": "2013"
-			}]
+			"areas": [
+<?php
+				if(!empty($centreDetails['international_mix']))
+				{
+					foreach($centreDetails['international_mix'] as $value)
+					{
+						$arr = explode('-' , $value['country_name']);
+?>
+						{
+							"title": "<?php echo $arr[0]; ?>",
+							"id": "<?php echo $arr[1]; ?>",
+							"color": "<?php echo $value['color_code']; ?>",
+							"customData": "<?php echo $value['percentage']; ?>"
+						},
+<?php
+					}
+				}
+?>
+			]
 		},
 		"areasSettings": {
 			"rollOverOutlineColor": "#FFFFFF",
