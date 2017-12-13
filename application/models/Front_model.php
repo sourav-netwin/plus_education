@@ -131,11 +131,13 @@
 												->from(TABLE_JUNIOR_CENTRE_PHOTO_GALLERY.' a')
 												->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
 												->where('b.centre_id' , $centreId)
+												->order_by('a.sequence' , 'asc')
 												->get()->result_array();
 			$result['video_gallery'] = $this->db->select('a.video_url , a.description , a.video_image')
 												->from(TABLE_JUNIOR_CENTRE_VIDEO_GALLERY.' a')
 												->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
 												->where('b.centre_id' , $centreId)
+												->order_by('a.sequence' , 'asc')
 												->get()->result_array();
 			$result['international_mix'] = $this->db->select('a.country_name , a.percentage , a.color_code')
 													->from(TABLE_JUNIOR_CENTRE_INTERNATIONAL_MIX.' a')

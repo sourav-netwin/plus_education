@@ -2,6 +2,10 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/lightbox.css">
 <script src="<?php echo base_url(); ?>js/lightbox-plus-jquery.min.js"> </script>
 
+<!-------------------Jquery fancybox CSS and JS--------------------->
+<link href="<?php echo base_url(); ?>css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
+<script src="<?php echo base_url(); ?>js/jquery.fancybox.js"></script>
+
 <!-----------------Media Section Start------------------->
 <div class="col-lg-12" id="media">
 	<h1 class="destination_heading">MEDIA</h1><hr>
@@ -51,7 +55,7 @@
 							<img src="<?php echo ADMIN_PANEL_URL.VIDEO_GALLERY_IMAGE_PATH.$value['video_image']; ?>" alt=" " />
 							<figcaption>
 								<p class="figcaption-title-class-destination">
-									<a data-ref_url = "<?php echo $value['video_url']; ?>" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup videoModalClass">
+									<a href = "<?php echo $value['video_url']; ?>" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup" data-fancybox data-caption="<?php echo $value['description']; ?>">
 										<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
 									</a>
 								</p>
@@ -86,16 +90,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.videoModalClass').on('click' , function(){
-			if($(this).data('ref_url').indexOf('www.youtube.com') != -1)
-				var str = '<iframe src="'+$(this).data('ref_url')+'" allowfullscreen="" width="550" height="300" frameborder="0"></iframe>';
-			else
-				var str = '<video width="550" controls>\
-								<source src="'+$(this).data('ref_url')+'">\
-							</video>';
-			$('.videoModalBodyClass').empty();
-			$('.videoModalBodyClass').append(str);
-			$("#myVideoModal").modal();
+		$("[data-fancybox]").fancybox({
+			buttons : [
+				'slideShow',
+				'fullScreen',
+				'close'
+			]
 		});
 
 		$(".nav-pills a").click(function(){

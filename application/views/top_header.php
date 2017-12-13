@@ -9,17 +9,45 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<div class="w3menu navbar-right">
 				<ul class="nav navbar top-header-menu">
-					<li><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('brochure'); ?><b class="caret"></b></a>
-						<ul class="dropdown-menu agile_short_dropdown brochure-dropdown-menu">
-							<li><a href=""><?php echo $this->lang->line('plus_brochure_english_version'); ?></a></li>
-							<li><a href=""><?php echo $this->lang->line('plus_brochure_chinese_version'); ?></a></li>
-							<li><a href=""><?php echo $this->lang->line('uk_university_placement'); ?></a></li>
-						</ul>
-					</li>
-					<li><a href=""><?php echo $this->lang->line('about_us'); ?></a></li>
-					<li><a href=""><?php echo $this->lang->line('contact'); ?></a></li>
+<?php
+					$topHeaderMenu = getTopheaderMenu();
+					if(!empty($topHeaderMenu))
+					{
+						foreach($topHeaderMenu as $value)
+						{
+							if($value['name'] == 'Home')
+								$url = base_url();
+							elseif($value['url'] != '')
+								$url = base_url().'content/'.$value['url'];
+							else
+								$url = '';
+							if(!empty($value['submenu']))
+							{
+?>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $value['name']; ?><b class="caret"></b></a>
+									<ul class="dropdown-menu agile_short_dropdown brochure-dropdown-menu">
+<?php
+										foreach($value['submenu'] as $subMenuValue)
+										{
+?>
+											<li><a href="<?php $subMenuValue['url']; ?>"><?php echo $subMenuValue['name']; ?></a></li>
+<?php
+										}
+?>
+									</ul>
+								</li>
+<?php
+							}
+							else
+							{
+?>
+								<li><a href="<?php echo $url; ?>"><?php echo $value['name']; ?></a></li>
+<?php
+							}
+						}
+					}
+?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('agent_area'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown agent-dropdown-menu">

@@ -6,6 +6,7 @@
 			parent::__construct();
 			$this->lang->load('general_lang' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
+			$this->load->helper('frontend');
 		}
 
 		//This function is used to show home page

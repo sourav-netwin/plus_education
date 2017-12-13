@@ -554,3 +554,11 @@
 	opacity: 1 !important;
 	font-size: 10px;
 }
+
+.fancybox-slide--iframe .fancybox-content {
+	width  : 600px;
+	height : 600px;
+	max-width  : 60%;
+	max-height : 60%;
+	margin: 0;
+}
