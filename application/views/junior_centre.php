@@ -33,11 +33,13 @@
 ?>
 					<div class="col-lg-<?php echo 12/count($centreDetails['program']); ?>">
 						<a style="cursor: pointer;" class="centreProgram" data-ref_id="program_<?php echo $value['program_id']; ?>">
-						<img style="margin:0 auto;width: 160px;" class="img-rounded img-responsive1" src="<?php echo ADMIN_PANEL_URL.PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
+						<img style="margin:0 auto;width: 200px;" class="img-rounded img-responsive1" src="<?php echo ADMIN_PANEL_URL.PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
 						</a>
 					</div>
 <?php
 				}
+				if(array_key_exists('addon' , $centreDetails['program']))
+					unset($centreDetails['program']['addon']);
 			}
 ?>
 			<div class="clearfix"></div>
@@ -348,13 +350,13 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion2" href="#addonId" class="collapsed collapse-title" aria-expanded="false">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#program_addon" class="collapsed collapse-title" aria-expanded="false">
 											Add ON
 											<i class="fa fa-plus pull-right switch-icon"></i>
 										</a>
 									</h4>
 								</div>
-								<div id="addonId" class="panel-collapse collapse" aria-expanded="false" style="">
+								<div id="program_addon" class="panel-collapse collapse" aria-expanded="false" style="">
 									<div class="panel-body">
 <?php
 										foreach($centreDetails['addon'] as $value)

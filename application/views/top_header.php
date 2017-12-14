@@ -15,12 +15,6 @@
 					{
 						foreach($topHeaderMenu as $value)
 						{
-							if($value['name'] == 'Home')
-								$url = base_url();
-							elseif($value['url'] != '')
-								$url = base_url().'content/'.$value['url'];
-							else
-								$url = '';
 							if(!empty($value['submenu']))
 							{
 ?>
@@ -30,8 +24,9 @@
 <?php
 										foreach($value['submenu'] as $subMenuValue)
 										{
+											$url = getUrlForTopHeader($subMenuValue);
 ?>
-											<li><a href="<?php $subMenuValue['url']; ?>"><?php echo $subMenuValue['name']; ?></a></li>
+											<li><a href="<?php echo $url; ?>"><?php echo $subMenuValue['name']; ?></a></li>
 <?php
 										}
 ?>
@@ -41,6 +36,7 @@
 							}
 							else
 							{
+								$url = getUrlForTopHeader($value);
 ?>
 								<li><a href="<?php echo $url; ?>"><?php echo $value['name']; ?></a></li>
 <?php

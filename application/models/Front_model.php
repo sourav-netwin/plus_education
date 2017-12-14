@@ -147,6 +147,13 @@
 			$result['course'] = $this->db->select('cont_content as details')
 												->where('cont_menuid' , 11)
 												->get(TABLE_CONTENT_MST)->row_array();
+			//If addon is availbale for any centre then add one program for addon to show in choose program section
+			if(!empty($result['addon']))
+				$result['program']['addon'] = array(
+					'program_id' => 'addon',
+					'program_course_name' => 'ADD ON',
+					'program_course_logo' => 'addon.jpg'
+				);
 			return $result;
 		}
 	}

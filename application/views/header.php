@@ -9,30 +9,35 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<div class="w3menu navbar-right">
+<?php
+				$headerMenuDetails = getHeaderMenu();
+?>
 				<ul class="nav navbar">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('junior_usa_summer_programmes'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown usa-summer-program-menu">
 							<li>
 								<div class="row">
-									<div class="col-md-6">
-										<h5 class="menu-heading li-menu-title-small"><?php echo $this->lang->line('experience'); ?></h5>
-										<ul>
-											<li><a href=""><?php echo $this->lang->line('los_angeles'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('miami'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('new_york_central'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('new_york_rider'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_the_experience'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-6">
-										<h5 class="menu-heading li-menu-title-small"><?php echo $this->lang->line('classic_superior'); ?></h5>
-										<ul>
-											<li><a href=""><?php echo $this->lang->line('los_angeles'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('new_york_central'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_the_classic_superior'); ?></a></li>
-										</ul>
-									</div>
+<?php
+									if(!empty($headerMenuDetails['usaSummerProgram']))
+									{
+										foreach($headerMenuDetails['usaSummerProgram'] as $key => $value)
+										{
+?>
+											<div class="col-md-6">
+												<h5 class="menu-heading li-menu-title-small"><?php echo ucwords(strtolower(str_replace('_' , ' ' , $key))); ?></h5>
+												<ul>
+<?php
+													foreach($value as $centreValue)
+														echo '<li><a href="'.base_url().'dashboard/junior_centre/'.$centreValue['id'].'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
+?>
+													<li><a class="about-experience-class" href=""><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $key)); ?></a></li>
+												</ul>
+											</div>
+<?php
+										}
+									}
+?>
 								</div>
 							</li>
 						</ul>
@@ -43,93 +48,38 @@
 						<ul class="dropdown-menu agile_short_dropdown europe-summer-program-menu">
 							<li>
 								<div class="row">
-									<div class="col-md-2">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('classic'); ?></h5>
-										<ul>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
-												<span><?php echo $this->lang->line('uk'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('brighton'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('canterbury'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('edinburgh'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('london_greenwich'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('london_kingston'); ?></a></li>
-											<hr>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/malta.png" />
-												<span><?php echo $this->lang->line('malta'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('qawra_bugiba'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_the_classic'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-2">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('classic_premium'); ?></h5>
-										<ul>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
-												<span><?php echo $this->lang->line('uk'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('brighton'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('canterbury'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('chester'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('london_greenwich'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('stirling'); ?></a></li>
-											<hr>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/ireland.png" />
-												<span><?php echo $this->lang->line('ireland'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('dublin'); ?></a></li>
-											<hr>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/malta.png" />
-												<span><?php echo $this->lang->line('malta'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('qawra_bugiba'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_the_classic_premium'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-2">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('classic_plus_academy'); ?></h5>
-										<ul>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
-												<span><?php echo $this->lang->line('uk'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('effingham'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('windsor'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_classic_plus'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('premium_academy'); ?></h5>
-										<ul>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
-												<span><?php echo $this->lang->line('uk'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('chelmsford'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('loughborough'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_premium_academy'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('available_add_on'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title"><?php echo $this->lang->line('premium_weekend'); ?></h5>
-										<ul>
-											<li>
-												<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
-												<span><?php echo $this->lang->line('uk'); ?></span>
-											</li>
-											<li><a href=""><?php echo $this->lang->line('liverpool'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('loughborough'); ?></a></li>
-											<li><a class="about-experience-class" href=""><?php echo $this->lang->line('about_premium_weekend'); ?></a></li>
-										</ul>
-									</div>
+<?php
+									if(!empty($headerMenuDetails['europeSummerProgram']))
+									{
+										$siNo = 1;
+										foreach($headerMenuDetails['europeSummerProgram'] as $programKey => $programValue)
+										{
+?>
+											<div class="col-md-<?php echo ($siNo == 3 || $siNo == 5) ? 3 : 2; ?>">
+												<h5 class="menu-heading li-menu-title"><?php echo ucwords(strtolower(str_replace('_' , ' ' , $programKey))); ?></h5>
+												<ul>
+<?php
+													foreach($programValue as $regionKey => $regionValue)
+													{
+?>
+														<li>
+															<img class="country-flag-menu" src="<?php echo base_url().COUNTRY_FLAG_IMAGE.strtolower($regionKey).'.png'; ?>" />
+															<span><?php echo ucwords(strtolower(str_replace('_' , ' ' , $regionKey))); ?></span>
+														</li>
+<?php
+														foreach($regionValue as $centreValue)
+															echo '<li><a href="'.base_url().'dashboard/junior_centre/'.$centreValue['id'].'">'.ucwords(strtolower(str_replace('_' , ' ' , $centreValue['centre']))).'</a></li>';
+														echo "<hr>";
+													}
+?>
+													<li><a class="about-experience-class" href=""><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $programKey)); ?></a></li>
+												</ul>
+											</div>
+<?php
+											$siNo++;
+										}
+									}
+?>
 								</div>
 							</li>
 						</ul>
@@ -142,7 +92,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<h5 class="menu-heading li-menu-title-small">
-											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
+											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/united_kingdom.png" />
 											<?php echo $this->lang->line('uk_residential'); ?>
 										</h5>
 										<ul>
@@ -158,7 +108,7 @@
 									</div>
 									<div class="col-md-3">
 										<h5 class="menu-heading li-menu-title-small">
-											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/uk.png" />
+											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/united_kingdom.png" />
 											<?php echo $this->lang->line('uk_family_stay'); ?>
 										</h5>
 										<ul>

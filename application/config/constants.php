@@ -156,3 +156,9 @@ define('PHOTO_GALLERY_IMAGE_PATH' , 'uploads/photo_gallery/');
 
 //Define image location details for junior centre photo gallery images
 define('VIDEO_GALLERY_IMAGE_PATH' , 'uploads/video_gallery/');
+
+//Define pdf file location for CMS
+define('CAMPUS_CONTENT_PDF_FILE' , 'uploads/campus_content_pdf/');
+
+//Define country flag icon location for CMS
+define('COUNTRY_FLAG_IMAGE' , 'images/country_flag_icon/');
