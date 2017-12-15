@@ -4,27 +4,34 @@
 	<div class="container">
 		<h2 class="agileits-title about-title"><?php echo $courseDetails['course_name']; ?></h2><hr>
 		<div class="col-lg-12">
-			<div class="col-lg-8 junior-course-main-summary">
+<?php
+			$className = (!empty($courseDetails['course_specification'])) ? 'col-lg-8 junior-course-main-summary' : 'col-lg-12';
+?>
+			<div class="<?php echo $className; ?>">
 				<p>
 					<?php echo $courseDetails['corse_description']; ?>
 				</p>
 			</div>
-			<div class="col-lg-4">
 <?php
 				if(!empty($courseDetails['course_specification']))
 				{
-					foreach($courseDetails['course_specification'] as $value)
-					{
 ?>
-						<p>
-							<i class="fa fa-hand-o-right" aria-hidden="true"></i>
-							&nbsp;&nbsp;<?php echo $value['specification_option']; ?> : <?php echo $value['specification_value']; ?>
-						</p>
+					<div class="col-lg-4">
 <?php
-					}
+						foreach($courseDetails['course_specification'] as $value)
+						{
+?>
+							<p>
+								<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+								&nbsp;&nbsp;<?php echo $value['specification_option']; ?> : <?php echo $value['specification_value']; ?>
+							</p>
+<?php
+						}
+?>
+					</div>
+<?php
 				}
 ?>
-			</div>
 		</div>
 	</div>
 </div>

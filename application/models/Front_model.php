@@ -73,7 +73,7 @@
 							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('a.centre_id' , $centreId)
 							->get()->row_array();
-			$result['program'] = $this->db->select('a.program_id , b.program_course_name , b.program_course_description , b.program_course_logo')
+			$result['program'] = $this->db->select('a.program_id , b.program_course_name , a.program_details as program_course_description , b.program_course_logo')
 										->from(TABLE_JUNIOR_CENTRE_PROGRAM.' a')
 										->join(TABLE_PROGRAM_COURSE.' b' , 'a.program_id = b.program_course_id' , 'left')
 										->where('a.junior_centre_id' , $result['junior_centre_id'])

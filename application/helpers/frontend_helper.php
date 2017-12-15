@@ -33,4 +33,14 @@
 		$CI->load->model('Content_model' , '' , TRUE);
 		return $CI->Content_model->getHeaderMenuDetails();
 	}
+
+	//This function is used to get the deatails of footer section from CMS admin panel
+	function getFooterDetails()
+	{
+		$CI = &get_instance();
+		$CI->load->model('Content_model' , '' , TRUE);
+		$data['footerDetails'] = $CI->Content_model->getFooterDetails();
+		$data['address'] = $CI->Content_model->getFooterAddress();
+		return $data;
+	}
 ?>

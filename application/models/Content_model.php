@@ -85,4 +85,38 @@
 			}
 			return $returnArr;
 		}
+
+		//This function is used to get the details of footer menu details from DB as per the admin panel CMS
+		function getFooterDetails($parentId = 0)
+		{
+			$returnArr = array();
+			$result = $this->db->select('mnu_menuid as id , mnu_parent_menu_id as parent_id , mnu_menu_name as name ,
+										 cont_url_name as url , cont_content_type as type , cont_pdf_file as pdf , cont_external_url
+										  as external_url')
+							->join(TABLE_CONTENT_MST , 'cont_menuid = mnu_menuid' , 'left')
+							->where('mnu_type' , 'Footer')
+							->where('mnu_parent_menu_id' , $parentId)
+							->order_by('mnu_sequence')
+							->get(TABLE_MENU_MST)->result_array();
+			if(!empty($result))
+			{
+				foreach($result as $value)
+				{
+					$subMenuArr = $this->getFooterDetails($value['id']);
+					if(!empty($subMenuArr))
+						$value['subMenu'] = $subMenuArr;
+					array_push($returnArr , $value);
+				}
+			}
+			return $returnArr;
+		}
+
+		//This function isused to get the footer address from DB as per the CMS section
+		function getFooterAddress()
+		{
+			$result = $this->db->select('cont_content as address')
+								->where('cont_contentid' , 9)
+								->get(TABLE_CONTENT_MST)->row_array();
+			return $result['address'];
+		}
 	}

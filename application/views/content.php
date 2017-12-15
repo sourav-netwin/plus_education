@@ -5,7 +5,7 @@
 		echo '<meta name="keywords" content="'.$cont_keywords.'">';
 ?>
 <div class="container">
-	<h1 class="cmsPageTitle">WHO WE ARE</h1>
+	<h1 class="cmsPageTitle"><?php echo $cont_page_title; ?></h1>
 	<div class="welcome-agileinfo">
 		<div class="col-md-12 agile-welcome-left">
 <?php
