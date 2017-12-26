@@ -113,6 +113,30 @@ define('TABLE_MENU_MST' , 'frontweb_menumst');
 define('TABLE_JUNIOR_CENTRE_PHOTO_GALLERY' , 'frontweb_junior_centre_photo_gallery');
 define('TABLE_JUNIOR_CENTRE_VIDEO_GALLERY' , 'frontweb_junior_centre_video_gallery');
 define('TABLE_JUNIOR_CENTRE_INTERNATIONAL_MIX' , 'frontweb_junior_centre_international_mix');
+define('TABLE_JUNIOR_MINISTAY' , 'frontweb_junior_ministay');
+define('TABLE_JUNIOR_MINISTAY_PHOTOGALLERY' , 'frontweb_junior_ministay_photo_gallery');
+define('TABLE_JUNIOR_MINISTAY_VIDEO_GALLERY' , 'frontweb_junior_ministay_video_gallery');
+define('TABLE_JUNIOR_MINISTAY_FACT_SHEET' , 'frontweb_junior_ministay_fact_sheet');
+define('TABLE_JUNIOR_MINISTAY_ACTIVITY_PROGRAM' , 'frontweb_junior_ministay_activity_program');
+define('TABLE_JUNIOR_MINISTAY_ADDON' , 'frontweb_junior_ministay_addon');
+define('TABLE_JUNIOR_MINISTAY_MENU' , 'frontweb_junior_ministay_menu');
+define('TABLE_JUNIOR_MINISTAY_WALKING_TOUR' , 'frontweb_junior_ministay_walking_tour');
+define('TABLE_JUNIOR_MINISTAY_PROGRAM' , 'frontweb_junior_ministay_program');
+define('TABLE_JUNIOR_MINISTAY_DATES' , 'frontweb_junior_ministay_dates');
+define('TABLE_JUNIOR_MINISTAY_DATES_PROGRAM' , 'frontweb_junior_ministay_dates_program');
+define('TABLE_JUNIOR_MINISTAY_DATES_WEEK' , 'frontweb_junior_ministay_dates_week');
+define('TABLE_JUNIOR_MINISTAY_INTERNATIONAL_MIX' , 'frontweb_junior_ministay_international_mix');
+define('TABLE_JUNIOR_MINISTAY_STATIC_PROGRAM' , 'frontweb_junior_ministay_static_program');
+define('TABLE_JUNIOR_MINISTAY_SECTION' , 'frontweb_junior_ministay_section');
+
+//Constants for the junior summer program id
+define('JUNIOR_SUMMER_ID' , 1);
+
+//Constants for the junior mini stay program id
+define('JUNIOR_MINISTAY_ID' , 14);
+
+//Constants for the Adult course id
+define('ADULT_COURSE_ID' , 13);
 
 //Admin panel base url path to access images
 define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
@@ -162,3 +186,27 @@ define('CAMPUS_CONTENT_PDF_FILE' , 'uploads/campus_content_pdf/');
 
 //Define country flag icon location for CMS
 define('COUNTRY_FLAG_IMAGE' , 'images/country_flag_icon/');
+
+//Define image location for Junior Mini Stay module images
+define('JUNIOR_MINISTAY_IMAGE_PATH' , 'uploads/junior_ministay/');
+
+//Define image location details for junior centre photo gallery images
+define('MINISTAY_PHOTO_GALLERY_IMAGE_PATH' , 'uploads/ministay_photo_gallery/');
+
+//Define image location details for junior mini stay video gallery images
+define('MINISTAY_VIDEO_GALLERY_IMAGE_PATH' , 'uploads/ministay_video_gallery/');
+
+//Define file upload location details for fact sheet module for junior ministay courses
+define('MINISTAY_FACTSHEET_FILE_PATH' , 'uploads/ministay_factsheet/');
+
+//Define file upload location details for activity program module for junior ministay courses
+define('MINISTAY_ACTIVITY_PROGRAM_FILE_PATH' , 'uploads/ministay_activity_program/');
+
+//Define file upload location details for addon module for junior ministay courses
+define('MINISTAY_ADDON_FILE_PATH' , 'uploads/ministay_addon/');
+
+//Define file upload location details for menu module for junior ministay courses
+define('MINISTAY_MENU_FILE_PATH' , 'uploads/ministay_menu/');
+
+//Define file upload location details for walking tour module for junior ministay courses
+define('MINISTAY_WALKING_TOUR_FILE_PATH' , 'uploads/ministay_walking_tour/');

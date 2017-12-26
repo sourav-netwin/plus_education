@@ -34,8 +34,8 @@
 			return $returnArr;
 		}
 
-		//This function is used to get the details of cms pages from database
-		function getCmsPageDetails($pageName = NULL)
+		//This function is used to get the details of cms pages from database by page name
+		function getCmsPageDetailsByName($pageName = NULL)
 		{
 			return $this->db->select('cont_browser_title , cont_page_title , cont_meta_description , cont_keywords ,
 								cont_content')
@@ -43,8 +43,8 @@
 							->get(TABLE_CONTENT_MST)->row_array();
 		}
 
-		//This function is used to get the header menu details from database as per the junior centre management
-		function getHeaderMenuDetails()
+		//This function is used to get the header menu details from database as per the junior centre management(for junior summer module)
+		function getJuniorSummerHeaderMenuDetails()
 		{
 			$returnArr = array(
 				'usaSummerProgram' => array(),
@@ -57,6 +57,7 @@
 								->join(TABLE_PROGRAM_COURSE.' d' , 'c.program_id = d.program_course_id' , 'left')
 								->where('a.junior_centre_status' , 1)
 								->where('a.delete_flag' , 0)
+								->or_where('((b.attivo = 1) or (b.is_mini_stay = 1 and b.attivo = 0))')
 								->order_by('b.nome_centri')
 								->get()->result_array();
 			if(!empty($result))
@@ -111,12 +112,30 @@
 			return $returnArr;
 		}
 
-		//This function isused to get the footer address from DB as per the CMS section
-		function getFooterAddress()
+		//This function isused to get the CMS page details by the id
+		function getCmsPageDetailsById($id = NULL)
 		{
-			$result = $this->db->select('cont_content as address')
-								->where('cont_contentid' , 9)
+			$result = $this->db->select('cont_content as content')
+								->where('cont_contentid' , $id)
 								->get(TABLE_CONTENT_MST)->row_array();
-			return $result['address'];
+			return $result['content'];
+		}
+
+		//This function is used to get the details of the junior mini stay course to show in the header section
+		function getMiniStayHeaderMenuDetails()
+		{
+			$returnArr = array();
+			$result = $this->db->select('a.static_program_id as id , c.nome_centri as name')
+							->from(TABLE_JUNIOR_MINISTAY_SECTION.' a')
+							->join(TABLE_JUNIOR_MINISTAY.' b' , 'a.junior_ministay_id = b.junior_ministay_id' , 'left')
+							->join(TABLE_CENTRE.' c' , 'b.centre_id = c.id' , 'left')
+							->order_by('c.nome_centri')
+							->get()->result_array();
+			if(!empty($result))
+			{
+				foreach($result as $value)
+					$returnArr[$value['id']][] = $value['name'];
+			}
+			return $returnArr;
 		}
 	}

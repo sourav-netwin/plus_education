@@ -14,7 +14,7 @@
 ?>
 				<ul class="nav navbar">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('junior_usa_summer_programmes'); ?><b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle juniorUsaSummerTitleClass" data-toggle="dropdown"><?php echo $this->lang->line('junior_usa_summer_programmes'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown usa-summer-program-menu">
 							<li>
 								<div class="row">
@@ -29,9 +29,9 @@
 												<ul>
 <?php
 													foreach($value as $centreValue)
-														echo '<li><a href="'.base_url().'dashboard/junior_centre/'.$centreValue['id'].'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
+														echo '<li><a href="'.base_url().'junior-summer-courses/'.str_replace(' ' , '-' , $centreValue['centre']).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
 ?>
-													<li><a class="about-experience-class" href=""><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $key)); ?></a></li>
+													<li><a target="_blank" class="about-experience-class" href="<?php echo base_url().'program#'.strtolower(str_replace(array(' ' , '_') , array('-' , '-') , $key)); ?>"><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $key)); ?></a></li>
 												</ul>
 											</div>
 <?php
@@ -44,7 +44,7 @@
 					</li>
 
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('junior_europe_summer_programmes'); ?><b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle juniorEuropeSummerTitleClass" data-toggle="dropdown"><?php echo $this->lang->line('junior_europe_summer_programmes'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown europe-summer-program-menu">
 							<li>
 								<div class="row">
@@ -68,11 +68,17 @@
 														</li>
 <?php
 														foreach($regionValue as $centreValue)
-															echo '<li><a href="'.base_url().'dashboard/junior_centre/'.$centreValue['id'].'">'.ucwords(strtolower(str_replace('_' , ' ' , $centreValue['centre']))).'</a></li>';
+															echo '<li><a href="'.base_url().'junior-summer-courses/'.str_replace(' ' , '-' , $centreValue['centre']).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
 														echo "<hr>";
 													}
 ?>
-													<li><a class="about-experience-class" href=""><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $programKey)); ?></a></li>
+													<li><a target="_blank" class="about-experience-class" href="<?php echo base_url().'program#'.strtolower(str_replace(array(' ' , '_') , array('-' , '-') , $programKey)); ?>"><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $programKey)); ?></a></li>
+<?php
+													if(ucwords(strtolower(str_replace('_' , ' ' , $programKey))) == 'Classic'
+														|| ucwords(strtolower(str_replace('_' , ' ' , $programKey))) == 'Classic Plus Academy'
+														|| ucwords(strtolower(str_replace('_' , ' ' , $programKey))) == 'Classic Premium Plus Academy')
+														echo '<li><a target="_blank" class="about-experience-class" href="'.base_url().'program#add-on">Available Add on</a></li>';
+?>
 												</ul>
 											</div>
 <?php
@@ -90,50 +96,30 @@
 						<ul class="dropdown-menu agile_short_dropdown junior-mini-stay-program-menu">
 							<li>
 								<div class="row">
-									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title-small">
-											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/united_kingdom.png" />
-											<?php echo $this->lang->line('uk_residential'); ?>
-										</h5>
-										<ul>
-											<li><a href=""><?php echo $this->lang->line('london'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('herforshire'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('oxford'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('norwich'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('derby'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('windosr'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('canterbury'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('southend_of_sea'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title-small">
-											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/united_kingdom.png" />
-											<?php echo $this->lang->line('uk_family_stay'); ?>
-										</h5>
-										<ul>
-											<li><a href=""><?php echo $this->lang->line('london'); ?></a></li>
-											<li><a href=""><?php echo $this->lang->line('oxford'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title-small">
-											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/scotland.png" />
-											<?php echo $this->lang->line('scotland_residential'); ?>
-										</h5>
-										<ul>
-											<li><a href=""><?php echo $this->lang->line('stirling'); ?></a></li>
-										</ul>
-									</div>
-									<div class="col-md-3">
-										<h5 class="menu-heading li-menu-title-small">
-											<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/usa.png" />
-											<?php echo $this->lang->line('usa_family_stay'); ?>
-										</h5>
-										<ul>
-											<li><a href=""><?php echo $this->lang->line('new_york'); ?></a></li>
-										</ul>
-									</div>
+<?php
+									if(!empty($headerMenuDetails['juniorMiniStay']))
+									{
+										foreach($headerMenuDetails['juniorMiniStay'] as $key => $value)
+										{
+											$programdetails = getMiniStayProgramdetails($key);
+?>
+											<div class="col-md-3">
+												<h5 class="menu-heading li-menu-title-small">
+													<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/<?php echo $programdetails['logo']; ?>" />
+													<?php echo $programdetails['program_name']; ?>
+												</h5>
+												<ul>
+<?php
+													foreach($value as $centreValue)
+														echo '<li><a href="'.base_url().'junior-mini-stay/'.str_replace(' ' , '-' , $centreValue).'">'.ucwords(strtolower($centreValue)).'</a></li>';
+														echo '<li><a target="_blank" class="about-experience-class" href="'.base_url().'program#add-on">Available Add on</a></li>';
+?>
+												</ul>
+											</div>
+<?php
+										}
+									}
+?>
 								</div>
 							</li>
 						</ul>
@@ -152,3 +138,16 @@
 	</div>
 </div>
 <!-----------Header Section End------------>
+
+<script>
+	$(document).ready(function(){
+		$('.usa-summer-program-menu').find('a').each(function(){
+			if($(this).attr('href') == window.location.href)
+				$('.juniorUsaSummerTitleClass').attr('style' , 'color: #F44336;border-radius: 2px;transform: scale(1.1);');
+		});
+		$('.europe-summer-program-menu').find('a').each(function(){
+			if($(this).attr('href') == window.location.href)
+				$('.juniorEuropeSummerTitleClass').attr('style' , 'color: #F44336;border-radius: 2px;transform: scale(1.1);');
+		});
+	});
+</script>

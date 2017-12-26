@@ -574,3 +574,11 @@
 	font-weight: 500;
 	line-height: 1.1;
 }
+
+.boxSectionClass{
+	border-left: 1px solid #ccc;
+	padding-top: 10px;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: #eee;
+}

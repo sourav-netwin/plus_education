@@ -31,7 +31,7 @@
 				foreach($centreDetails['program'] as $value)
 				{
 ?>
-					<div class="col-lg-<?php echo 12/count($centreDetails['program']); ?>">
+					<div class="col-lg-<?php echo ceil(12/count($centreDetails['program'])); ?>">
 						<a style="cursor: pointer;" class="centreProgram" data-ref_id="program_<?php echo $value['program_id']; ?>">
 						<img style="margin:0 auto;width: 200px;" class="img-rounded img-responsive1" src="<?php echo ADMIN_PANEL_URL.PROGRAM_COURSE_IMAGE_PATH.$value['program_course_logo']; ?>">
 						</a>

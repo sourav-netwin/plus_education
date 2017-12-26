@@ -13,7 +13,7 @@
 		{
 			if($pageName != '')
 			{
-				$data = $this->Content_model->getCmsPageDetails($pageName);
+				$data = $this->Content_model->getCmsPageDetailsByName($pageName);
 				$data['show_banner'] = 0;
 				$data['page_title'] = $data['cont_browser_title'];
 				$this->template->view('content' , $data);

@@ -18,7 +18,17 @@
 								<img src="<?php echo ADMIN_PANEL_URL.COURSE_FRONT_IMAGE_PATH.$value['course_front_image']; ?>" />
 								<figcaption>
 									<p class="figcaption-title-class-courses"><?php echo $value['course_name']; ?></p>
-									<p><a class="btn view-details-btn" href="<?php echo base_url(); ?>dashboard/junior_summer_courses/<?php echo $value['course_master_id']; ?>"><?php echo $this->lang->line('view_details'); ?></a></p>
+<?php
+									if($value['course_master_id'] == JUNIOR_SUMMER_ID)
+										$url = base_url().'junior-summer-courses';
+									elseif($value['course_master_id'] == JUNIOR_MINISTAY_ID)
+										$url = base_url().'junior-mini-stay';
+									elseif($value['course_master_id'] == ADULT_COURSE_ID)
+										$url = base_url().'adult-course';
+									else
+										$url = '';
+?>
+									<p><a class="btn view-details-btn" href="<?php echo$url; ?>"><?php echo $this->lang->line('view_details'); ?></a></p>
 								</figcaption>
 							</figure>
 						</div>

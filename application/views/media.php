@@ -26,8 +26,8 @@
 							<div class="col-md-4 gallery-grid">
 								<div class="grid">
 									<figure class="effect-apollo">
-										<a class="example-image-link" href="<?php echo ADMIN_PANEL_URL.PHOTO_GALLERY_IMAGE_PATH.$value['photo']; ?>" data-lightbox="example-set" data-title="<?php echo $value['description']; ?>">
-											<img src="<?php echo ADMIN_PANEL_URL.PHOTO_GALLERY_IMAGE_PATH.$value['photo']; ?>" />
+										<a class="example-image-link" href="<?php echo ADMIN_PANEL_URL.$photoGalleryPath.$value['photo']; ?>" data-lightbox="example-set" data-title="<?php echo $value['description']; ?>">
+											<img src="<?php echo ADMIN_PANEL_URL.$photoGalleryPath.$value['photo']; ?>" />
 											<figcaption>
 												<p><?php echo $value['short_description']; ?></p>
 											</figcaption>
@@ -52,7 +52,7 @@
 ?>
 					<div class="col-sm-4 col-xs-4 welcome-w3imgs">
 						<figure class="effect-chico">
-							<img src="<?php echo ADMIN_PANEL_URL.VIDEO_GALLERY_IMAGE_PATH.$value['video_image']; ?>" alt=" " />
+							<img src="<?php echo ADMIN_PANEL_URL.$videoGalleryImagePath.$value['video_image']; ?>" alt=" " />
 							<figcaption>
 								<p class="figcaption-title-class-destination">
 									<a href = "<?php echo $value['video_url']; ?>" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup" data-fancybox data-caption="<?php echo $value['description']; ?>">

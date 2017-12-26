@@ -60,3 +60,12 @@
 	</div>
 </div>
 <!-----------Top header Section End------------>
+
+<script>
+	$(document).ready(function(){
+		$('.top-header-menu').find('a').each(function(){
+			if($(this).attr('href') == window.location.href)
+				$(this).attr('style' , 'color: white !important;font-size: 13px !important;');
+		});
+	});
+</script>
