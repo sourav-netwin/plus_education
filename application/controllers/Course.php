@@ -38,7 +38,10 @@
 				$referenceFunctionName = 'junior-mini-stay';
 			}
 			elseif($id == ADULT_COURSE_ID)
+			{
 				$pageTitle = 'Adult Course';
+				$data['brochureDetails'] = $this->Front_model->commonGetData('file_name, , file_description' , 'course_id = '.ADULT_COURSE_ID , TABLE_ADULT_COURSE_BROCHURE , 2);
+			}
 
 			$data['courseDetails'] = $this->Front_model->getDetailsCourses($languageId , $id);
 			if($id == JUNIOR_SUMMER_ID || $id == JUNIOR_MINISTAY_ID)

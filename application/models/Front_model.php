@@ -268,5 +268,18 @@
 			array_push($programDetails , $addonDetails);
 			return $programDetails;
 		}
+
+		//This is a common function used to get the data from database
+		function commonGetData($select = NULL , $whereCondition = NULL , $tableName = NULL , $flag = 1)
+		{
+			if($select != '')
+				$this->db->select($select);
+			if($whereCondition != '')
+				$this->db->where($whereCondition);
+			if($flag == 1)
+				return $this->db->get($tableName)->row_array();
+			else
+				return $this->db->get($tableName)->result_array();
+		}
 	}
 ?>

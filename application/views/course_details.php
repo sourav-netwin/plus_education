@@ -77,6 +77,67 @@
 	</div>
 </div>
 
+<!-----------For Adult course : show brochure and application form(Start)-------->
+<?php
+	if($referenceFunctionName == '')
+	{
+?>
+		<div class="team" style="padding-top: 0px;">
+			<div class="container">
+				<div class="w3_agile_team_grids">
+					<div class="col-lg-12">
+<?php
+						if(!empty($brochureDetails))
+						{
+?>
+							<div class="col-lg-6">
+								<div class="col-md-12 w3_agile_team_grid">
+									<div class="vc_row">
+										<div class="vc_custom_heading">
+											<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
+												<h3 class="vc_custom_heading_text">Brochure</h3>
+											</div>
+											<div class="col-lg-1 col-md-1">
+												<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="brochureId"></i>
+											</div>
+										</div>
+										<span class="box-detail-text" id="brochureId" style="display: none;">
+											<div class="panel-body">
+<?php
+												foreach($brochureDetails as $value)
+												{
+?>
+													<div class="col-md-12">
+														<div class="col-md-11">
+															<p><?php echo $value['file_description']; ?></p>
+														</div>
+														<div class="col-md-1">
+															<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ADULT_COURSE_BROCHURE.$value['file_name']; ?>">
+																<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+															</a>
+														</div>
+													</div>
+													<div class="clearfix"></div><hr>
+<?php
+												}
+?>
+											</div>
+										</span>
+									</div>
+								</div>
+							</div>
+<?php
+						}
+?>
+					</div>
+				</div>
+			</div>
+		</div>
+<?php
+	}
+?>
+<!-----------For Adult course : show brochure and application form(End)-------->
+
 <!-----------------Destination Section Start------------------->
 <?php
 		if($referenceFunctionName != '')

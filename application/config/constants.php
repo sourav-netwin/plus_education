@@ -128,6 +128,7 @@ define('TABLE_JUNIOR_MINISTAY_DATES_WEEK' , 'frontweb_junior_ministay_dates_week
 define('TABLE_JUNIOR_MINISTAY_INTERNATIONAL_MIX' , 'frontweb_junior_ministay_international_mix');
 define('TABLE_JUNIOR_MINISTAY_STATIC_PROGRAM' , 'frontweb_junior_ministay_static_program');
 define('TABLE_JUNIOR_MINISTAY_SECTION' , 'frontweb_junior_ministay_section');
+define('TABLE_ADULT_COURSE_BROCHURE' , 'frontweb_adult_course_brochure');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -210,3 +211,6 @@ define('MINISTAY_MENU_FILE_PATH' , 'uploads/ministay_menu/');
 
 //Define file upload location details for walking tour module for junior ministay courses
 define('MINISTAY_WALKING_TOUR_FILE_PATH' , 'uploads/ministay_walking_tour/');
+
+//Define file upload location details for brochure module for adult courses
+define('ADULT_COURSE_BROCHURE' , 'uploads/adult_course_brochure/');
