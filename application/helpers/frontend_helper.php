@@ -62,4 +62,48 @@
 						->where('junior_ministay_static_program_id' , $id)
 						->get(TABLE_JUNIOR_MINISTAY_STATIC_PROGRAM)->row_array();
 	}
+
+	//This function is used to show the form field for application form in adult course
+	function showFormField($data = array())
+	{
+		$fieldStr = '';
+		$fieldStr.= '<input type="hidden" name="idArr[]" value="'.$data['manage_application_form_id'].'" >';
+		$fieldStr.= '<input type="hidden" name="field_name_'.$data['manage_application_form_id'].'" value="'.$data['label_name'].'" >';
+		if($data['field_type'] == 'text' || $data['field_type'] == 'date' || $data['field_type'] == 'email')
+		{
+			$fieldProperities = array(
+				'name' => 'field_value_'.$data['manage_application_form_id'],
+				'class' => 'form-control',
+				'type' => $data['field_type']
+			);
+			if($data['required_flag'] == 1)
+				$fieldProperities['required'] = 'required';
+			$fieldStr.= form_input($fieldProperities);
+		}
+		elseif($data['field_type'] == 'textarea')
+		{
+			$fieldProperities = array(
+				'name' => 'field_value_'.$data['manage_application_form_id'],
+				'class' => 'form-control',
+				'rows' => 2
+			);
+			if($data['required_flag'] == 1)
+				$fieldProperities['required'] = 'required';
+			$fieldStr.= form_textarea($fieldProperities);
+		}
+		elseif($data['field_type'] == 'radio')
+		{
+			$requiredFlag = ($data['required_flag'] == 1) ? 'required' : '';
+			$arr = explode(',' , $data['multiple_value']);
+			foreach($arr as $value)
+				$fieldStr.= '<input style="margin-left: 20px;" type="radio" name="field_value_'.$data['manage_application_form_id'].'" value="'.$value.'" '.$requiredFlag.'>'.$value;
+		}
+		elseif($data['field_type'] == 'dropdown')
+		{
+			$requiredFlag = ($data['required_flag'] == 1) ? 'required' : '';
+			$arr = explode(',' , $data['multiple_value']);
+			$fieldStr.= form_dropdown('field_value_'.$data['manage_application_form_id'] , $arr , '' , 'class="form-control" '.$requiredFlag);
+		}
+		return $fieldStr;
+	}
 ?>

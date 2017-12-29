@@ -9,7 +9,7 @@
 <!-----------------Media Section Start------------------->
 <div class="col-lg-12" id="media">
 	<h1 class="destination_heading">MEDIA</h1><hr>
-	<ul class="nav nav-pills" style="padding-left: 420px;">
+	<ul class="nav nav-pills col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-5 col-md-offset-5 col-sm-offset-4">
 		<li class="active"><a data-toggle="tab" id='refPhotogalleryId' href="#photo">PHOTGALLERY</a></li>
 		<li><a data-toggle="tab" id='refVideoId' href="#video">VIDEO</a></li>
 	</ul>

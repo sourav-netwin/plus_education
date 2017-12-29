@@ -577,6 +577,11 @@
 		});
 
 		$('.centreProgram').click(function(){
+			//Make all the open section closed first
+			$('#accordion2').find('.switch-icon').attr('class' , 'fa fa-plus pull-right switch-icon');
+			$('#accordion2').find('.collapse-title').attr('class' , 'collapse-title collapsed').attr('aria-expanded' , 'false');
+			$('#accordion2').find('.panel-collapse').attr('class' , 'panel-collapse collapse').attr('aria-expanded' , 'false').attr('style' , 'height: 0px');
+
 			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').attr('class' , 'fa fa-minus pull-right switch-icon');
 			$('#'+$(this).data('ref_id')).parent().find('.switch-icon').parent().attr('aria-expanded' , 'true');
 			$('#'+$(this).data('ref_id')).attr('class' , 'panel-collapse collapse in');

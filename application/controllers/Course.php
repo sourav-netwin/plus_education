@@ -40,7 +40,8 @@
 			elseif($id == ADULT_COURSE_ID)
 			{
 				$pageTitle = 'Adult Course';
-				$data['brochureDetails'] = $this->Front_model->commonGetData('file_name, , file_description' , 'course_id = '.ADULT_COURSE_ID , TABLE_ADULT_COURSE_BROCHURE , 2);
+				$data['brochureDetails'] = $this->Front_model->commonGetData('file_name, , file_description' , 'course_id = '.ADULT_COURSE_ID , TABLE_ADULT_COURSE_BROCHURE , '' , '' , 2);
+				$data['formDetails'] = $this->Front_model->commonGetData('*' , '' , TABLE_MANAGE_APPLICATION_FORM , 'sequence' , 'asc' , 2);
 			}
 
 			$data['courseDetails'] = $this->Front_model->getDetailsCourses($languageId , $id);
@@ -67,18 +68,16 @@
 					foreach($centreDetails['centre'] as $key => $value)
 					{
 						$centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'front_default.jpg';
-						$str.= '<div class="col-sm-3 col-xs-3 welcome-w3imgs">
+						$str.= '<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6  welcome-w3imgs" style="margin-top: 30px;">
 									<figure class="effect-chico">
 										<img src="'.ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$centreImage.'" />
 										<span class="show-destination-class"><p>'.$value['centre_name'].'</p></span>
-										<figcaption>
-											<p class="figcaption-title-class-destination">'.$value['centre_name'].'</p>
-											<p><a class="btn view-details-btn" href="'.base_url().$this->input->post('reference_function_name').'/'.str_replace(' ' , '-' , $value['centre_name']).'">'.$this->lang->line('read_more').'</a></p>
+										<figcaption class="figcaptionWrapperClass">
+											<p class="figcaption-title-class-destination">'.$value['centre_name'].'<br>
+											<a class="btn view-details-btn" href="'.base_url().$this->input->post('reference_function_name').'/'.str_replace(' ' , '-' , $value['centre_name']).'">'.$this->lang->line('read_more').'</a></p>
 										</figcaption>
 									</figure>
 								</div>';
-						if(($key+1) % 4 == 0)
-							$str.= '<div class="clearfix" style="margin-bottom: 30px;"></div>';
 					}
 					$str.= '<div class="clearfix"></div></div><div class="clearfix"></div></div>';
 				}
@@ -115,6 +114,41 @@
 			$data['show_banner'] = 0;
 			$data['page_title'] = 'Program Details';
 			$this->template->view('program_details' , $data);
+		}
+
+		//This function is used to save the application form data in the database and send mail to admin
+		function manage_application_form()
+		{
+			if($this->input->post('idArr'))
+			{
+				$applicationFormdata = array();
+				$userData = $this->Front_model->commonGetData('count(distinct(user)) as total' , '' , TABLE_APPLICATION_FORM_DATA , '' , '' , 1);
+				$idArr = $this->input->post('idArr');
+				foreach($idArr as $value)
+				{
+					$insertData = array(
+						'field_name' => $this->input->post('field_name_'.$value),
+						'field_value' => $this->input->post('field_value_'.$value),
+						'user' => ($userData['total'] + 1),
+						'added_date' => date('Y-m-d H:i:s')
+					);
+					array_push($applicationFormdata , $insertData);
+					$this->Front_model->commonAdd(TABLE_APPLICATION_FORM_DATA , $insertData);
+				}
+				$data['applicationFormdata'] = $applicationFormdata;
+				//$this->load->view('email_template' , $data);
+				echo '';
+			}
+		}
+
+		function test()
+		{
+			$this->load->library('email');
+			$this->email->from('genknooz9@gmail.com', 'plus-ed.com');
+			$this->email->to('myfkact786@gmail.com');
+			$this->email->subject('test');
+			$this->email->message('test');
+			$this->email->send();
 		}
 	}
 ?>

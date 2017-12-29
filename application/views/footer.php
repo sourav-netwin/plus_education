@@ -5,8 +5,8 @@
 <!---------------------- Footer Section Start ---------------------->
 <div class="footer footer-heading-container">
 	<div class="container footer-section-container">
-		<div class="row">
-			<div class="col-md-3 first-footer-box">
+		<div class="row"><div class="container">
+			<div class="col-md-3 first-footer-box1">
 				<img src="http://plus-ed.com/htmlsite/assets/img/logo/logo_plus.png" class="logo" alt="Repute">
 				<p class = "footer-logo-name"><?php echo $this->lang->line('plus_full_form'); ?></p>
 				<br>
@@ -20,13 +20,13 @@
 					foreach($footerDetails['footerDetails'] as $key => $parentValue)
 					{
 						if($key == 0)
-							$className = 'second-footer-box';
+							$className = 'second-footer-box1';
 						elseif($key == 1)
-							$className = 'third-footer-box';
+							$className = 'third-footer-box1';
 						elseif($key == 2)
-							$className = 'fourth-footer-box';
+							$className = 'fourth-footer-box1';
 ?>
-						<div class="col-md-3 <?php echo $className; ?>">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 <?php echo $className; ?>" style="padding: 0px;">
 							<h3 class="footer-heading"><?php echo $parentValue['name']; ?></h3>
 							<div class="row margin-bottom-30px">
 								<div class="col-xs-8">
@@ -58,7 +58,7 @@
 			<div class="text-center copyright">
 				<?php echo $this->lang->line('footer_copy_rights_text'); ?>
 			</div>
-		</div>
+		</div></div>
 	</div>
 </div>
 <!---------------------- Footer Section END ---------------------->

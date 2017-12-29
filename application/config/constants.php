@@ -129,6 +129,8 @@ define('TABLE_JUNIOR_MINISTAY_INTERNATIONAL_MIX' , 'frontweb_junior_ministay_int
 define('TABLE_JUNIOR_MINISTAY_STATIC_PROGRAM' , 'frontweb_junior_ministay_static_program');
 define('TABLE_JUNIOR_MINISTAY_SECTION' , 'frontweb_junior_ministay_section');
 define('TABLE_ADULT_COURSE_BROCHURE' , 'frontweb_adult_course_brochure');
+define('TABLE_MANAGE_APPLICATION_FORM' , 'frontweb_manage_application_form');
+define('TABLE_APPLICATION_FORM_DATA' , 'frontweb_application_form_data');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);

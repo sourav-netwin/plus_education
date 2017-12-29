@@ -1685,7 +1685,7 @@ p.agile-p {
     margin: 2em 0;
 }
 .services-bottom {
-    padding: 3em 0;
+    /*padding: 3em 0;*/
 }
 .wthree-services-bottom-grids {
     margin-top: 3em;
@@ -1707,7 +1707,6 @@ p.agile-p {
 }
 .w3_agile_team_grid {
     float: left;
-    width: 50%;
 }
 .skillbar {
     width: 95%;

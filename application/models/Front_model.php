@@ -270,16 +270,25 @@
 		}
 
 		//This is a common function used to get the data from database
-		function commonGetData($select = NULL , $whereCondition = NULL , $tableName = NULL , $flag = 1)
+		function commonGetData($select = NULL , $whereCondition = NULL , $tableName = NULL , $orderByField = NULL , $orderByType = 'asc' , $flag = 1)
 		{
 			if($select != '')
 				$this->db->select($select);
 			if($whereCondition != '')
 				$this->db->where($whereCondition);
+			if($orderByField != '')
+				$this->db->order_by($orderByField , $orderByType);
 			if($flag == 1)
 				return $this->db->get($tableName)->row_array();
 			else
 				return $this->db->get($tableName)->result_array();
+		}
+
+		//This is a common function to add data in database
+		function commonAdd($tableName = NULL , $data = NULL)
+		{
+			if($tableName != '')
+				$this->db->insert($tableName , $data);
 		}
 	}
 ?>

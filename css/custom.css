@@ -182,7 +182,8 @@
 .carousel-control-left-btn , .carousel-control-right-btn{
 	width: 45px;
 	height: 45px;
-	margin-top: 175px;
+	position: absolute;
+	top: 40%;
 }
 
 .glyphicon{
@@ -196,7 +197,15 @@
 }
 
 .figcaption-title-class-courses{
-	margin-top: 110px !important;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.figcaptionWrapperClass{
+	display: table;
+	vertical-align: middle;
+	height: 100%;
+	width: 100%;
 }
 
 .figcaption-title-class-campus{
@@ -208,8 +217,6 @@
 }
 
 .large-image-europe-program{
-	width: 334px;
-	height: 484px !important;
 	margin-top: 0 !important;
 }
 
@@ -581,4 +588,25 @@
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	background: #eee;
+}
+
+@media screen and (max-width: 991px){
+	.carousel-caption , .carousel-indicators{
+		display : none;
+	}
+	.agileits-title {
+		margin-bottom: -30px !important;
+	}
+
+	.welcome-w3imgs{
+		margin-top: 15px;
+	}
+
+	.about-title{
+		margin-bottom: 0px !important;
+	}
+
+	.junior-course-main-summary{
+		border : 0;
+	}
 }
