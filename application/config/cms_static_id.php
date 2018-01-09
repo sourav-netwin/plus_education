@@ -8,3 +8,4 @@
 	$config['plusTeamCmsId'] = 10;
 	$config['courseCmsId'] = 11;
 	$config['addOnCmsId'] = 41;
+	$config['usefulInformationId'] = 14;

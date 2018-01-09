@@ -9,11 +9,11 @@
 <!-----------------Media Section Start------------------->
 <div class="col-lg-12" id="media">
 	<h1 class="destination_heading">MEDIA</h1><hr>
-	<ul class="nav nav-pills col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-5 col-md-offset-5 col-sm-offset-4">
+	<ul class="nav nav-pills col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-5 col-md-offset-5 col-sm-offset-4 col-xs-offset-0">
 		<li class="active"><a data-toggle="tab" id='refPhotogalleryId' href="#photo">PHOTGALLERY</a></li>
 		<li><a data-toggle="tab" id='refVideoId' href="#video">VIDEO</a></li>
 	</ul>
-	<div class="tab-content" style="margin-left: -15px;margin-right: -15px;">
+	<div class="tab-content">
 		<div id="photo" class="tab-pane fade in active">
 			<div class="gallery">
 				<div class="gallery-grids">
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="video" style="margin-top: 60px;" class="tab-pane fade">
+		<div id="video" style="margin-top: 70px;" class="tab-pane fade">
 <?php
 			if(!empty($centreDetails['video_gallery']))
 			{
@@ -54,11 +54,11 @@
 						<figure class="effect-chico">
 							<img src="<?php echo ADMIN_PANEL_URL.$videoGalleryImagePath.$value['video_image']; ?>" alt=" " />
 							<figcaption>
-								<p class="figcaption-title-class-destination">
+								<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 									<a href = "<?php echo $value['video_url']; ?>" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup" data-fancybox data-caption="<?php echo $value['description']; ?>">
 										<i class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
 									</a>
-								</p>
+								</p></div>
 							</figcaption>
 						</figure>
 						<p><?php echo $value['description']; ?></p>
@@ -92,7 +92,6 @@
 	$(document).ready(function(){
 		$("[data-fancybox]").fancybox({
 			buttons : [
-				'slideShow',
 				'fullScreen',
 				'close'
 			]
@@ -101,6 +100,5 @@
 		$(".nav-pills a").click(function(){
 			$(this).tab('show');
 		});
-
 	});
 </script>

@@ -71,10 +71,10 @@
 						$str.= '<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6  welcome-w3imgs" style="margin-top: 30px;">
 									<figure class="effect-chico">
 										<img src="'.ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$centreImage.'" />
-										<span class="show-destination-class"><p>'.$value['centre_name'].'</p></span>
-										<figcaption class="figcaptionWrapperClass">
-											<p class="figcaption-title-class-destination">'.$value['centre_name'].'<br>
-											<a class="btn view-details-btn" href="'.base_url().$this->input->post('reference_function_name').'/'.str_replace(' ' , '-' , $value['centre_name']).'">'.$this->lang->line('read_more').'</a></p>
+										<span class="show-destination-class"><span class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">'.$value['centre_name'].'</p></span></span>
+										<figcaption>
+											<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">'.$value['centre_name'].'<br>
+											<a class="btn view-details-btn" href="'.base_url().$this->input->post('reference_function_name').'/'.str_replace(' ' , '-' , $value['centre_name']).'">'.$this->lang->line('read_more').'</a></p></div>
 										</figcaption>
 									</figure>
 								</div>';
@@ -143,12 +143,12 @@
 
 		function test()
 		{
-			$this->load->library('email');
-			$this->email->from('genknooz9@gmail.com', 'plus-ed.com');
-			$this->email->to('myfkact786@gmail.com');
-			$this->email->subject('test');
-			$this->email->message('test');
-			$this->email->send();
+			// $this->load->library('email');
+			// $this->email->from('genknooz9@gmail.com', 'plus-ed.com');
+			// $this->email->to('myfkact786@gmail.com');
+			// $this->email->subject('test');
+			// $this->email->message('test');
+			// $this->email->send();
 		}
 	}
 ?>

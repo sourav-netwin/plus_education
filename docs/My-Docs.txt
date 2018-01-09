@@ -1,0 +1,188 @@
+===============================================Google Analytics / Google Map==================================================================================
+
+Documentation for GA API :
+https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-php
+
+Test Batchget function response :
+https://developers.google.com/analytics/devguides/reporting/core/v4/rest/v4/reports/batchGet
+
+Google Map API key : AIzaSyAxAOuX6VZ3411GsROuhn-SxYbNC0skt9M
+Email Id : sourav.netwin@gmail.com
+
+=================================================================================================================================
+
+
+
+
+================================================Github Accounts=================================================================================
+
+My Personal Account :
+User Name - sourav-netwin
+Email Id - sourav.netwin@gmail.com
+Password - souravnetwin123
+global information :-
+name - sourav
+email - sourav.dara@netwininfo.com
+
+Netwin github account(for stvision) :
+User Name - sourav-netwin-github
+Email Id - sourav.dhara@netwinindia.biz
+Password - souravnetwin123
+
+Netwin gitlab Account(PED) :
+Username: sourav.dhara
+Password: sourav@gitlab
+http://192.168.43.51/php/pluswebsite.git
+
+=================================================================================================================================
+
+
+
+
+===============================================Magento==================================================================================
+
+Magento Site Login Credential :
+Name : Sourav Dhara
+Email : sourav.netwin@gmail.com
+Password : Magento@2017
+Screen Name : sourav_netwin
+
+Admin Account :
+User Name - sourav.netwin
+password - Magento@2017
+email - sourav.netwin@gmail.com
+encryption key - 20c938a0ef8f2dcbb109a7aab9897d1e
+
+=================================================================================================================================
+
+
+
+
+=================================External Link=============================================================================================
+
+Download Country flag icon free : 
+https://www.flaticon.com
+https://www.shareicon.net
+
+Video Api documentation :
+https://developer.vimeo.com/api/start
+
+fancybox plugin :
+https://fancyapps.com/fancybox/3/docs/
+
+Download Admin panel theme free :
+https://colorlib.com/polygon/gentelella/index.html
+
+Color picker plugin :
+https://bgrins.github.io/spectrum/
+
+For free tutorial :
+https://www.javatpoint.com/
+
+Tinymce plugin :
+https://www.tinymce.com/download/
+
+responsive file manager plugin :
+http://www.responsivefilemanager.com/
+
+==============================================================================================================================
+
+
+
+
+====================================VIMEO API=============================================================================================
+VIMEO DETAILS :-
+--------------
+
+Login Credentials :
+Name - Sourav Dhara
+Email id - sourav.netwin@gmail.com
+Password - souravnetwin123
+
+vimeo API :
+Url - https://developer.vimeo.com/apps
+Authoentication url - https://developer.vimeo.com/apps/118025#authentication
+Client identifier - 0f4f509b6fae54c629a042fea38528dd44fe9c8e
+Client Secret - RjW6My4B0KBe9vZFuA0aTGhCcyO7Hf6oqQ8ekwKXg3tpk/AwjotXj1D1IJyuVde0od1TpMYhs46E+2r+jHQ17g/fyVBevIIgeQjG45IffkOM8oJmafQCcv1Kqo4Jy1yC
+Authorize url - https://api.vimeo.com/oauth/authorize
+Access token Url - https://api.vimeo.com/oauth/access_token
+Access token - f76202db96349d44d30a111021a597b9
+
+Solutions Url :
+https://stackoverflow.com/questions/47735579/fetch-video-duration-using-the-new-vimeo-api
+https://stackoverflow.com/questions/47079078/vimeo-php-simple-request-not-working
+
+=================================================================================================================================
+
+
+
+
+======================================Office Tiffin========================================================================================
+
+Tiffin upto 31st October ,2017 : 340/- (paid)
+Tiffin upto 31st November , 2017 : 375/-(paid) : Balance 25/-
+
+===============================================================================================================================
+
+
+
+
+====================================Plus Project Details===========================================================================================
+
+(1)Front End -
+url : http://plus-ed.com/betaweb
+
+(2)Backend -
+url : http://plus-ed.com/vision_ag/index.php/vauth/backoffice
+User Name : usercms
+Password : usercms@2061@
+
+(3)Mantis Account Details :
+url : https://webnmobidev.net/mantisbt/login_page.php
+User Name : Sourav.Dhara
+Password : S@123
+===============================================================================================================================
+
+
+
+
+==================================Short Task(for PMS)=============================================================================================
+
+(1)Work on plus video section and complete statically .
+(2)If no content present for any cms menu then don't show that menu in both header and footer section . If there is any blank
+url then make it javascript void .
+(3)Apply tinymce editor and responsive file manager in the cms section and change the cms page content accordingly .
+
+===============================================================================================================================
+
+
+
+
+==================================Details Daily Task===============================================================================================
+Today I have done following tasks in Plus Education Development Project :
+
+(1)Started working on the plus video section . In the login page , for now after successfully validation done (for user name , password , centre and capcha)
+we have saved the centre vale in the session . After login we have redirect to the video gallery page . We make the link SEO friendly for video gallery . In that
+page , we have added one option for logout and also check session for login - so that no one can not access that page directly without login . In the video gallery
+page , add proper video image and timing for the plus video as per the provided vimeo link by Stefano . Also we have applied jquery fancy box to open the video in popup .
+In that video popup there will be three button - close the popup , make full size of the popup and for download the video . In the original js file there was some restriction
+to show the download icon for video popup . Change in the js plugin file to show the download icon . Complete the plus video gallery statically and teste properly .
+
+(2)Started working on the CMS section . In CMS , First we have to add menu name in the CMS section . Then we have to add the conrtent of that menu . Now we have shown all the
+menu added from CMS for both header and footer menu . If that menu content any pdf file then give the link for the pdf file , if content any external link or internal content 
+add the link accordingly . But if admin will only add the menu and don't add any content for that menu then also that menu would show inm the front end with blank link . Noe change
+functioanlity - we have checked if any menu contents any content(can be pdf file / can be internal content / can be external link) , then only that menu will visible in the front end .
+Change in the helper and model file to make that change . Also if there is any blank url then the page would refresh without any reason . Now we have added javascript void instead of
+the blank url . Now if any menu content blank link then the page will not refresh . It will remain in the same page . Complete the functionality and tested properly .
+
+(3)Started working on the CMS section . In the cms content page there was jquery cleditor and if admin need to add any image on the content of any page then admin has to add the link of
+that image . We have used the live server link before to show properly in the both admin and front site . But that was not the right process . So we have changed the text editor . First download
+the tinymce editor and reponsive file manager locally . Then replace the old editor with the new tinymce . Configure the file manager with tinymce . Now if admin want to use ant image in the CMS
+content then admin has to upload the image through the file manager to the server . Then admin can use those images to the content . There was some problem in the configuration and that's why the 
+uploaded image was not showing properly . Solved that problem and now if admin will select the uploaded image in the editor then it will visible with the content . Apply the editor and file manager
+to the CMS section properly . The image link which is save in the database is showing properly in the backend , but in the front end the images was not showing properly . So in front end we have replace
+the database image url with the actual working url . Complete the functionality and tested properly .
+
+=================================================================================================================================
+
+**[2698 - fancybox.js]

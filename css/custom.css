@@ -1,8 +1,4 @@
 /********************Custom.css*********************/
-.brochure-dropdown-menu{
-	min-width: 272px;
-}
-
 .agent-dropdown-menu{
 	min-width: 160px;
 }
@@ -111,8 +107,7 @@
 
 
 .top-header-menu{
-	margin-top: 6px !important;
-	margin-bottom: 6px !important;
+	margin: 5px !important;
 }
 
 .top-header-menu li a{
@@ -147,13 +142,11 @@
 	font-size: 50px;
 	color: #fff;
 	font-weight: 500;
-	/*line-height: 5.4;*/
 	font-family: "Roboto Condensed", sans-serif;
 	background-color: rgba(0, 0, 0, 0.5)
 }
 
 .carousel-caption{
-	/*line-height: 8.8;*/
 	top: 35px;
 }
 
@@ -221,7 +214,7 @@
 }
 
 .europe-program-right-box-image{
-	height: 485px;
+	height: 495px;
 }
 
 .figcaption-title-class-europe-program-right-box{
@@ -247,10 +240,9 @@
 .logo-enuk { background: url(../images/footer_logo/logo-enuk.jpg) no-repeat top center; width: 196px; }
 .logo-yleuk { background: url(../images/footer_logo/logo-yleuk.jpg) no-repeat top center; width: 101px; }
 .logo-accet { background: url(../images/footer_logo/trinity-logo.jpg) no-repeat top center; width: 128px; }
-/*.logo-cea { background: url(http://www.studyholidays.com/_img/logo-cea.jpg) no-repeat top center; width: 106px; }*/
 .inner { max-width: 1200px; margin: 0 auto; }
 .footer a.fbFind { margin: 10px 0 10px 5px; }
-.footer .credits { float: right; }
+/*.footer .credits { float: right; }*/
 .footer .credits > div { margin: 0 0 0 10px; display: inline-block; }
 .footer .credits p { display: inline-block; margin: 0; }
 .zone {
@@ -265,13 +257,6 @@
 	font-weight: normal;
 }
 /***************************************END*********************************************/
-
-
-.footer-link-container{
-	padding-left: 23px;
-	padding-right: 36px;
-	margin-top: 0em;
-}
 
 .footer-heading-container{
 	background-color: #f2f2f2;
@@ -305,30 +290,6 @@
 
 .footer-nav > li > a {
 	color: #8f8f8f;
-}
-
-.footer-section-container{
-	width: 1320px !important;
-}
-
-.first-footer-box{
-	width: 20%;
-	margin-left: 75px;
-}
-
-.second-footer-box{
-	width: 20%;
-	margin-left: 33px;
-}
-
-.third-footer-box{
-	width: 28%;
-	margin-left: 33px;
-}
-
-.fourth-footer-box{
-	width: 27%;
-	margin-left: -76px;
 }
 
 .policy-li-wrapper{
@@ -428,13 +389,13 @@
 }
 
 .destination_container{
-	padding-left: 60px;
-	padding-right: 60px;
+	padding-left: 43px;
+	/*padding-right: 60px;*/
 }
 
-.figcaption-title-class-destination{
+/*.figcaption-title-class-destination{
 	margin-top: 55px !important;
-}
+}*/
 
 .choose-program-title{
 	color:#68839c;
@@ -589,11 +550,21 @@
 	border-bottom: 1px solid #ccc;
 	background: #eee;
 }
+.memberOfClass{
+	padding: 0px;
+	margin-left: -30px !important;
+}
+
+.trinityCollegeClass{
+	padding: 0px;
+	margin-left: 30px !important;
+}
+
+.facebookIconClass{
+	padding-right: 0;
+}
 
 @media screen and (max-width: 991px){
-	.carousel-caption , .carousel-indicators{
-		display : none;
-	}
 	.agileits-title {
 		margin-bottom: -30px !important;
 	}
@@ -608,5 +579,41 @@
 
 	.junior-course-main-summary{
 		border : 0;
+	}
+
+	.brochure-dropdown-menu{
+		margin-left: -165px;
+	}
+
+	.agent-dropdown-menu{
+		margin-left: -58px;
+	}
+
+	.welcome , .removePadding{
+		padding : 0;
+	}
+}
+
+@media screen and (max-width: 1199px){
+	.memberOfClass{
+		padding: 0px;
+		margin-left: 0px !important;
+	}
+
+	.trinityCollegeClass{
+		padding: 0px;
+		margin-left: 0px !important;
+	}
+
+	.facebookIconClass{
+		padding: 0;
+	}
+
+	.carousel-caption , .carousel-indicators{
+		display : none;
+	}
+
+	.headerWrapperClass{
+		display : none;
 	}
 }

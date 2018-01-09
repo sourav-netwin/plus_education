@@ -50,8 +50,8 @@
 
 
 <!-----------------Main Body section (Start)------------------->
-<div class="centre-container-wrapper">
-	<div class="container text-center">
+<div class="centre-container-wrapper" style="padding-left: 0;padding-right: 0;">
+	<div class="container text-center" style="padding-left: 0;padding-right: 0;">
 		<div class="col-lg-12">
 			<div class="row">
 				<!-------------Left Section Start-------------->
@@ -157,7 +157,7 @@
 								</div>
 								<div id="collapseTwo2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 									<div class="panel-body">
-										<?php echo $centreDetails['accomodation']['details']; ?>
+										<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['accomodation']['details']); ?>
 									</div>
 								</div>
 							</div>
@@ -182,7 +182,7 @@
 								</div>
 								<div id="collapseThree2" class="panel-collapse collapse" aria-expanded="false" style="">
 									<div class="panel-body">
-										<?php echo $centreDetails['course']['details']; ?>
+										<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['course']['details']); ?>
 									</div>
 								</div>
 							</div>
@@ -305,7 +305,7 @@
 								</div>
 								<div id="collapseSeven2" class="panel-collapse collapse" aria-expanded="false" style="">
 									<div class="panel-body">
-										<?php echo $centreDetails['plus_team']['details']; ?>
+										<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['plus_team']['details']); ?>
 									</div>
 								</div>
 							</div>

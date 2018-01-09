@@ -87,6 +87,9 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //Google API Key
 define('GOOGLE_API_KEY' , 'AIzaSyAxAOuX6VZ3411GsROuhn-SxYbNC0skt9M');
 
+//For creating encrypted data
+define('ENCRYPTKEY' , 'STUDYTOURS@!123456');
+
 //Database table names
 define('TABLE_PROGRAM' , 'frontweb_program_banner');
 define('TABLE_PROGRAM_LANGUAGE' , 'frontweb_program_banner_language');
@@ -131,6 +134,7 @@ define('TABLE_JUNIOR_MINISTAY_SECTION' , 'frontweb_junior_ministay_section');
 define('TABLE_ADULT_COURSE_BROCHURE' , 'frontweb_adult_course_brochure');
 define('TABLE_MANAGE_APPLICATION_FORM' , 'frontweb_manage_application_form');
 define('TABLE_APPLICATION_FORM_DATA' , 'frontweb_application_form_data');
+define('TABLE_PLUS_VIDEO' , 'frontweb_plus_video');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -142,7 +146,10 @@ define('JUNIOR_MINISTAY_ID' , 14);
 define('ADULT_COURSE_ID' , 13);
 
 //Admin panel base url path to access images
-define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
+if($_SERVER['HTTP_HOST'] == "localhost")
+	define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
+else
+	define('ADMIN_PANEL_URL' , 'http://plus-ed.com/vision_ag/');
 
 //Define image location details for program banner module images
 define('PROGRAM_IMAGE_PATH' , 'uploads/program/');
@@ -216,3 +223,18 @@ define('MINISTAY_WALKING_TOUR_FILE_PATH' , 'uploads/ministay_walking_tour/');
 
 //Define file upload location details for brochure module for adult courses
 define('ADULT_COURSE_BROCHURE' , 'uploads/adult_course_brochure/');
+
+//Define file upload location details for campus life section
+define('CAMPUS_LIFE_IMAGE_PATH' , 'uploads/campus_life/');
+
+//Define file upload location details for usa program section
+define('USA_PROGRAM_IMAGE_PATH' , 'uploads/usa_program/');
+
+//Define file upload location details for europe program section
+define('EUROPE_PROGRAM_IMAGE_PATH' , 'uploads/europe_program/');
+
+//Define file upload location details for tinymce editor content
+define('TINYMCE_IMAGE_PATH' , 'uploads/tinymce/');
+
+//Define file upload location details for tinymce editor content
+define('TINYMCE_CURRENT_CONFIG_PATH' , '../../../../uploads/tinymce/');

@@ -2695,7 +2695,7 @@
                 $container.find('[data-fancybox-download]').attr( 'href', current.opts.image.src || current.src ).show();
 
             } else {
-                $container.find('[data-fancybox-download],[data-fancybox-zoom]').hide();
+                //$container.find('[data-fancybox-download],[data-fancybox-zoom]').hide();
             }
         },
 

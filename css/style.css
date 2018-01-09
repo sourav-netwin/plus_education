@@ -1691,7 +1691,7 @@ p.agile-p {
     margin-top: 3em;
 }
 .welcome-agileinfo {
-    margin-top: 3em;
+    margin-top: 3em !important;
 }
 .w3-services-grids {
     margin-top: 3em;
@@ -1753,11 +1753,13 @@ figure.effect-chico.welcome-img2 {
     display: inline-block;
 }
 button.navbar-toggle {
-    border-color: #f44336;
+    /*border-color: #f44336;*/
+   border-color: #656565;
     margin-right: 0;
 }
 span.icon-bar {
-    background: #f44336;
+    /*background: #f44336;*/
+    background: #656565;
 }
 .top-nav ul li {
     margin: 1.2em 0;

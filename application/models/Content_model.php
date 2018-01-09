@@ -16,6 +16,7 @@
 							->join(TABLE_CONTENT_MST , 'cont_menuid = mnu_menuid' , 'left')
 							->where('mnu_type' , 'Top')
 							->where('mnu_parent_menu_id' , $parentId)
+							->where('(cont_contentid IS NOT NULL OR mnu_parent_menu_id = 0)')
 							->order_by('mnu_sequence')
 							->get(TABLE_MENU_MST)->result_array();
 			if(!empty($result))
@@ -97,6 +98,7 @@
 							->join(TABLE_CONTENT_MST , 'cont_menuid = mnu_menuid' , 'left')
 							->where('mnu_type' , 'Footer')
 							->where('mnu_parent_menu_id' , $parentId)
+							->where('(cont_contentid IS NOT NULL OR mnu_parent_menu_id = 0)')
 							->order_by('mnu_sequence')
 							->get(TABLE_MENU_MST)->result_array();
 			if(!empty($result))

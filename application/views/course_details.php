@@ -3,7 +3,7 @@
 <div class="welcome welcome-title">
 	<div class="container">
 		<h2 class="agileits-title about-title"><?php echo $courseDetails['course_name']; ?></h2><hr>
-		<div class="col-lg-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
 <?php
 			$className = (!empty($courseDetails['course_specification'])) ? 'col-lg-8 col-md-8 col-sm-12 col-xs-12 junior-course-main-summary' : 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
 ?>
@@ -16,7 +16,7 @@
 				if(!empty($courseDetails['course_specification']))
 				{
 ?>
-					<div class="col-lg-4">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 <?php
 						foreach($courseDetails['course_specification'] as $value)
 						{
@@ -33,167 +33,151 @@
 				}
 ?>
 		</div>
-	</div>
-</div>
-
-<div class="team">
-	<div class="container">
-		<div class="w3_agile_team_grids">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="clearfix"></div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 <?php
-					if(!empty($courseDetails['course_feature']))
+				if(!empty($courseDetails['course_feature']))
+				{
+					foreach($courseDetails['course_feature'] as $key => $value)
 					{
-						foreach($courseDetails['course_feature'] as $key => $value)
-						{
 ?>
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 w3_agile_team_grid">
-								<div class="hover14 column">
-									<figure><img style="height: 230px;" src="<?php echo ADMIN_PANEL_URL.COURSE_FEATURE_IMAGE_PATH.$value['feature_image']; ?>" class="img-responsive" /></figure>
-								</div>
-								<div class="vc_row">
-									<div class="vc_custom_heading">
-										<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
-											<h3 class="vc_custom_heading_text"><?php echo $value['feature_title']; ?></h3>
-										</div>
-										<div class="col-lg-1 col-md-1">
-											<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="<?php echo 'box'.($key+1); ?>"></i>
-										</div>
-									</div>
-									<span class="box-detail-text" id="<?php echo 'box'.($key+1); ?>" style="display: none;">
-										<?php echo html_entity_decode($value['feature_description']); ?>
-									</span>
-								</div>
+						<div class="w3_agile_team_grid">
+							<div class="hover14 column">
+								<figure><img style="height: 230px;" src="<?php echo ADMIN_PANEL_URL.COURSE_FEATURE_IMAGE_PATH.$value['feature_image']; ?>" class="img-responsive" /></figure>
 							</div>
+							<div class="vc_row">
+								<div class="vc_custom_heading">
+									<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
+										<h3 class="vc_custom_heading_text"><?php echo $value['feature_title']; ?></h3>
+									</div>
+									<div class="col-lg-1 col-md-1">
+										<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="<?php echo 'box'.($key+1); ?>"></i>
+									</div>
+								</div>
+								<span class="box-detail-text" id="<?php echo 'box'.($key+1); ?>" style="display: none;">
+									<?php echo html_entity_decode($value['feature_description']); ?>
+								</span>
+							</div>
+						</div>
 <?php
-							if(ceil(count($courseDetails['course_feature'])/2) == ($key+1))
-								echo '</div><div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">';
-						}
+						if(ceil(count($courseDetails['course_feature'])/2) == ($key+1))
+							echo '</div><div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">';
 					}
+				}
 ?>
-				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
 <!-----------For Adult course : show brochure and application form(Start)-------->
 <?php
-	if($referenceFunctionName == '')
-	{
+		if($referenceFunctionName == '')
+		{
 ?>
-		<div class="team" style="padding-top: 0px;">
-			<div class="container">
-				<div class="w3_agile_team_grids">
-					<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
 <!----------------------For Application form section Start------------------>
 <?php
-						if(!empty($formDetails))
-						{
+			if(!empty($formDetails))
+			{
 ?>
-							<div class="col-lg-6">
-								<div class="col-md-12 w3_agile_team_grid">
-									<div class="vc_row">
-										<div class="vc_custom_heading">
-											<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
-												<h3 class="vc_custom_heading_text">University Enquiry Form</h3>
-											</div>
-											<div class="col-lg-1 col-md-1">
-												<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="applicationForm"></i>
-											</div>
-										</div>
-										<span class="box-detail-text" id="applicationForm" style="display: none;">
-											<div class="panel-body">
-												<div class="col-md-12">
-													<u>Please can you answer the following questions to enable us to understand your interests:</u>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="w3_agile_team_grid" style="width: 100%;">
+						<div class="vc_row">
+							<div class="vc_custom_heading">
+								<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
+									<h3 class="vc_custom_heading_text">University Enquiry Form</h3>
+								</div>
+								<div class="col-lg-1 col-md-1">
+									<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="applicationForm"></i>
+								</div>
+							</div>
+							<span class="box-detail-text" id="applicationForm" style="display: none;">
+								<div class="panel-body">
+									<div class="col-md-12">
+										<u>Please can you answer the following questions to enable us to understand your interests:</u>
+									</div>
+									<div class="clearfix"></div>
+									<br><br>
+									<form id="applicationFormId">
+<?php
+										foreach($formDetails as $value)
+										{
+?>
+											<div class="form-group">
+												<label class="control-label custom-control-label col-xs-12">
+													<?php echo $value['label_name']; ?>
+													<?php echo ($value['required_flag'] == 1) ? '<span class="required">*</span>' : ''; ?>
+												</label>
+												<div class="col-xs-12">
+													<?php echo showFormField($value); ?>
 												</div>
-												<div class="clearfix"></div>
-												<br><br>
-												<form id="applicationFormId">
-<?php
-													foreach($formDetails as $value)
-													{
-?>
-														<div class="form-group">
-															<label class="control-label custom-control-label col-xs-12">
-																<?php echo $value['label_name']; ?>
-																<?php echo ($value['required_flag'] == 1) ? '<span class="required">*</span>' : ''; ?>
-															</label>
-															<div class="col-xs-12">
-																<?php echo showFormField($value); ?>
-															</div>
-														</div>
-														<div class="clearfix"></div><br>
-<?php
-													}
-?>
-													<div class="form-group">
-														<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
-															<input value="Submit" class="btn btn-success" type="submit">
-														</div>
-													</div>
-												</form>
 											</div>
-										</span>
-									</div>
-								</div>
-							</div>
+											<div class="clearfix"></div><br>
 <?php
-						}
+										}
 ?>
-<!----------------------For Application form section End------------------>
-
-<!------------------------For Brochure section Start--------------------------->
-<?php
-						if(!empty($brochureDetails))
-						{
-?>
-							<div class="col-lg-6">
-								<div class="col-md-12 w3_agile_team_grid">
-									<div class="vc_row">
-										<div class="vc_custom_heading">
-											<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
-												<h3 class="vc_custom_heading_text">Brochure</h3>
-											</div>
-											<div class="col-lg-1 col-md-1">
-												<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="brochureId"></i>
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+												<input value="Submit" class="btn btn-success" type="submit">
 											</div>
 										</div>
-										<span class="box-detail-text" id="brochureId" style="display: none;">
-											<div class="panel-body">
-<?php
-												foreach($brochureDetails as $value)
-												{
-?>
-													<div class="col-md-12">
-														<div class="col-md-11">
-															<p><?php echo $value['file_description']; ?></p>
-														</div>
-														<div class="col-md-1">
-															<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ADULT_COURSE_BROCHURE.$value['file_name']; ?>">
-																<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
-															</a>
-														</div>
-													</div>
-													<div class="clearfix"></div><hr>
-<?php
-												}
-?>
-											</div>
-										</span>
-									</div>
+									</form>
 								</div>
-							</div>
-<?php
-						}
-?>
-<!------------------------For Brochure section End--------------------------->
+							</span>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 <?php
-	}
+			}
+?>
+<!----------------------For Application form section End------------------>
+<!------------------------For Brochure section Start--------------------------->
+<?php
+			if(!empty($brochureDetails))
+			{
+?>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="w3_agile_team_grid" style="width: 100%;">
+						<div class="vc_row">
+							<div class="vc_custom_heading">
+								<div class="col-lg-11 col-md-11" style="margin-top: 4px;">
+									<h3 class="vc_custom_heading_text">Brochure</h3>
+								</div>
+								<div class="col-lg-1 col-md-1">
+									<i class="fa fa-lg fa-chevron-circle-down showDetails" aria-hidden="true" data-ref_id="brochureId"></i>
+								</div>
+							</div>
+							<span class="box-detail-text" id="brochureId" style="display: none;">
+								<div class="panel-body">
+<?php
+									foreach($brochureDetails as $value)
+									{
+?>
+										<div class="col-md-12">
+											<div class="col-md-11">
+												<p><?php echo $value['file_description']; ?></p>
+											</div>
+											<div class="col-md-1">
+												<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ADULT_COURSE_BROCHURE.$value['file_name']; ?>">
+													<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
+												</a>
+											</div>
+										</div>
+										<div class="clearfix"></div><hr>
+<?php
+									}
+?>
+								</div>
+							</span>
+						</div>
+					</div>
+				</div>
+<?php
+			}
+?>
+<!------------------------For Brochure section End--------------------------->
+			</div>
+<?php
+		}
 ?>
 <!-----------For Adult course : show brochure and application form(End)-------->
 
@@ -202,9 +186,9 @@
 		if($referenceFunctionName != '')
 		{
 ?>
-			<div class="container destination_container">
-				<h1 class="destination_heading">DESTINATIONS</h1><hr>
-				<ul class="nav nav-pills col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4 col-md-offset-3 col-sm-offset-2">
+				<div class="clearfix"></div>
+				<h3 class="agileits-title" style="font-size: 24px;padding-top: 30px;padding-bottom: 15px;">DESTINATIONS</h3><hr>
+				<ul style="z-index: 10000;" class="nav nav-pills col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-4 col-md-offset-4 col-sm-offset-0">
 					<li class="active"><a data-reference_function_name = "<?php echo $referenceFunctionName; ?>" data-table_name = "<?php echo $tableName; ?>" href="#reg_all" data-region_id=''>ALL</a></li>
 <?php
 					if(!empty($destinationDetails['region']))
@@ -224,7 +208,7 @@
 				<div class="tab-content">
 					<div id="reg_all" class="tab-pane fade in active">
 						<div class="welcome-agileinfo" style="margin-top: 2em;">
-							<div class="col-md-12 agile-welcome-left">
+							<div class="col-md-12 agile-welcome-left" style="padding-right: 0;">
 <?php
 								if(!empty($destinationDetails['centre']))
 								{
@@ -235,12 +219,16 @@
 											<figure class="effect-chico">
 												<?php $centreImage = ($value['centre_image'] != '') ? $value['centre_image'] : 'front_default.jpg'; ?>
 												<img src="<?php echo ADMIN_PANEL_URL.CENTRE_MASTER_IMAGE_PATH.$centreImage; ?>" />
-												<span class="show-destination-class"><p><?php echo $value['centre_name']; ?></p></span>
-												<figcaption class="figcaptionWrapperClass">
-													<p class="figcaption-title-class-courses">
+												<span class="show-destination-class">
+													<span class="figcaptionWrapperClass">
+														<p class="figcaption-title-class-courses"><?php echo $value['centre_name']; ?></p>
+													</span>
+												</span>
+												<figcaption>
+													<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 														<?php echo $value['centre_name']; ?><br>
 														<a class="btn view-details-btn" href="<?php echo base_url().$referenceFunctionName.'/'.str_replace(' ' , '-' , $value['centre_name']); ?>"><?php echo $this->lang->line('read_more'); ?></a>
-													</p>
+													</p></div>
 												</figcaption>
 											</figure>
 										</div>
@@ -263,11 +251,12 @@
 					}
 ?>
 				</div>
-			</div>
 <?php
 		}
 ?>
 <!-----------------Destination Section End------------------->
+	</div>
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
