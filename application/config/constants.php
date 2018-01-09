@@ -148,6 +148,8 @@ define('ADULT_COURSE_ID' , 13);
 //Admin panel base url path to access images
 if($_SERVER['HTTP_HOST'] == "localhost")
 	define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
+elseif($_SERVER['HTTP_HOST'] == "192.168.43.97")
+	define('ADMIN_PANEL_URL' , 'http://192.168.43.97/stvision/vision/');
 else
 	define('ADMIN_PANEL_URL' , 'http://plus-ed.com/vision_ag/');
 

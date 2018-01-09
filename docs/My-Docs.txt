@@ -154,35 +154,46 @@ url then make it javascript void .
 (3)Apply tinymce editor and responsive file manager in the cms section and change the cms page content accordingly .
 
 ===============================================================================================================================
-
+(1)Solve responsive and designing issue for following sections -
+home page padding issue
+europe program section
+padding for footer
+change header button(for mobile view)
+padding issue for course details page
+padding issue and responsive issue(for ipad) in junior centre/junior mini stay page
+cms pages - accomodation.course and plus team
 
 
 
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the plus video section . In the login page , for now after successfully validation done (for user name , password , centre and capcha)
-we have saved the centre vale in the session . After login we have redirect to the video gallery page . We make the link SEO friendly for video gallery . In that
-page , we have added one option for logout and also check session for login - so that no one can not access that page directly without login . In the video gallery
-page , add proper video image and timing for the plus video as per the provided vimeo link by Stefano . Also we have applied jquery fancy box to open the video in popup .
-In that video popup there will be three button - close the popup , make full size of the popup and for download the video . In the original js file there was some restriction
-to show the download icon for video popup . Change in the js plugin file to show the download icon . Complete the plus video gallery statically and teste properly .
+(1)Started worling on the website responsive issues . In the home page there was padding issues for the image boxes . Both side padding was not proper .
+Solved that problem .
 
-(2)Started working on the CMS section . In CMS , First we have to add menu name in the CMS section . Then we have to add the conrtent of that menu . Now we have shown all the
-menu added from CMS for both header and footer menu . If that menu content any pdf file then give the link for the pdf file , if content any external link or internal content 
-add the link accordingly . But if admin will only add the menu and don't add any content for that menu then also that menu would show inm the front end with blank link . Noe change
-functioanlity - we have checked if any menu contents any content(can be pdf file / can be internal content / can be external link) , then only that menu will visible in the front end .
-Change in the helper and model file to make that change . Also if there is any blank url then the page would refresh without any reason . Now we have added javascript void instead of
-the blank url . Now if any menu content blank link then the page will not refresh . It will remain in the same page . Complete the functionality and tested properly .
+(2)In europe program section in the home page , there was not proper bootstarp grid classes . that's why the view was not responsive . Change the designing
+and make that section responsive .
 
-(3)Started working on the CMS section . In the cms content page there was jquery cleditor and if admin need to add any image on the content of any page then admin has to add the link of
-that image . We have used the live server link before to show properly in the both admin and front site . But that was not the right process . So we have changed the text editor . First download
-the tinymce editor and reponsive file manager locally . Then replace the old editor with the new tinymce . Configure the file manager with tinymce . Now if admin want to use ant image in the CMS
-content then admin has to upload the image through the file manager to the server . Then admin can use those images to the content . There was some problem in the configuration and that's why the 
-uploaded image was not showing properly . Solved that problem and now if admin will select the uploaded image in the editor then it will visible with the content . Apply the editor and file manager
-to the CMS section properly . The image link which is save in the database is showing properly in the backend , but in the front end the images was not showing properly . So in front end we have replace
-the database image url with the actual working url . Complete the functionality and tested properly .
+(3)In the footer section , the designing was not proper as there was more than 1 container class . That's why the with of the footer was not proper . Change in
+the designing and now the width of the footer is wider than before for both desktop and mobile view .
+
+(4)If we resize the screen size(for mobile view) , the header section hide inside one button . then if user will click on that button then the header will appear .
+On the header , the header button was not proper . The color was not appropriate as per our theme . So change the button style and color .
+
+(5)In the course details page , the details text padding was same like the home page boxes . But in the course feature section , the width was not matching with the 
+details text . Also the destination section was not properly aligned with respect to the home page boxes . Change the padding for feature boxes and destination boxes
+as per the home page boxes . Also for mobile view/tablet view make the padding same for both side .
+
+(6)Started working on the junior centre and  junior ministay details page - centre wise . In ipad (real device) , there was some responsive issue . Solved that problem .
+Also in the media section there was some padding issue . Solved those issues and checked for all virtual devices .
+
+(7)In the CMS static content , we have added details for accomodation , course and the plus team details . Those pages contain some text and the related image . After added
+the content properly , in front end the view was not responsive . Change in the inline css to make them responsive in the front end . Complete that changes and apply the same
+in the live site .
 
 =================================================================================================================================
 
 **[2698 - fancybox.js]
+
+
+
