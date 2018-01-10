@@ -1,36 +1,10 @@
 <!---------------------- Footer Link Section Start ---------------------->
-<!-- <div class="container footer-link-container">
-	<footer class="zone footer">
-		<div class="whiteBar">
-			<div class="inner">
-				<a href="https://www.facebook.com/StaffordHouseStudyHolidays" class="fbFind">Find us<br>on Facebook</a>
-				<div class="credits">
-					<div>
-						<p>English Courses in the UK</p>
-						<a href="http://www.britishcouncil.org/" class="logo-bc" target="_blank"></a>
-					</div>
-					<div>
-						<p>Member of</p>
-						<a href="http://www.englishuk.com/" class="logo-enuk" target="_blank"></a>
-						<a href="http://www.yleuk.com/" class="logo-yleuk" target="_blank"></a>
-					</div>
-					<div>
-						<p>Trinity College</p>
-						<a href="http://www.trincoll.edu/" class="logo-accet" target="_blank"></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-</div> -->
-<!---------------------- Footer Link Section End ---------------------->
-
 <div class="container">
 	<footer class="zone footer">
 		<div class="whiteBar">
 			<div class="inner">
-				<div class="col-lg-12 col-md-6 col-md-offset-3 col-lg-offset-0">
-					<div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 facebookIconClass">
+				<div class="col-lg-12 col-md-6 col-lg-offset-0">
+					<div class="col-lg-2 col-md-12 col-sm-12 facebookIconClass">
 						<a href="https://www.facebook.com/StaffordHouseStudyHolidays" class="fbFind">Find us<br>on Facebook</a>
 					</div>
 					<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 credits" style="padding: 0px;">
@@ -51,3 +25,4 @@
 		</div>
 	</footer>
 </div>
+<!---------------------- Footer Link Section End ---------------------->

@@ -6,6 +6,7 @@
 			parent::__construct();
 			$this->lang->load('general_lang' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
+			$this->load->model('Content_model' , '' , TRUE);
 			$this->load->helper('frontend');
 		}
 
@@ -15,6 +16,8 @@
 			$languageId = 1;
 			$data['bannerDetails'] = $this->Front_model->getBannerDetails($languageId);
 			$data['courseDetails'] = $this->Front_model->getCourseDetails($languageId);
+			$data['usaProgram'] = $this->Content_model->getUsaEuropeProgram('USA');
+			$data['europeProgram'] = $this->Content_model->getUsaEuropeProgram('United Kingdom');
 			$data['show_banner'] = 1;
 			$data['page_title'] = 'Home';
 			$this->template->view('dashboard' , $data);

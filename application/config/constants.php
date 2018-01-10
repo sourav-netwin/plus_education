@@ -240,3 +240,6 @@ define('TINYMCE_IMAGE_PATH' , 'uploads/tinymce/');
 
 //Define file upload location details for tinymce editor content
 define('TINYMCE_CURRENT_CONFIG_PATH' , '../../../../uploads/tinymce/');
+
+//Define image location , height , width , thumb details for program course home page images
+define('PROGRAM_FRONT_IMAGE_PATH' , 'uploads/program_course_front/');

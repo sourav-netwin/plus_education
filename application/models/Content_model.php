@@ -140,4 +140,27 @@
 			}
 			return $returnArr;
 		}
+
+		//This function is used to get the details of usa and europe program to show in the home page
+		function getUsaEuropeProgram($type = 'USA')
+		{
+			$returnArr = array();
+			$result = $this->db->query("select b.located_in,group_concat(distinct(concat(d.program_course_name,'#',
+										d.program_front_image))) as course from frontweb_junior_centre a left join
+										centri b on b.id=a.centre_id left join frontweb_junior_centre_program c on
+										c.junior_centre_id=a.junior_centre_id left join frontweb_program_course d on
+										d.program_course_id=c.program_id group by b.located_in having b.located_in in
+										('".$type."')")->row_array();
+			if(!empty($result))
+			{
+				$course = explode(',', $result['course']);
+				foreach($course as $key => $value)
+				{
+					$arr = explode('#', $value);
+					$returnArr[$key]['name'] = $arr[0];
+					$returnArr[$key]['image'] = $arr[1];
+				}
+			}
+			return $returnArr;
+		}
 	}

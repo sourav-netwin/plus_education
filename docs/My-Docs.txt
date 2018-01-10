@@ -148,52 +148,44 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Work on plus video section and complete statically .
-(2)If no content present for any cms menu then don't show that menu in both header and footer section . If there is any blank
-url then make it javascript void .
-(3)Apply tinymce editor and responsive file manager in the cms section and change the cms page content accordingly .
+(1)Change functioanlity for program course management .
+(2)Make front end usa and europe program section dynamic as per the vision admin panel .
+(3)Footer link section responsive issue .
 
 ===============================================================================================================================
-(1)Solve responsive and designing issue for following sections -
-home page padding issue
-europe program section
-padding for footer
-change header button(for mobile view)
-padding issue for course details page
-padding issue and responsive issue(for ipad) in junior centre/junior mini stay page
-cms pages - accomodation.course and plus team
+
 
 
 
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started worling on the website responsive issues . In the home page there was padding issues for the image boxes . Both side padding was not proper .
-Solved that problem .
+(1)Started working on the admin panel program course section . Previously we have careted two functions in controller to perfoem add and edit function .
+Also we have created two view file for add and edit . Now change the functionality and created only one function called add_edit to perform both add and
+edit function . Also remove two view files and created one view file for add/edit page . Manage the difference of those page using one flag . Successfully
+implemented the functionality and tested properly . Also previously we have mentioned all the javascript code in the view page . Like for listing page we have
+used datatable code , update status code , for add/edit page check all jqury validation , image validation etc . Now create one common javascript file for the
+all js functionality and use that file for both add/edit and listing page . We have used some php message to show all the error message , so for that we have passed
+those values as javascript variable . Complete the functionality and tested properly .
 
-(2)In europe program section in the home page , there was not proper bootstarp grid classes . that's why the view was not responsive . Change the designing
-and make that section responsive .
+(2)Started working on the home page usa and europe program section . In admin panel , program course section - In the database add one field for front end image .
+In the add/edit page add one field for front image . Add proper validation(required and the dimension) for that . If validation will successfully done then upload the
+image to the server and also save the record in the database . In the edit page show the added image and update the image . Afetr add/edit if admin change the front image
+then open one popup to resize the image in proper dimansion . In the front end , home page , make usa and europe program section dynamic as per the vision admin panel . Those
+section contain the progarm name and the program image . First we took all the junior centre program and images . Then we have filtered those records according to region and 
+program . All the progarm is linked to the details page . All program contains one read more icon . If user will click on that icon then one new tab will open with the selected
+program details . Complete the functionality and tested properly .
 
-(3)In the footer section , the designing was not proper as there was more than 1 container class . That's why the with of the footer was not proper . Change in
-the designing and now the width of the footer is wider than before for both desktop and mobile view .
-
-(4)If we resize the screen size(for mobile view) , the header section hide inside one button . then if user will click on that button then the header will appear .
-On the header , the header button was not proper . The color was not appropriate as per our theme . So change the button style and color .
-
-(5)In the course details page , the details text padding was same like the home page boxes . But in the course feature section , the width was not matching with the 
-details text . Also the destination section was not properly aligned with respect to the home page boxes . Change the padding for feature boxes and destination boxes
-as per the home page boxes . Also for mobile view/tablet view make the padding same for both side .
-
-(6)Started working on the junior centre and  junior ministay details page - centre wise . In ipad (real device) , there was some responsive issue . Solved that problem .
-Also in the media section there was some padding issue . Solved those issues and checked for all virtual devices .
-
-(7)In the CMS static content , we have added details for accomodation , course and the plus team details . Those pages contain some text and the related image . After added
-the content properly , in front end the view was not responsive . Change in the inline css to make them responsive in the front end . Complete that changes and apply the same
-in the live site .
+(3)Started wiorking on the footer link section . In that section there was some minor responsive issues . The logos was not showing properly for mobile device . For tab view
+all the content was showing towards the left side . Change in the css files to make it on the centre page . For mobile and tab view also make it left align . Complete the chnages
+and checked properly with all virtual divices .
 
 =================================================================================================================================
 
 **[2698 - fancybox.js]
 
 
-
+Changes in live site :
+(1)Pull all the changes for front and admin panel.
+(2)delete two folder : "uploads\usa_program" and "uploads\europe_program".
+(3)execute the latest sql query .
