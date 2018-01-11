@@ -59,4 +59,4 @@ $route['adult-course'] = 'course/course_details/'.ADULT_COURSE_ID;
 $route['junior-summer-courses/(.*)'] = 'course/junior_centre/$1';
 $route['junior-mini-stay/(.*)'] = 'course/junior_ministay/$1';
 $route['program'] = 'course/show_program_details';
-$route['plus-video'] = 'video_gallery/index';
+$route['plus-walking-tour'] = 'video_gallery/index';

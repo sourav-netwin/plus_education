@@ -16,6 +16,7 @@
 
 		<script src="<?php echo base_url(); ?>js/jquery-2.1.0.js"></script>
 		<script src="<?php echo base_url(); ?>js/admin/jquery.validate.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/admin/jquery.base64.min.js"></script>
 	</head>
 
 	<body class="login">
@@ -27,9 +28,6 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div>
 								<?php echo form_dropdown('centre' , getCentreDropdownForPlusVideo() , '' , 'class="form-control dropdownClass" id="centre"'); ?>
-							</div>
-							<div>
-								<input type="text" class="form-control" placeholder="Username" name="userName" id="userName" autocomplete="off" />
 							</div>
 							<div>
 								<input type="password" class="form-control" placeholder="Password" name="userPassword" id="userPassword" autocomplete="off" />
@@ -86,10 +84,6 @@
 						centre:{
 							required: true
 						},
-						userName:{
-							required: true,
-							validData: true
-						},
 						userPassword: {
 							required: true,
 							validData: true
@@ -102,9 +96,6 @@
 					messages: {
 						centre :{
 							required: "<?php echo str_replace('**field**' , 'centre' , lang('please_enter_dynamic')); ?>",
-						},
-						userName :{
-							required: "<?php echo str_replace('**field**' , 'username' , lang('please_enter_dynamic')); ?>",
 						},
 						userPassword :{
 							required: "<?php echo str_replace('**field**' , 'password' , lang('please_enter_dynamic')); ?>",
@@ -122,7 +113,7 @@
 						return false;
 					else
 					{
-						var encrypted_pass_data = Base64.encode($('#userPassword').val());
+						var encrypted_pass_data = $.base64.encode($('#userPassword').val());
 						$('#userPassword').val(encrypted_pass_data);
 					}
 				});

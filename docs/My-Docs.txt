@@ -148,9 +148,10 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Change functioanlity for program course management .
-(2)Make front end usa and europe program section dynamic as per the vision admin panel .
-(3)Footer link section responsive issue .
+(1)Complete video management for plus walking tour in vision admin panel .
+(2)Change in international mix section.
+(3)Change in program course logo section.
+(4)Complete plus walking tour login section as per the vision admin panel .
 
 ===============================================================================================================================
 
@@ -160,25 +161,28 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the admin panel program course section . Previously we have careted two functions in controller to perfoem add and edit function .
-Also we have created two view file for add and edit . Now change the functionality and created only one function called add_edit to perform both add and
-edit function . Also remove two view files and created one view file for add/edit page . Manage the difference of those page using one flag . Successfully
-implemented the functionality and tested properly . Also previously we have mentioned all the javascript code in the view page . Like for listing page we have
-used datatable code , update status code , for add/edit page check all jqury validation , image validation etc . Now create one common javascript file for the
-all js functionality and use that file for both add/edit and listing page . We have used some php message to show all the error message , so for that we have passed
-those values as javascript variable . Complete the functionality and tested properly .
+(1)Started working on the manage video in admin panel for plus walking tour section . created one database tablr for that where there are centre and
+the password . In the listing page there are serial number , centre name and tghe password against that centre . On the top of the page there is one 
+button to generate password . For the first time when there will be no data present in the database , the button name will be generate password and when
+therte will be already data present , then the button name will be regenarate password . After click on that button all the old data will delete from database
+and new centres and the password will save in the database . After click on the generate password button it will ask for a confirmation . Complete the functioality
+and tested properly .
 
-(2)Started working on the home page usa and europe program section . In admin panel , program course section - In the database add one field for front end image .
-In the add/edit page add one field for front image . Add proper validation(required and the dimension) for that . If validation will successfully done then upload the
-image to the server and also save the record in the database . In the edit page show the added image and update the image . Afetr add/edit if admin change the front image
-then open one popup to resize the image in proper dimansion . In the front end , home page , make usa and europe program section dynamic as per the vision admin panel . Those
-section contain the progarm name and the program image . First we took all the junior centre program and images . Then we have filtered those records according to region and 
-program . All the progarm is linked to the details page . All program contains one read more icon . If user will click on that icon then one new tab will open with the selected
-program details . Complete the functionality and tested properly .
+(2)Started working on the international mix section . In junior centre and junior mini stay listing page there is one icon to manage internationl mix section . If
+admin will click on that icon then one modal will open - On that modal there is one field for managing the percentage . Before whatever value will be added by admin 
+, will show in the front end map section . Now change that . Now admin has to only enter the numeric or floating number on that field . Automatically one percentage(%)
+sign will apend to that number . In admin panel listing and in front end listing page the same will display with persetage sign . Complete the functionality and tested 
+properly .
 
-(3)Started wiorking on the footer link section . In that section there was some minor responsive issues . The logos was not showing properly for mobile device . For tab view
-all the content was showing towards the left side . Change in the css files to make it on the centre page . For mobile and tab view also make it left align . Complete the chnages
-and checked properly with all virtual divices .
+(3)Started working with program course section . In front end junior centre and junior mini stay - centre wise details page , there are the program logos . Except addon 
+all the other logos was not showing properly . Change in the management . In the management there is one option to upload the program course logo . After uploading the
+logo if admin will save the page then one cropping tool will appeart tio crop the image in proper dimension . Change there and make it perfect . Complete the changes and
+checked in the front end .
+
+(4)Started working on the login page for plus walking tour section . In the login page there are select centre , enter password and enter capcha options . If user will add
+proper data there , then the form will be submitted . On submit of the form the password will be sent by encoded . We have used base 64 encoding . In the server we have checked
+that the entered center and the password is matching with the originalone or not . If it found the match then it will redirect to the video gallery page . Otherwise it will redirect
+to the login page with the error message . Complete the functionality and tested properly .
 
 =================================================================================================================================
 
@@ -189,3 +193,9 @@ Changes in live site :
 (1)Pull all the changes for front and admin panel.
 (2)delete two folder : "uploads\usa_program" and "uploads\europe_program".
 (3)execute the latest sql query .
+
+
+
+
+
+  

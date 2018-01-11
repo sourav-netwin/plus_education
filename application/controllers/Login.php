@@ -15,7 +15,7 @@
 		public function index()
 		{
 			if($this->session->userdata('logged_in'))
-				redirect(base_url().'plus-video');
+				redirect(base_url().'plus-walking-tour');
 			else
 			{
 				$this->load->helper('captcha');
@@ -52,8 +52,6 @@
 				//Check values are empty
 				if(!trim($this->input->post('centre')))
 					$error[] = str_replace('**field**' , 'centre' , lang('please_enter_dynamic'));
-				if(!trim($this->input->post('userName')))
-					$error[] = str_replace('**field**' , 'username' , lang('please_enter_dynamic'));
 				if(!trim($this->input->post('userPassword')))
 					$error[] = str_replace('**field**' , 'password' , lang('please_enter_dynamic'));
 
@@ -76,12 +74,9 @@
 					$error[] = 'Please enter valid data.';
 
 				//Check user is valid or not from DB
-				if(trim($this->input->post('userName')) && trim($this->input->post('userPassword')))
+				if(trim($this->input->post('centre')) && trim($this->input->post('userPassword')))
 				{
-					//$userData = $this->Front_model->verify($this->input->post('userName') , $this->input->post('userPassword'));
-					$userData = array(
-						'centre' => $this->input->post('centre')
-					);
+					$userData = $this->Front_model->verify();
 					if(empty($userData))
 						$error[] = "Username or password does not matched.";
 				}
@@ -91,10 +86,10 @@
 					$centreArr = getCentreDropdownForPlusVideo();
 					$newData = array(
 						'logged_in' => TRUE,
-						'centre' => $centreArr[$userData['centre']]
+						'centre' => $userData['nome_centri']
 					);
 					$this->session->set_userdata($newData);
-					redirect(base_url().'plus-video');
+					redirect(base_url().'plus-walking-tour');
 				}
 				else
 				{

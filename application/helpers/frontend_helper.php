@@ -161,6 +161,7 @@
 		$CI = &get_instance();
 		$result = $CI->db->select('id , nome_centri')
 						->join(TABLE_CENTRE , 'id = centre')
+						->order_by('nome_centri' , 'asc')
 						->get(TABLE_PLUS_VIDEO)->result_array();
 		if(!empty($result))
 		{
