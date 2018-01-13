@@ -17,6 +17,12 @@
 		<script src="<?php echo base_url(); ?>js/jquery-2.1.0.js"></script>
 		<script src="<?php echo base_url(); ?>js/admin/jquery.validate.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/admin/jquery.base64.min.js"></script>
+
+		<style>
+			.capchaImage img{
+				width : 100%;
+			}
+		</style>
 	</head>
 
 	<body class="login">

@@ -1,3 +1,22 @@
+<?php
+	if($referenceFunctionName == '')
+	{
+?>
+		<link href="<?php echo base_url(); ?>css/datepicker.css" type="text/css" rel="stylesheet" media="all">
+		<script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('.datepicker').datepicker({
+					format: "dd/mm/yyyy",
+					autoclose: true,
+					endDate: new Date()
+				});
+			});
+		</script>
+<?php
+	}
+?>
+
 <div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.COURSE_IMAGE_PATH.$courseDetails['course_image']; ?>)no-repeat center;"></div>
 
 <div class="welcome welcome-title">
@@ -310,6 +329,6 @@
 					alert('Form Submitted Successfully.');
 				}
 			});
-		})
+		});
 	});
 </script>

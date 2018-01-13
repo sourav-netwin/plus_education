@@ -113,18 +113,45 @@
 	//This function is used to show the form field for application form in adult course
 	function showFormField($data = array())
 	{
+		$CI = &get_instance();
+		$CI->lang->load('message' , 'english');
 		$fieldStr = '';
 		$fieldStr.= '<input type="hidden" name="idArr[]" value="'.$data['manage_application_form_id'].'" >';
 		$fieldStr.= '<input type="hidden" name="field_name_'.$data['manage_application_form_id'].'" value="'.$data['label_name'].'" >';
-		if($data['field_type'] == 'text' || $data['field_type'] == 'date' || $data['field_type'] == 'email')
+		if($data['field_type'] == 'text'
+			|| $data['field_type'] == 'date'
+			|| $data['field_type'] == 'name'
+			|| $data['field_type'] == 'mobile'
+			|| $data['field_type'] == 'email')
 		{
 			$fieldProperities = array(
 				'name' => 'field_value_'.$data['manage_application_form_id'],
-				'class' => 'form-control',
-				'type' => $data['field_type']
+				'class' => 'form-control'
 			);
 			if($data['required_flag'] == 1)
 				$fieldProperities['required'] = 'required';
+
+			if($data['field_type'] == 'name')
+			{
+				$fieldProperities['pattern'] = '[A-Za-z.\s]*';
+				$fieldProperities['title'] = $CI->lang->line('name_validation_message');
+			}
+			elseif($data['field_type'] == 'mobile')
+			{
+				$fieldProperities['pattern'] = '[+]?[0-9]{10,20}';
+				$fieldProperities['title'] = $CI->lang->line('mobile_number_validation_message');
+			}
+			elseif($data['field_type'] == 'email')
+			{
+				$fieldProperities['pattern'] = '[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-za-z]{2,}';
+				$fieldProperities['title'] = $CI->lang->line('email_validation_message');
+			}
+			elseif($data['field_type'] == 'date')
+			{
+				$fieldProperities['placeholder'] = 'dd/mm/yyyy';
+				$fieldProperities['class'] = 'form-control datepicker';
+			}
+
 			$fieldStr.= form_input($fieldProperities);
 		}
 		elseif($data['field_type'] == 'textarea')

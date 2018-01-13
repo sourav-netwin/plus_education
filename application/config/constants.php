@@ -135,6 +135,7 @@ define('TABLE_ADULT_COURSE_BROCHURE' , 'frontweb_adult_course_brochure');
 define('TABLE_MANAGE_APPLICATION_FORM' , 'frontweb_manage_application_form');
 define('TABLE_APPLICATION_FORM_DATA' , 'frontweb_application_form_data');
 define('TABLE_PLUS_VIDEO' , 'frontweb_plus_video');
+define('TABLE_PLUS_WALKING_TOUR' , 'frontweb_plus_walking_tour');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -243,3 +244,6 @@ define('TINYMCE_CURRENT_CONFIG_PATH' , '../../../../uploads/tinymce/');
 
 //Define image location , height , width , thumb details for program course home page images
 define('PROGRAM_FRONT_IMAGE_PATH' , 'uploads/program_course_front/');
+
+//Define file upload location details for plus walking tour videoes
+define('PLUS_WALKING_TOUR' , 'uploads/plus_walking_tour/');

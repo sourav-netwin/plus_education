@@ -86,7 +86,8 @@
 					$centreArr = getCentreDropdownForPlusVideo();
 					$newData = array(
 						'logged_in' => TRUE,
-						'centre' => $userData['nome_centri']
+						'centre' => $userData['nome_centri'],
+						'centre_id' => $userData['id']
 					);
 					$this->session->set_userdata($newData);
 					redirect(base_url().'plus-walking-tour');

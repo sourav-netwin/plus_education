@@ -294,7 +294,7 @@
 		//This function is used to check the authentication for plus walking tour section
 		function verify()
 		{
-			return $this->db->select('nome_centri')
+			return $this->db->select('id , nome_centri')
 							->join(TABLE_CENTRE , 'id=centre' , 'left')
 							->where('centre' , $this->input->post('centre'))
 							->where('password' , base64_decode($this->input->post('userPassword')))

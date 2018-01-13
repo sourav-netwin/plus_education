@@ -4,6 +4,7 @@
 		public function __construct()
 		{
 			parent::__construct();
+			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->helper('frontend');
 			checkAdminLogin();
 		}
@@ -11,7 +12,8 @@
 		//This function is used to show the video gallery page
 		function index()
 		{
-			$this->load->view('plus_video');
+			$data['videoDetails'] = $this->Front_model->commonGetData('video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
+			$this->load->view('plus_video' , $data);
 		}
 
 		function getVideoDetails()
@@ -32,7 +34,7 @@
 
 			// Set the access token (from my Vimeo API app)
 			$lib->setToken('f76202db96349d44d30a111021a597b9');
-			$response = $lib->request('/videos/250069370', array(), 'GET');
+			$response = $lib->request('/videos/237573790', array(), 'GET');
 			echo "<pre>";print_r($response);die('popop');
 		}
 	}

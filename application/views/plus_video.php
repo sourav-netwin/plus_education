@@ -19,6 +19,13 @@
 
 		<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 		<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+
+		<style>
+			video {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -45,39 +52,26 @@
 					<div class="recommended-info">
 						<h3>Plus Video for <?php echo $this->session->userdata('centre'); ?></h3>
 					</div>
-					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a data-fancybox data-caption="Facility" href="https://vimeo.com/203451945"><img src="<?php echo base_url(); ?>images/plus_video/img1.jpg" alt="" /></a>
-							<div class="time">
-								<p>1:32</p>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-						</div>
-					</div>
-					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a data-fancybox data-caption="Location" href="https://vimeo.com/203452026"><img src="<?php echo base_url(); ?>images/plus_video/img2.jpg" alt="" /></a>
-							<div class="time">
-								<p>1:04</p>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a class="title title-info">Interdum pellentesque vitae pulvinar tortor nullam metus a imperdiet</a></h3>
-						</div>
-					</div>
-					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a  data-fancybox data-caption="Program" href="https://vimeo.com/203452195"><img src="<?php echo base_url(); ?>images/plus_video/img3.jpg" alt="" /></a>
-							<div class="time">
-								<p>2:22</p>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a class="title title-info">Nullam interdum metus a imperdiet pellentesque vitae pulvinar tortor</a></h3>
-						</div>
-					</div>
+<?php
+						if(!empty($videoDetails))
+						{
+							foreach($videoDetails as $key => $value)
+							{
+?>
+								<div style="margin-top: 30px;" class="col-md-4 resent-grid recommended-grid slider-top-grids">
+									<div class="resent-grid-img recommended-grid-img">
+										<a data-fancybox data-caption="Facility" id="videoImage_<?php echo ($key+1); ?>" href="<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>"></a>
+									</div>
+									<div style="border-top: 1px solid #C1C1C1;" class="resent-grid-info recommended-grid-info">
+										<h3><a class="title title-info"><?php echo $value['description']; ?></a></h3>
+									</div>
+								</div>
+<?php
+							}
+						}
+						else
+							echo "<div style='font-size: 16px;color: red;text-align: center;'>No videos available</div>";
+?>
 					<div class="clearfix"></div>
 				</div>
 			</div>
@@ -94,15 +88,65 @@
 			$(document).ready(function(){
 				$("[data-fancybox]").fancybox({
 					buttons : [
-						'fullScreen',
-						'close',
-						'download'
+						'close'
 					]
 				});
 
 				$(".nav-pills a").click(function(){
 					$(this).tab('show');
 				});
+
+<?php
+				if(!empty($videoDetails))
+				{
+					foreach($videoDetails as $key => $value)
+					{
+?>
+						showImageAt('<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>' , 8 , 'videoImage_<?php echo ($key+1); ?>');
+<?php
+					}
+				}
+?>
+				function getVideoImage(path, secs, callback)
+				{
+					var me = this, video = document.createElement('video');
+					video.onloadedmetadata = function(){
+						if('function' === typeof secs){
+							secs = secs(this.duration);
+						}
+						this.currentTime = Math.min(Math.max(0, (secs < 0 ? this.duration : 0) + secs), this.duration);alert('pop = '+currentTime);
+					};
+					video.onseeked = function(e) {
+						var canvas = document.createElement('canvas');
+						canvas.height = 245;
+						canvas.width = 435;
+						var ctx = canvas.getContext('2d');
+						ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+						var img = new Image();
+						img.src = canvas.toDataURL();
+						callback.call(me, img, this.currentTime, e);
+					};
+					video.onerror = function(e) {
+						callback.call(me, undefined, undefined, e);
+					};
+					video.src = path;
+				}
+				function showImageAt(url , secs , wrapperId)
+				{
+					var duration;
+					getVideoImage(
+						url,
+						function(totalTime) {
+							duration = totalTime;
+							return secs;
+						},
+						function(img, secs, event) {
+							if (event.type == 'seeked') {
+								document.getElementById(wrapperId).appendChild(img);
+							}
+						}
+					);
+				}
 			});
 		</script>
 	</body>

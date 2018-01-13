@@ -1,3 +1,84 @@
+===========================================Function to get the video image on pause of that video======================================================================================
+        <html>
+        <head>
+            <title>JS and HTML5 Rule</title>
+            <script type='text/javascript'>
+                window.onload = function (){
+                    var video = document.getElementById('my_video');
+                    var thecanvas = document.getElementById('thecanvas');
+					var img = document.getElementById('thumbnail_img');
+					video.addEventListener('pause', function(){
+						draw( video, thecanvas, img);
+			 
+					}, false);
+                };
+				
+                function draw( video, thecanvas, img ){
+					// get the canvas context for drawing
+					var context = thecanvas.getContext('2d');
+					// draw the video contents into the canvas x, y, width, height
+					context.drawImage( video, 0, 0, thecanvas.width, thecanvas.height);
+					// get the image data from the canvas object
+                    var dataURL = thecanvas.toDataURL();
+					// set the source of the img tag
+					img.setAttribute('src', dataURL);
+                }
+            </script>
+        </head>
+        <body>
+			The Video
+			<br />
+			<video id="my_video" controls>
+				<source src="http://localhost/stvision/vision/uploads/plus_walking_tour/miami_commercial.mp4" type="video/mp4" />
+			</video>
+			<br />
+			The Canvas
+			<br />
+			<canvas id="thecanvas" style="width: 600px;">
+			</canvas>
+			<br />
+			The Image
+			<br />
+			<img id="thumbnail_img" alt="Right click to save" />
+			<br />
+        </body>
+    </html>
+=================================================================================================================================
+
+
+
+
+
+===========================================This function is to get the video image on page load======================================================================================
+		<div class="testclass"></div>
+		<script type='text/javascript'>
+			var video = document.createElement('video');
+			var source = document.createElement('source');
+			var img = document.createElement('img');
+			var thecanvas = document.createElement('canvas');
+
+			source.setAttribute('type' , 'video/mp4');
+			source.setAttribute("src", "http://localhost/stvision/vision/uploads/plus_walking_tour/movie.mp4");
+			video.appendChild(source);
+			thecanvas.width = 430;
+			thecanvas.height = 242;
+
+			window.onload = function (){
+				var context = thecanvas.getContext('2d');
+				context.drawImage( video, 0, 0, thecanvas.width, thecanvas.height);
+				var dataURL = thecanvas.toDataURL();
+				img.setAttribute('src', dataURL);
+				$('.testclass').append(img);
+				delete video;
+				delete thecanvas;
+			};
+		</script>
+=================================================================================================================================
+
+
+
+
+
 ===============================================Google Analytics / Google Map==================================================================================
 
 Documentation for GA API :
@@ -85,6 +166,12 @@ https://www.tinymce.com/download/
 responsive file manager plugin :
 http://www.responsivefilemanager.com/
 
+Check email validation using regular expression :
+https://www.regular-expressions.info/email.html
+
+W3schools Sample template :
+https://www.w3schools.com/w3css/w3css_templates.asp
+
 ==============================================================================================================================
 
 
@@ -148,10 +235,10 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Complete video management for plus walking tour in vision admin panel .
-(2)Change in international mix section.
-(3)Change in program course logo section.
-(4)Complete plus walking tour login section as per the vision admin panel .
+(1)Change in the admin panel plus walking tour section .
+(2)Complete plus walking tour in front end with dynamic data .
+(3)Changed in the enquiry form section .
+(4)Worked on program details page .
 
 ===============================================================================================================================
 
@@ -161,28 +248,25 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the manage video in admin panel for plus walking tour section . created one database tablr for that where there are centre and
-the password . In the listing page there are serial number , centre name and tghe password against that centre . On the top of the page there is one 
-button to generate password . For the first time when there will be no data present in the database , the button name will be generate password and when
-therte will be already data present , then the button name will be regenarate password . After click on that button all the old data will delete from database
-and new centres and the password will save in the database . After click on the generate password button it will ask for a confirmation . Complete the functioality
-and tested properly .
+(1)Started working on the plus walking tour management in the admin panel . In the listing page of plus walking tour management page there are centre
+name , video and video description . before in the video column there are only the name of the video and on click of that video name , on new tab one 
+video would open . Now change that functionality . Now in the video column we have applied the HTML video tag , so that admin can see that video from
+the listing page only . There was some designing issue to manage that video tag in the table row - solved that by adding proper height and width . Complete
+the functionality and tested properly .
 
-(2)Started working on the international mix section . In junior centre and junior mini stay listing page there is one icon to manage internationl mix section . If
-admin will click on that icon then one modal will open - On that modal there is one field for managing the percentage . Before whatever value will be added by admin 
-, will show in the front end map section . Now change that . Now admin has to only enter the numeric or floating number on that field . Automatically one percentage(%)
-sign will apend to that number . In admin panel listing and in front end listing page the same will display with persetage sign . Complete the functionality and tested 
-properly .
+(2)Started working on the plus walking tour section in front end . After login to any centre , it will redirect to the video gallery page . In that page , first
+get all the added data from database and show all the video description and video link . For the video image we have careted one javascript function to ge the video
+image . But it capture the first frame of that video . For any video if the first video frame is only blank then it shows the blank image . So we have the javascript
+functionality . Now we are capturing the 8th frame of the video . Also we have created one separate functionto get the video image . Implement that functioality for 
+every centre . If there is no video available then show one message . Complete the functionality and tested properly .
 
-(3)Started working with program course section . In front end junior centre and junior mini stay - centre wise details page , there are the program logos . Except addon 
-all the other logos was not showing properly . Change in the management . In the management there is one option to upload the program course logo . After uploading the
-logo if admin will save the page then one cropping tool will appeart tio crop the image in proper dimension . Change there and make it perfect . Complete the changes and
-checked in the front end .
+(3)Started working on the enquiry form section . In that form there is one field for date of birth and we used HTML datepicker for that . that datepicker was working
+properly for mozilla . But for google crome there was some problem with that . The datepickwe was not opening on click of the field . User had to click on a dot icon , 
+then that datepicker opened . Now we have removed that and used bootstrap datepicker . First download the bootstrap datepicker css and js fie locally and apply in enquiry
+form section . Also we have disabled all the dated after today's date . Complete the functionality and tested properly .
 
-(4)Started working on the login page for plus walking tour section . In the login page there are select centre , enter password and enter capcha options . If user will add
-proper data there , then the form will be submitted . On submit of the form the password will be sent by encoded . We have used base 64 encoding . In the server we have checked
-that the entered center and the password is matching with the originalone or not . If it found the match then it will redirect to the video gallery page . Otherwise it will redirect
-to the login page with the error message . Complete the functionality and tested properly .
+(4)Started working on the program details page . In that page , before there was only the program names and the description . Now added one header image on that page as per
+the request of Stefano . Complete the changes and tested properly .
 
 =================================================================================================================================
 
@@ -198,4 +282,5 @@ Changes in live site :
 
 
 
-  
+
+
