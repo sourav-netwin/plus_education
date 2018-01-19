@@ -29,7 +29,14 @@
 		<div class="login_wrapper">
 			<div class="animate form login_form">
 				<section class="login_content">
-					<form id="loginCmsForm" action="<?php echo base_url(); ?>login/logged" autocomplete="off" method="post">
+<?php
+					$formAttribute = array(
+						'id' => 'loginCmsForm',
+						'autocomplete' => 'off',
+						'method' => 'POST'
+					);
+					echo form_open(base_url()."login/logged" , $formAttribute);
+?>
 						<h1> Login </h1>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div>
@@ -56,7 +63,6 @@
 									echo '<span class="error" style="margin-bottom:15px;">'.$errorText.'</span>';
 							}
 ?>
-							<input type='hidden' name="csrf_token" class="csrf_token" value="<?php echo generateToken('loginCmsForm'); ?>"/>
 							<div>
 								<button id="submitBtn" class="btn btn-default submit" type="submit">Log in</button>
 							</div>

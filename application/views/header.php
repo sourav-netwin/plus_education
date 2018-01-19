@@ -4,6 +4,9 @@
 		<div class="navbar-header w3llogo">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
 				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
 			</button>
 			<a href="<?php echo base_url(); ?>"><img class="website-logo-image" src="<?php echo base_url(); ?>images/logo_plus.png"></a>
 		</div>
@@ -13,6 +16,25 @@
 				$headerMenuDetails = getHeaderMenu();
 ?>
 				<ul class="nav navbar">
+<!------------------Show home menu on first place for small screens---------------->
+<?php
+					$topHeaderMenu = getTopheaderMenu();
+					if(!empty($topHeaderMenu))
+					{
+						foreach($topHeaderMenu as $value)
+						{
+							if($value['id'] == $this->config->item('homeMenuId'))
+							{
+								$url = getUrlForTopHeader($value);
+?>
+								<li class="mobile_responsive_menu"><a href="<?php echo $url; ?>"><?php echo $value['name']; ?></a></li>
+<?php
+							}
+						}
+					}
+?>
+
+<!----------------------Show header menus Start------------------------->
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle juniorUsaSummerTitleClass" data-toggle="dropdown"><?php echo $this->lang->line('junior_usa_summer_programmes'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown usa-summer-program-menu">
@@ -131,6 +153,56 @@
 							<li><a href=""><?php echo $this->lang->line('uk_university_placement'); ?></a></li>
 						</ul>
 					</li>
+<!----------------------Show header menus End------------------------->
+
+<!---------Show top header menus with header menus for small screen Start---------->
+<?php
+					$topHeaderMenu = getTopheaderMenu();
+					if(!empty($topHeaderMenu))
+					{
+						foreach($topHeaderMenu as $value)
+						{
+							if(!empty($value['submenu']))
+							{
+?>
+								<li class="dropdown mobile_responsive_menu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $value['name']; ?><b class="caret"></b></a>
+									<ul class="dropdown-menu agile_short_dropdown" style="min-width: 245px;">
+<?php
+										foreach($value['submenu'] as $subMenuValue)
+										{
+											$url = getUrlForTopHeader($subMenuValue);
+?>
+											<li><a target="_blank" href="<?php echo $url; ?>"><?php echo $subMenuValue['name']; ?></a></li>
+<?php
+										}
+?>
+									</ul>
+								</li>
+<?php
+							}
+							elseif($value['id'] != $this->config->item('homeMenuId'))
+							{
+								$url = getUrlForTopHeader($value);
+?>
+								<li class="mobile_responsive_menu"><a href="<?php echo $url; ?>"><?php echo $value['name']; ?></a></li>
+<?php
+							}
+						}
+					}
+?>
+					<li class="dropdown mobile_responsive_menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('agent_area'); ?><b class="caret"></b></a>
+						<ul class="dropdown-menu agile_short_dropdown">
+							<li><a href="javascript:void(0);"><?php echo $this->lang->line('login'); ?></a></li>
+							<li><a href="javascript:void(0);"><?php echo $this->lang->line('retrieve_password'); ?></a></li>
+							<li><a href="javascript:void(0);"><?php echo $this->lang->line('register'); ?></a></li>
+						</ul>
+					</li>
+					<li class="mobile_responsive_menu"><a href="javascript:void(0);"><i class="fa fa-globe" aria-hidden="true"></i><?php echo $this->lang->line('english'); ?></a></li>
+
+<!---------Show top header menus with header menus for small screen End---------->
+
 				</ul>
 			</div>
 			<div class="clearfix"> </div>

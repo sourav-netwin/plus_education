@@ -5,7 +5,7 @@
 			<div class="inner">
 				<div class="col-lg-12 col-md-6 col-lg-offset-0">
 					<div class="col-lg-2 col-md-12 col-sm-12 facebookIconClass">
-						<a href="https://www.facebook.com/StaffordHouseStudyHolidays" class="fbFind">Find us<br>on Facebook</a>
+						<a target="_blank" href="https://www.facebook.com/StaffordHouseStudyHolidays" class="fbFind">Find us<br>on Facebook</a>
 					</div>
 					<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 credits" style="padding: 0px;">
 						<p>English Courses in the UK</p>

@@ -18,6 +18,10 @@
 				redirect(base_url().'plus-walking-tour');
 			else
 			{
+				//Create folder if not exist
+				if(!is_dir('./images/captcha/'))
+					mkdir('./images/captcha/' , '0777');
+
 				$this->load->helper('captcha');
 				$vals = array(
 					'word' => rand_string(5),
@@ -45,7 +49,7 @@
 		the dashboard page , otherwise show login page with error messages*/
 		function logged()
 		{
-			if($_POST)
+			if($this->input->post('centre'))
 			{
 				$error = array();
 
@@ -54,15 +58,6 @@
 					$error[] = str_replace('**field**' , 'centre' , lang('please_enter_dynamic'));
 				if(!trim($this->input->post('userPassword')))
 					$error[] = str_replace('**field**' , 'password' , lang('please_enter_dynamic'));
-
-				//Check for the token
-				if(!$this->input->post('csrf_token'))
-					$error[] = lang('csrf_error_message');
-				else
-				{
-					if(!checkToken($this->input->post('csrf_token')))
-						$error[] = lang('csrf_error_message');
-				}
 
 				//Check for the capcha
 				if($this->input->post('capchaName') !== $this->session->userdata('admin_login_captcha_word'))
@@ -94,6 +89,10 @@
 				}
 				else
 				{
+					//Create folder if not exist
+					if(!is_dir('./images/captcha/'))
+						mkdir('./images/captcha/' , '0777');
+
 					$this->load->helper('captcha');
 					$vals = array(
 						'word' => rand_string(5),

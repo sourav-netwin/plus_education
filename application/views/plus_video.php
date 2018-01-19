@@ -4,14 +4,23 @@
 		<title>Plus Video</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Plus Video" />
+		<meta name="keywords" content="Plus Walking Tour" />
 
+		<link href="<?php echo base_url(); ?>css/admin/style.css" type="text/css" rel="stylesheet" media="all">
+		<link href="<?php echo base_url(); ?>css/custom.css" type="text/css" rel="stylesheet" media="all">
 		<link href="<?php echo base_url(); ?>css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 		<link href="<?php echo base_url(); ?>css/plus_video/dashboard.css" rel="stylesheet">
 		<link href="<?php echo base_url(); ?>css/plus_video/style.css" rel='stylesheet' type='text/css' media="all" />
+		<link href="<?php echo base_url(); ?>css/style.css" rel='stylesheet' type='text/css' media="all" />
 		<link href="<?php echo base_url(); ?>css/font-awesome.min.css" rel="stylesheet">
 		<link href="<?php echo base_url(); ?>css/plus_video/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<?php echo base_url(); ?>css/style.css" rel='stylesheet' type='text/css' media="all" />
 		<script src="<?php echo base_url(); ?>js/jquery-2.1.0.js"></script>
+		<script src="<?php echo base_url(); ?>js/admin/jquery.cookie.js"></script>
+
+		<!-------------------Jquery fancy scrol CSS and JS--------------------->
+		<link href="<?php echo base_url(); ?>css/plus_video/jquery.custom-scrollbar.css" type="text/css" rel="stylesheet" media="all">
+		<script src="<?php echo base_url(); ?>js/admin/jquery.custom-scrollbar.js"></script>
 
 		<!-------------------Jquery fancybox CSS and JS--------------------->
 		<link href="<?php echo base_url(); ?>css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
@@ -26,12 +35,14 @@
 				height: auto;
 			}
 		</style>
+
+		<?php header("Cache-Control: no-cache, must-revalidate"); ?>
 	</head>
 
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container-fluid">
-				<div id="navbar" class="navbar-collapse collapse">
+			<div class="container-fluid" style="border: 0;">
+				<div id="navbar" class="navbar-collapse collapse" style="background-color: #fff;">
 					<img style="width: 200px;" src="<?php echo base_url(); ?>images/logo_plus.png" />
 					<div class="header-top-right">
 						<div class="signin">
@@ -47,10 +58,10 @@
 		</nav>
 
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main">
-			<div class="main-grids">
+			<div style="padding-bottom: 30px;">
 				<div class="top-grids">
-					<div class="recommended-info">
-						<h3>Plus Video for <?php echo $this->session->userdata('centre'); ?></h3>
+					<div class="recommended-info" style="padding-left: 15px;">
+						<h1 class="destination_heading" style="font-size: 22px;margin: 0;">Plus Video for <?php echo $this->session->userdata('centre'); ?></h1>
 					</div>
 <?php
 						if(!empty($videoDetails))
@@ -58,13 +69,24 @@
 							foreach($videoDetails as $key => $value)
 							{
 ?>
-								<div style="margin-top: 30px;" class="col-md-4 resent-grid recommended-grid slider-top-grids">
-									<div class="resent-grid-img recommended-grid-img">
-										<a data-fancybox data-caption="Facility" id="videoImage_<?php echo ($key+1); ?>" href="<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>"></a>
-									</div>
-									<div style="border-top: 1px solid #C1C1C1;" class="resent-grid-info recommended-grid-info">
-										<h3><a class="title title-info"><?php echo $value['description']; ?></a></h3>
-									</div>
+								<div style="margin-top: 30px;" class="col-sm-4 col-xs-4 welcome-w3imgs">
+									<figure class="effect-chico">
+<?php
+										if(file_exists('./'.PLUS_WALKING_TOUR_FRONT_IMAGE.str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video'])))
+											$imgFile = base_url().PLUS_WALKING_TOUR_FRONT_IMAGE.str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video']);
+										else
+											$imgFile = '';
+?>
+										<img src="<?php echo $imgFile; ?>" id="videoImage_<?php echo ($key+1); ?>" />
+										<figcaption>
+											<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
+												<a data-fancybox data-refid="<?php echo $value['plus_walking_tour_id']; ?>" href="<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>">
+													<i style="color: #FFFFFF;" class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
+												</a>
+											</p></div>
+										</figcaption>
+									</figure>
+									<p id="modern-skin-demo" class="modern-skin demo videoDescription"><?php echo $value['description']; ?></p>
 								</div>
 <?php
 							}
@@ -73,10 +95,14 @@
 							echo "<div style='font-size: 16px;color: red;text-align: center;'>No videos available</div>";
 ?>
 					<div class="clearfix"></div>
+
+					<div class="waitClass" style="display: none;">
+						<img src='<?php echo base_url(); ?>images/loader.gif' class="waitClassImg" />
+					</div>
 				</div>
 			</div>
 
-			<div class="footer">
+			<div class="footer" style="background: #3B4142;padding: 2em 3em;">
 				<div class="footer-grids">
 					<div class="text-center" style="color: #FFF;font-size: 14px;text-decoration: none;">©2017 The Develovers. All Rights Reserved.</div>
 				</div>
@@ -88,12 +114,12 @@
 			$(document).ready(function(){
 				$("[data-fancybox]").fancybox({
 					buttons : [
+						'download',
 						'close'
-					]
-				});
-
-				$(".nav-pills a").click(function(){
-					$(this).tab('show');
+					],
+					afterShow : function(instance , current){
+						$('.fancybox-button--download').attr('href' , '<?php echo base_url().'video_gallery/force_download/'; ?>'+current.opts.$orig.attr("data-refid"));
+					}
 				});
 
 <?php
@@ -101,9 +127,12 @@
 				{
 					foreach($videoDetails as $key => $value)
 					{
+						if(!file_exists('./'.PLUS_WALKING_TOUR_FRONT_IMAGE.str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video'])))
+						{
 ?>
-						showImageAt('<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>' , 8 , 'videoImage_<?php echo ($key+1); ?>');
+							showImageAt('<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>' , 8 , 'videoImage_<?php echo ($key+1); ?>' , '<?php echo str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video']); ?>');
 <?php
+						}
 					}
 				}
 ?>
@@ -131,8 +160,9 @@
 					};
 					video.src = path;
 				}
-				function showImageAt(url , secs , wrapperId)
+				function showImageAt(url , secs , wrapperId , fileName)
 				{
+					$('.waitClass').css('display' , 'block');
 					var duration;
 					getVideoImage(
 						url,
@@ -142,11 +172,23 @@
 						},
 						function(img, secs, event) {
 							if (event.type == 'seeked') {
-								document.getElementById(wrapperId).appendChild(img);
+								$('#'+wrapperId).attr('src' , img.src);
+								//Save the binary images
+								$.ajax({
+									url : '<?php echo base_url(); ?>video_gallery/save_file',
+									data : {'fileName' : fileName , 'binaryImg' : img.src , csrf_test_name: $.cookie('csrf_cookie_name')},
+									type : 'POST',
+									success : function(response){
+										$('.waitClass').css('display' , 'none');
+									}
+								});
 							}
 						}
 					);
 				}
+
+				//For custom scrolbar
+				$(".demo").customScrollbar();
 			});
 		</script>
 	</body>

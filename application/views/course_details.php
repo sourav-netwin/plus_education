@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>js/admin/jquery.cookie.js"></script>
 <?php
 	if($referenceFunctionName == '')
 	{
@@ -297,7 +298,7 @@
 			$.ajax({
 				url : '<?php echo base_url(); ?>course/get_centre',
 				type : 'POST',
-				data : {'region_id' : $(this).data('region_id') ,'table_name' : $(this).data('table_name') , 'reference_function_name' : $(this).data('reference_function_name')},
+				data : {'region_id' : $(this).data('region_id') ,'table_name' : $(this).data('table_name') , 'reference_function_name' : $(this).data('reference_function_name') , 'csrf_test_name' : $.cookie('csrf_cookie_name')},
 				success : function(response){
 					$($tabId).empty();
 					$($tabId).append(response);
@@ -317,6 +318,7 @@
 		$('#applicationFormId').on('submit' , function(e){
 			e.preventDefault();
 			var formData = new FormData(this);
+			formData.append('csrf_test_name' , $.cookie('csrf_cookie_name'));
 			$.ajax({
 				url : '<?php echo base_url(); ?>course/manage_application_form',
 				data : formData,

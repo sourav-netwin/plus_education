@@ -157,8 +157,8 @@
 				foreach($course as $key => $value)
 				{
 					$arr = explode('#', $value);
-					$returnArr[$key]['name'] = $arr[0];
-					$returnArr[$key]['image'] = $arr[1];
+					$returnArr[$key]['name'] = (array_key_exists('0' , $arr)) ? $arr[0] : '';
+					$returnArr[$key]['image'] = (array_key_exists('1' , $arr)) ? $arr[1] : '';
 				}
 			}
 			return $returnArr;

@@ -17,24 +17,6 @@
 		return substr(str_shuffle($chars) , 0 , $length);
 	}
 
-	//This function is used to generate some unique and large string to validate form submission.
-	function generateToken($formName = NULL)
-	{
-		$CI = &get_instance();
-		$sessionId = $CI->session->userdata('session_id');
-		$sessionId = $sessionId.time();
-		$sSecurityTocken = sha1($formName.$sessionId.ENCRYPTKEY);
-		$CI->session->set_userdata('securityTocken' , $sSecurityTocken);
-		return $sSecurityTocken;
-	}
-
-	//This function is used to validate generated string for form submission.
-	function checkToken($token = NULL)
-	{
-		$CI = &get_instance();
-		return $token === $CI->session->userdata('securityTocken');
-	}
-
 	//Function is used to check if there is any unwanted character is present or not
 	function xssExpressionMatch($aCheckData = NULL)
 	{

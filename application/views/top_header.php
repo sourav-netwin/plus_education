@@ -1,5 +1,5 @@
 <!-----------Top header Section Start------------>
-<div class="top-nav w3-agiletop" style="background: #333333;">
+<div class="top-nav w3-agiletop topHeaderWrapperClass" style="background: #333333;">
 	<div class="container">
 		<div class="navbar-header w3llogo">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 			</button>
 		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse topHeaderNavbar" id="bs-example-navbar-collapse-1">
 			<div class="w3menu navbar-right">
 				<ul class="nav navbar top-header-menu">
 <?php

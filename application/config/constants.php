@@ -146,13 +146,31 @@ define('JUNIOR_MINISTAY_ID' , 14);
 //Constants for the Adult course id
 define('ADULT_COURSE_ID' , 13);
 
-//Admin panel base url path to access images
+
 if($_SERVER['HTTP_HOST'] == "localhost")
+{
+	//Admin panel base url path to access images
 	define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
-elseif($_SERVER['HTTP_HOST'] == "192.168.43.97")
-	define('ADMIN_PANEL_URL' , 'http://192.168.43.97/stvision/vision/');
+
+	//Define file relative path for plus walking tour videoes
+	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../stvision/vision/uploads/plus_walking_tour/');
+}
+elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192.168.21.11")
+{
+	//Admin panel base url path to access images
+	define('ADMIN_PANEL_URL' , 'http://'.$_SERVER['HTTP_HOST'].'/stvision/vision/');
+
+	//Define file relative path for plus walking tour videoes
+	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../stvision/vision/uploads/plus_walking_tour/');
+}
 else
+{
+	//Admin panel base url path to access images
 	define('ADMIN_PANEL_URL' , 'http://plus-ed.com/vision_ag/');
+
+	//Define file relative path for plus walking tour videoes
+	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../vision_ag/uploads/plus_walking_tour/');
+}
 
 //Define image location details for program banner module images
 define('PROGRAM_IMAGE_PATH' , 'uploads/program/');
@@ -247,3 +265,6 @@ define('PROGRAM_FRONT_IMAGE_PATH' , 'uploads/program_course_front/');
 
 //Define file upload location details for plus walking tour videoes
 define('PLUS_WALKING_TOUR' , 'uploads/plus_walking_tour/');
+
+//Define image file location for plus video gallery images in front end
+define('PLUS_WALKING_TOUR_FRONT_IMAGE' , 'images/plus_walking_tour/');

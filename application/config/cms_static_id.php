@@ -9,3 +9,4 @@
 	$config['courseCmsId'] = 11;
 	$config['addOnCmsId'] = 41;
 	$config['usefulInformationId'] = 14;
+	$config['homeMenuId'] = 1;

@@ -4,7 +4,7 @@
 }
 
 .navigation-container{
-	width: 1330px;
+	/*width: 1330px;*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -15,7 +15,8 @@
 
 .usa-summer-program-menu{
 	min-width: 515px;
-	left: -230px !important;
+	/*left: -230px !important;*/
+	left: 0px !important;
 }
 
 .usa-summer-program-menu li a{
@@ -219,6 +220,14 @@
 
 .figcaption-title-class-europe-program-right-box{
 	margin-top: 175px !important;
+}
+
+.videoDescription{
+	border: 1px solid #999;
+	padding: 5px;
+	font-size: 15px;
+	height: 94px;
+	overflow: hidden;
 }
 
 
@@ -613,7 +622,298 @@
 		display : none;
 	}
 
-	.headerWrapperClass{
+	/*.headerWrapperClass{
 		display : none;
+	}*/
+}
+
+/* css by shweta 10-01-2018 */
+.mobile_responsive_menu {
+	display: none !important;
+}
+.top-nav ul li a {
+	font-size: 14px;
+}
+.top-nav ul li {
+	margin: 0 0 0 12px;
+}
+ul.nav.navbar {
+	text-align: center;
+	margin: 14px 0 0;
+	min-height: inherit;
+}
+@media(max-width:1300px){
+	.europe-summer-program-menu {
+	min-width: 1000px;
+	left: -445px !important;
+}
+}
+@media(max-width:1200px){
+    .footer .credits p {
+    width: 30%;
+}
+.europe-summer-program-menu {
+	min-width: 800px;
+	left: -300px !important;
+}
+.headerWrapperClass .navbar-header {
+	float: none;
+	text-align: center;
+}
+.navbar-right {
+	float: none !important;
+	margin-right: -15px;
+}
+.top-nav ul li a {
+	font-size: 13px;
+}
+.footer .credits {
+	margin: 0;
+	width: 100%;
+}
+.memberOfClass {
+	 margin-left: 0px !important;
+}
+.footer .credits p {
+	margin: 0;
+}
+.trinityCollegeClass {
+	margin-left: 0 !important;
+}
+}
+@media(max-width:1080px){
+	.junior-mini-stay-program-menu {
+	min-width: 800px;
+	left: -560px !important;
+}
+}
+@media only screen and (max-width : 1200px) {
+	.animated {
+		/*CSS transitions*/
+		-o-transition-property: none !important;
+		-moz-transition-property: none !important;
+		-ms-transition-property: none !important;
+		-webkit-transition-property: none !important;
+		transition-property: none !important;
+		/*CSS transforms*/
+		-o-transform: none !important;
+		-moz-transform: none !important;
+		-ms-transform: none !important;
+		-webkit-transform: none !important;
+		transform: none !important;
+		/*CSS animations*/
+		-webkit-animation: none !important;
+		-moz-animation: none !important;
+		-o-animation: none !important;
+		-ms-animation: none !important;
+		animation: none !important;
 	}
+}
+
+@media(min-width:1300px){
+	.navigation-container {
+	    width: 1330px;
+	}
+	.top-nav ul li a {
+	font-size: 1.1em;
+	}
+	.top-nav ul li {
+		margin: 0 0 0 3em;
+		display: inline-block;
+	}
+	ul.nav.navbar {
+	text-align: center;
+	margin: 1.5em 0 0;
+	min-height: inherit;
+}
+}
+@media(max-width:1200px){
+.europe-summer-program-menu {
+	min-width: 500px;
+	left: -160px !important;
+}
+.junior-mini-stay-program-menu {
+	min-width: 500px;
+	left: -30px !important;
+}
+.top-nav ul li a:hover, .top-nav ul li a.active {
+	/* color: #F44336; */
+	color: #355987;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-o-transform: none;
+	-ms-transform: none;
+	transform: none;
+}
+}
+@media(max-width:767px){
+
+}
+@media(max-width:480px){
+	.footer .credits p {
+	width: 100%;
+	text-align: center;
+	max-width: 100%;
+}
+.footer .credits a {
+	width: 100%;
+}
+.footer .credits {
+	margin: 10px 0;
+}
+.facebookIconClass {
+	margin-left: 36% !important;
+	display: inline-block;
+}
+.footer .whiteBar {
+	 overflow: hidden;
+}
+}
+@media(max-width:420px){
+	.facebookIconClass {
+	margin-left: 28% !important;
+	display: inline-block;
+}
+}
+
+@media (max-width: 1200px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse.topHeaderNavbar {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+  button.navbar-toggle {
+	/* border-color: #f44336; */
+	border-color: #656565;
+	margin-right: 0;
+}
+span.icon-bar {
+	/* background: #f44336; */
+	background: #656565;
+}
+.headerWrapperClass .navbar-header {
+	text-align: left;
+}
+.top-nav ul li {
+	width: 100%;
+	margin: 0 0 0 0px;
+}
+.top-nav ul li a{
+	color: #fff;
+}
+.top-nav .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+	background-color: #6A737E !important;
+	color: #FFFFFF !important;
+}
+.top-nav .open > .dropdown-menu li a {
+	text-align: left !important;
+	margin-left: 0 !important;
+}
+.top-nav .open > .dropdown-menu li {
+	text-align: left;
+	margin-left: 0 !important;
+}
+.li-menu-title {
+	margin-left: 0 !important;
+}
+.li-menu-title-small {
+	text-align: left;
+	margin-left: 0 !important;
+}
+.top-nav {
+	padding: 0;
+}
+.top-nav hr {
+	display: none;
+}
+.headerWrapperClass .navbar-header {
+	float: none;
+	text-align: left;
+}
+.mobile_responsive_menu {
+	display: block !important;
+}
+.navbar-collapse {
+	border-top: 1px solid #ddd;
+	background-color: #1b224d;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+	background: none;
+	color: #fff !important;
+}
+.top-nav ul li a {
+	padding: 6px;
+}
+.agent-dropdown-menu {
+	margin-left: 0;
+}
+.adult-courses-program-menu {
+	min-width: 195px;
+	left: 0 !important;
+}
+.europe-summer-program-menu {
+	min-width: auto;
+	left: 0 !important;
+}
+.junior-mini-stay-program-menu {
+	min-width: auto;
+	left: 0 !important;
+}
+.usa-summer-program-menu {
+	min-width: auto;
+}
+.top-nav.w3-agiletop.topHeaderWrapperClass {
+	display: none;
+}
+.navbar-collapse {
+	padding-right: 25px;
+	padding-left: 10px;
+}
+.dropdown-menu {
+	padding: 5px 10px;
+}
+.li-menu-title {
+	font-size: 15px;
+}
+}
+@media(max-width:767px){
+	.navbar-collapse {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.usa-summer-program-menu {
+	padding: 0px 0px;
+}
 }

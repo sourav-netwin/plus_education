@@ -199,6 +199,18 @@ Solutions Url :
 https://stackoverflow.com/questions/47735579/fetch-video-duration-using-the-new-vimeo-api
 https://stackoverflow.com/questions/47079078/vimeo-php-simple-request-not-working
 
+//Function is used to get the details through vimeo API
+function vimeoApi()
+{
+	require_once( APPPATH.'third_party\vimeo.php-1.3.0'.DIRECTORY_SEPARATOR.'autoload.php');
+	$client_id = '0f4f509b6fae54c629a042fea38528dd44fe9c8e'; //'Client identifier' in my app
+	$client_secret = 'RjW6My4B0KBe9vZFuA0aTGhCcyO7Hf6oqQ8ekwKXg3tpk/AwjotXj1D1IJyuVde0od1TpMYhs46E+2r+jHQ17g/fyVBevIIgeQjG45IffkOM8oJmafQCcv1Kqo4Jy1yC'; // 'Client secrets' in my app
+	$lib = new \Vimeo\Vimeo($client_id, $client_secret);
+	$lib->setToken('f76202db96349d44d30a111021a597b9');
+	$response = $lib->request('/videos/237573790', array(), 'GET');
+	echo "<pre>";print_r($response);die('popop');
+}
+
 =================================================================================================================================
 
 
@@ -235,10 +247,8 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Change in the admin panel plus walking tour section .
-(2)Complete plus walking tour in front end with dynamic data .
-(3)Changed in the enquiry form section .
-(4)Worked on program details page .
+(1)Completed daily activity management in admin panel .
+(2)Find solution to download video for ios device .
 
 ===============================================================================================================================
 
@@ -248,39 +258,22 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the plus walking tour management in the admin panel . In the listing page of plus walking tour management page there are centre
-name , video and video description . before in the video column there are only the name of the video and on click of that video name , on new tab one 
-video would open . Now change that functionality . Now in the video column we have applied the HTML video tag , so that admin can see that video from
-the listing page only . There was some designing issue to manage that video tag in the table row - solved that by adding proper height and width . Complete
-the functionality and tested properly .
+1)Started working on the daily activity management . In the admin panel daily activity management listing page there is one edit icon in action column . If
+admin will click on that icon then the edit page will open . In that page activity name , centre , activity description and the uploaded pdf file will show . 
+All the added data will show in the edit page . In the file section , there will be the pdf file name and one cross icon . If admin will click on that file name or
+the pdf icon then that file will open in the new tab . If admin weill click on the cross icon then it will ask for the confirmation to delete the file . if admin will 
+onfirm , then the file details section will hide and upload file section will visible . As per the add page , we have applied same validation to all the fields . If all
+the validation will successfully done then the data will update to the database . Also if admin will delete the old file and upload new pdf file then the old file will delete
+from local directory and upoload the new file . We have merged the add/edirt page together and we have separated the pages with the helop of one flag . Complete the functioanality
+and tested properly .
+Started working on the update and delete functionality . From the listing page if admin will click on the update status icon then it will open one popup to confirm whether you want to
+change the status or not . If admin will confirm then the status will change from database and the datatable will also refresh . We have perform the update status function through ajax .
+Also if admin will click on the delete icon from listing page then that particular record will be deleted from the database and it will not show in the listing page . We have soft deleted
+the data . Complete the daily activity management for backend and tested properly .
 
-(2)Started working on the plus walking tour section in front end . After login to any centre , it will redirect to the video gallery page . In that page , first
-get all the added data from database and show all the video description and video link . For the video image we have careted one javascript function to ge the video
-image . But it capture the first frame of that video . For any video if the first video frame is only blank then it shows the blank image . So we have the javascript
-functionality . Now we are capturing the 8th frame of the video . Also we have created one separate functionto get the video image . Implement that functioality for 
-every centre . If there is no video available then show one message . Complete the functionality and tested properly .
+(2)Started working on the find solution to download video for ios device . First we have found some free apps to download the videoes from direct url . But that was not trusted apps . Then
+we have found one app 'documents' . We can download the youtube video using that .
 
-(3)Started working on the enquiry form section . In that form there is one field for date of birth and we used HTML datepicker for that . that datepicker was working
-properly for mozilla . But for google crome there was some problem with that . The datepickwe was not opening on click of the field . User had to click on a dot icon , 
-then that datepicker opened . Now we have removed that and used bootstrap datepicker . First download the bootstrap datepicker css and js fie locally and apply in enquiry
-form section . Also we have disabled all the dated after today's date . Complete the functionality and tested properly .
 
-(4)Started working on the program details page . In that page , before there was only the program names and the description . Now added one header image on that page as per
-the request of Stefano . Complete the changes and tested properly .
 
 =================================================================================================================================
-
-**[2698 - fancybox.js]
-
-
-Changes in live site :
-(1)Pull all the changes for front and admin panel.
-(2)delete two folder : "uploads\usa_program" and "uploads\europe_program".
-(3)execute the latest sql query .
-
-
-
-
-
-
-

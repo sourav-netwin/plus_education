@@ -1,6 +1,5 @@
 <?php
 	$lang['please_enter_dynamic'] = 'Please Enter **field**';
-	$lang['csrf_error_message'] = 'Invalid login form is submitted. Please try again.';
 	$lang['add_success_message'] = '**module** Added Successfully';
 	$lang['edit_success_message'] = '**module** Edited Successfully';
 	$lang['delete_success_message'] = '**module** Deleted Successfully';

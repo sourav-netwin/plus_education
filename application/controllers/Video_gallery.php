@@ -12,29 +12,59 @@
 		//This function is used to show the video gallery page
 		function index()
 		{
-			$data['videoDetails'] = $this->Front_model->commonGetData('video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
+			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
 			$this->load->view('plus_video' , $data);
 		}
 
-		function getVideoDetails()
+		//This function is used to save the image in the local directory for video image
+		function save_file()
 		{
-			$ch = curl_init("http://vimeo.com/api/v2/video/203452787/json");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$res = curl_exec($ch);
-			$obj = json_decode($res, true);
-			echo "<pre>";print_r($obj);die('pop');
+			if($this->input->post('fileName'))
+			{
+				if(!is_dir('./'.PLUS_WALKING_TOUR_FRONT_IMAGE))
+					mkdir('./'.PLUS_WALKING_TOUR_FRONT_IMAGE , '0777');
+				file_put_contents('./'.PLUS_WALKING_TOUR_FRONT_IMAGE.$this->input->post('fileName') , file_get_contents($this->input->post('binaryImg')));
+				echo '';
+			}
 		}
 
-		function vimeoApi()
+		//This function is used to force download a file
+		public function force_download($id = NULL)
 		{
-			require_once( APPPATH.'third_party\vimeo.php-1.3.0'.DIRECTORY_SEPARATOR.'autoload.php');
-			$client_id = '0f4f509b6fae54c629a042fea38528dd44fe9c8e'; //'Client identifier' in my app
-			$client_secret = 'RjW6My4B0KBe9vZFuA0aTGhCcyO7Hf6oqQ8ekwKXg3tpk/AwjotXj1D1IJyuVde0od1TpMYhs46E+2r+jHQ17g/fyVBevIIgeQjG45IffkOM8oJmafQCcv1Kqo4Jy1yC'; // 'Client secrets' in my app
-			$lib = new \Vimeo\Vimeo($client_id, $client_secret);
-
-			// Set the access token (from my Vimeo API app)
-			$lib->setToken('f76202db96349d44d30a111021a597b9');
-			$response = $lib->request('/videos/237573790', array(), 'GET');
-			echo "<pre>";print_r($response);die('popop');
+			$videoFile = $this->Front_model->commonGetData('video' , 'plus_walking_tour_id = '.$id , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 1);
+			$fileName = './'.PLUS_WALKING_TOUR_DOWNLOAD_FILE.$videoFile['video'];
+			header("Content-Length: ".filesize($fileName));
+			header('Content-Description: File Transfer');
+			header("Content-Type: application/video/mp4;");
+			//header('Content-Type: application/octet-stream');
+			header("Content-Disposition: attachment; filename='".basename($fileName)."'");
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Pragma: public');
+			$this->readfile_chunked($fileName);
 		}
+
+
+		//This function is used to download the file by chunk the file byte
+		protected function readfile_chunked($filename = NULL , $retbytes = TRUE)
+		{
+			$chunksize = 1*(1024*1024);
+			$buffer = '';
+			$cnt = 0;
+			$handle = fopen($filename , 'rb');
+			if($handle === false)
+				return false;
+			while(!feof($handle))
+			{
+				$buffer = fread($handle , $chunksize);
+				echo $buffer;
+				if($retbytes)
+					$cnt += strlen($buffer);
+			}
+			$status = fclose($handle);
+			if($retbytes && $status)
+				return $cnt;
+			return $status;
+		}
+
 	}
