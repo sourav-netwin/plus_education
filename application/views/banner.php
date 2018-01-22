@@ -23,7 +23,7 @@
 						<div class="hero-heading">
 							<span><?php echo $value['program_title']; ?></span>
 							<p class="lead"><?php echo $value['program_short_description']; ?></p>
-							<p class="learn-more-button-wrapper"><a class="btn btn-lg hero-button" href="">Learn More</a></p>
+							<p class="learn-more-button-wrapper"><a class="btn btn-lg hero-button" href="<?php echo base_url().$value['more_link']; ?>">Learn More</a></p>
 						</div>
 					</div>
 				</div>

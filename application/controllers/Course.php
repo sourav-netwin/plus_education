@@ -77,7 +77,7 @@
 										<span class="show-destination-class"><span class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">'.$value['centre_name'].'</p></span></span>
 										<figcaption>
 											<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">'.$value['centre_name'].'<br>
-											<a class="btn view-details-btn" href="'.base_url().$this->input->post('reference_function_name').'/'.str_replace(' ' , '-' , $value['centre_name']).'">'.$this->lang->line('read_more').'</a></p></div>
+											<a class="btn view-details-btn" href="'.base_url().$this->input->post('reference_function_name').'/'.strtolower(str_replace(' ' , '-' , $value['centre_name'])).'">'.$this->lang->line('read_more').'</a></p></div>
 										</figcaption>
 									</figure>
 								</div>';

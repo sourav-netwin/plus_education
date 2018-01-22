@@ -247,7 +247,7 @@
 												<figcaption>
 													<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 														<?php echo $value['centre_name']; ?><br>
-														<a class="btn view-details-btn" href="<?php echo base_url().$referenceFunctionName.'/'.str_replace(' ' , '-' , $value['centre_name']); ?>"><?php echo $this->lang->line('read_more'); ?></a>
+														<a class="btn view-details-btn" href="<?php echo base_url().$referenceFunctionName.'/'.strtolower(str_replace(' ' , '-' , $value['centre_name'])); ?>"><?php echo $this->lang->line('read_more'); ?></a>
 													</p></div>
 												</figcaption>
 											</figure>

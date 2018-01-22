@@ -10,7 +10,7 @@
 		//This function is ysed to get program details to show banner in front end
 		public function getBannerDetails($languageId = NULL)
 		{
-			$this->db->select('a.program_id , a.program_image , b.program_title , b.program_short_description');
+			$this->db->select('a.program_id , a.program_image , b.program_title , b.program_short_description , b.more_link');
 			$this->db->from(TABLE_PROGRAM . ' a');
 			$this->db->join(TABLE_PROGRAM_LANGUAGE . ' b' , 'a.program_id = b.program_id AND b.language_id = '.$languageId , 'left');
 			$this->db->where('a.program_status' , 1);

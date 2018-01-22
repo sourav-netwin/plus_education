@@ -109,7 +109,7 @@
 									</h4>
 								</div>
 								<div id="collapseOne2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-									<div class="panel-body">
+									<div class="panel-body" style="overflow-x: scroll;">
 										<table class="table table-striped show-date-table">
 											<tbody>
 												<tr>

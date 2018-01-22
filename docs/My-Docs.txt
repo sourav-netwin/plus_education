@@ -219,7 +219,8 @@ function vimeoApi()
 ======================================Office Tiffin========================================================================================
 
 Tiffin upto 31st October ,2017 : 340/- (paid)
-Tiffin upto 31st November , 2017 : 375/-(paid) : Balance 25/-
+Tiffin upto 31st November , 2017 : 375/-(paid) : Balance - 25/-
+Tiffin upto 31st December , 2017 : 500/-(Paid) : Balance - 50/- 
 
 ===============================================================================================================================
 
@@ -247,8 +248,9 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Completed daily activity management in admin panel .
-(2)Find solution to download video for ios device .
+(1)Worked on program banner section .
+(2)Implemented daily activity section in front end .
+(3)Change all url string .
 
 ===============================================================================================================================
 
@@ -258,21 +260,26 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-1)Started working on the daily activity management . In the admin panel daily activity management listing page there is one edit icon in action column . If
-admin will click on that icon then the edit page will open . In that page activity name , centre , activity description and the uploaded pdf file will show . 
-All the added data will show in the edit page . In the file section , there will be the pdf file name and one cross icon . If admin will click on that file name or
-the pdf icon then that file will open in the new tab . If admin weill click on the cross icon then it will ask for the confirmation to delete the file . if admin will 
-onfirm , then the file details section will hide and upload file section will visible . As per the add page , we have applied same validation to all the fields . If all
-the validation will successfully done then the data will update to the database . Also if admin will delete the old file and upload new pdf file then the old file will delete
-from local directory and upoload the new file . We have merged the add/edirt page together and we have separated the pages with the helop of one flag . Complete the functioanality
-and tested properly .
-Started working on the update and delete functionality . From the listing page if admin will click on the update status icon then it will open one popup to confirm whether you want to
-change the status or not . If admin will confirm then the status will change from database and the datatable will also refresh . We have perform the update status function through ajax .
-Also if admin will click on the delete icon from listing page then that particular record will be deleted from the database and it will not show in the listing page . We have soft deleted
-the data . Complete the daily activity management for backend and tested properly .
+(1)Started working on the program banner management . Before we have used two different function to perform add and edit operation . Also we have created
+two view files to perfoem add and edit operation . Now we have changed in the coding . We have created only one function to manage both add and edit function .
+Also we have created one view file for that . to manage the difference between add and edit we have added one flag . The difference between add and edit page is
+the field value . For the add page there will be no value against any field , but for edit page all the added values will show against every field . We have created 
+one separate javascript file to manage all the js related operations like data table , jquery validation etc . After successfully done the validation , the records will
+save in the database . We have added one new filed for managing the url of the details page of the banner . In the front end banner section , against every banner there is
+one learn more button . If user will click on that button then the details page will open and the page url will be the link which is added from the admin panel . Complete
+the functionality and tested properly .
 
-(2)Started working on the find solution to download video for ios device . First we have found some free apps to download the videoes from direct url . But that was not trusted apps . Then
-we have found one app 'documents' . We can download the youtube video using that .
+(2)Started working on the daily activity section in front end . In front end plus walking tour section we have added one new section to show the daily activity details . In that
+section , first we have created one static design to show all the necessary details . There will be the name of the activity , the details of teh activity , added date and one pdf 
+image . If user will click on that image then the pdf file will open in the new tab . Then made this section dynamic . Means shows all the data along with the pdf file as per the 
+admin panel panel management . If there will no data for the selected centre then it will show one message that no data available . Solved some design related issues and made this
+page responsive . Complete the functioanlity and tested properly .
+
+(3)Started working on the url string section . Before we have used directly the module id in the url  . Now we have change that , make all the ids base64 encoded and also changed all
+the unwanted url character to the url accepted url . Then applied those urls in the website . Also in the destination section of junior centre and junior ministay module , before we have used
+the exact same centre name as it is . Now we have changed that and make all the centre name in small cases which is url friendly . Make the same changes to the on change of the region section
+and header url link . Complete the functionality and teste properly .
+
 
 
 

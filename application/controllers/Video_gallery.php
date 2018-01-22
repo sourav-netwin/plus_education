@@ -13,6 +13,7 @@
 		function index()
 		{
 			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
+			$data['activityDetails'] = $this->Front_model->commonGetData("name , file_name , description , date_format(added_date , '%d-%m-%Y') as added_date" , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
 			$this->load->view('plus_video' , $data);
 		}
 
@@ -31,13 +32,15 @@
 		//This function is used to force download a file
 		public function force_download($id = NULL)
 		{
+			$id = base64_decode(str_replace('_' , '=' , preg_replace_callback('/-[a-z]-/' , function($match){return strtoupper(str_replace('-' , '' , $match[0]));} , $id)));
 			$videoFile = $this->Front_model->commonGetData('video' , 'plus_walking_tour_id = '.$id , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 1);
 			$fileName = './'.PLUS_WALKING_TOUR_DOWNLOAD_FILE.$videoFile['video'];
 			header("Content-Length: ".filesize($fileName));
 			header('Content-Description: File Transfer');
 			header("Content-Type: application/video/mp4;");
 			//header('Content-Type: application/octet-stream');
-			header("Content-Disposition: attachment; filename='".basename($fileName)."'");
+			header('Content-Disposition: attachment; filename="'.basename($fileName).'"');
+			//header("Content-Disposition: attachment; filename=".basename($fileName));
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Pragma: public');

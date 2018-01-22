@@ -26,8 +26,8 @@
 		<link href="<?php echo base_url(); ?>css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
 		<script src="<?php echo base_url(); ?>js/jquery.fancybox.js"></script>
 
-		<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-		<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,600,700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400italic,700,400,300' rel='stylesheet' type='text/css'>
 
 		<style>
 			video {
@@ -80,7 +80,7 @@
 										<img src="<?php echo $imgFile; ?>" id="videoImage_<?php echo ($key+1); ?>" />
 										<figcaption>
 											<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
-												<a data-fancybox data-refid="<?php echo $value['plus_walking_tour_id']; ?>" href="<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>">
+												<a data-fancybox data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($value['plus_walking_tour_id']))); ?>" href="<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>">
 													<i style="color: #FFFFFF;" class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
 												</a>
 											</p></div>
@@ -95,6 +95,43 @@
 							echo "<div style='font-size: 16px;color: red;text-align: center;'>No videos available</div>";
 ?>
 					<div class="clearfix"></div>
+
+					<!---------------Daily Activity Section Start----------------->
+					<br><hr style="border-top: 3px double #8c8b8b;"><br>
+					<div class="recommended-info" style="padding-left: 15px;">
+						<h1 class="destination_heading" style="font-size: 22px;margin: 0;">Daily Activity for <?php echo $this->session->userdata('centre'); ?></h1>
+					</div>
+<?php
+					if($activityDetails)
+					{
+						foreach($activityDetails as $value)
+						{
+?>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 w3_agile_mail_right" style="margin-top: 30px;">
+								<div class="w3_agileits_mail_right_grid">
+									<h4 style="padding-top: 5%;font-size: 2.3em;"><?php echo $value['name']; ?></h4>
+									<p id="modern-skin-demo" class="modern-skin demo videoDescription" style="height: 135px;">
+										<?php echo $value['description']; ?>
+									</p>
+									<h5 style="float: right;text-transform: none;margin: 0;">
+										<i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>
+										Posted On : <span style="color: #000;"><?php echo $value['added_date']; ?></span>
+									</h5>
+									<div class="w3_agileits_mail_right_grid_pos">
+										<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name']; ?>">
+											<img class="img-responsive" src="<?php echo base_url().'images/pdf_icon'; ?>">
+										</a>
+									</div>
+								</div>
+							</div>
+<?php
+						}
+					}
+					else
+						echo "<div style='font-size: 16px;color: red;text-align: center;'>No activity available</div>";
+?>
+					<div class="clearfix"></div>
+					<!---------------Daily Activity Section End----------------->
 
 					<div class="waitClass" style="display: none;">
 						<img src='<?php echo base_url(); ?>images/loader.gif' class="waitClassImg" />

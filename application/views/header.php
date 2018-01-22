@@ -51,7 +51,7 @@
 												<ul>
 <?php
 													foreach($value as $centreValue)
-														echo '<li><a href="'.base_url().'junior-summer-courses/'.str_replace(' ' , '-' , $centreValue['centre']).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
+														echo '<li><a href="'.base_url().'junior-summer-courses/'.strtolower(str_replace(' ' , '-' , $centreValue['centre'])).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
 ?>
 													<li><a target="_blank" class="about-experience-class" href="<?php echo base_url().'program#'.strtolower(str_replace(array(' ' , '_') , array('-' , '-') , $key)); ?>"><?php echo 'About the '.strtolower(str_replace('_' , ' ' , $key)); ?></a></li>
 												</ul>
@@ -90,7 +90,7 @@
 														</li>
 <?php
 														foreach($regionValue as $centreValue)
-															echo '<li><a href="'.base_url().'junior-summer-courses/'.str_replace(' ' , '-' , $centreValue['centre']).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
+															echo '<li><a href="'.base_url().'junior-summer-courses/'.strtolower(str_replace(' ' , '-' , $centreValue['centre'])).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
 														echo "<hr>";
 													}
 ?>
@@ -133,8 +133,8 @@
 												<ul>
 <?php
 													foreach($value as $centreValue)
-														echo '<li><a href="'.base_url().'junior-mini-stay/'.str_replace(' ' , '-' , $centreValue).'">'.ucwords(strtolower($centreValue)).'</a></li>';
-														echo '<li><a target="_blank" class="about-experience-class" href="'.base_url().'program#add-on">Available Add on</a></li>';
+														echo '<li><a href="'.base_url().'junior-mini-stay/'.strtolower(str_replace(' ' , '-' , $centreValue)).'">'.ucwords(strtolower($centreValue)).'</a></li>';
+													echo '<li><a target="_blank" class="about-experience-class" href="'.base_url().'program#add-on">Available Add on</a></li>';
 ?>
 												</ul>
 											</div>
@@ -150,7 +150,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('adult_courses'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown agent-dropdown-menu adult-courses-program-menu">
-							<li><a href=""><?php echo $this->lang->line('uk_university_placement'); ?></a></li>
+							<li><a href="<?php echo base_url().'adult-course'; ?>"><?php echo $this->lang->line('uk_university_placement'); ?></a></li>
 						</ul>
 					</li>
 <!----------------------Show header menus End------------------------->
