@@ -119,7 +119,7 @@
 									</h5>
 									<div class="w3_agileits_mail_right_grid_pos">
 										<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name']; ?>">
-											<img class="img-responsive" src="<?php echo base_url().'images/pdf_icon'; ?>">
+											<img class="img-responsive" src="<?php echo base_url().'images/pdf_icon.png'; ?>">
 										</a>
 									</div>
 								</div>

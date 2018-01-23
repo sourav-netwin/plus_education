@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>js/admin/jquery.cookie.js"></script>
 <!---------------------- COURSES Section Start ---------------------->
 <div class="services-bottom">
 	<div class="container">
@@ -72,7 +73,7 @@
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 								<?php echo $this->lang->line('accomodation'); ?><br>
-								<a class="btn view-details-btn" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
+								<a class="btn view-details-btn viewCampusDetails" data-title="<?php echo $this->lang->line('accomodation'); ?>" data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($this->config->item('homeAccomodationCmsId')))); ?>" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
 					</figure>
@@ -88,7 +89,7 @@
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 								<?php echo $this->lang->line('activities_on_campus'); ?><br>
-								<a class="btn view-details-btn" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
+								<a class="btn view-details-btn viewCampusDetails" data-title="<?php echo $this->lang->line('activities_on_campus'); ?>" data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($this->config->item('homeActivityCmsId')))); ?>" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
 					</figure>
@@ -104,7 +105,7 @@
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 								<?php echo $this->lang->line('our_team'); ?><br>
-								<a class="btn view-details-btn" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
+								<a class="btn view-details-btn viewCampusDetails" data-title="<?php echo $this->lang->line('our_team'); ?>" data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($this->config->item('homeOurTeamCmsId')))); ?>" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
 					</figure>
@@ -217,6 +218,22 @@
 </div>
 <!---------------------- Europe Programmes Section End ---------------------->
 
+<!---------------Dynamic modal to show campus life details Start---------------->
+<div class="modal fade" id="campusDetails" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button><br>
+				<h4 class="modal-title campusTitle"></h4>
+			</div>
+			<div class="modal-body">
+				<div id="campusDetailsBody"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------------Dynamic modal to show campus life details End---------------->
+
 <script>
 	$(document).ready(function(){
 		$(document).on('mouseenter' , '.effect-chico' , function(){
@@ -224,6 +241,22 @@
 		});
 		$(document).on('mouseleave' , '.effect-chico' , function(){
 			$(this).find('.show-destination-class').css('display' , 'block');
+		});
+
+		//To show campus life details in modal popup
+		$(document).on('click' , '.viewCampusDetails' , function(){
+			var id = $(this).data('refid');
+			$('.campusTitle').text($(this).data('title'));
+			$('#campusDetailsBody').empty();
+			$.ajax({
+				url : '<?php echo base_url().'home-content' ?>',
+				data : {'id' : id , csrf_test_name: $.cookie('csrf_cookie_name')},
+				type : 'POST',
+				success : function(response){
+					$('#campusDetailsBody').append(response);
+				}
+			});
+			$('#campusDetails').modal();
 		});
 	});
 </script>

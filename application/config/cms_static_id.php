@@ -10,3 +10,6 @@
 	$config['addOnCmsId'] = 41;
 	$config['usefulInformationId'] = 14;
 	$config['homeMenuId'] = 1;
+	$config['homeAccomodationCmsId'] = 42;
+	$config['homeActivityCmsId'] = 43;
+	$config['homeOurTeamCmsId'] = 44;

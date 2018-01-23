@@ -230,6 +230,13 @@
 	overflow: hidden;
 }
 
+.campusTitle{
+	color: #3c7099;
+	background-color: #eee;
+	padding: 10px;
+	border-radius: 130px;
+}
+
 
 /*****Footer link Section CSS (Copied from : http://www.studyholidays.com/_styles/shsh.css?v6)*****/
 .footer h2,

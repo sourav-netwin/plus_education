@@ -73,7 +73,7 @@
 	$lang['view_details'] = 'View Details';
 	$lang['campus_life'] = 'CAMPUS LIFE';
 	$lang['accomodation'] = 'ACCOMODATION';
-	$lang['activities_on_campus'] = 'ACTiVITIES ON CAMPUS';
+	$lang['activities_on_campus'] = 'ACTIVITIES ON CAMPUS';
 	$lang['our_team'] = 'OUR TEAM';
 	$lang['usa_programmes'] = 'USA  PROGRAMMES';
 	$lang['europe_programmes'] = 'EUROPE PROGRAMMES';

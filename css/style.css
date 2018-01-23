@@ -192,14 +192,14 @@ ul.dropdown-menu.agile_short_dropdown {
 /*-- //top-nav --*/
 /*-- banner --*/
 .w3ls-banner{
-	background:url(../images/banner-2.jpg)no-repeat center;
+	/*background:url(../images/banner-2.jpg)no-repeat center;*/
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	background-size:cover;
 	position: relative;
 }
 .w3ls-banner-1{
-	background:url(../images/banner-2.jpg)no-repeat center;
+	/*background:url(../images/banner-2.jpg)no-repeat center;*/
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	background-size:cover;

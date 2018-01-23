@@ -248,9 +248,9 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Worked on program banner section .
-(2)Implemented daily activity section in front end .
-(3)Change all url string .
+(1)Completed contact us page and make about us page responsive .
+(2)Completed static pages for campus life section in home page.
+(3)Completed footer jobs section .
 
 ===============================================================================================================================
 
@@ -260,27 +260,19 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the program banner management . Before we have used two different function to perform add and edit operation . Also we have created
-two view files to perfoem add and edit operation . Now we have changed in the coding . We have created only one function to manage both add and edit function .
-Also we have created one view file for that . to manage the difference between add and edit we have added one flag . The difference between add and edit page is
-the field value . For the add page there will be no value against any field , but for edit page all the added values will show against every field . We have created 
-one separate javascript file to manage all the js related operations like data table , jquery validation etc . After successfully done the validation , the records will
-save in the database . We have added one new filed for managing the url of the details page of the banner . In the front end banner section , against every banner there is
-one learn more button . If user will click on that button then the details page will open and the page url will be the link which is added from the admin panel . Complete
-the functionality and tested properly .
+(1)Started working on the cms pages section for contact us page . First we have added one top header menu for contact us page and choose content as page content type .
+Then review the document provided by Stefano for the contact us page and started creating static page using the editor . We have first created the html for that page and
+then applied inline css , so that it looks as per our requirement and also we can not use any class to make the look and feel same like existing one . Save the content and checked
+in the front end , whether it is looking good or not . Found some padding and responsive related issues - solved them .
+Also in the  about us page , there was some responsive issues for mobile and tab view - solved that . Complete the functionality and tested properly for every virtual devices .
 
-(2)Started working on the daily activity section in front end . In front end plus walking tour section we have added one new section to show the daily activity details . In that
-section , first we have created one static design to show all the necessary details . There will be the name of the activity , the details of teh activity , added date and one pdf 
-image . If user will click on that image then the pdf file will open in the new tab . Then made this section dynamic . Means shows all the data along with the pdf file as per the 
-admin panel panel management . If there will no data for the selected centre then it will show one message that no data available . Solved some design related issues and made this
-page responsive . Complete the functioanlity and tested properly .
+(2)Started working on the cms pages for camous life section in front end . First we have added three other menu for campus life static pages and choose content as page content type .
+Those pages are  accomodation , activity on campus and our team . Then review the document provided by Stefano for those pages and started creating static page using the editor .
+Then applied proper css inline to all sections as we can not use any bootstrap class there . In the front end home page , campus life section , there are three boxes for accomodation , 
+activity on campus and our team . For each boxes there is one read more button . If user will click on that button then open one modal popup and show the added content there . We have
+called ajax function to featch the data from database . Complete the functionality and tested properly .
 
-(3)Started working on the url string section . Before we have used directly the module id in the url  . Now we have change that , make all the ids base64 encoded and also changed all
-the unwanted url character to the url accepted url . Then applied those urls in the website . Also in the destination section of junior centre and junior ministay module , before we have used
-the exact same centre name as it is . Now we have changed that and make all the centre name in small cases which is url friendly . Make the same changes to the on change of the region section
-and header url link . Complete the functionality and teste properly .
-
-
-
+(3)In the footer , make jobs section dynamic as per the vision admin panel cms . First download all the pdf files provided by Stefanio and apply those files in the cms pages for job section .
+Completed and tested properly .
 
 =================================================================================================================================
