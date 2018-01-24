@@ -179,4 +179,22 @@
 		}
 		return $data;
 	}
+
+	//Function is used to create the name of the thumb image
+	if(!function_exists('getThumbnailName'))
+	{
+		function getThumbnailName($thumbnailImage = NULL)
+		{
+			if(!empty($thumbnailImage))
+			{
+				$thumbnailImage = pathinfo($thumbnailImage);
+				if(COUNT($thumbnailImage)){
+					$extn = $thumbnailImage['extension'];
+					$filename = $thumbnailImage['filename'];
+					$thumbnailImage = $filename."_thumb.".$extn;
+				}
+			}
+			return $thumbnailImage;
+		}
+	}
 ?>

@@ -82,6 +82,7 @@
 					$newData = array(
 						'logged_in' => TRUE,
 						'centre' => $userData['nome_centri'],
+						'image' => $userData['centre_banner'],
 						'centre_id' => $userData['id']
 					);
 					$this->session->set_userdata($newData);

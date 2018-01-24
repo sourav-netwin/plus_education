@@ -248,9 +248,7 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Completed contact us page and make about us page responsive .
-(2)Completed static pages for campus life section in home page.
-(3)Completed footer jobs section .
+(1)Worked on new walking tour section with both daily activity and plus videoes .
 
 ===============================================================================================================================
 
@@ -260,19 +258,15 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the cms pages section for contact us page . First we have added one top header menu for contact us page and choose content as page content type .
-Then review the document provided by Stefano for the contact us page and started creating static page using the editor . We have first created the html for that page and
-then applied inline css , so that it looks as per our requirement and also we can not use any class to make the look and feel same like existing one . Save the content and checked
-in the front end , whether it is looking good or not . Found some padding and responsive related issues - solved them .
-Also in the  about us page , there was some responsive issues for mobile and tab view - solved that . Complete the functionality and tested properly for every virtual devices .
-
-(2)Started working on the cms pages for camous life section in front end . First we have added three other menu for campus life static pages and choose content as page content type .
-Those pages are  accomodation , activity on campus and our team . Then review the document provided by Stefano for those pages and started creating static page using the editor .
-Then applied proper css inline to all sections as we can not use any bootstrap class there . In the front end home page , campus life section , there are three boxes for accomodation , 
-activity on campus and our team . For each boxes there is one read more button . If user will click on that button then open one modal popup and show the added content there . We have
-called ajax function to featch the data from database . Complete the functionality and tested properly .
-
-(3)In the footer , make jobs section dynamic as per the vision admin panel cms . First download all the pdf files provided by Stefanio and apply those files in the cms pages for job section .
-Completed and tested properly .
+(1)Srarted working on the plus new walking tour section . In that page first we have merged both plus video and daily activity section . In that page we have
+added one header , where we kept options for plus video , daily activity and manage activity . If activity manager will login to the system then only the manage
+activity option will visible . In the left side we have added one section , where we have shown the centre name , the centre image and the address of then plus .
+Below of that section we have added one option to show download instruction . If user will click on that option then one details page will open with the details
+of the instruction . Below that we have added one welcome message to the user . There is also one option to close that box as it is just an message . In the main body
+there is the details page for the video gallery and activity management . By default the video gallery page will show . If user will navigate the page to the activity page
+then video gallery page will hide and the activity page will show . We have shown all the videoes and activity from admin panel management . We have changed the design for
+the activity section . For daily activity we have shown the added date and the title of the activity . Below that there will be details of that activity  . Also there is one
+download pdf button . If user will click on that button then the pdf file will open in the new tab . Also there was some issue related to the responsive designing . We have 
+solved that by using bootstrap classes . Complete this section and tested properly .
 
 =================================================================================================================================

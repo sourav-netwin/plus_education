@@ -294,8 +294,9 @@
 		//This function is used to check the authentication for plus walking tour section
 		function verify()
 		{
-			return $this->db->select('id , nome_centri')
+			return $this->db->select('id , nome_centri , centre_banner , path')
 							->join(TABLE_CENTRE , 'id=centre' , 'left')
+							->join("((SELECT centre_id , centre_banner , '".JUNIOR_MINISTAY_IMAGE_PATH."' as path from frontweb_junior_ministay)union (select centre_id , centre_banner , '".JUNIOR_CENTRE_IMAGE_PATH."' as path from frontweb_junior_centre))t" , 't.centre_id=id' , 'left')
 							->where('centre' , $this->input->post('centre'))
 							->where('password' , base64_decode($this->input->post('userPassword')))
 							->get(TABLE_PLUS_VIDEO)->row_array();
