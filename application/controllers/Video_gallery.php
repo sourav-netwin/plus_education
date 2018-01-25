@@ -13,8 +13,10 @@
 		function index()
 		{
 			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
-			$data['activityDetails'] = $this->Front_model->commonGetData("name , file_name , description , date_format(added_date , '%d-%m-%Y') as added_date" , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
-			$this->load->view('plus_video' , $data);
+			$data['activityDetails'] = $this->Front_model->commonGetData("name , file_name , description , date_format(added_date , '%d-%m-%Y') as added_date" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
+			$data['viewPage'] = 'plus_video/video_activity';
+			$data['showLeftMenu'] = 1;
+			$this->load->view('plus_video/template' , $data);
 		}
 
 		//This function is used to save the image in the local directory for video image

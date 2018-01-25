@@ -57,6 +57,12 @@
 								</div>
 <?php
 							}
+?>
+							<div class="form-control customClass">
+								Login As Campus Manager
+								<input type="checkbox" style="margin-left: 5px;" name="campusManager" value="1" />
+							</div>
+<?php
 							if(isset($errors) && !empty($errors))
 							{
 								foreach($errors as $errorText)

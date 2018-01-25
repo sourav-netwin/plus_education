@@ -155,6 +155,9 @@ if($_SERVER['HTTP_HOST'] == "localhost")
 
 	//Define file relative path for plus walking tour videoes
 	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../stvision/vision/uploads/plus_walking_tour/');
+
+	//Define file relative path for plus manage activity section
+	define('ACTIVITY_ACCESS_FILE' , '../stvision/vision/uploads/manage_activity/');
 }
 elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192.168.21.11")
 {
@@ -163,6 +166,9 @@ elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192
 
 	//Define file relative path for plus walking tour videoes
 	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../stvision/vision/uploads/plus_walking_tour/');
+
+	//Define file relative path for plus manage activity section
+	define('ACTIVITY_ACCESS_FILE' , '../stvision/vision/uploads/manage_activity/');
 }
 else
 {
@@ -171,6 +177,9 @@ else
 
 	//Define file relative path for plus walking tour videoes
 	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../vision_ag/uploads/plus_walking_tour/');
+
+	//Define file relative path for plus manage activity section
+	define('ACTIVITY_ACCESS_FILE' , '../vision_ag/uploads/manage_activity/');
 }
 
 //Define image location details for program banner module images

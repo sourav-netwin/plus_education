@@ -16,5 +16,10 @@
 	$lang['name_validation_message'] = '(Only alphabet , space and dot accept)';
 	$lang['mobile_number_validation_message'] = '(Only plus sign(+) and numeric accept with minimum 10  digit.';
 	$lang['email_validation_message'] = 'Please enter proper email address';
+	$lang['active_confirmation'] = 'Do you want to active this **module** ?';
+	$lang['inactive_confirmation'] = 'Do you want to inactive this **module** ?';
+	$lang['delete_confirmation'] = 'Are you sure to delete this **module** ?';
+	$lang['pdf_type_error_msg'] = 'Please upload pdf file.';
+	$lang['required_upload_file'] = 'Please upload file';
 
 ?>

@@ -83,7 +83,9 @@
 						'logged_in' => TRUE,
 						'centre' => $userData['nome_centri'],
 						'image' => $userData['centre_banner'],
-						'centre_id' => $userData['id']
+						'centre_id' => $userData['id'],
+						'path' => $userData['path'],
+						'campusManager' => $this->input->post('campusManager')
 					);
 					$this->session->set_userdata($newData);
 					redirect(base_url().'plus-walking-tour');

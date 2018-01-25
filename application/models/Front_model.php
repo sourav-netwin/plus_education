@@ -294,12 +294,58 @@
 		//This function is used to check the authentication for plus walking tour section
 		function verify()
 		{
+			$fieldName = ($this->input->post('campusManager') == 1) ? 'manager_password' : 'password';
 			return $this->db->select('id , nome_centri , centre_banner , path')
 							->join(TABLE_CENTRE , 'id=centre' , 'left')
 							->join("((SELECT centre_id , centre_banner , '".JUNIOR_MINISTAY_IMAGE_PATH."' as path from frontweb_junior_ministay)union (select centre_id , centre_banner , '".JUNIOR_CENTRE_IMAGE_PATH."' as path from frontweb_junior_centre))t" , 't.centre_id=id' , 'left')
 							->where('centre' , $this->input->post('centre'))
-							->where('password' , base64_decode($this->input->post('userPassword')))
+							->where($fieldName , base64_decode($this->input->post('userPassword')))
 							->get(TABLE_PLUS_VIDEO)->row_array();
+		}
+
+		//This function is used to get activity details from DB and show through datatable
+		function getActivityDetails()
+		{
+			$resultData = array();
+			$colomnArr = array('a.plus_activity_id' , 'a.name' , 'b.nome_centri' , 'a.file_name' , 'a.added_date' , 'a.status');
+			$this->db->select(implode(',' , $colomnArr));
+			$this->db->from(TABLE_PLUS_ACTIVITY_MANAGEMENT . ' a');
+			$this->db->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left');
+			$this->db->where('a.delete_flag' , 0);
+			$result = $this->db->get()->result_array();
+			if(!empty($result))
+			{
+				$siNo = $this->input->post('start') + 1;
+				foreach($result as $value)
+				{
+					$actionStr ="<div class='btn-group custom-btn-group'>";
+					$actionStr .= '<a class="btn btn-xs btn-info btn-wd-24" href="'.base_url().'manage_activity/add_edit/'.$value['plus_activity_id'].'" data-toggle="tooltip" data-original-title="Edit Activity"><span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>';
+					$actionStr .= '<a class="btn btn-xs btn-danger btn-wd-24" href="'.base_url().'manage_activity/delete/'.$value['plus_activity_id'].'" onclick="return confirm_delete()" data-toggle="tooltip" data-original-title="Delete activity"><span><i class="fa fa-trash-o" aria-hidden="true"></i></span></a>';
+					$statusClass = ($value['status'] == 1) ? 'fa-check-square-o' : 'fa-square-o';
+					$actionStr .= '<a data-toggle="tooltip" data-original-title="Change Status for activity" class="btn btn-xs btn-danger btn-wd-24 global-list-status-icon"><span><i class="fa '.$statusClass.'" aria-hidden="true" data-toggle="modal" data-target="#juniorCentreStatus" data-status_type = '.$value['status'].' data-activity_id = '.$value['plus_activity_id'].' ></i></span></a>';
+					$actionStr .="</div>";
+
+					$resultData[] = array(
+						0 => $siNo++,
+						1 => $value['name'],
+						2 => '<a target="_blank" href="'.ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name'].'">'.$value['file_name'].'</a>',
+						3 => $value['nome_centri'],
+						4 => date('d-m-Y' , strtotime($value['added_date'])),
+						5 => $actionStr
+					);
+				}
+			}
+			return $resultData;
+		}
+
+		//This is a common function to update record to database
+		function commonUpdate($tableName = NULL , $whreCondition = NULL , $data = NULL)
+		{
+			if($tableName != '')
+			{
+				$this->db->where($whreCondition)
+						->update($tableName , $data);
+			}
 		}
 	}
 ?>

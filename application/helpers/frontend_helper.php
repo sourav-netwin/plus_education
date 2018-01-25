@@ -197,4 +197,49 @@
 			return $thumbnailImage;
 		}
 	}
+
+	function showSessionMessageIfAny($CI)
+	{
+		$success_message = $CI->session->flashdata('success_message');
+		$error_message = $CI->session->flashdata('error_message');
+		if(!empty($success_message))
+		{
+?>
+			<div class="session-message">
+				<div class="alert alert-success alert-dismissable text-center">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<?php echo $success_message ?>
+				</div>
+			</div>
+<?php
+		}
+		if(!empty($error_message))
+		{
+?>
+			<div class="session-message">
+				<div class="alert alert-danger alert-dismissable text-center">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<?php echo $error_message ?>
+				</div>
+			</div>
+<?php
+		}
+	}
+
+	//This function is used to get centre details from DB and use in dropdown
+	function getCentreDetails()
+	{
+		$returnArr[''] = 'Please Select';
+		$CI = &get_instance();
+		$result = $CI->db->select('id , nome_centri')
+						->where('attivo' , 1)
+						->or_where('(is_mini_stay = 1 and attivo = 0)')
+						->get(TABLE_CENTRE)->result_array();
+		if(!empty($result))
+		{
+			foreach($result as $value)
+				$returnArr[$value['id']] = $value['nome_centri'];
+		}
+		return $returnArr;
+	}
 ?>
