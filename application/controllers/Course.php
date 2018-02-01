@@ -5,6 +5,7 @@
 		{
 			parent::__construct();
 			$this->lang->load('general_lang' , 'english');
+			$this->lang->load('message_lang' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->model('Content_model' , '' , TRUE);
 			$this->load->helper('frontend');

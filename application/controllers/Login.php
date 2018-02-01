@@ -38,6 +38,7 @@
 						'grid' => array(179, 217, 255)
 					)
 				);
+				$data['errors'] = $this->session->flashdata('errorMessages');;
 				$data['captcha'] = create_captcha($vals);
 				$this->session->set_userdata('admin_login_captcha_word', $data['captcha']['word']);
 				$data['page_title'] = 'Login | '.$this->lang->line('plus_educational_developments');
@@ -92,31 +93,8 @@
 				}
 				else
 				{
-					//Create folder if not exist
-					if(!is_dir('./images/captcha/'))
-						mkdir('./images/captcha/' , '0777');
-
-					$this->load->helper('captcha');
-					$vals = array(
-						'word' => rand_string(5),
-						'img_path' => './images/captcha/',
-						'img_url' => base_url().'images/captcha/',
-						'img_width' => 275,
-						'img_height' => 45,
-						'expiration' => 7200,
-						'font_size' => 60,
-						'colors' => array(
-							'background' => array(255, 255, 255),
-							'border' => array(255, 255, 255),
-							'text' => array(0, 0, 0),
-							'grid' => array(179, 217, 255)
-						)
-					);
-					$data['errors'] = $error;
-					$data['captcha'] = create_captcha($vals);
-					$this->session->set_userdata('admin_login_captcha_word', $data['captcha']['word']);
-					$data['page_title'] = 'Login | '.$this->lang->line('plus_educational_developments');
-					$this->load->view('login' , $data);
+					$this->session->set_flashdata(array('errorMessages' => $error));
+					redirect(base_url().'login');
 				}
 			}
 			else

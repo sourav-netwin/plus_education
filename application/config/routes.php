@@ -52,7 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'course';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['home-content'] = 'content/get_content';
 $route['content/(.*)'] = "content/index/$1";
 $route['junior-summer-courses'] = 'course/course_details/'.JUNIOR_SUMMER_ID;
 $route['junior-mini-stay'] = 'course/course_details/'.JUNIOR_MINISTAY_ID;

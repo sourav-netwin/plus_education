@@ -5,6 +5,12 @@
 ?>
 		<link href="<?php echo base_url(); ?>css/datepicker.css" type="text/css" rel="stylesheet" media="all">
 		<script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+		<script src="<?php echo base_url(); ?>js/admin/jquery.validate.min.js"></script>
+
+		<!---------------Sweet Alert CSS and JS----------------->
+		<link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/sweetalert.css">
+		<script src="<?php echo base_url(); ?>js/admin/sweetalert.min.js"></script>
+
 		<script>
 			$(document).ready(function(){
 				$('.datepicker').datepicker({
@@ -12,6 +18,74 @@
 					autoclose: true,
 					endDate: new Date()
 				});
+
+				$.validator.addMethod('checkRegExp', function(value , element , param){
+					return ((value != '') && value.match(param));
+				} , "<?php echo $this->lang->line('valid_data_error_msg'); ?>");
+
+				$('#applicationFormId').validate({
+					errorElement : 'span',
+					errorClass : 'error text-danger',
+					errorPlacement : function(error , element){
+						if(element.is(":radio"))
+							error.insertAfter('.radioErrorMsg');
+						else
+							error.insertAfter(element);
+					},
+					rules : {
+						field_value_41 : {
+							required : true
+						}
+					},
+					messages : {
+						field_value_41 : {
+							required : "<?php echo str_replace('**field**' , 'Address' , $this->lang->line('please_enter_dynamic')); ?>"
+						}
+					}
+				});
+<?php
+				if(!empty($formDetails))
+				{
+					foreach($formDetails as $value)
+					{
+						if($value['required_flag'] == 1)
+						{
+?>
+							$( "input[name='field_value_<?php echo $value['manage_application_form_id']; ?>']" ).rules( "add", {
+								required: true,
+								messages: {
+									required: "<?php echo str_replace('**field**' , $value['label_name'] , $this->lang->line('please_enter_dynamic')); ?>"
+								}
+							});
+<?php
+						}
+						if($value['field_type'] == 'name')
+						{
+?>
+							$( "input[name='field_value_<?php echo $value['manage_application_form_id']; ?>']" ).rules( "add", {
+								checkRegExp: /^[A-Za-z.\s]*$/
+							});
+<?php
+						}
+						elseif($value['field_type'] == 'mobile')
+						{
+?>
+							$( "input[name='field_value_<?php echo $value['manage_application_form_id']; ?>']" ).rules( "add", {
+								checkRegExp: /^[+]?[0-9]{10,20}$/
+							});
+<?php
+						}
+						elseif($value['field_type'] == 'email')
+						{
+?>
+							$( "input[name='field_value_<?php echo $value['manage_application_form_id']; ?>']" ).rules( "add", {
+								checkRegExp: /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-za-z]{2,}$/
+							});
+<?php
+						}
+					}
+				}
+?>
 			});
 		</script>
 <?php
@@ -19,7 +93,6 @@
 ?>
 
 <div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.COURSE_IMAGE_PATH.$courseDetails['course_image']; ?>)no-repeat center;"></div>
-
 <div class="welcome welcome-title">
 	<div class="container">
 		<h2 class="agileits-title about-title"><?php echo $courseDetails['course_name']; ?></h2><hr>
@@ -117,8 +190,12 @@
 									</div>
 									<div class="clearfix"></div>
 									<br><br>
-									<form id="applicationFormId">
 <?php
+									$formAttribute = array(
+										'id' => 'applicationFormId',
+										'method' => 'post'
+									);
+									echo form_open('' , $formAttribute);
 										foreach($formDetails as $value)
 										{
 ?>
@@ -136,11 +213,11 @@
 										}
 ?>
 										<div class="form-group">
-											<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+											<div class="col-md-6 col-sm-6 col-xs-12">
 												<input value="Submit" class="btn btn-success" type="submit">
 											</div>
 										</div>
-									</form>
+									<?php echo form_close(); ?>
 								</div>
 							</span>
 						</div>
@@ -316,21 +393,24 @@
 
 		//After submit the application form , save the value in database
 		$('#applicationFormId').on('submit' , function(e){
-			e.preventDefault();
-			var formData = new FormData(this);
-			formData.append('csrf_test_name' , $.cookie('csrf_cookie_name'));
-			$.ajax({
-				url : '<?php echo base_url(); ?>course/manage_application_form',
-				data : formData,
-				type : 'POST',
-				contentType: false,
-				cache: false,
-				processData: false,
-				success : function(response){
-					document.getElementById('applicationFormId').reset();
-					alert('Form Submitted Successfully.');
-				}
-			});
+			if($(this).valid())
+			{
+				e.preventDefault();
+				var formData = new FormData(this);
+				formData.append('csrf_test_name' , $.cookie('csrf_cookie_name'));
+				$.ajax({
+					url : '<?php echo base_url(); ?>course/manage_application_form',
+					data : formData,
+					type : 'POST',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success : function(response){
+						document.getElementById('applicationFormId').reset();
+						swal("Thanks!", 'Form Submitted Successfully.', "success");
+					}
+				});
+			}
 		});
 	});
 </script>

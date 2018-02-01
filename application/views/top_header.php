@@ -18,7 +18,7 @@
 					{
 						foreach($topHeaderMenu as $value)
 						{
-							if(!empty($value['submenu']))
+							if(!empty($value['submenu']) && ($value['id'] != $this->config->item('homePageId')))
 							{
 ?>
 								<li class="dropdown">
@@ -29,7 +29,7 @@
 										{
 											$url = getUrlForTopHeader($subMenuValue);
 ?>
-											<li><a target="_blank" href="<?php echo $url; ?>"><?php echo $subMenuValue['name']; ?></a></li>
+											<li><a <?php if($subMenuValue['type'] == 2 || $subMenuValue['type'] == 3){ ?> target="_blank" <?php } ?> href="<?php echo $url; ?>"><?php echo $subMenuValue['name']; ?></a></li>
 <?php
 										}
 ?>
@@ -50,9 +50,9 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('agent_area'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown">
-							<li><a href="javascript:void(0);"><?php echo $this->lang->line('login'); ?></a></li>
-							<li><a href="javascript:void(0);"><?php echo $this->lang->line('retrieve_password'); ?></a></li>
-							<li><a href="javascript:void(0);"><?php echo $this->lang->line('register'); ?></a></li>
+							<li><a target="_blank" href="<?php echo ADMIN_PANEL_URL.'index.php/vauth/agents'; ?>"><?php echo $this->lang->line('login'); ?></a></li>
+							<li><a target="_blank" href="<?php echo ADMIN_PANEL_URL.'index.php/vauth/forgotpassword/agents'; ?>"><?php echo $this->lang->line('retrieve_password'); ?></a></li>
+							<li><a target="_blank" href="<?php echo ADMIN_PANEL_URL.'index.php/agents/register'; ?>"><?php echo $this->lang->line('register'); ?></a></li>
 						</ul>
 					</li>
 					<li><a href="javascript:void(0);"><i class="fa fa-globe" aria-hidden="true"></i><?php echo $this->lang->line('english'); ?></a></li>

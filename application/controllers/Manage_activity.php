@@ -4,6 +4,7 @@
 		public function __construct()
 		{
 			parent::__construct();
+			$this->output->delete_cache();
 			$this->lang->load('message' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->helper('frontend');

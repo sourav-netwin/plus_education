@@ -14,7 +14,7 @@
 					foreach($courseDetails as $key => $value)
 					{
 ?>
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 welcome-w3imgs">
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 welcome-w3imgs">
 							<figure class="effect-chico">
 								<img src="<?php echo ADMIN_PANEL_URL.COURSE_FRONT_IMAGE_PATH.$value['course_front_image']; ?>" />
 								<span class="show-destination-class" style="display: block;">
@@ -41,8 +41,6 @@
 							</figure>
 						</div>
 <?php
-						if(($key+1) % 2 == 0)
-							echo "<div style='margin-top:30px;' class='col-lg-12 col-md-12'></div>";
 					}
 				}
 ?>
@@ -73,7 +71,7 @@
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 								<?php echo $this->lang->line('accomodation'); ?><br>
-								<a class="btn view-details-btn viewCampusDetails" data-title="<?php echo $this->lang->line('accomodation'); ?>" data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($this->config->item('homeAccomodationCmsId')))); ?>" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
+								<a class="btn view-details-btn" data-title="<?php echo $this->lang->line('accomodation'); ?>" href="<?php echo getUrlCampusLife($this->config->item('homeAccomodationCmsId')); ?>"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
 					</figure>
@@ -89,7 +87,7 @@
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 								<?php echo $this->lang->line('activities_on_campus'); ?><br>
-								<a class="btn view-details-btn viewCampusDetails" data-title="<?php echo $this->lang->line('activities_on_campus'); ?>" data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($this->config->item('homeActivityCmsId')))); ?>" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
+								<a class="btn view-details-btn" data-title="<?php echo $this->lang->line('activities_on_campus'); ?>" href="<?php echo getUrlCampusLife($this->config->item('homeActivityCmsId')); ?>"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
 					</figure>
@@ -105,7 +103,7 @@
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 								<?php echo $this->lang->line('our_team'); ?><br>
-								<a class="btn view-details-btn viewCampusDetails" data-title="<?php echo $this->lang->line('our_team'); ?>" data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($this->config->item('homeOurTeamCmsId')))); ?>" href="javascript:void(0);"><?php echo $this->lang->line('view_details'); ?></a>
+								<a class="btn view-details-btn" data-title="<?php echo $this->lang->line('our_team'); ?>" href="<?php echo getUrlCampusLife($this->config->item('homeOurTeamCmsId')); ?>"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
 					</figure>
@@ -218,22 +216,6 @@
 </div>
 <!---------------------- Europe Programmes Section End ---------------------->
 
-<!---------------Dynamic modal to show campus life details Start---------------->
-<div class="modal fade" id="campusDetails" role="dialog">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button><br>
-				<h4 class="modal-title campusTitle"></h4>
-			</div>
-			<div class="modal-body">
-				<div id="campusDetailsBody"></div>
-			</div>
-		</div>
-	</div>
-</div>
-<!---------------Dynamic modal to show campus life details End---------------->
-
 <script>
 	$(document).ready(function(){
 		$(document).on('mouseenter' , '.effect-chico' , function(){
@@ -241,22 +223,6 @@
 		});
 		$(document).on('mouseleave' , '.effect-chico' , function(){
 			$(this).find('.show-destination-class').css('display' , 'block');
-		});
-
-		//To show campus life details in modal popup
-		$(document).on('click' , '.viewCampusDetails' , function(){
-			var id = $(this).data('refid');
-			$('.campusTitle').text($(this).data('title'));
-			$('#campusDetailsBody').empty();
-			$.ajax({
-				url : '<?php echo base_url().'home-content' ?>',
-				data : {'id' : id , csrf_test_name: $.cookie('csrf_cookie_name')},
-				type : 'POST',
-				success : function(response){
-					$('#campusDetailsBody').append(response);
-				}
-			});
-			$('#campusDetails').modal();
 		});
 	});
 </script>

@@ -5,6 +5,8 @@ var pageHighlightMenu = "frontweb/manage_activity";
 $(document).ready(function(){
 	if(pageType == 'list')
 	{
+		$('[data-toggle="tooltip"]').tooltip();
+
 		//Initialize datatable
 		var table = $("#datatable").DataTable({
 			processing : true,

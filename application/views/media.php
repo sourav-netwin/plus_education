@@ -9,8 +9,8 @@
 <!-----------------Media Section Start------------------->
 <div class="col-lg-12" id="media">
 	<h1 class="destination_heading">MEDIA</h1><hr>
-	<ul class="nav nav-pills col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-5 col-md-offset-5 col-sm-offset-4 col-xs-offset-0">
-		<li class="active"><a data-toggle="tab" id='refPhotogalleryId' href="#photo">PHOTGALLERY</a></li>
+	<ul style="padding-left: 15px;padding-right: 15px;" class="nav nav-pills col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-5 col-md-offset-5 col-sm-offset-4 col-xs-offset-0">
+		<li class="active"><a data-toggle="tab" id='refPhotogalleryId' href="#photo">PHOTOGALLERY</a></li>
 		<li><a data-toggle="tab" id='refVideoId' href="#video">VIDEO</a></li>
 	</ul>
 	<div class="tab-content">

@@ -26,15 +26,15 @@
 			</p>
 			<p style="font-size: 14px;">
 				<i class="fa fa-phone fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				+ 44 (0)20 7730 2223
+				<a href="tel:+ 44 (0)20 7730 2223">+ 44 (0)20 7730 2223</a>
 			</p>
 			<p style="font-size: 14px;">
 				<i class="fa fa-fax fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				+ 44 (0)20 7730 9209
+				<a href="tel:+ 44 (0)20 7730 9209">+ 44 (0)20 7730 9209</a>
 			</p>
 			<p style="font-size: 14px;">
 				<i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				plus@plus-ed.com
+				<a href="mailto:plus@plus-ed.com">plus@plus-ed.com</a>
 			</p>
 		</div>
 	</div><br>

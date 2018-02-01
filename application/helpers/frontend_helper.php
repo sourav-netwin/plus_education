@@ -41,7 +41,8 @@
 	{
 		if(!empty($data))
 		{
-			if($data['name'] == 'Home')
+			$CI = &get_instance();
+			if($data['id'] == $CI->config->item('homePageId'))
 				$url = base_url();
 			elseif($data['type'] == 3)
 				$url = $data['external_url'];
@@ -108,27 +109,10 @@
 		{
 			$fieldProperities = array(
 				'name' => 'field_value_'.$data['manage_application_form_id'],
+				'id' => 'field_value_'.$data['manage_application_form_id'],
 				'class' => 'form-control'
 			);
-			if($data['required_flag'] == 1)
-				$fieldProperities['required'] = 'required';
-
-			if($data['field_type'] == 'name')
-			{
-				$fieldProperities['pattern'] = '[A-Za-z.\s]*';
-				$fieldProperities['title'] = $CI->lang->line('name_validation_message');
-			}
-			elseif($data['field_type'] == 'mobile')
-			{
-				$fieldProperities['pattern'] = '[+]?[0-9]{10,20}';
-				$fieldProperities['title'] = $CI->lang->line('mobile_number_validation_message');
-			}
-			elseif($data['field_type'] == 'email')
-			{
-				$fieldProperities['pattern'] = '[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-za-z]{2,}';
-				$fieldProperities['title'] = $CI->lang->line('email_validation_message');
-			}
-			elseif($data['field_type'] == 'date')
+			if($data['field_type'] == 'date')
 			{
 				$fieldProperities['placeholder'] = 'dd/mm/yyyy';
 				$fieldProperities['class'] = 'form-control datepicker';
@@ -140,25 +124,25 @@
 		{
 			$fieldProperities = array(
 				'name' => 'field_value_'.$data['manage_application_form_id'],
+				'id' => 'field_value_'.$data['manage_application_form_id'],
 				'class' => 'form-control',
 				'rows' => 2
 			);
-			if($data['required_flag'] == 1)
-				$fieldProperities['required'] = 'required';
 			$fieldStr.= form_textarea($fieldProperities);
 		}
 		elseif($data['field_type'] == 'radio')
 		{
-			$requiredFlag = ($data['required_flag'] == 1) ? 'required' : '';
 			$arr = explode(',' , $data['multiple_value']);
 			foreach($arr as $value)
-				$fieldStr.= '<input style="margin-left: 20px;" type="radio" name="field_value_'.$data['manage_application_form_id'].'" value="'.$value.'" '.$requiredFlag.'>'.$value;
+				$fieldStr.= '<input style="margin-left: 20px;" type="radio" name="field_value_'.$data['manage_application_form_id'].'" id="field_value_'.$data['manage_application_form_id'].'" value="'.$value.'">'.$value;
+			$fieldStr.= '<div class="radioErrorMsg"></div>';
 		}
 		elseif($data['field_type'] == 'dropdown')
 		{
 			$requiredFlag = ($data['required_flag'] == 1) ? 'required' : '';
+			$requiredFlag = '';
 			$arr = explode(',' , $data['multiple_value']);
-			$fieldStr.= form_dropdown('field_value_'.$data['manage_application_form_id'] , $arr , '' , 'class="form-control" '.$requiredFlag);
+			$fieldStr.= form_dropdown('field_value_'.$data['manage_application_form_id'] , $arr , '' , 'id="field_value_'.$data['manage_application_form_id'].'" class="form-control"');
 		}
 		return $fieldStr;
 	}
@@ -241,5 +225,18 @@
 				$returnArr[$value['id']] = $value['nome_centri'];
 		}
 		return $returnArr;
+	}
+
+	//This function is used to get the url for the cms pages using id(for home page campus life section)
+	function getUrlCampusLife($id = NULL)
+	{
+		if($id)
+		{
+			$CI = &get_instance();
+			$result = $CI->db->select('cont_url_name')
+							->where('cont_menuid' , $id)
+							->get(TABLE_CONTENT_MST)->row_array();
+			return base_url().'content/'.$result['cont_url_name'];
+		}
 	}
 ?>

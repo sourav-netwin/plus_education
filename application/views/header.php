@@ -47,8 +47,12 @@
 										{
 ?>
 											<div class="col-md-6">
-												<h5 class="menu-heading li-menu-title-small"><?php echo ucwords(strtolower(str_replace('_' , ' ' , $key))); ?></h5>
+												<h5 class="menu-heading li-menu-title-small" style="margin-bottom: 20px !important;"><?php echo ucwords(strtolower(str_replace('_' , ' ' , $key))); ?></h5>
 												<ul>
+													<li style="margin-left: 20px !important;">
+														<img class="country-flag-menu" src="<?php echo base_url().COUNTRY_FLAG_IMAGE.'usa.png'; ?>">
+														<span>USA</span>
+													</li>
 <?php
 													foreach($value as $centreValue)
 														echo '<li><a href="'.base_url().'junior-summer-courses/'.strtolower(str_replace(' ' , '-' , $centreValue['centre'])).'">'.ucwords(strtolower($centreValue['centre'])).'</a></li>';
@@ -162,7 +166,7 @@
 					{
 						foreach($topHeaderMenu as $value)
 						{
-							if(!empty($value['submenu']))
+							if(!empty($value['submenu']) && ($value['id'] != $this->config->item('homeMenuId')))
 							{
 ?>
 								<li class="dropdown mobile_responsive_menu">
@@ -194,9 +198,9 @@
 					<li class="dropdown mobile_responsive_menu">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('agent_area'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown">
-							<li><a href="javascript:void(0);"><?php echo $this->lang->line('login'); ?></a></li>
-							<li><a href="javascript:void(0);"><?php echo $this->lang->line('retrieve_password'); ?></a></li>
-							<li><a href="javascript:void(0);"><?php echo $this->lang->line('register'); ?></a></li>
+							<li><a target="_blank" href="<?php echo ADMIN_PANEL_URL.'index.php/vauth/agents'; ?>"><?php echo $this->lang->line('login'); ?></a></li>
+							<li><a target="_blank" href="<?php echo ADMIN_PANEL_URL.'index.php/vauth/forgotpassword/agents'; ?>"><?php echo $this->lang->line('retrieve_password'); ?></a></li>
+							<li><a target="_blank" href="<?php echo ADMIN_PANEL_URL.'index.php/agents/register'; ?>"><?php echo $this->lang->line('register'); ?></a></li>
 						</ul>
 					</li>
 					<li class="mobile_responsive_menu"><a href="javascript:void(0);"><i class="fa fa-globe" aria-hidden="true"></i><?php echo $this->lang->line('english'); ?></a></li>

@@ -8,7 +8,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand w3-bar-item w3-button w3-padding-large w3-theme-d4">
-				<img style="width: 100px;" src="http://localhost/plus_educational_development/images/logo_plus.png">
+				<img style="width: 100px;" src="<?php echo base_url(); ?>images/logo_plus.png">
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">

@@ -10,7 +10,7 @@
 		<div class="col-md-12 agile-welcome-left">
 <?php
 			if($cont_content)
-				echo $cont_content;
+				echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $cont_content);
 ?>
 		</div>
 		<div class="clearfix"></div>
