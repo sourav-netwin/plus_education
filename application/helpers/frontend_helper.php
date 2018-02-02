@@ -148,14 +148,16 @@
 	}
 
 	//This function is used to get the details of centre to show in the plus video login page dropdown
-	function getCentreDropdownForPlusVideo()
+	function getCentreDropdownForPlusVideo($centreId = NULL)
 	{
 		$data[''] = 'Please select centre';
 		$CI = &get_instance();
-		$result = $CI->db->select('id , nome_centri')
-						->join(TABLE_CENTRE , 'id = centre')
-						->order_by('nome_centri' , 'asc')
-						->get(TABLE_PLUS_VIDEO)->result_array();
+		$CI->db->select('id , nome_centri');
+		$CI->db->join(TABLE_CENTRE , 'id = centre');
+		if($centreId != '')
+			$CI->db->where('id' , $centreId);
+		$CI->db->order_by('nome_centri' , 'asc');
+		$result = $CI->db->get(TABLE_PLUS_VIDEO)->result_array();
 		if(!empty($result))
 		{
 			foreach($result as $value)
@@ -208,23 +210,6 @@
 			</div>
 <?php
 		}
-	}
-
-	//This function is used to get centre details from DB and use in dropdown
-	function getCentreDetails()
-	{
-		$returnArr[''] = 'Please Select';
-		$CI = &get_instance();
-		$result = $CI->db->select('id , nome_centri')
-						->where('attivo' , 1)
-						->or_where('(is_mini_stay = 1 and attivo = 0)')
-						->get(TABLE_CENTRE)->result_array();
-		if(!empty($result))
-		{
-			foreach($result as $value)
-				$returnArr[$value['id']] = $value['nome_centri'];
-		}
-		return $returnArr;
 	}
 
 	//This function is used to get the url for the cms pages using id(for home page campus life section)

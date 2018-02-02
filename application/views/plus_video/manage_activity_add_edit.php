@@ -1,11 +1,15 @@
 <!----------Form validation js----------->
 <script src="<?php echo base_url(); ?>js/admin/jquery.validate.min.js"></script>
 
+<!---------------Sweet Alert CSS and JS----------------->
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/sweetalert.css">
+<script src="<?php echo base_url(); ?>js/admin/sweetalert.min.js"></script>
+
 <!------------custom javascript for program course------------>
 <script>
 	var pageType = 'add_edit';
 	var valid_data_error_msg = "<?php echo $this->lang->line("valid_data_error_msg"); ?>";
-	var pdf_type_error_msg = "<?php echo $this->lang->line("pdf_type_error_msg"); ?>";
+	var activity_file_type_error_msg = "<?php echo $this->lang->line("activity_file_type_error_msg"); ?>";
 	var required_upload_file = "<?php echo $this->lang->line("required_upload_file"); ?>";
 	var please_enter_dynamic = "<?php echo $this->lang->line("please_enter_dynamic"); ?>";
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
@@ -27,6 +31,8 @@
 					echo form_open_multipart(base_url().'manage_activity/add_edit/'.$id , $formAttribute);
 ?>
 						<input type="hidden" name="flag" value="<?php echo $flag; ?>" />
+						<input type="hidden" id="fileTypeErrorFlag" value="1" />
+						<input type="hidden" name="notUploadFile" id="notUploadFile" value="" />
 						<div class="box box-primary"><div class="box-body">
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Activity name<span class="required">*</span></label>
@@ -48,7 +54,7 @@
 							<div class="col-md-6 col-sm-6 col-xs-12">
 <?php
 								$centreValue = isset($post['centre_id']) ? $post['centre_id'] : '';
-								echo form_dropdown('centre_id' , getCentreDetails() , $centreValue , 'class="form-control" id="centre_id"');
+								echo form_dropdown('centre_id' , getCentreDropdownForPlusVideo($this->session->userdata('centre_id')) , $centreValue , 'class="form-control" id="centre_id"');
 ?>
 							</div>
 						</div>
@@ -67,46 +73,65 @@
 ?>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload File <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo isset($post['file_name']) ? $post['file_name'] : ''; ?>" />
-								<input type="hidden" name="editUploadFlag" id="editUploadFlag" value="<?php echo isset($post['file_name']) ? 2 : 1; ?>" />
-								<div class="showFileUploadWrapper" style="display: <?php echo isset($post['file_name']) ? 'none' : 'block'; ?>">
+								<label for="file_name">
+									<span class="addFileBtn">
+										<i class="fa fa-plus"></i> Add files...
+									</span>
+								</label>
+								<small style="display:block">
+									( Note: Only JPG|JPEG|PNG|PDF|DOC|XLS files are allowed )
+								</small>
 <?php
-									$inputFieldAttribute = array(
-										'id' => 'file_name',
-										'name' => 'file_name',
-										'type' => 'file'
-									);
-									echo form_input($inputFieldAttribute);
-?>
-									<small style="display:block">
-										( Note: Only pdf files are allowed )
-									</small>
-									<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
-								</div>
-<?php
-								if(isset($post['file_name']))
-								{
-?>
-									<div class="showPdfWrapper">
-										<div class="col-lg-4" style="border: 1px solid #ccc;padding: 10px;">
-											<a data-toggle="tooltip" data-original-title="Open File" href="<?php echo ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$post['file_name']; ?>" target="_blank">
-												<i style="font-size: 30px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i>
-												<br>(<?php echo $post['file_name']; ?>)
-											</a>
-										</div>
-										<div class="col-lg-3" style="margin-top: 20px;">
-											<i data-toggle="tooltip" data-original-title="Remove File" style="font-size: 30px;color: green;cursor: pointer;" class="fa fa-times-circle-o removePdfFile" aria-hidden="true"></i>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-<?php
-								}
+								$inputFieldAttribute = array(
+									'id' => 'file_name',
+									'name' => 'file_name[]',
+									'type' => 'file',
+									'multiple' => 'multiple',
+									'style' => 'visibility: hidden;'
+								);
+								echo form_input($inputFieldAttribute);
 ?>
 							</div>
 						</div>
+						<div class="listUploadedFileWrapper"></div>
+
+						<!-----------Static HTML for the dynamic content Start--------->
+						<div class="sampleHtmlContainer" style="display: none;">
+							<div class="form-group listUploadedFile_dynamicCount">
+								<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div style="overflow-x: scroll;">
+										<table role="presentation" class="table table-striped">
+											<tbody class="files">
+												<tr class="template-upload fade in">
+													<td align="left" style="width: 40%;">
+														<span class="preview dynamicContentClass">
+															<img src="<?php echo base_url(); ?>images/no_flag.jpg" class="uploadImageActivityClass" width="160" height="60"/>
+														</span>
+													</td>
+													<td align="left">
+														<p class="name uploadedFileName"></p>
+													</td>
+													<td align="right">
+														<button class="btn btn-danger deleteUploadFile" data-ref_id = "dynamicCount" />
+															<i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="waitClass" style="display: none;">
+							<img src='<?php echo base_url(); ?>images/loader.gif' class="waitClassImg" />
+						</div>
+						<!-----------Static HTML for the dynamic content End--------->
 
 						<div class="ln_solid"></div>
 						<div class="form-group">

@@ -22,6 +22,8 @@
 			$config['upload_path'] = $uploadPath;
 			if($pdfFileFlag == 1)
 				$config['allowed_types'] = 'pdf';
+			elseif($pdfFileFlag == 2)
+				$config['allowed_types'] = 'jpg|jpeg|png|doc|docx|xls|xlsx|pdf';
 			else
 			{
 				$config['allowed_types'] = 'gif|jpg|jpeg|png';

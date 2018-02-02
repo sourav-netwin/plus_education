@@ -83,23 +83,18 @@ $(document).ready(function(){
 		} , valid_data_error_msg);
 
 		jQuery.validator.addMethod('checkRequired' , function(value , element){
-			if(value == '' && $('#editUploadFlag').val() == '1')
+			if(document.getElementById(element.id).files.length < 1)
 				return false;
 			else
 				return true;
 		} , required_upload_file);
 
-		jQuery.validator.addMethod("checkPdfExt" , function (value , element){
-			if(value)
-			{
-				if(splitByLastDot(value) == 'pdf')
-					return true;
-				else
-					return false;
-			}
+		jQuery.validator.addMethod("checkFileExt" , function (value , element){
+			if($('#fileTypeErrorFlag').val() == 2)
+				return false;
 			else
 				return true;
-		} , pdf_type_error_msg);
+		} , activity_file_type_error_msg);
 
 		$('#activityDetails').validate({
 			errorElement : 'span',
@@ -114,9 +109,9 @@ $(document).ready(function(){
 				description : {
 					required : true
 				},
-				file_name : {
+				'file_name[]' : {
 					checkRequired : true,
-					checkPdfExt : true
+					checkFileExt : true
 				}
 			},
 			messages : {
@@ -129,6 +124,70 @@ $(document).ready(function(){
 				description : {
 					required : please_enter_dynamic.replace('**field**' , 'Description')
 				}
+			}
+		});
+
+		/*-----------------Multiple file upload Start------------------*/
+		$('#file_name').on('change' , function(){
+			var files = (this.files) ? this.files : [];
+			if(!files.length || !window.FileReader)
+				return;
+			$('.listUploadedFileWrapper').empty();
+			var allowTypesArr = ['jpg' , 'jpeg' , 'png' , 'doc' , 'docx' , 'xls' , 'xlsx' , 'pdf'];
+			var imageTypeArr = [];
+			$('#fileTypeErrorFlag').val('1');
+			for(var i = 0 ; i < files.length ; i++)
+			{
+				var splitArr = files[i]['name'].split('.');
+				var fileExt = splitArr.pop().toLowerCase();
+				if($.inArray(fileExt , allowTypesArr) != '-1')
+				{
+					$('.listUploadedFileWrapper').append($('.sampleHtmlContainer').html().replace(/dynamicCount/g , i));
+					$('.listUploadedFile_'+i).find('.uploadedFileName').text(files[i]['name']);
+					if(/^image/.test(files[i]['type']))
+						imageTypeArr.push(i);
+					else if(fileExt == 'pdf')
+						$('.listUploadedFile_'+i).find('.dynamicContentClass').html('<i style="color: red;font-size: 35px;" class="fa fa-lg fa-file-pdf-o"></i>');
+					else if(fileExt == 'xls' || fileExt == 'xlsx')
+						$('.listUploadedFile_'+i).find('.dynamicContentClass').html('<i style="color: green;font-size: 35px;" class="fa fa-lg fa-file-excel-o"></i>');
+					else if(fileExt == 'doc' || fileExt == 'docx')
+						$('.listUploadedFile_'+i).find('.dynamicContentClass').html('<i style="color: #7878ff;font-size: 35px;" class="fa fa-lg fa-file-text-o"></i>');
+				}
+				else
+				{
+					$('#fileTypeErrorFlag').val('2');
+					swal("Sorry!", 'Only JPG|JPEG|PNG|PDF|DOC|XLS files are allowed', "warning");
+					$('.listUploadedFileWrapper').empty();
+					return false;
+				}
+			}
+			//Load image
+			if(imageTypeArr.length > 0)
+			{
+				$('.waitClass').css('display' , 'block');
+				imageTypeArr.forEach(function(value , key){
+					var reader = new FileReader();
+					reader.readAsDataURL(files[value]);
+					reader.onload = function(){
+						var image = new Image();
+						image.src = this.result;
+						image.onload = function(){
+							$('.listUploadedFile_'+value).find('.uploadImageActivityClass').attr('src' , this.src);
+						};
+					};
+				});
+				$('.waitClass').css('display' , 'none');
+			}
+		});
+		/*-----------------Multiple file upload Start------------------*/
+
+		//Delete multiple file
+		$(document).on('click' , '.deleteUploadFile' , function(){
+			if(confirm(delete_confirmation.replace('**module**' , 'file')))
+			{
+				$('.listUploadedFile_'+$(this).data('ref_id')).remove();
+				var notUploadFileValue = ($('#notUploadFile').val() != '') ? $('#notUploadFile').val()+','+$(this).data('ref_id') : $(this).data('ref_id');
+				$('#notUploadFile').val(notUploadFileValue);
 			}
 		});
 	}

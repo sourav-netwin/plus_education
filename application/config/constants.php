@@ -137,6 +137,7 @@ define('TABLE_APPLICATION_FORM_DATA' , 'frontweb_application_form_data');
 define('TABLE_PLUS_VIDEO' , 'frontweb_plus_video');
 define('TABLE_PLUS_WALKING_TOUR' , 'frontweb_plus_walking_tour');
 define('TABLE_PLUS_ACTIVITY_MANAGEMENT' , 'frontweb_plus_activity');
+define('TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES' , 'frontweb_plus_activity_file');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);

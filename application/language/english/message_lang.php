@@ -21,5 +21,6 @@
 	$lang['delete_confirmation'] = 'Are you sure to delete this **module** ?';
 	$lang['pdf_type_error_msg'] = 'Please upload pdf file.';
 	$lang['required_upload_file'] = 'Please upload file';
+	$lang['activity_file_type_error_msg'] = 'Only JPG|JPEG|PNG|PDF|DOC|XLS files are allowed';
 
 ?>

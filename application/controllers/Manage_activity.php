@@ -45,10 +45,23 @@
 			$imageError = '';
 			if($this->input->post('flag'))
 			{
-				$file_name = $this->input->post('oldImg');
+				$file_name = array();
 				//For the pdf file
-				if($_FILES['file_name']['name'] != '')
+				if(!empty($_FILES['file_name']['name']))
 				{
+					$fileArr = $_FILES;
+					foreach($_FILES['file_name']['name'] as $key => $value)
+					{
+						$_FILES['file_name[]']['name']= $fileArr['file_name']['name'][$key];
+						$_FILES['file_name[]']['type']= $fileArr['file_name']['type'][$key];
+						$_FILES['file_name[]']['tmp_name']= $fileArr['file_name']['tmp_name'][$key];
+						$_FILES['file_name[]']['error']= $fileArr['file_name']['error'][$key];
+						$_FILES['file_name[]']['size']= $fileArr['file_name']['size'][$key];
+						$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_ACCESS_FILE , 'file_name[]' , '' , '' , '' , 2);
+						if($uploadData['errorFlag'] == 0)
+							$file_name[$key] = $uploadData['fileName'];
+					}
+					echo "<pre>";print_r($_POST);print_r($_FILES);print_r($file_name);die('pop');
 					$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_ACCESS_FILE , 'file_name' , '' , '' , '' , 1);
 					if($uploadData['errorFlag'] == 0)
 					{

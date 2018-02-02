@@ -312,6 +312,8 @@
 			$this->db->from(TABLE_PLUS_ACTIVITY_MANAGEMENT . ' a');
 			$this->db->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left');
 			$this->db->where('a.delete_flag' , 0);
+			if($this->session->userdata('centre_id') != '')
+				$this->db->where('b.id' , $this->session->userdata('centre_id'));
 			$result = $this->db->get()->result_array();
 			if(!empty($result))
 			{
