@@ -14,6 +14,7 @@
 	var please_enter_dynamic = "<?php echo $this->lang->line("please_enter_dynamic"); ?>";
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
 	var delete_confirmation = "<?php echo $this->lang->line("delete_confirmation"); ?>";
+	var baseUrl = "<?php echo base_url(); ?>";
 </script>
 <script src="<?php echo base_url(); ?>js/admin/manage_activity.js"></script>
 
@@ -33,6 +34,8 @@
 						<input type="hidden" name="flag" value="<?php echo $flag; ?>" />
 						<input type="hidden" id="fileTypeErrorFlag" value="1" />
 						<input type="hidden" name="notUploadFile" id="notUploadFile" value="" />
+						<input type="hidden" name="deleteEditFile" id="deleteEditFile" value="" />
+						<input type="hidden" id="globalCount" value="<?php echo ($flag == 'as') ? 0 : count($post['files']); ?>" />
 						<div class="box box-primary"><div class="box-body">
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Activity name<span class="required">*</span></label>
@@ -97,6 +100,80 @@
 ?>
 							</div>
 						</div>
+						<div>
+<?php
+							if(isset($post['files']) && !empty($post['files']))
+							{
+								foreach($post['files'] as $key => $value)
+								{
+?>
+									<div class="form-group listUploadedFile_<?php echo $key; ?>">
+										<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div style="overflow-x: scroll;">
+												<table role="presentation" class="table table-striped">
+													<tbody class="files">
+														<tr class="template-upload fade in">
+															<td align="left" style="width: 40%;">
+																<span class="preview dynamicContentClass">
+<?php
+																	if(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'jpg'
+																	||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'jpeg'
+																	||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'png'
+																	)
+																	{
+?>
+																		<img src="<?php echo ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name']; ?>" class="uploadImageActivityClass" width="160" height="60"/>
+<?php
+																	}
+																	elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'doc'
+																	||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'docx'
+																	)
+																	{
+?>
+																		<i style="color: #7878ff;font-size: 35px;" class="fa fa-lg fa-file-text-o"></i>
+<?php
+																	}
+																	elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'xls'
+																	||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'xlsx'
+																	)
+																	{
+?>
+																		<i style="color: green;font-size: 35px;" class="fa fa-lg fa-file-excel-o"></i>
+<?php
+																	}
+																	elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'pdf')
+																	{
+?>
+																		<i style="color: red;font-size: 35px;" class="fa fa-lg fa-file-pdf-o"></i>
+<?php
+																	}
+?>
+																</span>
+															</td>
+															<td align="left">
+																<p class="name uploadedFileName">
+																	<a href="<?php echo ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name']; ?>" target="_blank">
+																		<?php echo $value['file_name']; ?>
+																	</a>
+																</p>
+															</td>
+															<td align="right">
+																<button class="btn btn-danger deleteUploadFile" data-ref_id = "<?php echo $key; ?>" data-flag_type="es" data-activity_file_id="<?php echo $value['plus_activity_file_id']; ?>" />
+																	<i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+																</button>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+<?php
+								}
+							}
+?>
+						</div>
 						<div class="listUploadedFileWrapper"></div>
 
 						<!-----------Static HTML for the dynamic content Start--------->
@@ -117,7 +194,7 @@
 														<p class="name uploadedFileName"></p>
 													</td>
 													<td align="right">
-														<button class="btn btn-danger deleteUploadFile" data-ref_id = "dynamicCount" />
+														<button class="btn btn-danger deleteUploadFile" data-ref_id = "dynamicCount" data-flag_type="as" data-file_ref_id = "dynamicFileRefId" />
 															<i class="fa fa-trash-o" aria-hidden="true"></i> Delete
 														</button>
 													</td>

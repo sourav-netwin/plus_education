@@ -32,7 +32,6 @@
 					<tr>
 						<th>Si no.</th>
 						<th>Activity Name</th>
-						<th>File</th>
 						<th>Centre</th>
 						<th>Date</th>
 						<th>Action</th>
@@ -53,7 +52,6 @@
 								<td><?php echo $value['2']; ?></td>
 								<td><?php echo $value['3']; ?></td>
 								<td><?php echo $value['4']; ?></td>
-								<td><?php echo $value['5']; ?></td>
 							</tr>
 <?php
 						}

@@ -42,72 +42,78 @@
 		//This function is used to perform both add and edit operation for manage activity module
 		function add_edit($id = NULL)
 		{
-			$imageError = '';
 			if($this->input->post('flag'))
 			{
 				$file_name = array();
-				//For the pdf file
+				//Upload New files
 				if(!empty($_FILES['file_name']['name']))
 				{
 					$fileArr = $_FILES;
+					$notUploadFileArr = ($this->input->post('notUploadFile') != '') ? explode(',' , $this->input->post('notUploadFile')) : array();
 					foreach($_FILES['file_name']['name'] as $key => $value)
 					{
-						$_FILES['file_name[]']['name']= $fileArr['file_name']['name'][$key];
-						$_FILES['file_name[]']['type']= $fileArr['file_name']['type'][$key];
-						$_FILES['file_name[]']['tmp_name']= $fileArr['file_name']['tmp_name'][$key];
-						$_FILES['file_name[]']['error']= $fileArr['file_name']['error'][$key];
-						$_FILES['file_name[]']['size']= $fileArr['file_name']['size'][$key];
-						$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_ACCESS_FILE , 'file_name[]' , '' , '' , '' , 2);
-						if($uploadData['errorFlag'] == 0)
-							$file_name[$key] = $uploadData['fileName'];
-					}
-					echo "<pre>";print_r($_POST);print_r($_FILES);print_r($file_name);die('pop');
-					$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_ACCESS_FILE , 'file_name' , '' , '' , '' , 1);
-					if($uploadData['errorFlag'] == 0)
-					{
-						//Delete old file
-						if($this->input->post('flag') == 'es' && $file_name != '')
+						if(!(in_array($key , $notUploadFileArr)))
 						{
-							if(file_exists('./'.ACTIVITY_ACCESS_FILE.$file_name))
-								unlink('./'.ACTIVITY_ACCESS_FILE.$file_name);
+							$_FILES['file_name[]']['name']= $fileArr['file_name']['name'][$key];
+							$_FILES['file_name[]']['type']= $fileArr['file_name']['type'][$key];
+							$_FILES['file_name[]']['tmp_name']= $fileArr['file_name']['tmp_name'][$key];
+							$_FILES['file_name[]']['error']= $fileArr['file_name']['error'][$key];
+							$_FILES['file_name[]']['size']= $fileArr['file_name']['size'][$key];
+							$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_ACCESS_FILE , 'file_name[]' , '' , '' , '' , 2);
+							if($uploadData['errorFlag'] == 0)
+								$file_name[] = $uploadData['fileName'];
 						}
-						$file_name = $uploadData['fileName'];
 					}
-					else
-						$imageError = $uploadData['errorMessage'];
 				}
 
-				//Add/update record in database
-				if($imageError == '')
+				//Add or update record in main table
+				$updateData = array(
+					'name' => $this->input->post('name'),
+					'centre_id' => $this->input->post('centre_id'),
+					'description' => $this->input->post('description')
+				);
+				if($this->input->post('flag') == 'as')
 				{
-					$updateData = array(
-						'name' => $this->input->post('name'),
-						'centre_id' => $this->input->post('centre_id'),
-						'file_name' => $file_name,
-						'description' => $this->input->post('description')
-					);
-					if($this->input->post('flag') == 'as')
-					{
-						$updateData['added_date'] = date('Y-m-d');
-						$this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
-						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
-					}
-					elseif($this->input->post('flag') == 'es')
-					{
-						$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
-						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('edit_success_message')));
-					}
-					redirect('/manage_activity');
+					$updateData['added_date'] = date('Y-m-d');
+					$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
+					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
 				}
+				elseif($this->input->post('flag') == 'es')
+				{
+					$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
+
+					//Delete files
+					$deleteEditFileArr = ($this->input->post('deleteEditFile') != '') ? explode(',' , $this->input->post('deleteEditFile')) : array();
+					if(!empty($deleteEditFileArr))
+					{
+						foreach($deleteEditFileArr as $value)
+							$this->delete_file($value);
+					}
+					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('edit_success_message')));
+				}
+
+				//Add new uploaded file recoerd in the database
+				if(!empty($file_name))
+				{
+					foreach($file_name as $value)
+					{
+						$insertData = array(
+							'file_name' => $value,
+							'plus_activity_id' => ($this->input->post('flag') == 'as') ? $insertId : $id
+						);
+						$this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , $insertData);
+					}
+				}
+				redirect('/manage_activity');
 			}
 			if($id != '')
 			{
-				$post = $this->Front_model->commonGetData('plus_activity_id , name , centre_id , file_name , description' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT , 1);
+				$post = $this->Front_model->commonGetData('plus_activity_id , name , centre_id , description' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT , '' , 'asc' , 1);
+				$post['files'] = $this->Front_model->commonGetData('plus_activity_file_id , file_name' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 2);
 				$data['post'] = $post;
 			}
 			$data['id'] = $id;
 			$data['flag'] = ($id != '') ? 'es' : 'as';
-			$data['imageError'] = $imageError;
 			$data['viewPage'] = 'plus_video/manage_activity_add_edit';
 			$data['showLeftMenu'] = 0;
 			$this->load->view('plus_video/template' , $data);
@@ -122,6 +128,19 @@
 			$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
 			$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('delete_success_message')));
 			redirect('/manage_activity');
+		}
+
+		//This function is used to delete the file from directory as well as from database
+		function delete_file($id = NULL)
+		{
+			if($id)
+			{
+				$result = $this->Front_model->commonGetData('file_name' , 'plus_activity_file_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 1);
+				if(file_exists('./'.ACTIVITY_ACCESS_FILE.$result['file_name']))
+					unlink('./'.ACTIVITY_ACCESS_FILE.$result['file_name']);
+				$this->Front_model->commonDelete(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , 'plus_activity_file_id = '.$id);
+			}
+			return TRUE;
 		}
 	}
 ?>

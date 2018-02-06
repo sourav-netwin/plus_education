@@ -224,4 +224,41 @@
 			return base_url().'content/'.$result['cont_url_name'];
 		}
 	}
+
+	//This function is used to get the all file details from DB and show in the daily activity section
+	function showDailyActivityFiles($id = NULL)
+	{
+		if($id)
+		{
+			$CI = &get_instance();
+			$result = $CI->Front_model->commonGetData('plus_activity_file_id , file_name' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 2);
+			$returnArr = array();
+			if(!empty($result))
+			{
+				foreach($result as $value)
+				{
+					if(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'jpg'
+					||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'jpeg'
+					||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'png'
+					)
+						$className = 'fa fa-image';
+					elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'doc'
+					||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'docx'
+					)
+						$className = 'fa fa-file-text-o';
+					elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'xls'
+					||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'xlsx'
+					)
+						$className = 'fa fa-file-excel-o';
+					elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'pdf')
+						$className = 'fa fa-file-pdf-o';
+					$returnArr[] = array(
+						'id' => $value['plus_activity_file_id'],
+						'className' => $className
+					);
+				}
+			}
+			return $returnArr;
+		}
+	}
 ?>

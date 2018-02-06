@@ -39,11 +39,17 @@
 		function getDestinationDetails($tableName = NULL , $isRegion = NULL , $regionId = NULL)
 		{
 			$returnArr = array();
+			if($tableName == TABLE_JUNIOR_CENTRE)
+				$statusFieldName = 'junior_centre_status';
+			elseif($tableName == TABLE_JUNIOR_MINISTAY)
+				$statusFieldName = 'junior_ministay_status';
+
 			if($isRegion == 1)
 				$returnArr['region'] = $this->db->select('distinct(located_in) as region')
 												->from($tableName)
 												->join(TABLE_CENTRE , 'id = centre_id' , 'left')
 												->where("located_in != ''")
+												->where("(".$statusFieldName." = 1 AND ".$tableName.".delete_flag=0)")
 												->where('((attivo = 1) or (is_mini_stay = 1 and attivo = 0))')
 												->get()->result_array();
 			$this->db->select("id as centre_id , nome_centri as centre_name , website_image as centre_image");
@@ -51,6 +57,7 @@
 			$this->db->join(TABLE_CENTRE , 'id = centre_id' , 'left');
 			if($regionId != '')
 				$this->db->where('located_in' , str_replace('_' , ' ' , $regionId));
+			$this->db->where("(".$statusFieldName." = 1 AND ".$tableName.".delete_flag=0)");
 			$this->db->where('((attivo = 1) or (is_mini_stay = 1 and attivo = 0))');
 			$returnArr['centre'] = $this->db->get()->result_array();
 			return $returnArr;
@@ -289,6 +296,7 @@
 		{
 			if($tableName != '')
 				$this->db->insert($tableName , $data);
+			return $this->db->insert_id();
 		}
 
 		//This function is used to check the authentication for plus walking tour section
@@ -307,7 +315,7 @@
 		function getActivityDetails()
 		{
 			$resultData = array();
-			$colomnArr = array('a.plus_activity_id' , 'a.name' , 'b.nome_centri' , 'a.file_name' , 'a.added_date' , 'a.status');
+			$colomnArr = array('a.plus_activity_id' , 'a.name' , 'b.nome_centri' , 'a.added_date' , 'a.status');
 			$this->db->select(implode(',' , $colomnArr));
 			$this->db->from(TABLE_PLUS_ACTIVITY_MANAGEMENT . ' a');
 			$this->db->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left');
@@ -330,10 +338,9 @@
 					$resultData[] = array(
 						0 => $siNo++,
 						1 => $value['name'],
-						2 => '<a target="_blank" href="'.ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name'].'">'.$value['file_name'].'</a>',
-						3 => $value['nome_centri'],
-						4 => date('d-m-Y' , strtotime($value['added_date'])),
-						5 => $actionStr
+						2 => $value['nome_centri'],
+						3 => date('d-m-Y' , strtotime($value['added_date'])),
+						4 => $actionStr
 					);
 				}
 			}
@@ -347,6 +354,16 @@
 			{
 				$this->db->where($whreCondition)
 						->update($tableName , $data);
+			}
+		}
+
+		//This is a common function to delete record from database
+		function commonDelete($tableName = NULL , $whreCondition = NULL)
+		{
+			if($tableName != '')
+			{
+				$this->db->where($whreCondition)
+						->delete($tableName);
 			}
 		}
 	}

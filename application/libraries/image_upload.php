@@ -14,7 +14,7 @@
 		{
 			$ext = pathinfo($_FILES[$fieldName]['name'] , PATHINFO_EXTENSION);
 			if(!is_dir($uploadPath))
-				mkdir($uploadPath , '0777');
+				mkdir($uploadPath , '0777' , TRUE);
 
 			$returnData = array();
 			$CI = &get_instance();

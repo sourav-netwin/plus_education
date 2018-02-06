@@ -3,11 +3,11 @@
 	min-width: 160px;
 }
 
-.navigation-container{
-	/*width: 1330px;*/
+/*.navigation-container{
+	width: 1330px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-}
+}*/
 
 .website-logo-image{
 	width: 167px;
@@ -757,7 +757,10 @@ ul.nav.navbar {
 }
 }
 @media(max-width:767px){
+.navbar-right {
 
+	margin-right: 0px;
+}
 }
 @media(max-width:480px){
 	.footer .credits p {
@@ -868,6 +871,7 @@ span.icon-bar {
 .headerWrapperClass .navbar-header {
 	float: none;
 	text-align: left;
+
 }
 .mobile_responsive_menu {
 	display: block !important;
@@ -910,6 +914,8 @@ span.icon-bar {
 }
 .dropdown-menu {
 	padding: 5px 10px;
+	max-height: 300px;
+	overflow-y: auto;
 }
 .li-menu-title {
 	font-size: 15px;
@@ -923,4 +929,32 @@ span.icon-bar {
 .usa-summer-program-menu {
 	padding: 0px 0px;
 }
+}
+@media(min-width: 1200px){
+	.navbar-collapse.collapse {
+	display: block !important;
+	height: auto !important;
+	padding-bottom: 0;
+	overflow: visible !important;
+}
+.navbar-collapse.in {
+    overflow-y: visible !important;
+  }
+}
+.headerWrapperClass .navbar-header {
+	padding: 10px 0;
+}
+.navbar-collapse.in {
+    overflow-y: visible !important;
+  }
+
+
+/*------------For video Activity Header-----------*/
+@media(min-width: 786px){
+	.videoActivityHeader {
+		display: block !important;
+		height: auto !important;
+		padding-bottom: 0;
+		overflow: visible !important;
+	}
 }

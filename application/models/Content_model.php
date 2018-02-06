@@ -56,9 +56,8 @@
 								->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 								->join(TABLE_JUNIOR_CENTRE_PROGRAM.' c' , 'c.junior_centre_id = a.junior_centre_id' , 'left')
 								->join(TABLE_PROGRAM_COURSE.' d' , 'c.program_id = d.program_course_id' , 'left')
-								->where('a.junior_centre_status' , 1)
-								->where('a.delete_flag' , 0)
-								->or_where('((b.attivo = 1) or (b.is_mini_stay = 1 and b.attivo = 0))')
+								->where('a.junior_centre_status = 1 AND a.delete_flag = 0')
+								->where('((b.attivo = 1) or (b.is_mini_stay = 1 and b.attivo = 0))')
 								->order_by('b.nome_centri')
 								->get()->result_array();
 			if(!empty($result))
@@ -131,6 +130,8 @@
 							->from(TABLE_JUNIOR_MINISTAY_SECTION.' a')
 							->join(TABLE_JUNIOR_MINISTAY.' b' , 'a.junior_ministay_id = b.junior_ministay_id' , 'left')
 							->join(TABLE_CENTRE.' c' , 'b.centre_id = c.id' , 'left')
+							->where('b.junior_ministay_status = 1 AND b.delete_flag = 0')
+							->where('((c.attivo = 1) or (c.is_mini_stay = 1 and c.attivo = 0))')
 							->order_by('c.nome_centri')
 							->get()->result_array();
 			if(!empty($result))

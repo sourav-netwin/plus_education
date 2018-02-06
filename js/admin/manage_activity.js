@@ -83,7 +83,7 @@ $(document).ready(function(){
 		} , valid_data_error_msg);
 
 		jQuery.validator.addMethod('checkRequired' , function(value , element){
-			if(document.getElementById(element.id).files.length < 1)
+			if(document.getElementById(element.id).files.length < 1 && $('#globalCount').val() == 0)
 				return false;
 			else
 				return true;
@@ -142,16 +142,16 @@ $(document).ready(function(){
 				var fileExt = splitArr.pop().toLowerCase();
 				if($.inArray(fileExt , allowTypesArr) != '-1')
 				{
-					$('.listUploadedFileWrapper').append($('.sampleHtmlContainer').html().replace(/dynamicCount/g , i));
-					$('.listUploadedFile_'+i).find('.uploadedFileName').text(files[i]['name']);
+					$('.listUploadedFileWrapper').append($('.sampleHtmlContainer').html().replace(/dynamicCount/g , (parseInt($('#globalCount').val())+i)).replace(/dynamicFileRefId/g , i));
+					$('.listUploadedFile_'+(parseInt($('#globalCount').val())+i)).find('.uploadedFileName').text(files[i]['name']);
 					if(/^image/.test(files[i]['type']))
 						imageTypeArr.push(i);
 					else if(fileExt == 'pdf')
-						$('.listUploadedFile_'+i).find('.dynamicContentClass').html('<i style="color: red;font-size: 35px;" class="fa fa-lg fa-file-pdf-o"></i>');
+						$('.listUploadedFile_'+(parseInt($('#globalCount').val())+i)).find('.dynamicContentClass').html('<i style="color: red;font-size: 35px;" class="fa fa-lg fa-file-pdf-o"></i>');
 					else if(fileExt == 'xls' || fileExt == 'xlsx')
-						$('.listUploadedFile_'+i).find('.dynamicContentClass').html('<i style="color: green;font-size: 35px;" class="fa fa-lg fa-file-excel-o"></i>');
+						$('.listUploadedFile_'+(parseInt($('#globalCount').val())+i)).find('.dynamicContentClass').html('<i style="color: green;font-size: 35px;" class="fa fa-lg fa-file-excel-o"></i>');
 					else if(fileExt == 'doc' || fileExt == 'docx')
-						$('.listUploadedFile_'+i).find('.dynamicContentClass').html('<i style="color: #7878ff;font-size: 35px;" class="fa fa-lg fa-file-text-o"></i>');
+						$('.listUploadedFile_'+(parseInt($('#globalCount').val())+i)).find('.dynamicContentClass').html('<i style="color: #7878ff;font-size: 35px;" class="fa fa-lg fa-file-text-o"></i>');
 				}
 				else
 				{
@@ -172,22 +172,31 @@ $(document).ready(function(){
 						var image = new Image();
 						image.src = this.result;
 						image.onload = function(){
-							$('.listUploadedFile_'+value).find('.uploadImageActivityClass').attr('src' , this.src);
+							$('.listUploadedFile_'+(parseInt($('#globalCount').val())+value)).find('.uploadImageActivityClass').attr('src' , this.src);
 						};
 					};
 				});
 				$('.waitClass').css('display' , 'none');
 			}
 		});
-		/*-----------------Multiple file upload Start------------------*/
+		/*-----------------Multiple file upload End------------------*/
 
 		//Delete multiple file
-		$(document).on('click' , '.deleteUploadFile' , function(){
+		$(document).on('click' , '.deleteUploadFile' , function(e){
+			e.preventDefault();
 			if(confirm(delete_confirmation.replace('**module**' , 'file')))
 			{
 				$('.listUploadedFile_'+$(this).data('ref_id')).remove();
-				var notUploadFileValue = ($('#notUploadFile').val() != '') ? $('#notUploadFile').val()+','+$(this).data('ref_id') : $(this).data('ref_id');
-				$('#notUploadFile').val(notUploadFileValue);
+				if($(this).data('flag_type') == 'as')
+				{
+					var notUploadFileValue = ($('#notUploadFile').val() != '') ? $('#notUploadFile').val()+','+$(this).data('file_ref_id') : $(this).data('file_ref_id');
+					$('#notUploadFile').val(notUploadFileValue);
+				}
+				else if($(this).data('flag_type') == 'es')
+				{
+					var deleteEditFile = ($('#deleteEditFile').val() != '') ? $('#deleteEditFile').val()+','+$(this).data('activity_file_id') : $(this).data('activity_file_id');
+					$('#deleteEditFile').val(deleteEditFile);
+				}
 			}
 		});
 	}

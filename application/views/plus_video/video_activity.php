@@ -96,11 +96,22 @@
 					<p>
 						<?php echo $value['description']; ?>
 					</p><br>
-					<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ACTIVITY_FILE_PATH.$value['file_name']; ?>">
-						<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
-							<i class="fa fa-file-pdf-o"></i>  Download Pdf
-						</button>
-					</a>
+<?php
+					$filesArr = showDailyActivityFiles($value['plus_activity_id']);
+					if(!empty($filesArr))
+					{
+						foreach($filesArr as $filesArrValue)
+						{
+?>
+							<a href="<?php echo base_url().'video_gallery/download_activity_file/'.str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($filesArrValue['id']))); ?>">
+								<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+									<i class="<?php echo $filesArrValue['className']; ?>"></i>  Download file
+								</button>
+							</a>
+<?php
+						}
+					}
+?>
 				</div>
 <?php
 			}

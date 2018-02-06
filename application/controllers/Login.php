@@ -20,7 +20,7 @@
 			{
 				//Create folder if not exist
 				if(!is_dir('./images/captcha/'))
-					mkdir('./images/captcha/' , '0777');
+					mkdir('./images/captcha/' , '0777' , TRUE);
 
 				$this->load->helper('captcha');
 				$vals = array(

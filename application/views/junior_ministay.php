@@ -60,13 +60,13 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapse-title" aria-expanded="true">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapse-title" aria-expanded="false">
 										CENTRE DESCRIPTION
-										<i class="fa fa-minus pull-right switch-icon"></i>
+										<i class="fa fa-plus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
-							<div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true">
+							<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 								<div class="panel-body" style="color: #7b7b7b;">
 									<?php echo $centreDetails['centre_description']; ?>
 								</div>
@@ -75,13 +75,13 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed collapse-title" aria-expanded="false">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed collapse-title" aria-expanded="true">
 										MAPS
-										<i class="fa fa-plus pull-right switch-icon"></i>
+										<i class="fa fa-minus pull-right switch-icon"></i>
 									</a>
 								</h4>
 							</div>
-							<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+							<div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true">
 								<div class="panel-body">
 									<div id="map" style="width: 100%;height: 350px;"></div>
 								</div>

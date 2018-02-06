@@ -1,3 +1,8 @@
+<style>
+	.iosInstruction li{
+		margin-top:25px;
+	}
+</style>
 <!----------Left Menu Section Start----------->
 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 leftMenu" style="padding: 0;">
 	<div class="w3-card w3-round w3-white">
@@ -46,7 +51,7 @@
 			</button>
 			<div id="Demo1" class="w3-hide w3-container">
 				<p>
-					<ul style="margin-left:5px;">
+					<!-- <ul style="margin-left:5px;">
 						<li>
 							For Desktop : Direct Download.
 						</li>
@@ -56,7 +61,62 @@
 						<li>
 							For IOS device : Download through 'Document 6' app .
 						</li>
-					</ul>
+					</ul> -->
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-heading"><i class="fa fa-lg fa-desktop" style="color: #4623c7;"></i>&nbsp;&nbsp;For Desktop</div>
+							<div class="panel-body">Direct Download</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading"><i class="fa fa-lg fa-android" style="color: green;"></i>&nbsp;&nbsp;For Android</div>
+							<div class="panel-body">Direct Download</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading"><i class="fa fa-lg fa-apple" style="color: #ff4a4a;"></i>&nbsp;&nbsp;For IOS</div>
+							<div class="panel-body">
+								<ol class="iosInstruction">
+									<li>
+										Go to App Store&nbsp;&nbsp;
+										<img style="width: 70px;height: 60px;" src="<?php echo base_url(); ?>images/instruction/app_store.png" />
+									</li>
+									<li>
+										Open and search for Document by Readdle
+										<img style="width: 100%;margin-left: -40px;" src="<?php echo base_url(); ?>images/instruction/document.png" />
+									</li>
+									<li>
+										Click OPEN to Download
+									</li>
+									<li>
+										Click on the button on the bottom right hand side (indicated)
+										<img style="width: 100%;margin-left: -25px;" src="<?php echo base_url(); ?>images/instruction/main_screen.png" />
+									</li>
+									<li>
+										Insert the following link
+										<u style="color: blue;">http://plus-ed.com/betaweb/plus-walking-tour</u>
+									</li>
+									<li>
+										Select YOUR Centre
+									</li>
+									<li>
+										Insert the password (provided by the PLUS Campus Manager)
+									</li>
+									<li>
+										Click on your walking tour or activity plan
+									</li>
+									<li>
+										Choose the file you wish to download
+									</li>
+									<li>
+										Click on the Harrow to save it on your IOS (Red Circle)
+										<img style="width: 100%;margin-left: -25px;" src="<?php echo base_url(); ?>images/instruction/download.png" />
+									</li>
+									<li>
+										Once the download is terminated you can view the walking tour <b>OFF LINE</b>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</p>
 			</div>
 		</div>

@@ -11,7 +11,7 @@
 				<img style="width: 100px;" src="<?php echo base_url(); ?>images/logo_plus.png">
 			</a>
 		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
+		<div class="collapse navbar-collapse videoActivityHeader" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left headerWrapper">
 				<li>
 					<a href="<?php echo base_url().'plus-walking-tour?plus-video'; ?>" class="w3-hover-white plus-video">
