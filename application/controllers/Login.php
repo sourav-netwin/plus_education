@@ -4,6 +4,9 @@
 		public function __construct()
 		{
 			parent::__construct();
+			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			header("Pragma: no-cache");
 			$this->load->helper('frontend');
 			$this->load->helper(array('language' , 'form'));
 			$this->lang->load('general_lang' , 'english');
@@ -20,7 +23,7 @@
 			{
 				//Create folder if not exist
 				if(!is_dir('./images/captcha/'))
-					mkdir('./images/captcha/' , '0777' , TRUE);
+					mkdir('./images/captcha/' , DIR_PERMISSION , TRUE);
 
 				$this->load->helper('captcha');
 				$vals = array(

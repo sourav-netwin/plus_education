@@ -9,7 +9,7 @@
 		<link href="<?php echo base_url(); ?>css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 		<link href="<?php echo base_url(); ?>css/style.css" type="text/css" rel="stylesheet" media="all">
 		<link href="<?php echo base_url(); ?>css/font-awesome.min.css" rel="stylesheet">
-		<link href="<?php echo base_url(); ?>css/custom.css" type="text/css" rel="stylesheet" media="all">
+		<link href="<?php echo base_url(); ?>css/custom.css?v=0.1" type="text/css" rel="stylesheet" media="all">
 
 		<script src="<?php echo base_url(); ?>js/jquery-2.1.0.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.js"></script>

@@ -52,7 +52,7 @@
 ?>
 					<div class="col-sm-4 col-xs-4 welcome-w3imgs">
 						<figure class="effect-chico">
-							<img src="<?php echo ADMIN_PANEL_URL.$videoGalleryImagePath.$value['video_image']; ?>" alt=" " />
+							<img style="max-height: 263px;" src="<?php echo ADMIN_PANEL_URL.$videoGalleryImagePath.$value['video_image']; ?>" alt=" " />
 							<figcaption>
 								<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
 									<a href = "<?php echo $value['video_url']; ?>" style="color:#fff;margin-top: 10px;cursor: pointer;" class="icon-inner-play no-youtube-popup" data-fancybox data-caption="<?php echo $value['description']; ?>">

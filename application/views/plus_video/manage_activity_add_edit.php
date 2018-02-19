@@ -15,8 +15,12 @@
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
 	var delete_confirmation = "<?php echo $this->lang->line("delete_confirmation"); ?>";
 	var baseUrl = "<?php echo base_url(); ?>";
+	var height1 = "<?php echo ACTIVITY_FRONT_HEIGHT; ?>";
+	var width1 = "<?php echo ACTIVITY_FRONT_WIDTH; ?>";
+	var image_type_error_msg = "<?php echo $this->lang->line("image_type_error_msg"); ?>";
+	var minimum_image_dimension = "<?php echo $this->lang->line("minimum_image_dimension"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/manage_activity.js"></script>
+<script src="<?php echo base_url(); ?>js/admin/manage_activity.js?v=0.1"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -74,6 +78,34 @@
 								);
 								echo form_textarea($inputFieldAttribute);
 ?>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload front image <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="hidden" name="imageChangeFlag" id="imageChangeFlag" value="1" />
+								<input type="hidden" id="imgWidthErrorFlag" value="1" />
+								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo isset($post['front_image']) ? $post['front_image'] : ''; ?>" />
+								<label for="front_image">
+<?php
+									$imgPath = (isset($post['front_image']) && $post['front_image'] != '') ? ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.getThumbnailName($post['front_image']) : base_url().'images/no_flag.jpg';
+?>
+									<img height="50" width="180" class="uploadImageProgramClass" src="<?php echo $imgPath; ?>"/>
+								</label>
+<?php
+								$inputFieldAttribute = array(
+									'id' => 'front_image',
+									'name' => 'front_image',
+									'type' => 'file',
+									'style' => 'visibility: hidden;'
+								);
+								echo form_input($inputFieldAttribute);
+?>
+								<small style="display:block">
+									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo ACTIVITY_FRONT_WIDTH; ?> X <?php echo ACTIVITY_FRONT_HEIGHT; ?> pixel )
+								</small>
+								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
 							</div>
 						</div>
 

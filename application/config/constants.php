@@ -90,6 +90,9 @@ define('GOOGLE_API_KEY' , 'AIzaSyAxAOuX6VZ3411GsROuhn-SxYbNC0skt9M');
 //For creating encrypted data
 define('ENCRYPTKEY' , 'STUDYTOURS@!123456');
 
+//Constant for create folder permission
+define('DIR_PERMISSION' , 0755);
+
 //Database table names
 define('TABLE_PROGRAM' , 'frontweb_program_banner');
 define('TABLE_PROGRAM_LANGUAGE' , 'frontweb_program_banner_language');
@@ -138,6 +141,10 @@ define('TABLE_PLUS_VIDEO' , 'frontweb_plus_video');
 define('TABLE_PLUS_WALKING_TOUR' , 'frontweb_plus_walking_tour');
 define('TABLE_PLUS_ACTIVITY_MANAGEMENT' , 'frontweb_plus_activity');
 define('TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES' , 'frontweb_plus_activity_file');
+define('TABLE_PLUS_SECTION_SETTING' , 'frontweb_section_setting');
+define('TABLE_PLUS_EXTRA_SECTION' , 'frontweb_extra_section');
+define('TABLE_PLUS_EXTRA_SECTION_CONTENT' , 'frontweb_extra_section_content');
+define('TABLE_PLUS_MANAGE_ADULT_COURSE' , 'frontweb_manage_adult_course');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -159,6 +166,9 @@ if($_SERVER['HTTP_HOST'] == "localhost")
 
 	//Define file relative path for plus manage activity section
 	define('ACTIVITY_ACCESS_FILE' , '../stvision/vision/uploads/manage_activity/');
+
+	//Define file relative path for plus manage activity section(front image)
+	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../stvision/vision/uploads/activity_front/');
 }
 elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192.168.21.11")
 {
@@ -170,6 +180,9 @@ elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192
 
 	//Define file relative path for plus manage activity section
 	define('ACTIVITY_ACCESS_FILE' , '../stvision/vision/uploads/manage_activity/');
+
+	//Define file relative path for plus manage activity section(front image)
+	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../stvision/vision/uploads/activity_front/');
 }
 else
 {
@@ -181,6 +194,9 @@ else
 
 	//Define file relative path for plus manage activity section
 	define('ACTIVITY_ACCESS_FILE' , '../vision_ag/uploads/manage_activity/');
+
+	//Define file relative path for plus manage activity section(front image)
+	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../vision_ag/uploads/activity_front/');
 }
 
 //Define image location details for program banner module images
@@ -282,3 +298,26 @@ define('PLUS_WALKING_TOUR_FRONT_IMAGE' , 'images/plus_walking_tour/');
 
 //Define file upload location details for plus walking tour videoes
 define('ACTIVITY_FILE_PATH' , 'uploads/manage_activity/');
+
+//Define file upload location details for extra section content
+define('EXTRA_SECTION_FILE_PATH' , 'uploads/extra_section/');
+
+//Define ministay program module image path
+define('MINISTAY_PROGRAM_IMAGE_PATH' , 'uploads/ministay_program/');
+
+//Define image location for adult course images
+define('ADULT_COURSE_IMAGE_PATH' , 'uploads/adult_course/');
+
+//Define image location , height , width , thumb details for adult course images
+define('ACTIVITY_FRONT_IMAGE_PATH' , 'uploads/activity_front/');
+define('ACTIVITY_FRONT_WIDTH' , 924);
+define('ACTIVITY_FRONT_HEIGHT' , 300);
+define('ACTIVITY_FRONT_THUMB_WIDTH' , 250);
+define('ACTIVITY_FRONT_THUMB_HEIGHT' , 83);
+
+//Define the upload image size
+define('UPLOAD_IMAGE_SIZE' , 10000);
+
+//For Image cropping - path of css and js
+define('CROPPING_ASSETS_PATH' , 'assets/cropping/');
+

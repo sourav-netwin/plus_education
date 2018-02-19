@@ -60,3 +60,4 @@ $route['junior-summer-courses/(.*)'] = 'course/junior_centre/$1';
 $route['junior-mini-stay/(.*)'] = 'course/junior_ministay/$1';
 $route['program'] = 'course/show_program_details';
 $route['plus-walking-tour'] = 'video_gallery/index';
+$route['adult-courses/(.*)'] = 'course/adult_course/$1';

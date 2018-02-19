@@ -14,7 +14,7 @@
 	var active_confirmation = "<?php echo $this->lang->line("active_confirmation"); ?>";
 	var delete_confirmation = "<?php echo $this->lang->line("delete_confirmation"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/manage_activity.js"></script>
+<script src="<?php echo base_url(); ?>js/admin/manage_activity.js?v=0.1"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -31,6 +31,7 @@
 				<thead>
 					<tr>
 						<th>Si no.</th>
+						<th>Front Image</th>
 						<th>Activity Name</th>
 						<th>Centre</th>
 						<th>Date</th>
@@ -52,6 +53,7 @@
 								<td><?php echo $value['2']; ?></td>
 								<td><?php echo $value['3']; ?></td>
 								<td><?php echo $value['4']; ?></td>
+								<td><?php echo $value['5']; ?></td>
 							</tr>
 <?php
 						}

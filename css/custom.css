@@ -948,13 +948,23 @@ span.icon-bar {
     overflow-y: visible !important;
   }
 
-
 /*------------For video Activity Header-----------*/
 @media(min-width: 786px){
-	.videoActivityHeader {
-		display: block !important;
-		height: auto !important;
-		padding-bottom: 0;
-		overflow: visible !important;
-	}
+ .videoActivityHeader {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+ }
+
+}
+@media(min-width: 992px){
+ #photo .gallery .gallery-grids .col-md-4:nth-child(3n +1)
+ {
+  clear:left;
+ }
+}
+
+.courseFeatureImage{
+	max-height: 230px;
 }

@@ -78,13 +78,13 @@
 		function getJuniorCentreDetails($centreName = NULL)
 		{
 			$result = $this->db->select('a.centre_id , a.junior_centre_id , b.nome_centri as centre_name , a.centre_banner , b.page_1 as centre_description ,
-										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude')
+										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude , b.school_name , b.address , b.post_code')
 							->from(TABLE_JUNIOR_CENTRE.' a')
 							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('b.nome_centri' , str_replace('-' , ' ' , $centreName))
 							->get()->row_array();
 			$centreId = $result['centre_id'];
-			$result['program'] = $this->db->select('a.program_id , b.program_course_name , a.program_details as program_course_description , b.program_course_logo')
+			$result['program'] = $this->db->select('a.program_id , b.program_course_name , a.program_details as program_course_description , b.program_course_logo , b.sequence_slug')
 										->from(TABLE_JUNIOR_CENTRE_PROGRAM.' a')
 										->join(TABLE_PROGRAM_COURSE.' b' , 'a.program_id = b.program_course_id' , 'left')
 										->where('a.junior_centre_id' , $result['junior_centre_id'])
@@ -123,7 +123,7 @@
 													->where('jn_cpsg_ids' , 8)
 													->get(TABLE_CENTRI_PSG)->row_array();
 			$result['dates'] = $this->db->select("a.date , a.overnight ,
-													(select GROUP_CONCAT(b.week) from ".TABLE_JUNIOR_CENTRE_DATES_WEEK." b
+													(select GROUP_CONCAT(b.week order by b.week) from ".TABLE_JUNIOR_CENTRE_DATES_WEEK." b
 													where a.junior_centre_dates_id=b.junior_centre_dates_id) as week , (select
 													group_concat(d.program_course_name) from ".TABLE_JUNIOR_CENTRE_DATES_PROGRAM."
 													c join ".TABLE_PROGRAM_COURSE." d on c.program_id=d.program_course_id where
@@ -131,6 +131,7 @@
 										->from(TABLE_JUNIOR_CENTRE_DATES.' a')
 										->join(TABLE_JUNIOR_CENTRE.' e' , 'a.junior_centre_id = e.junior_centre_id' , 'left')
 										->where('e.centre_id' , $centreId)
+										->order_by('a.date' , 'asc')
 										->get()->result_array();
 			$result['accomodation'] = $this->db->select('cont_content as details')
 												->where('cont_menuid' , $this->config->item('accomodationCmsId'))
@@ -158,6 +159,15 @@
 			$result['course'] = $this->db->select('cont_content as details')
 												->where('cont_menuid' , $this->config->item('courseCmsId'))
 												->get(TABLE_CONTENT_MST)->row_array();
+			//Customize program array
+			$customizeProgram = array();
+			if(!empty($result['program']))
+			{
+				foreach($result['program'] as $value)
+					$customizeProgram[$value['sequence_slug']] = $value;
+			}
+			$result['program'] = $customizeProgram;
+
 			//If addon is availbale for any centre then add one program for addon to show in choose program section
 			if(!empty($result['addon']))
 				$result['program']['addon'] = array(
@@ -173,7 +183,7 @@
 		{
 			$result = $this->db->select('a.centre_id , a.junior_ministay_id , b.nome_centri as centre_name , a.centre_banner , b.page_1 as centre_description ,
 										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude , a.accomodation_show_flag ,
-										a.plus_team_show_flag , a.course_show_flag')
+										a.plus_team_show_flag , a.course_show_flag , b.school_name , b.address , b.post_code')
 							->from(TABLE_JUNIOR_MINISTAY.' a')
 							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('b.nome_centri' , str_replace('-' , ' ' , $centreName))
@@ -228,13 +238,13 @@
 										->join(TABLE_JUNIOR_MINISTAY.' b' , 'a.junior_ministay_id = b.junior_ministay_id' , 'left')
 										->where('b.centre_id' , $centreId)
 										->get()->result_array();
-			$result['program'] = $this->db->select('a.program_id , b.program_course_name , a.program_details as program_course_description , b.program_course_logo')
+			$result['program'] = $this->db->select('a.program_id , b.program_course_name , a.program_details as program_course_description , b.program_course_logo , b.sequence_slug')
 										->from(TABLE_JUNIOR_MINISTAY_PROGRAM.' a')
 										->join(TABLE_PROGRAM_COURSE.' b' , 'a.program_id = b.program_course_id' , 'left')
 										->where('a.junior_ministay_id' , $result['junior_ministay_id'])
 										->get()->result_array();
 			$result['dates'] = $this->db->select("a.date , a.overnight ,
-													(select GROUP_CONCAT(b.week) from ".TABLE_JUNIOR_MINISTAY_DATES_WEEK." b
+													(select GROUP_CONCAT(b.week order by b.week) from ".TABLE_JUNIOR_MINISTAY_DATES_WEEK." b
 													where a.junior_ministay_dates_id=b.junior_ministay_dates_id) as week , (select
 													group_concat(d.program_course_name) from ".TABLE_JUNIOR_MINISTAY_DATES_PROGRAM."
 													c join ".TABLE_PROGRAM_COURSE." d on c.program_id=d.program_course_id where
@@ -242,12 +252,22 @@
 										->from(TABLE_JUNIOR_MINISTAY_DATES.' a')
 										->join(TABLE_JUNIOR_MINISTAY.' e' , 'a.junior_ministay_id = e.junior_ministay_id' , 'left')
 										->where('e.centre_id' , $centreId)
+										->order_by('a.date' , 'asc')
 										->get()->result_array();
 			$result['international_mix'] = $this->db->select('a.country_name , a.percentage , a.color_code')
 													->from(TABLE_JUNIOR_MINISTAY_INTERNATIONAL_MIX.' a')
 													->join(TABLE_JUNIOR_MINISTAY.' b' , 'a.junior_ministay_id = b.junior_ministay_id' , 'left')
 													->where('b.centre_id' , $centreId)
 													->get()->result_array();
+			//Customize program array
+			$customizeProgram = array();
+			if(!empty($result['program']))
+			{
+				foreach($result['program'] as $value)
+					$customizeProgram[$value['sequence_slug']] = $value;
+			}
+			$result['program'] = $customizeProgram;
+
 			//If addon is availbale for any centre then add one program for addon to show in choose program section
 			if(!empty($result['addon']))
 				$result['program']['addon'] = array(
@@ -315,7 +335,7 @@
 		function getActivityDetails()
 		{
 			$resultData = array();
-			$colomnArr = array('a.plus_activity_id' , 'a.name' , 'b.nome_centri' , 'a.added_date' , 'a.status');
+			$colomnArr = array('a.plus_activity_id' , 'a.name' , 'b.nome_centri' , 'a.added_date' , 'a.status' , 'a.front_image');
 			$this->db->select(implode(',' , $colomnArr));
 			$this->db->from(TABLE_PLUS_ACTIVITY_MANAGEMENT . ' a');
 			$this->db->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left');
@@ -337,10 +357,11 @@
 
 					$resultData[] = array(
 						0 => $siNo++,
-						1 => $value['name'],
-						2 => $value['nome_centri'],
-						3 => date('d-m-Y' , strtotime($value['added_date'])),
-						4 => $actionStr
+						1 => "<img src = '".ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.getThumbnailName($value['front_image'])."' width = 180 height = 50 />",
+						2 => $value['name'],
+						3 => $value['nome_centri'],
+						4 => date('d-m-Y' , strtotime($value['added_date'])),
+						5 => $actionStr
 					);
 				}
 			}

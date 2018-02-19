@@ -118,7 +118,7 @@
 					</li>
 
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('junior_mini_stay_programmes'); ?><b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle juniorMiniSTayTitleClass" data-toggle="dropdown"><?php echo $this->lang->line('junior_mini_stay_programmes'); ?><b class="caret"></b></a>
 						<ul class="dropdown-menu agile_short_dropdown junior-mini-stay-program-menu">
 							<li>
 								<div class="row">
@@ -131,7 +131,7 @@
 ?>
 											<div class="col-md-3">
 												<h5 class="menu-heading li-menu-title-small">
-													<img class="country-flag-menu" src="<?php echo base_url(); ?>images/country_flag_icon/<?php echo $programdetails['logo']; ?>" />
+													<img class="country-flag-menu" src="<?php echo ADMIN_PANEL_URL.MINISTAY_PROGRAM_IMAGE_PATH; ?><?php echo $programdetails['logo']; ?>" />
 													<?php echo $programdetails['program_name']; ?>
 												</h5>
 												<ul>
@@ -153,9 +153,26 @@
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('adult_courses'); ?><b class="caret"></b></a>
-						<ul class="dropdown-menu agile_short_dropdown agent-dropdown-menu adult-courses-program-menu">
-							<li><a href="<?php echo base_url().'adult-course'; ?>"><?php echo $this->lang->line('uk_university_placement'); ?></a></li>
-						</ul>
+<?php
+							$adultCourseDetails = getAdultCourses();
+							if(!empty($adultCourseDetails))
+							{
+?>
+								<ul class="dropdown-menu agile_short_dropdown agent-dropdown-menu adult-courses-program-menu">
+<?php
+
+									foreach($adultCourseDetails as $value)
+									{
+?>
+										<li><a href="<?php echo base_url().'adult-courses/'.$value['slug']; ?>"><?php echo $value['title']; ?></a></li>
+<?php
+									}
+?>
+								</ul>
+<?php
+							}
+?>
+
 					</li>
 <!----------------------Show header menus End------------------------->
 
@@ -224,6 +241,10 @@
 		$('.europe-summer-program-menu').find('a').each(function(){
 			if($(this).attr('href') == window.location.href)
 				$('.juniorEuropeSummerTitleClass').attr('style' , 'color: #F44336;border-radius: 2px;transform: scale(1.1);');
+		});
+		$('.junior-mini-stay-program-menu').find('a').each(function(){
+			if($(this).attr('href') == window.location.href)
+				$('.juniorMiniSTayTitleClass').attr('style' , 'color: #F44336;border-radius: 2px;transform: scale(1.1);');
 		});
 	});
 </script>

@@ -137,7 +137,7 @@
 ?>
 						<div class="w3_agile_team_grid">
 							<div class="hover14 column">
-								<figure><img style="height: 230px;" src="<?php echo ADMIN_PANEL_URL.COURSE_FEATURE_IMAGE_PATH.$value['feature_image']; ?>" class="img-responsive" /></figure>
+								<figure><img src="<?php echo ADMIN_PANEL_URL.COURSE_FEATURE_IMAGE_PATH.$value['feature_image']; ?>" class="img-responsive courseFeatureImage" /></figure>
 							</div>
 							<div class="vc_row">
 								<div class="vc_custom_heading">

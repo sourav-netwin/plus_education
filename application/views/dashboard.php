@@ -65,12 +65,12 @@
 						<img src="<?php echo ADMIN_PANEL_URL.CAMPUS_LIFE_IMAGE_PATH; ?>1509337714.jpg" />
 						<span class="show-destination-class" style="display: block;">
 							<span class="figcaptionWrapperClass">
-								<p class="figcaption-title-class-courses"><?php echo $this->lang->line('accomodation'); ?></p>
+								<p class="figcaption-title-class-courses"><?php echo getUrlCampusLife($this->config->item('homeAccomodationCmsId') , 'name'); ?></p>
 							</span>
 						</span>
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
-								<?php echo $this->lang->line('accomodation'); ?><br>
+								<?php echo getUrlCampusLife($this->config->item('homeAccomodationCmsId') , 'name'); ?><br>
 								<a class="btn view-details-btn" data-title="<?php echo $this->lang->line('accomodation'); ?>" href="<?php echo getUrlCampusLife($this->config->item('homeAccomodationCmsId')); ?>"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
@@ -81,12 +81,12 @@
 						<img src="<?php echo ADMIN_PANEL_URL.CAMPUS_LIFE_IMAGE_PATH; ?>1507207271.jpg" />
 						<span class="show-destination-class" style="display: block;">
 							<span class="figcaptionWrapperClass">
-								<p class="figcaption-title-class-courses"><?php echo $this->lang->line('activities_on_campus'); ?></p>
+								<p class="figcaption-title-class-courses"><?php echo getUrlCampusLife($this->config->item('homeActivityCmsId') , 'name'); ?></p>
 							</span>
 						</span>
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
-								<?php echo $this->lang->line('activities_on_campus'); ?><br>
+								<?php echo getUrlCampusLife($this->config->item('homeActivityCmsId') , 'name'); ?><br>
 								<a class="btn view-details-btn" data-title="<?php echo $this->lang->line('activities_on_campus'); ?>" href="<?php echo getUrlCampusLife($this->config->item('homeActivityCmsId')); ?>"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>
@@ -97,12 +97,12 @@
 						<img src="<?php echo ADMIN_PANEL_URL.CAMPUS_LIFE_IMAGE_PATH; ?>1507715829.jpg" />
 						<span class="show-destination-class" style="display: block;">
 							<span class="figcaptionWrapperClass">
-								<p class="figcaption-title-class-courses"><?php echo $this->lang->line('our_team'); ?></p>
+								<p class="figcaption-title-class-courses"><?php echo getUrlCampusLife($this->config->item('homeOurTeamCmsId') , 'name'); ?></p>
 							</span>
 						</span>
 						<figcaption>
 							<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
-								<?php echo $this->lang->line('our_team'); ?><br>
+								<?php echo getUrlCampusLife($this->config->item('homeOurTeamCmsId') , 'name'); ?><br>
 								<a class="btn view-details-btn" data-title="<?php echo $this->lang->line('our_team'); ?>" href="<?php echo getUrlCampusLife($this->config->item('homeOurTeamCmsId')); ?>"><?php echo $this->lang->line('view_details'); ?></a>
 							</p></div>
 						</figcaption>

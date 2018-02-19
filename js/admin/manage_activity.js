@@ -83,7 +83,7 @@ $(document).ready(function(){
 		} , valid_data_error_msg);
 
 		jQuery.validator.addMethod('checkRequired' , function(value , element){
-			if(document.getElementById(element.id).files.length < 1 && $('#globalCount').val() == 0)
+			if(value == '' && $('#oldImg').val() == '')
 				return false;
 			else
 				return true;
@@ -95,6 +95,26 @@ $(document).ready(function(){
 			else
 				return true;
 		} , activity_file_type_error_msg);
+
+		jQuery.validator.addMethod("checkImageWidth",function(value,element){
+			if($('#imgWidthErrorFlag').val() == 2){
+					return false;
+			}else{
+				return true;
+			}
+		},"");
+
+		jQuery.validator.addMethod("checkImageExt" , function (value , element){
+			if(value)
+			{
+				if(splitByLastDot(value) == 'jpg' || splitByLastDot(value) == 'png' || splitByLastDot(value) == 'jpeg')
+					return true;
+				else
+					return false;
+			}
+			else
+				return true;
+		} , image_type_error_msg);
 
 		$('#activityDetails').validate({
 			errorElement : 'span',
@@ -110,8 +130,12 @@ $(document).ready(function(){
 					required : true
 				},
 				'file_name[]' : {
-					checkRequired : true,
 					checkFileExt : true
+				},
+				front_image : {
+					checkRequired : true,
+					checkImageWidth : true,
+					checkImageExt : true
 				}
 			},
 			messages : {
@@ -208,6 +232,38 @@ $(document).ready(function(){
 			$('.showPdfWrapper').css('display' , 'none');
 			$('.showFileUploadWrapper').css('display' , 'block');
 			$('#editUploadFlag').val('1');
+		}
+	});
+
+	//on change of activity front image check validation and also change image
+	$('#front_image').on('change' , function(){
+		var files = (this.files) ? this.files : [];
+		if(!files.length || !window.FileReader)
+			return;
+		if(/^image/.test(files[0]['type']))
+		{
+			var reader = new FileReader();
+			reader.readAsDataURL(files[0]);
+			reader.onload = function(){
+				var image = new Image();
+				image.src = this.result;
+				image.onload = function(){
+					$('.uploadImageProgramClass').attr('src' , this.src);
+					if(!(this.height >= height1 && this.width >= width1))
+					{
+						$('#imgWidthErrorFlag').val('2');
+						$('#imgErrorMessage').text(minimum_image_dimension.replace('**width**' , width1).replace('**height**' , height1));
+						return false;
+					}
+					else
+					{
+						$('#imgWidthErrorFlag').val('1');
+						$('#imageChangeFlag').val('2');
+						$('#imgErrorMessage').text('');
+						return true;
+					}
+				};
+			};
 		}
 	});
 });

@@ -97,6 +97,7 @@
 			$data['page_title'] = 'Junior Centre';
 			$data['photoGalleryPath'] = PHOTO_GALLERY_IMAGE_PATH;
 			$data['videoGalleryImagePath'] = VIDEO_GALLERY_IMAGE_PATH;
+			$data['sequenceSetting'] = $this->Front_model->commonGetData('name , slug' , 'type = 1' , TABLE_PLUS_SECTION_SETTING , 'sequence' , 'asc' , 2);
 			$this->template->view('junior_centre' , $data);
 		}
 
@@ -108,6 +109,7 @@
 			$data['page_title'] = 'Junior Mini Stay';
 			$data['photoGalleryPath'] = MINISTAY_PHOTO_GALLERY_IMAGE_PATH;
 			$data['videoGalleryImagePath'] = MINISTAY_VIDEO_GALLERY_IMAGE_PATH;
+			$data['sequenceSetting'] = $this->Front_model->commonGetData('name , slug' , 'type = 2' , TABLE_PLUS_SECTION_SETTING , 'sequence' , 'asc' , 2);
 			$this->template->view('junior_ministay' , $data);
 		}
 
@@ -118,6 +120,15 @@
 			$data['show_banner'] = 0;
 			$data['page_title'] = 'Program Details';
 			$this->template->view('program_details' , $data);
+		}
+
+		//This function is used to show the adult course page details
+		function adult_course($slug = NULL)
+		{
+			$data['courseDetails'] = $this->Front_model->commonGetData('title , description , image' , "slug = '".$slug."' and status=1 and delete_flag=0" , TABLE_PLUS_MANAGE_ADULT_COURSE , 1);
+			$data['show_banner'] = 0;
+			$data['page_title'] = $data['courseDetails']['title'];
+			$this->template->view('adult_course' , $data);
 		}
 
 		//This function is used to save the application form data in the database and send mail to admin

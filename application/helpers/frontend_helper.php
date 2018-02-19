@@ -213,15 +213,25 @@
 	}
 
 	//This function is used to get the url for the cms pages using id(for home page campus life section)
-	function getUrlCampusLife($id = NULL)
+	function getUrlCampusLife($id = NULL , $type = 'url')
 	{
 		if($id)
 		{
 			$CI = &get_instance();
-			$result = $CI->db->select('cont_url_name')
-							->where('cont_menuid' , $id)
-							->get(TABLE_CONTENT_MST)->row_array();
-			return base_url().'content/'.$result['cont_url_name'];
+			if($type == 'url')
+			{
+				$result = $CI->db->select('cont_url_name')
+								->where('cont_menuid' , $id)
+								->get(TABLE_CONTENT_MST)->row_array();
+				return base_url().'content/'.$result['cont_url_name'];
+			}
+			elseif($type == 'name')
+			{
+				$result = $CI->db->select('mnu_menu_name')
+								->where('mnu_menuid' , $id)
+								->get(TABLE_MENU_MST)->row_array();
+				return $result['mnu_menu_name'];
+			}
 		}
 	}
 
@@ -260,5 +270,52 @@
 			}
 			return $returnArr;
 		}
+	}
+
+	//This function is used to check whether any slug is for extra menu or not(in junior centre/junior mini stay module)
+	function checkExtraMenuSlug($slugName = NULL)
+	{
+		$CI = &get_instance();
+		$result = $CI->db->select('extra_section_id')
+						->where('slug' , $slugName)
+						->get(TABLE_PLUS_EXTRA_SECTION)->row_array();
+		return (!empty($result)) ? TRUE : FALSE;
+	}
+
+	//This function is used to get the extra menu details to show in the centre details page
+	function getExtraMenuDetails($slugName = NULL , $centreId = NULL , $type = NULL)
+	{
+		$CI = &get_instance();
+		return $CI->db->select('b.description , b.file_name')
+						->from(TABLE_PLUS_EXTRA_SECTION.' a')
+						->join(TABLE_PLUS_EXTRA_SECTION_CONTENT.' b' , 'a.extra_section_id = b.extra_section_id' , 'left')
+						->where('a.slug' , $slugName)
+						->where('a.course_id' , $type)
+						->where('b.centre_id' , $centreId)
+						->get()->result_array();
+	}
+
+	//This function is used to get the cms page content with the help of ids(To show the download instruction)
+	function getCmsContentById($id = NULL)
+	{
+		if($id)
+		{
+			$CI = &get_instance();
+			$result = $CI->db->select('cont_content')
+							->where('cont_menuid' , $id)
+							->get(TABLE_CONTENT_MST)->row_array();
+			if(!empty($result))
+				return str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $result['cont_content']);
+		}
+	}
+
+	//This function is used to get the details for the adult course to show in the header
+	function getAdultCourses()
+	{
+		$CI = &get_instance();
+		return $CI->db->select('title , slug')
+					->where('status' , 1)
+					->where('delete_flag' , 0)
+					->get(TABLE_PLUS_MANAGE_ADULT_COURSE)->result_array();
 	}
 ?>

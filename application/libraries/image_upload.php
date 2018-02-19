@@ -14,7 +14,7 @@
 		{
 			$ext = pathinfo($_FILES[$fieldName]['name'] , PATHINFO_EXTENSION);
 			if(!is_dir($uploadPath))
-				mkdir($uploadPath , '0777' , TRUE);
+				mkdir($uploadPath , DIR_PERMISSION , TRUE);
 
 			$returnData = array();
 			$CI = &get_instance();
@@ -31,7 +31,6 @@
 				$config['min_width'] = $min_width;
 				$config['min_height'] = $min_height;
 			}
-
 
 			$CI->upload->initialize($config);
 			if(!$CI->upload->do_upload($fieldName))

@@ -86,12 +86,12 @@
 			{
 ?>
 				<div class="w3-container w3-card w3-white w3-round w3-margin customMarginClass"><br>
-					<img src="<?php echo base_url().'images/'; ?>avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:60px">
-					<span class="w3-right w3-opacity">
+					<div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.$value['front_image']; ?>)no-repeat center;"></div>
+					<span class="w3-right w3-opacity" style="margin-top:10px;">
 						<i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>
 						Posted On : <span style="color: #000;"><?php echo $value['added_date']; ?></span>
 					</span>
-					<h4><?php echo $value['name']; ?></h4><br>
+					<h4><?php echo $value['name']; ?></h4>
 					<hr class="w3-clear">
 					<p>
 						<?php echo $value['description']; ?>

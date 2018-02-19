@@ -14,3 +14,27 @@
 	$config['homeAccomodationCmsId'] = 45;
 	$config['homeActivityCmsId'] = 46;
 	$config['homeOurTeamCmsId'] = 47;
+	$config['desktopInstructionCmsId'] = 50;
+	$config['androidInstructionCmsId'] = 51;
+	$config['iosInstructionCmsId'] = 52;
+
+	//This config is for the static section(used in junior centre and junior mini stay page)
+	$config['dates'] = 'dates';
+	$config['accommodation'] = 'accommodation';
+	$config['social_program_sport'] = 'social-program-sport';
+	$config['course'] = 'course';
+	$config['walking_tour'] = 'walking-tour';
+	$config['travel_card'] = 'travel-card';
+	$config['plus_team'] = 'plus-team';
+	$config['classic'] = 'classic';
+	$config['classic_premium'] = 'classic-premium';
+	$config['classic_plus_academy'] = 'classic-plus-academy';
+	$config['classic_premium_plus_academy'] = 'classic-premium-plus-academy';
+	$config['experience'] = 'experience';
+	$config['classic_superior'] = 'classic-superior';
+	$config['classic_premium_plus_weekend_away'] = 'classic-premium-plus-weekend-away';
+	$config['add_on'] = 'add-on';
+	$config['fact_sheet'] = 'fact-sheet';
+	$config['activity_program'] = 'activity-program';
+	$config['menu'] = 'menu';
+	$config['international_mix'] = 'international-mix';

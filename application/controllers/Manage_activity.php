@@ -4,7 +4,9 @@
 		public function __construct()
 		{
 			parent::__construct();
-			$this->output->delete_cache();
+			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			header("Pragma: no-cache");
 			$this->lang->load('message' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->helper('frontend');
@@ -42,11 +44,32 @@
 		//This function is used to perform both add and edit operation for manage activity module
 		function add_edit($id = NULL)
 		{
+			$imageError = '';
 			if($this->input->post('flag'))
 			{
 				$file_name = array();
+				$frontFileName = $this->input->post('oldImg');
+				if($this->input->post('imageChangeFlag') == 2)
+				{
+					$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE , 'front_image' , UPLOAD_IMAGE_SIZE , ACTIVITY_FRONT_WIDTH , ACTIVITY_FRONT_HEIGHT);
+					if($uploadData['errorFlag'] == 0)
+					{
+						if($this->input->post('flag') == 'es')
+						{
+							//Delete old file
+							if(file_exists('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.$frontFileName))
+								unlink('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.$frontFileName);
+							if(file_exists('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.getThumbnailName($frontFileName)))
+								unlink('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.getThumbnailName($frontFileName));
+						}
+						$frontFileName = $uploadData['fileName'];
+					}
+					else
+						$imageError = $uploadData['errorMessage'];
+				}
+
 				//Upload New files
-				if(!empty($_FILES['file_name']['name']))
+				if(!empty($_FILES['file_name']['name']) && $imageError == '')
 				{
 					$fileArr = $_FILES;
 					$notUploadFileArr = ($this->input->post('notUploadFile') != '') ? explode(',' , $this->input->post('notUploadFile')) : array();
@@ -66,49 +89,57 @@
 					}
 				}
 
-				//Add or update record in main table
-				$updateData = array(
-					'name' => $this->input->post('name'),
-					'centre_id' => $this->input->post('centre_id'),
-					'description' => $this->input->post('description')
-				);
-				if($this->input->post('flag') == 'as')
+				if($imageError == '')
 				{
-					$updateData['added_date'] = date('Y-m-d');
-					$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
-					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
-				}
-				elseif($this->input->post('flag') == 'es')
-				{
-					$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
-
-					//Delete files
-					$deleteEditFileArr = ($this->input->post('deleteEditFile') != '') ? explode(',' , $this->input->post('deleteEditFile')) : array();
-					if(!empty($deleteEditFileArr))
+					//Add or update record in main table
+					$updateData = array(
+						'name' => $this->input->post('name'),
+						'centre_id' => $this->input->post('centre_id'),
+						'description' => $this->input->post('description'),
+						'front_image' => $frontFileName
+					);
+					if($this->input->post('flag') == 'as')
 					{
-						foreach($deleteEditFileArr as $value)
-							$this->delete_file($value);
+						$updateData['added_date'] = date('Y-m-d');
+						$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
+						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
 					}
-					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('edit_success_message')));
-				}
-
-				//Add new uploaded file recoerd in the database
-				if(!empty($file_name))
-				{
-					foreach($file_name as $value)
+					elseif($this->input->post('flag') == 'es')
 					{
-						$insertData = array(
-							'file_name' => $value,
-							'plus_activity_id' => ($this->input->post('flag') == 'as') ? $insertId : $id
-						);
-						$this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , $insertData);
+						$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
+
+						//Delete files
+						$deleteEditFileArr = ($this->input->post('deleteEditFile') != '') ? explode(',' , $this->input->post('deleteEditFile')) : array();
+						if(!empty($deleteEditFileArr))
+						{
+							foreach($deleteEditFileArr as $value)
+								$this->delete_file($value);
+						}
+						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('edit_success_message')));
 					}
+
+					//Add new uploaded file recoerd in the database
+					if(!empty($file_name))
+					{
+						foreach($file_name as $value)
+						{
+							$insertData = array(
+								'file_name' => $value,
+								'plus_activity_id' => ($this->input->post('flag') == 'as') ? $insertId : $id
+							);
+							$this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , $insertData);
+						}
+					}
+
+					//For image cropping
+					if($this->input->post('imageChangeFlag') == 2)
+						$this->_handleCropping($frontFileName);
+					redirect('/manage_activity');
 				}
-				redirect('/manage_activity');
 			}
 			if($id != '')
 			{
-				$post = $this->Front_model->commonGetData('plus_activity_id , name , centre_id , description' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT , '' , 'asc' , 1);
+				$post = $this->Front_model->commonGetData('plus_activity_id , name , centre_id , description , front_image' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT , '' , 'asc' , 1);
 				$post['files'] = $this->Front_model->commonGetData('plus_activity_file_id , file_name' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 2);
 				$data['post'] = $post;
 			}
@@ -116,6 +147,7 @@
 			$data['flag'] = ($id != '') ? 'es' : 'as';
 			$data['viewPage'] = 'plus_video/manage_activity_add_edit';
 			$data['showLeftMenu'] = 0;
+			$data['imageError'] = $imageError;
 			$this->load->view('plus_video/template' , $data);
 		}
 
@@ -142,5 +174,45 @@
 			}
 			return TRUE;
 		}
+
+		/****************Image Cropping functionality Start******************/
+		public function _handleCropping($fileName = NULL)
+		{
+			$this->cropInit($fileName);
+			$this->cropping->image();
+			exit();
+		}
+
+		public function process($action = NULL)
+		{
+			$this->cropInit();
+			$this->cropping->process($action);
+		}
+
+		public function cropInit($file_name = NULL)
+		{
+			$param = array();
+			if(empty($file_name))
+				$param = $this->session->userdata("cropData");
+			else
+			{
+				$param = array(
+					'imageAbsPath' => FCPATH . ACTIVITY_FRONT_IMAGE_ACCESS_FILE,
+					'imageDestPath' => FCPATH . ACTIVITY_FRONT_IMAGE_ACCESS_FILE,
+					'imageName' => $file_name,
+					'imageNewName' => $file_name,
+					'imagePath' => base_url() . ACTIVITY_FRONT_IMAGE_ACCESS_FILE,
+					'imageWidth' => ACTIVITY_FRONT_WIDTH,
+					'imageHeight' => ACTIVITY_FRONT_HEIGHT,
+					'thumbWidth' => ACTIVITY_FRONT_THUMB_WIDTH,
+					'thumbHeight' => ACTIVITY_FRONT_THUMB_HEIGHT,
+					'redirectTo' => 'manage_activity',
+					'formCallbackAction' => 'manage_activity/process'
+				);
+				$this->session->set_userdata("cropData" , $param);
+			}
+			$this->load->library("cropping" , $param);
+		}
+		/******************Image Cropping functionality End*********************/
 	}
 ?>

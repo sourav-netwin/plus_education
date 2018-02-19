@@ -4,6 +4,9 @@
 		public function __construct()
 		{
 			parent::__construct();
+			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			header("Pragma: no-cache");
 			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->helper('frontend');
 			checkAdminLogin();
@@ -13,7 +16,7 @@
 		function index()
 		{
 			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
-			$data['activityDetails'] = $this->Front_model->commonGetData("plus_activity_id , name , description , date_format(added_date , '%d-%m-%Y') as added_date" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
+			$data['activityDetails'] = $this->Front_model->commonGetData("plus_activity_id , name , description , front_image , date_format(added_date , '%d-%m-%Y') as added_date" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
 			$data['viewPage'] = 'plus_video/video_activity';
 			$data['showLeftMenu'] = 1;
 			$this->load->view('plus_video/template' , $data);
@@ -25,7 +28,7 @@
 			if($this->input->post('fileName'))
 			{
 				if(!is_dir('./'.PLUS_WALKING_TOUR_FRONT_IMAGE))
-					mkdir('./'.PLUS_WALKING_TOUR_FRONT_IMAGE , '0777' , TRUE);
+					mkdir('./'.PLUS_WALKING_TOUR_FRONT_IMAGE , DIR_PERMISSION , TRUE);
 				file_put_contents('./'.PLUS_WALKING_TOUR_FRONT_IMAGE.$this->input->post('fileName') , file_get_contents($this->input->post('binaryImg')));
 				echo '';
 			}
