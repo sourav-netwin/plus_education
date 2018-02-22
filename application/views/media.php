@@ -27,7 +27,7 @@
 								<div class="grid">
 									<figure class="effect-apollo">
 										<a class="example-image-link" href="<?php echo ADMIN_PANEL_URL.$photoGalleryPath.$value['photo']; ?>" data-lightbox="example-set" data-title="<?php echo $value['description']; ?>">
-											<img src="<?php echo ADMIN_PANEL_URL.$photoGalleryPath.$value['photo']; ?>" />
+											<img src="<?php echo ADMIN_PANEL_URL.$photoGalleryPath.$value['photo'].'?v=1.1'; ?>" />
 											<figcaption>
 												<p><?php echo $value['short_description']; ?></p>
 											</figcaption>

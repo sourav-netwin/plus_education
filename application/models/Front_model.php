@@ -78,7 +78,8 @@
 		function getJuniorCentreDetails($centreName = NULL)
 		{
 			$result = $this->db->select('a.centre_id , a.junior_centre_id , b.nome_centri as centre_name , a.centre_banner , b.page_1 as centre_description ,
-										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude , b.school_name , b.address , b.post_code')
+										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude , b.school_name , b.address , b.post_code,
+										a.accommodation , a.course')
 							->from(TABLE_JUNIOR_CENTRE.' a')
 							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('b.nome_centri' , str_replace('-' , ' ' , $centreName))
@@ -133,9 +134,6 @@
 										->where('e.centre_id' , $centreId)
 										->order_by('a.date' , 'asc')
 										->get()->result_array();
-			$result['accomodation'] = $this->db->select('cont_content as details')
-												->where('cont_menuid' , $this->config->item('accomodationCmsId'))
-												->get(TABLE_CONTENT_MST)->row_array();
 			$result['plus_team'] = $this->db->select('cont_content as details')
 												->where('cont_menuid' , $this->config->item('plusTeamCmsId'))
 												->get(TABLE_CONTENT_MST)->row_array();
@@ -156,9 +154,6 @@
 													->join(TABLE_JUNIOR_CENTRE.' b' , 'a.junior_centre_id = b.junior_centre_id' , 'left')
 													->where('b.centre_id' , $centreId)
 													->get()->result_array();
-			$result['course'] = $this->db->select('cont_content as details')
-												->where('cont_menuid' , $this->config->item('courseCmsId'))
-												->get(TABLE_CONTENT_MST)->row_array();
 			//Customize program array
 			$customizeProgram = array();
 			if(!empty($result['program']))
@@ -183,7 +178,7 @@
 		{
 			$result = $this->db->select('a.centre_id , a.junior_ministay_id , b.nome_centri as centre_name , a.centre_banner , b.page_1 as centre_description ,
 										b.center_latitude as centre_latitude , b.center_longitude as centre_longitude , a.accomodation_show_flag ,
-										a.plus_team_show_flag , a.course_show_flag , b.school_name , b.address , b.post_code')
+										a.plus_team_show_flag , a.course_show_flag , b.school_name , b.address , b.post_code,a.accommodation , a.course')
 							->from(TABLE_JUNIOR_MINISTAY.' a')
 							->join(TABLE_CENTRE.' b' , 'a.centre_id = b.id' , 'left')
 							->where('b.nome_centri' , str_replace('-' , ' ' , $centreName))
@@ -201,17 +196,11 @@
 												->where('b.centre_id' , $centreId)
 												->order_by('a.sequence' , 'asc')
 												->get()->result_array();
-			if($result['accomodation_show_flag'] == 1)
-				$result['accomodation'] = $this->db->select('cont_content as details')
-													->where('cont_menuid' , $this->config->item('accomodationCmsId'))
-													->get(TABLE_CONTENT_MST)->row_array();
+			$result['accommodation'] = ($result['accomodation_show_flag'] == 1) ? $result['accommodation'] : '';
+			$result['course'] = ($result['course_show_flag'] == 1) ? $result['course'] : '';
 			if($result['plus_team_show_flag'] == 1)
 				$result['plus_team'] = $this->db->select('cont_content as details')
 													->where('cont_menuid' , $this->config->item('plusTeamCmsId'))
-													->get(TABLE_CONTENT_MST)->row_array();
-			if($result['course_show_flag'] == 1)
-				$result['course'] = $this->db->select('cont_content as details')
-													->where('cont_menuid' , $this->config->item('courseCmsId'))
 													->get(TABLE_CONTENT_MST)->row_array();
 			$result['factsheet'] = $this->db->select('a.file_name , a.file_description')
 										->from(TABLE_JUNIOR_MINISTAY_FACT_SHEET. ' a')

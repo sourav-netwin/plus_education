@@ -155,7 +155,7 @@
 ?>
 									<!----------Accomodation section Start---------->
 <?php
-									if(!empty($centreDetails['accomodation']))
+									if(!empty($centreDetails['accommodation']))
 									{
 ?>
 										<div class="panel panel-default">
@@ -169,7 +169,7 @@
 											</div>
 											<div id="collapseTwo2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 												<div class="panel-body">
-													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['accomodation']['details']); ?>
+													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['accommodation']); ?>
 												</div>
 											</div>
 										</div>
@@ -233,7 +233,7 @@
 											</div>
 											<div id="collapseThree2" class="panel-collapse collapse" aria-expanded="false" style="">
 												<div class="panel-body">
-													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['course']['details']); ?>
+													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['course']); ?>
 												</div>
 											</div>
 										</div>

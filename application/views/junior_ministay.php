@@ -155,7 +155,7 @@
 ?>
 									<!----------Accomodation section Start---------->
 <?php
-									if(!empty($centreDetails['accomodation']))
+									if(!empty($centreDetails['accommodation']))
 									{
 ?>
 										<div class="panel panel-default">
@@ -169,7 +169,7 @@
 											</div>
 											<div id="collapseTwo2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 												<div class="panel-body">
-													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['accomodation']['details']); ?>
+													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['accommodation']); ?>
 												</div>
 											</div>
 										</div>
@@ -233,7 +233,7 @@
 											</div>
 											<div id="collapseThree2" class="panel-collapse collapse" aria-expanded="false" style="">
 												<div class="panel-body">
-													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['course']['details']); ?>
+													<?php echo str_replace(TINYMCE_CURRENT_CONFIG_PATH , ADMIN_PANEL_URL.TINYMCE_IMAGE_PATH , $centreDetails['course']); ?>
 												</div>
 											</div>
 										</div>
@@ -271,7 +271,7 @@
 																<p><?php echo $value['file_description']; ?></p>
 															</div>
 															<div class="col-md-1">
-																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.WALKING_TOUR_FILE_PATH.$value['file_name']; ?>">
+																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MINISTAY_WALKING_TOUR_FILE_PATH.$value['file_name']; ?>">
 																	<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 																</a>
 															</div>
@@ -375,7 +375,7 @@
 																<p><?php echo $value['file_description']; ?></p>
 															</div>
 															<div class="col-md-1">
-																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ADD_ON_FILE_PATH.$value['file_name']; ?>">
+																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MINISTAY_ADDON_FILE_PATH.$value['file_name']; ?>">
 																	<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 																</a>
 															</div>
@@ -421,7 +421,7 @@
 																<p><?php echo $value['file_description']; ?></p>
 															</div>
 															<div class="col-md-1">
-																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.FACTSHEET_FILE_PATH.$value['file_name']; ?>">
+																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MINISTAY_FACTSHEET_FILE_PATH.$value['file_name']; ?>">
 																	<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 																</a>
 															</div>
@@ -467,7 +467,7 @@
 																<p><?php echo $value['file_description']; ?></p>
 															</div>
 															<div class="col-md-1">
-																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.ACTIVITY_PROGRAM_FILE_PATH.$value['file_name']; ?>">
+																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MINISTAY_ACTIVITY_PROGRAM_FILE_PATH.$value['file_name']; ?>">
 																	<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 																</a>
 															</div>
@@ -513,7 +513,7 @@
 																<p><?php echo $value['file_description']; ?></p>
 															</div>
 															<div class="col-md-1">
-																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MENU_FILE_PATH.$value['file_name']; ?>">
+																<a target="_blank" href="<?php echo ADMIN_PANEL_URL.MINISTAY_MENU_FILE_PATH.$value['file_name']; ?>">
 																	<i class="fa fa-lg fa-file-pdf-o" style="font-size: 30px;color: red;" aria-hidden="true"></i>
 																</a>
 															</div>
