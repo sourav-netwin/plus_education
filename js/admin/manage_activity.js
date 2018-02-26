@@ -136,6 +136,9 @@ $(document).ready(function(){
 					checkRequired : true,
 					checkImageWidth : true,
 					checkImageExt : true
+				},
+				show_text : {
+					required : true
 				}
 			},
 			messages : {
@@ -147,6 +150,9 @@ $(document).ready(function(){
 				},
 				description : {
 					required : please_enter_dynamic.replace('**field**' , 'Description')
+				},
+				show_text : {
+					required : please_enter_dynamic.replace('**field**' , 'Text')
 				}
 			}
 		});
@@ -264,6 +270,21 @@ $(document).ready(function(){
 					}
 				};
 			};
+		}
+	});
+
+	//On change of the selection option show/hide sections for upload image or enter text(in add/edit activity page)
+	$(document).on('change' , '.show_type' , function(){
+		if($(this).val() == 1)
+		{
+			$('.showOption_1').show();
+			$('.showOption_2').hide();
+		}
+
+		else
+		{
+			$('.showOption_1').hide();
+			$('.showOption_2').show();
 		}
 	});
 });

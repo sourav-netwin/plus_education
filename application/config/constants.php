@@ -145,6 +145,7 @@ define('TABLE_PLUS_SECTION_SETTING' , 'frontweb_section_setting');
 define('TABLE_PLUS_EXTRA_SECTION' , 'frontweb_extra_section');
 define('TABLE_PLUS_EXTRA_SECTION_CONTENT' , 'frontweb_extra_section_content');
 define('TABLE_PLUS_MANAGE_ADULT_COURSE' , 'frontweb_manage_adult_course');
+define('TABLE_WALKING_TOUR_CENTRE_DETAILS' , 'frontweb_walking_tour_centre_details');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -169,6 +170,9 @@ if($_SERVER['HTTP_HOST'] == "localhost")
 
 	//Define file relative path for plus manage activity section(front image)
 	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../stvision/vision/uploads/activity_front/');
+
+	//Define file relative path for plus walking tour centre details(text file)
+	define('WALKING_TOUR_CENTRE_DETAILS_FILE' , '../stvision/vision/uploads/centre_details/');
 }
 elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192.168.21.11")
 {
@@ -183,6 +187,9 @@ elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192
 
 	//Define file relative path for plus manage activity section(front image)
 	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../stvision/vision/uploads/activity_front/');
+
+	//Define file relative path for plus walking tour centre details(text file)
+	define('WALKING_TOUR_CENTRE_DETAILS_FILE' , '../stvision/vision/uploads/centre_details/');
 }
 else
 {
@@ -197,6 +204,9 @@ else
 
 	//Define file relative path for plus manage activity section(front image)
 	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../vision_ag/uploads/activity_front/');
+
+	//Define file relative path for plus walking tour centre details(text file)
+	define('WALKING_TOUR_CENTRE_DETAILS_FILE' , '../vision_ag/uploads/centre_details/');
 }
 
 //Define image location details for program banner module images
@@ -310,10 +320,10 @@ define('ADULT_COURSE_IMAGE_PATH' , 'uploads/adult_course/');
 
 //Define image location , height , width , thumb details for adult course images
 define('ACTIVITY_FRONT_IMAGE_PATH' , 'uploads/activity_front/');
-define('ACTIVITY_FRONT_WIDTH' , 924);
+define('ACTIVITY_FRONT_WIDTH' , 400);
 define('ACTIVITY_FRONT_HEIGHT' , 300);
 define('ACTIVITY_FRONT_THUMB_WIDTH' , 250);
-define('ACTIVITY_FRONT_THUMB_HEIGHT' , 83);
+define('ACTIVITY_FRONT_THUMB_HEIGHT' , 187);
 
 //Define the upload image size
 define('UPLOAD_IMAGE_SIZE' , 10000);

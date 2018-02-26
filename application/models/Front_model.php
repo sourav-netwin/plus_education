@@ -346,11 +346,10 @@
 
 					$resultData[] = array(
 						0 => $siNo++,
-						1 => "<img src = '".ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.getThumbnailName($value['front_image'])."' width = 180 height = 50 />",
-						2 => $value['name'],
-						3 => $value['nome_centri'],
-						4 => date('d-m-Y' , strtotime($value['added_date'])),
-						5 => $actionStr
+						1 => $value['name'],
+						2 => $value['nome_centri'],
+						3 => date('d-m-Y' , strtotime($value['added_date'])),
+						4 => $actionStr
 					);
 				}
 			}

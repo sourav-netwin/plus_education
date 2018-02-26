@@ -9,6 +9,7 @@
 			header("Pragma: no-cache");
 			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->helper('frontend');
+			$this->load->helper('download');
 			checkAdminLogin();
 		}
 
@@ -16,7 +17,8 @@
 		function index()
 		{
 			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
-			$data['activityDetails'] = $this->Front_model->commonGetData("plus_activity_id , name , description , front_image , date_format(added_date , '%d-%m-%Y') as added_date" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
+			$data['activityDetails'] = $this->Front_model->commonGetData("plus_activity_id , name , description , front_image , date_format(added_date , '%d-%m-%Y') as added_date , show_type , show_text" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id' , 'asc' , 2);
+			$data['centreDetails'] = $this->Front_model->commonGetData('icon_class , title , details' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_WALKING_TOUR_CENTRE_DETAILS , 'sequence' , 'asc' , 2);
 			$data['viewPage'] = 'plus_video/video_activity';
 			$data['showLeftMenu'] = 1;
 			$this->load->view('plus_video/template' , $data);
@@ -78,11 +80,29 @@
 			if($id)
 			{
 				$id = base64_decode(str_replace('_' , '=' , preg_replace_callback('/-[a-z]-/' , function($match){return strtoupper(str_replace('-' , '' , $match[0]));} , $id)));
-				$this->load->helper('download');
 				$result = $this->Front_model->commonGetData('file_name' , 'plus_activity_file_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 1);
 				if(file_exists('./'.ACTIVITY_ACCESS_FILE.$result['file_name']))
 					force_download($result['file_name'] , file_get_contents('./'.ACTIVITY_ACCESS_FILE.$result['file_name']));
 			}
 		}
 
+		//This function is used to get the centre detila for any centre and download the details in a text file .
+		function download_centre_details()
+		{
+			if(!is_dir('./'.WALKING_TOUR_CENTRE_DETAILS_FILE))
+				mkdir('./'.WALKING_TOUR_CENTRE_DETAILS_FILE , DIR_PERMISSION , TRUE);
+			$result = $this->Front_model->commonGetData('icon_class , title , details' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_WALKING_TOUR_CENTRE_DETAILS , 'sequence' , 'asc' , 2);
+			$fp = fopen('./'.WALKING_TOUR_CENTRE_DETAILS_FILE.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt' , 'w');
+			if(!empty($result))
+			{
+				foreach($result as $value)
+				{
+					$text = strip_tags($value['title']).' : '."\n";
+					$text.= trim(strip_tags($value['details']))."\n\n\n";
+					fwrite($fp , $text);
+				}
+			}
+			fclose($fp);
+			force_download(str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt' , file_get_contents('./'.WALKING_TOUR_CENTRE_DETAILS_FILE.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt'));
+		}
 	}

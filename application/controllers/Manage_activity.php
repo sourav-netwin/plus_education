@@ -96,7 +96,9 @@
 						'name' => $this->input->post('name'),
 						'centre_id' => $this->input->post('centre_id'),
 						'description' => $this->input->post('description'),
-						'front_image' => $frontFileName
+						'front_image' => $frontFileName,
+						'show_type' => $this->input->post('show_type'),
+						'show_text' => $this->input->post('show_text')
 					);
 					if($this->input->post('flag') == 'as')
 					{
@@ -139,7 +141,7 @@
 			}
 			if($id != '')
 			{
-				$post = $this->Front_model->commonGetData('plus_activity_id , name , centre_id , description , front_image' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT , '' , 'asc' , 1);
+				$post = $this->Front_model->commonGetData('plus_activity_id , name , centre_id , description , front_image , show_type , show_text' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT , '' , 'asc' , 1);
 				$post['files'] = $this->Front_model->commonGetData('plus_activity_file_id , file_name' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 2);
 				$data['post'] = $post;
 			}

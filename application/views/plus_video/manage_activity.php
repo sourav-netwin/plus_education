@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<a class="btn btn-primary" href="<?php echo base_url(); ?>/manage_activity/add_edit"><i class="fa fa-plus" aria-hidden="true"></i> Add activity</a>
+				<a class="btn btn-primary" href="<?php echo base_url(); ?>manage_activity/add_edit"><i class="fa fa-plus" aria-hidden="true"></i> Add activity</a>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<?php showSessionMessageIfAny($this);?>
@@ -31,7 +31,6 @@
 				<thead>
 					<tr>
 						<th>Si no.</th>
-						<th>Front Image</th>
 						<th>Activity Name</th>
 						<th>Centre</th>
 						<th>Date</th>
@@ -53,7 +52,6 @@
 								<td><?php echo $value['2']; ?></td>
 								<td><?php echo $value['3']; ?></td>
 								<td><?php echo $value['4']; ?></td>
-								<td><?php echo $value['5']; ?></td>
 							</tr>
 <?php
 						}

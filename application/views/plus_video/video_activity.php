@@ -85,33 +85,51 @@
 			foreach($activityDetails as $value)
 			{
 ?>
-				<div class="w3-container w3-card w3-white w3-round w3-margin customMarginClass"><br>
-					<div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.$value['front_image']; ?>)no-repeat center;"></div>
-					<span class="w3-right w3-opacity" style="margin-top:10px;">
-						<i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>
-						Posted On : <span style="color: #000;"><?php echo $value['added_date']; ?></span>
-					</span>
-					<h4><?php echo $value['name']; ?></h4>
-					<hr class="w3-clear">
-					<p>
-						<?php echo $value['description']; ?>
-					</p><br>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="w3-container w3-card w3-white w3-round w3-margin customMarginClass" style="margin-left: 0 !important;margin-right: 0!important;"><br>
 <?php
-					$filesArr = showDailyActivityFiles($value['plus_activity_id']);
-					if(!empty($filesArr))
-					{
-						foreach($filesArr as $filesArrValue)
+						if($value['show_type'] == 1)
 						{
 ?>
-							<a href="<?php echo base_url().'video_gallery/download_activity_file/'.str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($filesArrValue['id']))); ?>">
-								<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
-									<i class="<?php echo $filesArrValue['className']; ?>"></i>  Download file
-								</button>
-							</a>
+							<div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.$value['front_image']; ?>)no-repeat center;"></div>
+<?php
+
+						}
+						else
+						{
+?>
+							<div class="w3ls-banner-1 figcaptionWrapperClass" style="background: url(<?php echo base_url().'images/bg_image.jpg'; ?>)no-repeat center;">
+								<p class="figcaption-title-class-courses text-center" style="color: #fff;font-size: 20px;"><?php echo $value['show_text']; ?></p>
+							</div>
 <?php
 						}
-					}
 ?>
+						<span class="w3-right w3-opacity" style="margin-top:10px;">
+							<i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>
+							Posted On : <span style="color: #000;"><?php echo $value['added_date']; ?></span>
+						</span>
+						<h4><?php echo $value['name']; ?></h4>
+						<hr class="w3-clear">
+						<p style="overflow-y: scroll;height: 150px;">
+							<?php echo $value['description']; ?>
+						</p><br>
+<?php
+						$filesArr = showDailyActivityFiles($value['plus_activity_id']);
+						if(!empty($filesArr))
+						{
+							foreach($filesArr as $filesArrValue)
+							{
+?>
+								<a href="<?php echo base_url().'video_gallery/download_activity_file/'.str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($filesArrValue['id']))); ?>">
+									<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+										<i class="<?php echo $filesArrValue['className']; ?>"></i>  Download file
+									</button>
+								</a>
+<?php
+							}
+						}
+?>
+					</div>
 				</div>
 <?php
 			}
