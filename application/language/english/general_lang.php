@@ -66,7 +66,7 @@
 	$lang['usa_family_stay'] = 'USA Family Stay';
 	$lang['new_york'] = 'New York';
 	$lang['uk_university_placement'] = 'Uk University Placement';
-	$lang['junior_summer_courses'] = 'JUNIOR SUMMER COURSES';
+	$lang['junior_summer_courses'] = 'Junior Summer Courses';
 	$lang['adult_cources'] = 'ADULT COURSES';
 	$lang['courses'] = 'COURSES';
 	$lang['learn_more'] = 'LEARN MORE';
@@ -108,5 +108,12 @@
 	$lang['terms_conditions'] = 'Terms and conditions';
 	$lang['footer_copy_rights_text'] = '©2017 The Develovers. All Rights Reserved.';
 	$lang['read_more'] = 'Read More';
+	$lang['no_video_available'] = 'No videos available';
+	$lang['no_activity_available'] = 'No activity available';
+	$lang['no_file_available'] = 'No file available';
+	$lang['mini_stay_course'] = 'Junior Mini Stay Courses';
+	$lang['junior_centre'] = 'Junior Centre';
+	$lang['junior_mini_stay'] = 'Junior Mini Stay';
+	$lang['program_details'] = 'Program Details';
 
 ?>

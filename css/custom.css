@@ -968,3 +968,71 @@ span.icon-bar {
 .courseFeatureImage{
 	max-height: 230px;
 }
+
+
+.form-border-box-wrapper{
+	border: 1px solid #a78f8f;
+	padding: 25px;
+}
+
+.previewContainer{
+	background-color: #e4dfd6;
+	min-height: 443px;
+	padding-top: 20px;
+}
+
+.previewTable{
+	padding: 20px;
+}
+
+.previewTable thead tr:first-child{
+	background-color: #b9b9ec;
+}
+
+.previewTable thead tr:last-child{
+	background-color: #b49c9c;
+}
+
+.previewTable tbody tr{
+	background-color: #fff;
+}
+
+.showCentrePreview{
+	font-size: 22px;
+	font-weight: bold;
+	padding-top: 22px;
+	color: #000;
+}
+
+.previewTable td{
+	padding : 5px;
+}
+
+.marginRightClass{
+	margin-right: 15px !important;
+}
+
+.previewTable th, .previewTable td {
+	color: #000 !important;
+}
+.add_section{
+	font-size: 30px !important;
+	margin-top: 5px;
+	cursor: pointer;
+}
+.delete_section{
+	font-size: 30px !important;
+	margin-top: 5px;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
+.activityDetailsContainer{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.changeSequenceIcon{
+	font-size: 25px !important;
+	cursor: pointer;
+}

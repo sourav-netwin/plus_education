@@ -448,7 +448,13 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = TRUE;
+if(stripos($_SERVER["REQUEST_URI"] , 'extra_activity') !== FALSE ||
+	stripos($_SERVER["REQUEST_URI"] , 'day-to-day-activity') !== FALSE ||
+	stripos($_SERVER["REQUEST_URI"] , 'datatable') !== FALSE ||
+	stripos($_SERVER["REQUEST_URI"] , 'master_activity') !== FALSE)
+	$config['csrf_protection'] = FALSE;
+else
+	$config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;

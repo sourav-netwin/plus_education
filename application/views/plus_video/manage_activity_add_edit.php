@@ -5,6 +5,10 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/sweetalert.css">
 <script src="<?php echo base_url(); ?>js/admin/sweetalert.min.js"></script>
 
+<!---------------Summernote CSS and JS----------------->
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/summernote.css">
+<script src="<?php echo base_url(); ?>js/admin/summernote.js"></script>
+
 <!------------custom javascript for program course------------>
 <script>
 	var pageType = 'add_edit';
@@ -72,7 +76,7 @@
 								$inputFieldAttribute = array(
 									'name' => 'description',
 									'id' => 'description',
-									'class' => 'form-control',
+									'class' => 'form-control summernote',
 									'rows' => '2',
 									'value' => isset($post['description']) ? $post['description'] : ''
 								);
@@ -84,9 +88,9 @@
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="radio" name="show_type" class="show_type" value="1" checked />Upload Image
+								<input type="radio" name="show_type" class="show_type" value="1" <?php echo ((!isset($post['show_type']))||(isset($post['show_type']) && $post['show_type'] == 1)) ?  'checked' : ''; ?> />Upload Image
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="radio" name="show_type" class="show_type" value="2" />Enter Text
+								<input type="radio" name="show_type" class="show_type" value="2" <?php echo (isset($post['show_type']) && $post['show_type'] == 2) ?  'checked' : ''; ?> />Enter Text
 							</div>
 						</div>
 

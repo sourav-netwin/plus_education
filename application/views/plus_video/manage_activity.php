@@ -34,6 +34,7 @@
 						<th>Activity Name</th>
 						<th>Centre</th>
 						<th>Date</th>
+						<th>Sequence</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -46,12 +47,13 @@
 						foreach($activityDetails as $value)
 						{
 ?>
-							<tr>
+							<tr data-id = "<?php echo $value['6']; ?>" data-sequence = "<?php echo $value['7']; ?>">
 								<td><?php echo $value['0']; ?></td>
 								<td><?php echo $value['1']; ?></td>
 								<td><?php echo $value['2']; ?></td>
 								<td><?php echo $value['3']; ?></td>
 								<td><?php echo $value['4']; ?></td>
+								<td><?php echo $value['5']; ?></td>
 							</tr>
 <?php
 						}

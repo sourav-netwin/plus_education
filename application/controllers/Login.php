@@ -44,7 +44,7 @@
 				$data['errors'] = $this->session->flashdata('errorMessages');;
 				$data['captcha'] = create_captcha($vals);
 				$this->session->set_userdata('admin_login_captcha_word', $data['captcha']['word']);
-				$data['page_title'] = 'Login | '.$this->lang->line('plus_educational_developments');
+				$data['page_title'] = $this->lang->line('login').' | '.$this->lang->line('plus_educational_developments');
 				$this->load->view('login' , $data);
 			}
 		}

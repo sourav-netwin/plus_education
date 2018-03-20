@@ -1,17 +1,17 @@
 <?php
-	$lang['please_enter_dynamic'] = 'Please Enter **field**';
-	$lang['add_success_message'] = '**module** Added Successfully';
-	$lang['edit_success_message'] = '**module** Edited Successfully';
-	$lang['delete_success_message'] = '**module** Deleted Successfully';
+	$lang['please_enter_dynamic'] = 'Please enter **field**';
+	$lang['add_success_message'] = '**module** added successfully';
+	$lang['edit_success_message'] = '**module** edited successfully';
+	$lang['delete_success_message'] = '**module** deleted successfully';
 	$lang['active_confirmation'] = 'Do you want to active this **module** ?';
 	$lang['inactive_confirmation'] = 'Do you want to inactive this **module** ?';
 	$lang['valid_data_error_msg'] = 'Please enter valid data.';
 	$lang['exact_image_size'] = 'Image size should be exact **width** X **height** pixel';
-	$lang['image_type_error_msg'] = 'Please upload JPG|PNG|JPEG image.';
+	$lang['image_type_error_msg'] = 'Please upload jpg|png|jpeg image.';
 	$lang['required_upload_image'] = 'Please upload image';
 	$lang['delete_confirmation'] = 'Are you sure to delete ?';
 	$lang['minimum_image_dimension'] = 'Image dimension should be greater or equal to **width** X **height** pixel';
-	$lang['please_select_dynamic'] = 'Please Select **field**';
+	$lang['please_select_dynamic'] = 'Please select **field**';
 	$lang['geocode_invalid_address'] = 'Invalid address as per geocode';
 	$lang['name_validation_message'] = '(Only alphabet , space and dot accept)';
 	$lang['mobile_number_validation_message'] = '(Only plus sign(+) and numeric accept with minimum 10  digit.';
@@ -21,6 +21,9 @@
 	$lang['delete_confirmation'] = 'Are you sure to delete this **module** ?';
 	$lang['pdf_type_error_msg'] = 'Please upload pdf file.';
 	$lang['required_upload_file'] = 'Please upload file';
-	$lang['activity_file_type_error_msg'] = 'Only JPG|JPEG|PNG|PDF|DOC|XLS files are allowed';
+	$lang['activity_file_type_error_msg'] = 'Only jpg|jpeg|png|pdf|doc|xls files are allowed';
+	$lang['from_to_error_date'] = 'From date should be less than to date';
+	$lang['to_from_error_date'] = 'To date should be greater than from date';
+	$lang['start_end_date_validation'] = 'Start date should be less than or equal to end date';
 
 ?>

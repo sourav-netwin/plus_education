@@ -32,6 +32,11 @@
 							<i class="fa fa-cog" aria-hidden="true"></i> Manage Activity
 						</a>
 					</li>
+					<li>
+					<a href="<?php echo base_url().'plus-walking-tour/day-to-day-activity'; ?>" class="w3-hover-white day-to-day-activity">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Activity Programme
+					</a>
+				</li>
 <?php
 				}
 ?>

@@ -53,7 +53,7 @@
 							}
 						}
 						else
-							echo "<div style='font-size: 16px;color: red;text-align: center;'>No videos available</div>";
+							echo "<div style='font-size: 16px;color: red;text-align: center;'>".$this->lang->line('no_video_available')."</div>";
 ?>
 						<div class="clearfix"></div>
 					</div>
@@ -82,11 +82,11 @@
 <?php
 		if($activityDetails)
 		{
-			foreach($activityDetails as $value)
+			foreach($activityDetails as $key => $value)
 			{
 ?>
 				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-					<div class="w3-container w3-card w3-white w3-round w3-margin customMarginClass" style="margin-left: 0 !important;margin-right: 0!important;"><br>
+					<div class="w3-container w3-card w3-white w3-round w3-margin customMarginClass" style="margin-left: 0 !important;margin-right: 0!important;min-height: 697px;"><br>
 <?php
 						if($value['show_type'] == 1)
 						{
@@ -99,7 +99,16 @@
 						{
 ?>
 							<div class="w3ls-banner-1 figcaptionWrapperClass" style="background: url(<?php echo base_url().'images/bg_image.jpg'; ?>)no-repeat center;">
-								<p class="figcaption-title-class-courses text-center" style="color: #fff;font-size: 20px;"><?php echo $value['show_text']; ?></p>
+								<p class="figcaption-title-class-courses text-center" style="color: #fff;font-size: 20px;">
+<?php
+									echo implode(' ' , array_map(function($value){
+																	if(strlen($value) > 20)
+																		return chunk_split($value , 20).' ';
+																	else
+																		return $value;
+																} , explode(' ' , $value['show_text'])));
+?>
+								</p>
 							</div>
 <?php
 						}
@@ -110,9 +119,9 @@
 						</span>
 						<h4><?php echo $value['name']; ?></h4>
 						<hr class="w3-clear">
-						<p style="overflow-y: scroll;height: 150px;">
+						<div style="overflow-y: scroll;height: 150px;">
 							<?php echo $value['description']; ?>
-						</p><br>
+						</div><br>
 <?php
 						$filesArr = showDailyActivityFiles($value['plus_activity_id']);
 						if(!empty($filesArr))
@@ -128,14 +137,18 @@
 <?php
 							}
 						}
+						else
+							echo "<div class='w3-margin-bottom' style='font-size: 16px;color: red;text-align: center;'>".$this->lang->line('no_file_available')."</div>";
 ?>
 					</div>
 				</div>
 <?php
+				if(($key+1)%2 == 0)
+					echo '<div class="clearfix"></div>';
 			}
 		}
 		else
-			echo "<div style='font-size: 16px;color: red;text-align: center;'>No activity available</div>";
+			echo "<div style='font-size: 16px;color: red;text-align: center;'>".$this->lang->line('no_activity_available')."</div>";
 ?>
 	</div>
 	<!----------------Daily Activity Section End---------------->

@@ -9,6 +9,7 @@
 			header("Pragma: no-cache");
 			$this->lang->load('message' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
+			$this->load->model('Manage_activity_model' , '' , TRUE);
 			$this->load->helper('frontend');
 			$this->load->library('image_upload');
 			checkAdminLogin();
@@ -22,7 +23,7 @@
 		//This function is used to show the listing page for manage activity
 		public function index()
 		{
-			$data['activityDetails'] = $this->Front_model->getActivityDetails();
+			$data['activityDetails'] = $this->Manage_activity_model->getActivityDetails();
 			$data['viewPage'] = 'plus_video/manage_activity';
 			$data['showLeftMenu'] = 0;
 			$this->load->view('plus_video/template' , $data);
@@ -102,7 +103,9 @@
 					);
 					if($this->input->post('flag') == 'as')
 					{
+						$countArr = $this->Front_model->commonGetData('count(*) as total' , 'centre_id = '.$this->input->post('centre_id') , TABLE_PLUS_ACTIVITY_MANAGEMENT);
 						$updateData['added_date'] = date('Y-m-d');
+						$updateData['sequence'] = ($countArr['total'] + 1);
 						$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
 						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
 					}
@@ -175,6 +178,22 @@
 				$this->Front_model->commonDelete(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , 'plus_activity_file_id = '.$id);
 			}
 			return TRUE;
+		}
+
+		/**
+		*This function is used to change sequence for daily activities
+		*
+		*@param NONE
+		*@return NONE
+		*/
+		public function change_sequence()
+		{
+			if($this->input->post('currentId'))
+			{
+				$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$this->input->post('currentId') , array('sequence' => $this->input->post('referenceSequence')));
+				$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$this->input->post('referenceId') , array('sequence' => $this->input->post('currentSequence')));
+				echo '';
+			}
 		}
 
 		/****************Image Cropping functionality Start******************/

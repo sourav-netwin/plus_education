@@ -73,6 +73,11 @@ $(document).ready(function(){
 	//Jquery validator to check form validation
 	if(pageType == 'add_edit')
 	{
+		//initialize summernote
+		$('.summernote').summernote({
+			height: 200
+		});
+
 		//Add customize rules
 		jQuery.validator.addMethod("validData",function(value,element){
 			if(/[()+<>\"\'%&;]/.test(value)){
@@ -138,7 +143,8 @@ $(document).ready(function(){
 					checkImageExt : true
 				},
 				show_text : {
-					required : true
+					required : true,
+					maxlength : 200
 				}
 			},
 			messages : {
@@ -286,6 +292,50 @@ $(document).ready(function(){
 			$('.showOption_1').hide();
 			$('.showOption_2').show();
 		}
+	});
+
+	//After click on the move activity up , it will exchange the sequence with its previous record
+	$(document).on('click' , '.moveUp' , function(){
+		var currentId = $(this).parent().parent().parent().data('id');
+		var currentSequence = $(this).parent().parent().parent().data('sequence');
+		var referenceId = $(this).parent().parent().parent().prev('tr').data('id');
+		var referenceSequence = $(this).parent().parent().parent().prev('tr').data('sequence');
+		$.ajax({
+			url : 'manage_activity/change_sequence',
+			type : 'POST',
+			data : {
+						'currentId' : currentId ,
+						'currentSequence' : currentSequence,
+						'referenceId' : referenceId,
+						'referenceSequence' : referenceSequence,
+						'csrf_test_name' : $.cookie('csrf_cookie_name')
+			},
+			success : function(response){
+				window.location = 'manage_activity';
+			}
+		});
+	});
+
+	//After click on the move activity down , it will exchange the sequence with its next record
+	$(document).on('click' , '.moveDown' , function(){
+		var currentId = $(this).parent().parent().parent().data('id');
+		var currentSequence = $(this).parent().parent().parent().data('sequence');
+		var referenceId = $(this).parent().parent().parent().next('tr').data('id');
+		var referenceSequence = $(this).parent().parent().parent().next('tr').data('sequence');
+		$.ajax({
+			url : 'manage_activity/change_sequence',
+			type : 'POST',
+			data : {
+						'currentId' : currentId ,
+						'currentSequence' : currentSequence,
+						'referenceId' : referenceId,
+						'referenceSequence' : referenceSequence,
+						'csrf_test_name' : $.cookie('csrf_cookie_name')
+			},
+			success : function(response){
+				window.location = 'manage_activity';
+			}
+		});
 	});
 });
 

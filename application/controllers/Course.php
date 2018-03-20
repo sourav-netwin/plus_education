@@ -8,6 +8,7 @@
 			$this->lang->load('message_lang' , 'english');
 			$this->load->model('Front_model' , '' , TRUE);
 			$this->load->model('Content_model' , '' , TRUE);
+			$this->load->model('CourseModel' , '' , TRUE);
 			$this->load->helper('frontend');
 		}
 
@@ -16,11 +17,11 @@
 		{
 			$languageId = 1;
 			$data['bannerDetails'] = $this->Front_model->getBannerDetails($languageId);
-			$data['courseDetails'] = $this->Front_model->getCourseDetails($languageId);
+			$data['courseDetails'] = $this->CourseModel->getCourseDetails($languageId);
 			$data['usaProgram'] = $this->Content_model->getUsaEuropeProgram('USA');
 			$data['europeProgram'] = $this->Content_model->getUsaEuropeProgram('United Kingdom');
 			$data['show_banner'] = 1;
-			$data['page_title'] = 'Home';
+			$data['page_title'] = $this->lang->line('home');
 			$this->template->view('dashboard' , $data);
 		}
 
@@ -32,25 +33,25 @@
 			if($id == JUNIOR_SUMMER_ID)
 			{
 				$tableName = TABLE_JUNIOR_CENTRE;
-				$pageTitle = 'Junior Summer Courses';
+				$pageTitle = $this->lang->line('junior_summer_courses');
 				$referenceFunctionName = 'junior-summer-courses';
 			}
 			elseif($id == JUNIOR_MINISTAY_ID)
 			{
 				$tableName = TABLE_JUNIOR_MINISTAY;
-				$pageTitle = 'Junior Mini Stay Courses';
+				$pageTitle = $this->lang->line('mini_stay_course');
 				$referenceFunctionName = 'junior-mini-stay';
 			}
 			elseif($id == ADULT_COURSE_ID)
 			{
-				$pageTitle = 'Adult Course';
+				$pageTitle = $this->lang->line('adult_courses');
 				$data['brochureDetails'] = $this->Front_model->commonGetData('file_name, , file_description' , 'course_id = '.ADULT_COURSE_ID , TABLE_ADULT_COURSE_BROCHURE , '' , '' , 2);
 				$data['formDetails'] = $this->Front_model->commonGetData('*' , '' , TABLE_MANAGE_APPLICATION_FORM , 'sequence' , 'asc' , 2);
 			}
 
-			$data['courseDetails'] = $this->Front_model->getDetailsCourses($languageId , $id);
+			$data['courseDetails'] = $this->CourseModel->getDetailsCourses($languageId , $id);
 			if($id == JUNIOR_SUMMER_ID || $id == JUNIOR_MINISTAY_ID)
-				$data['destinationDetails'] = $this->Front_model->getDestinationDetails($tableName , 1);
+				$data['destinationDetails'] = $this->CourseModel->getDestinationDetails($tableName , 1);
 			$data['show_banner'] = 0;
 			$data['page_title'] = $pageTitle;
 			$data['tableName'] = $tableName;
@@ -64,7 +65,7 @@
 			if($this->input->post())
 			{
 				$str = '';
-				$centreDetails = $this->Front_model->getDestinationDetails($this->input->post('table_name') , 2 , $this->input->post('region_id'));
+				$centreDetails = $this->CourseModel->getDestinationDetails($this->input->post('table_name') , 2 , $this->input->post('region_id'));
 				if(!empty($centreDetails['centre']))
 				{
 					$str = '<div class="welcome-agileinfo" style="margin-top: 2em;">
@@ -92,9 +93,10 @@
 		//This function is used to show junior summer course centre template
 		public function junior_centre($centreName = NULL)
 		{
-			$data['centreDetails'] = $this->Front_model->getJuniorCentreDetails($centreName);
+			$this->load->model('JuniorCentreModel' , '' , TRUE);
+			$data['centreDetails'] = $this->JuniorCentreModel->getJuniorCentreDetails($centreName);
 			$data['show_banner'] = 0;
-			$data['page_title'] = 'Junior Centre';
+			$data['page_title'] = $this->lang->line('junior_centre');
 			$data['photoGalleryPath'] = PHOTO_GALLERY_IMAGE_PATH;
 			$data['videoGalleryImagePath'] = VIDEO_GALLERY_IMAGE_PATH;
 			$data['sequenceSetting'] = $this->Front_model->commonGetData('name , slug' , 'type = 1' , TABLE_PLUS_SECTION_SETTING , 'sequence' , 'asc' , 2);
@@ -104,9 +106,10 @@
 		//This function is used to show the junior mini stay centre pages in details
 		function junior_ministay($centreName = NULL)
 		{
-			$data['centreDetails'] = $this->Front_model->getJuniorMiniStayDetails($centreName);
+			$this->load->model('JuniorMiniStayModel' , '' , TRUE);
+			$data['centreDetails'] = $this->JuniorMiniStayModel->getJuniorMiniStayDetails($centreName);
 			$data['show_banner'] = 0;
-			$data['page_title'] = 'Junior Mini Stay';
+			$data['page_title'] = $this->lang->line('junior_mini_stay');
 			$data['photoGalleryPath'] = MINISTAY_PHOTO_GALLERY_IMAGE_PATH;
 			$data['videoGalleryImagePath'] = MINISTAY_VIDEO_GALLERY_IMAGE_PATH;
 			$data['sequenceSetting'] = $this->Front_model->commonGetData('name , slug' , 'type = 2' , TABLE_PLUS_SECTION_SETTING , 'sequence' , 'asc' , 2);
@@ -118,7 +121,7 @@
 		{
 			$data['programDetails'] = $this->Front_model->getProgramDetails();
 			$data['show_banner'] = 0;
-			$data['page_title'] = 'Program Details';
+			$data['page_title'] = $this->lang->line('program_details');
 			$this->template->view('program_details' , $data);
 		}
 
