@@ -198,6 +198,9 @@ Authorize url - https://api.vimeo.com/oauth/authorize
 Access token Url - https://api.vimeo.com/oauth/access_token
 Access token - f76202db96349d44d30a111021a597b9
 
+//Test API online : 
+https://developer.vimeo.com/api/endpoints/videos(Get a video section)
+
 Solutions Url :
 https://stackoverflow.com/questions/47735579/fetch-video-duration-using-the-new-vimeo-api
 https://stackoverflow.com/questions/47079078/vimeo-php-simple-request-not-working
@@ -221,10 +224,14 @@ function vimeoApi()
 
 ======================================Office Tiffin========================================================================================
 
+Prashant : {(350+150+50+110)-(60+500)}
+Sumeet : 200/-
+
 Tiffin upto 31st October , 2017 : 340/- (paid)
 Tiffin upto 31st November , 2017 : 375/-(paid) : Balance - 25/-
 Tiffin upto 31st December , 2017 : 500/-(Paid) : Balance - 50/- 
 Tiffin upto 31st January , 2018 : 425/-(Paid) : Balance - 75/-
+Tiffin upto 28th February , 2018 : 400/-(Paid)
 
 ===============================================================================================================================
 
@@ -239,12 +246,20 @@ url : http://plus-ed.com/betaweb
 (2)Backend -
 url : http://plus-ed.com/vision_ag/index.php/vauth/backoffice
 User Name : usercms
-Password : usercms@2061@
+Password : usercms@2061@/usercms_1820_
 
-(3)Mantis Account Details :
+(3)Agent's Area -
+url : http://plus-ed.com/vision_ag/index.php/vauth/agents
+username : Int_pEaTo
+password : 75907469
+
+(4)Mantis Account Details :
 url : https://webnmobidev.net/mantisbt/login_page.php
 User Name : Sourav.Dhara
 Password : S@123
+
+(5)OS Ticket :
+http://netwinindia.net/itsupport/osticket/upload/view.php
 
 ===============================================================================================================================
 
@@ -253,8 +268,10 @@ Password : S@123
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Changed in the master module functionality .
-(2)Created screens for day to day activity .
+(1)Completed activity report modification .
+(2)Completed extra activity module functionality .
+(3)Upload changes related to the master and extra activity on live .
+
 
 ===============================================================================================================================
 
@@ -264,117 +281,26 @@ Password : S@123
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the master module functionality . We have managed change status functionality dynamic for all the module by mentioning the status
-field in the master language file . During the time of listing , it will get the status field value and show accordingly . Also with the change of status 
-it will update the value in database . Then make delete functionality dynamic for all modules . In the database table , we have taken one fixed column to 
-manage the delete flag . If admin will delete any record then we just update the delete flag dynamically . Completed the changes and tested properly .
+(1)Before we have shown the activity report as per the centre name and the date range . Now we have shown that activity report as per centre , student group
+, arrival and departure date wise . With the change of the centre we have shown the student group of that centre . Also we have changed in the filter search
+ and export to excel functionality as per the new changes in master activity . Completed the changes and tested properly .
+ 
+(2)Started working on the extra activity functionality . In the left section we have added one option to manage the extra activity . If admin will click on that
+menu then that particular management will open . In that page there are two section . First is the search section and another one is the manage activity section .
+In the search section , there is select centre , group and group reference option . With the change of the centre dropdown the student group and the group reference
+will selected from database according to the centre id . We have applied the required validation to every field . After successfully done the validation the searched record
+will appear . We get the arrival and departure date according to the group reference number and show in the non editable format . In the second section we have shown the table
+formatted activity details . Also we have saved the activity details in the hidden so that we can retrive them easily to show the details . We have done the add more and remove more
+functionality on click of the plus and minus icon . Also on click of any table column we have opened the activity details . Admin can delete any activity by clicking on the delete
+icon from the table column . Also we have implemented drag and drop functionality . If admin will drag any activity and drop it to any another column then we have saved the details
+in the hidden field as well as in the database too . Completed all the functionality related to manage extra activity and tested properly . 
 
-(2)Created screens for day to day activity . We have created four screens for fixed activity for managers , group management , updated activity group wise 
-and front end activity . Then confirm the same by discussing with Stefano .
-
-=================================================================================================================================
-
-(1)update `frontweb_junior_centre` set course = '<div class="row" style="clear: both; margin-right: -15px; margin-left: -15px;">
-<div class="col-12">
-<div style="padding: 4px; background-color: #fafafa;"><img style="width: 100%; height: 183px;" src="../../../../uploads/tinymce/2015117-18245511-4544-group-study1.jpg?1515413764611" alt="2015117-18245511-4544-group-study1" /><br />
-<ul style="font-weight: normal; margin-top: 10px; margin-bottom: 10px;">
-<li><span style="text-indent: -18pt;">- Placement test - written and oral test</span></li>
-<li><span style="text-indent: -18pt;">- 15 hours English lessons per week</span></li>
-<li><span style="text-indent: -18pt;">- Maximum class size 15 students</span></li>
-<li><span style="text-indent: -18pt;">- PLUS text book and all supplementary material for the course</span></li>
-<li><span style="text-indent: -18pt;">- PLUS end of course certificate </span></li>
-</ul>
-</div>
-</div>
-</div>' where junior_centre_status=1 and delete_flag=0;
-
-
-(2)update `frontweb_junior_centre` set accommodation = '<p class="MsoNormal" style="font-weight: normal; margin: 0 0 10px; font-size: 13px; color: #7b7b7b; line-height: 1.6;">Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to ensure that you are comfortable, safe and happy during your stay.</p>
-<div class="row" style="clear: both; margin-right: -15px; margin-left: -15px;">
-<div class="col-12" style="padding: 10px;">
-<h2 class="negativo" style="padding-left: 4px; background-color: #3c7099; padding: 10px 0; color: #fff; border-radius: 4px 4px 4px 4px; font-size: 21px;"><span style="padding-left: 5px;">On Campus</span></h2>
-<div style="padding: 4px; background-color: #fafafa;"><img style="width: 100%; height: 183px;" src="../../../../uploads/tinymce/collegefrontale.jpg?1515412862363" alt="collegefrontale" />
-<p style="font-weight: normal; margin: 0 0 10px; font-size: 13px; color: #7b7b7b; line-height: 1.6;">Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to ensure that you are comfortable, safe and happy during your stay.Our residences are a really fun, international environment where students from around the world live together and get to use English as the only true way of global communication. The residences are supervised by staff who are on hand to helps students day and night. Each residential centre differs slightly in the room and bathroom type, so please take a look at the programme pages in this brochure. Residential accommodation is popular with parents who are sending younger children or those who want their children to experience the tremendous fun of college life</p>
-</div>
-</div>
-<div class="col-12" style="padding: 10px;">
-<h2 class="negativo" style="padding-left: 4px; background-color: #3c7099; padding: 10px 0; color: #fff; border-radius: 4px 4px 4px 4px; font-size: 21px;"><span style="padding-left: 5px;">Home Stay</span></h2>
-<div style="padding: 4px; background-color: #fafafa;"><img style="width: 100%; height: 183px;" src="../../../../uploads/tinymce/casafamiglia.jpg?1515413045302" alt="casafamiglia" />
-<p style="font-weight: normal; margin: 0 0 10px; font-size: 13px; color: #7b7b7b; line-height: 1.6;">Our hosts have been chosen for their interest in welcoming young people from around the world. They are picked because of the care and comfort they can offer to students who may be travelling overseas for the first time. Choosing to stay in home stay is the right option for those who want to experience real life living in that country: it will give a student the opportunity to use English in a real environment and integrate with the family. Home stay is often the first choice for slightly older students.</p>
-</div>
-</div>
-</div>' where junior_centre_status=1 and delete_flag=0;
-
-(3)update `frontweb_junior_ministay` set course = '<div class="row" style="clear: both; margin-right: -15px; margin-left: -15px;">
-<div class="col-12">
-<div style="padding: 4px; background-color: #fafafa;"><img style="width: 100%; height: 183px;" src="../../../../uploads/tinymce/2015117-18245511-4544-group-study1.jpg?1515413764611" alt="2015117-18245511-4544-group-study1" /><br />
-<ul style="font-weight: normal; margin-top: 10px; margin-bottom: 10px;">
-<li><span style="text-indent: -18pt;">- Placement test - written and oral test</span></li>
-<li><span style="text-indent: -18pt;">- 15 hours English lessons per week</span></li>
-<li><span style="text-indent: -18pt;">- Maximum class size 15 students</span></li>
-<li><span style="text-indent: -18pt;">- PLUS text book and all supplementary material for the course</span></li>
-<li><span style="text-indent: -18pt;">- PLUS end of course certificate </span></li>
-</ul>
-</div>
-</div>
-</div>' where junior_ministay_status=1 and delete_flag=0;
-
-(4)update `frontweb_junior_ministay` set accommodation = '<p class="MsoNormal" style="font-weight: normal; margin: 0 0 10px; font-size: 13px; color: #7b7b7b; line-height: 1.6;">Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to ensure that you are comfortable, safe and happy during your stay.</p>
-<div class="row" style="clear: both; margin-right: -15px; margin-left: -15px;">
-<div class="col-12" style="padding: 10px;">
-<h2 class="negativo" style="padding-left: 4px; background-color: #3c7099; padding: 10px 0; color: #fff; border-radius: 4px 4px 4px 4px; font-size: 21px;"><span style="padding-left: 5px;">On Campus</span></h2>
-<div style="padding: 4px; background-color: #fafafa;"><img style="width: 100%; height: 183px;" src="../../../../uploads/tinymce/collegefrontale.jpg?1515412862363" alt="collegefrontale" />
-<p style="font-weight: normal; margin: 0 0 10px; font-size: 13px; color: #7b7b7b; line-height: 1.6;">Your new home abroad is an important part of your study experience, and we believe that time outside of school will help you learn more effectively in the classroom. We select all our accommodation carefully to ensure that you are comfortable, safe and happy during your stay.Our residences are a really fun, international environment where students from around the world live together and get to use English as the only true way of global communication. The residences are supervised by staff who are on hand to helps students day and night. Each residential centre differs slightly in the room and bathroom type, so please take a look at the programme pages in this brochure. Residential accommodation is popular with parents who are sending younger children or those who want their children to experience the tremendous fun of college life</p>
-</div>
-</div>
-<div class="col-12" style="padding: 10px;">
-<h2 class="negativo" style="padding-left: 4px; background-color: #3c7099; padding: 10px 0; color: #fff; border-radius: 4px 4px 4px 4px; font-size: 21px;"><span style="padding-left: 5px;">Home Stay</span></h2>
-<div style="padding: 4px; background-color: #fafafa;"><img style="width: 100%; height: 183px;" src="../../../../uploads/tinymce/casafamiglia.jpg?1515413045302" alt="casafamiglia" />
-<p style="font-weight: normal; margin: 0 0 10px; font-size: 13px; color: #7b7b7b; line-height: 1.6;">Our hosts have been chosen for their interest in welcoming young people from around the world. They are picked because of the care and comfort they can offer to students who may be travelling overseas for the first time. Choosing to stay in home stay is the right option for those who want to experience real life living in that country: it will give a student the opportunity to use English in a real environment and integrate with the family. Home stay is often the first choice for slightly older students.</p>
-</div>
-</div>
-</div>' where junior_ministay_status=1 and delete_flag=0;
+(3)Upload changes related to the master activity and extra activity on live and tested properly .
 
 =================================================================================================================================
 
 
-<div class="w3-card w3-round w3-white">
-		<div class="w3-container">
-			<h4 class="w3-center"><?php echo $this->session->userdata('centre'); ?></h4>
-			<p class="w3-center">
-				<?php $imgPath = ($this->session->userdata('image') != '') ? ADMIN_PANEL_URL.$this->session->userData('path').getThumbnailName($this->session->userdata('image')) : base_url().'images/default_centre.jpg'; ?>
-				<img src="<?php echo $imgPath; ?>" style="width: 100%;">
-			</p>
-			<hr>
-			<p style="font-size: 14px;">
-				<i class="fa fa-home fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				Professional Linguistic Upper Studies
-			</p>
-			<p style="font-size: 14px;">
-				<i class="fa fa-map-marker fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				8-10 Grosvenor Gardens
-			</p>
-			<p style="font-size: 14px;">
-				<i class="fa fa-building-o fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				Mezzanine floor
-			</p>
-			<p style="font-size: 14px;">
-				<i class="fa fa-globe fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				London, SW1W 0DH
-			</p>
-			<p style="font-size: 14px;">
-				<i class="fa fa-phone fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				<a href="tel:+ 44 (0)20 7730 2223">+ 44 (0)20 7730 2223</a>
-			</p>
-			<p style="font-size: 14px;">
-				<i class="fa fa-fax fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				<a href="tel:+ 44 (0)20 7730 9209">+ 44 (0)20 7730 9209</a>
-			</p>
-			<p style="font-size: 14px;">
-				<i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme" style="font-size: 18px;"></i>
-				<a href="mailto:plus@plus-ed.com">plus@plus-ed.com</a>
-			</p>
-		</div>
-	</div><br>
+
+
 
 
