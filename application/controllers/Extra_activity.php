@@ -16,59 +16,208 @@
 		function index()
 		{
 			$post = array();
+			$groupDropdown = array('' => 'Please select group');
+			$groupReferenceDropdown = array('' => 'Please select group reference');
 			if($this->input->post('centre_id'))
 			{
+				$post = $this->Front_model->commonGetData("date_format(arrival_date , '%d-%b-%Y') as arrival_date , date_format(departure_date , '%d-%b-%Y') as departure_date" , 'id_book = '.$this->input->post('group_reference_id') , TABLE_PLUS_BOOK , 1);
 				$post['centre_id'] = $this->input->post('centre_id');
-				$post['date'] = $this->input->post('date');
-				$post['masterActivity'] = $this->Extra_activity_model->getMasterActivity();
-				$centreResult = $this->Front_model->commonGetData('nome_centri' , "id = '".$this->input->post('centre_id')."'" , TABLE_CENTRE , 1);
-				$post['centreDetails'] = $centreResult['nome_centri'];
-				$post['groupReference'] = $this->Extra_activity_model->getGroupReference();
+				$post['student_group'] = $this->input->post('student_group');
+				$post['group_reference_id'] = $this->input->post('group_reference_id');
+
+				//Set dropdown for student group and group reference
+				$dropdownValueArr = $this->get_dropdown(1);
+				if(!empty($dropdownValueArr['groupReference']))
+				{
+					foreach($dropdownValueArr['groupReference'] as $value)
+						$groupReferenceDropdown[$value['id']] = $value['name'];
+				}
+				if(!empty($dropdownValueArr['studentGroup']))
+				{
+					foreach($dropdownValueArr['studentGroup'] as $value)
+						$groupDropdown[$value['id']] = $value['name'];
+				}
+
+				$extraActivityId = $this->Front_model->commonGetData("extra_master_activity_id" , 'centre_id = '.$this->input->post('centre_id').' AND student_group = '.$this->input->post('student_group').' AND group_reference_id = '.$this->input->post('group_reference_id') , TABLE_EXTRA_MASTER_ACTIVITY , 1);
+				if(empty($extraActivityId))
+					$extraActivityId['extra_master_activity_id'] = $this->copyMasterActivity();
+
+				if(isset($extraActivityId['extra_master_activity_id']) && $extraActivityId['extra_master_activity_id'] != '')
+				{
+					$tempArr = array();
+					$result = $this->Front_model->commonGetData("extra_day_activity_id as id , date_format(date , '%d-%m-%Y') as date" , 'extra_master_activity_id = '.$extraActivityId['extra_master_activity_id'] , TABLE_EXTRA_DAY_ACTIVITY , 'cast(date as DATE)' , 'asc' , 2);
+					if(!empty($result))
+					{
+						foreach($result as $value)
+							$tempArr['datesArr'][$value['id']] = $value['date'];
+						$tempArr['details'] = $this->Extra_activity_model->getActivityDetails(array_keys($tempArr['datesArr']));
+					}
+					$post = array_merge($post , $tempArr);
+				}
+				else
+					$data['errorMessage'] = 'Please add master activity first';
 			}
 			$data['post'] = $post;
+			$data['groupDropdown'] = $groupDropdown;
+			$data['groupReferenceDropdown'] = $groupReferenceDropdown;
 			$data['viewPage'] = 'plus_video/extra_activity';
 			$data['showLeftMenu'] = 2;
 			$this->load->view('plus_video/template' , $data);
 		}
 
-		//This function is used to update the data in the database for extra activity
-		function update()
+		/**
+		*This function is used to get the student's group and the group reference dropdown values
+		*through ajax call
+		*
+		*@param NONE
+		*@return NONE
+		*/
+		public function get_dropdown($returnType = NULL)
 		{
-			$this->Extra_activity_model->updateActivity();
-			$this->session->set_flashdata('success_message', str_replace('**module**' , 'Extra activity' , $this->lang->line('edit_success_message')));
-			redirect('/extra_activity');
+			if($this->input->post('centre_id'))
+			{
+				$data['groupReference'] = $this->Front_model->commonGetData("id_book as id , concat(id_year , '_' , id_book) as name" , "(status = 'confirmed' OR status = 'active') AND id_centro = ".$this->input->post('centre_id') , TABLE_PLUS_BOOK , 'id_book' , 'asc' , 2);
+				$data['studentGroup'] = $this->Front_model->commonGetData("group_name as name , student_group_id as id" , 'centre_id = '.$this->input->post('centre_id') , TABLE_STUDENT_GROUP , 'group_name' , 'asc' , 2);
+				if($returnType == 1)
+					return $data;
+				else
+					echo json_encode($data);
+			}
 		}
 
 		/**
-		*This function is used to get the extra activity details according to the centre , date and
-		*group reference number through ajax call
+		*This function is used to copy all master activity details in to the extra activity table
+		*
+		*@param NONE
+		*@return NONE
+		*/
+		private function copyMasterActivity()
+		{
+			$masterActivityDetails = $this->Extra_activity_model->getMaterActivityDetails();
+			if(!empty($masterActivityDetails))
+			{
+				$insertData = array(
+					'centre_id' => $this->input->post('centre_id'),
+					'student_group' => $this->input->post('student_group'),
+					'group_reference_id' => $this->input->post('group_reference_id')
+				);
+				$extraMasterId = $this->Front_model->commonAdd(TABLE_EXTRA_MASTER_ACTIVITY , $insertData);
+				foreach($masterActivityDetails as $dateValue => $detailsValue)
+				{
+					$insertData = array(
+						'extra_master_activity_id' => $extraMasterId,
+						'date' => $dateValue
+					);
+					$extraActivityId = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY , $insertData);
+					foreach($detailsValue as $insertValue)
+					{
+						if(trim($insertValue['activity']) != '')
+						{
+							$insertValue['extra_day_activity_id'] = $extraActivityId;
+							$this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertValue);
+						}
+					}
+				}
+				return $extraMasterId;
+			}
+		}
+
+		/**
+		*This function is used to get the activity details through ajax to show in the activity modal popup form
 		*
 		*@param NONE
 		*@return NONE
 		*/
 		public function get_activity_details()
 		{
-			if($this->input->post('centre_id'))
-			{
-				$data['htmlStr'] = $this->Extra_activity_model->createActivityDetails();
-				echo json_encode($data);
-			}
+			$data = array();
+			if($this->input->post('id'))
+				$data = $this->Front_model->commonGetData("*" , 'extra_day_activity_details_id = '.$this->input->post('id') , TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 1);
+			echo json_encode($data);
 		}
 
 		/**
-		*This function is used to get the master activity details according to the details id
-		*through ajax call
+		*This function is used to perform add or edit operations for the activity details through ajax call
 		*
 		*@param NONE
 		*@return NONE
 		*/
-		public function get_master_activity()
+		public function activity_details_add_edit()
+		{
+			if($this->input->post('activityDetailsFlag'))
+			{
+				$insertData = array(
+					'program_name' => $this->input->post('program_name'),
+					'location' => $this->input->post('location'),
+					'activity' => $this->input->post('activity'),
+					'from_time' => $this->input->post('from_time'),
+					'to_time' => $this->input->post('to_time'),
+					'managed_by' => $this->input->post('managed_by'),
+					'extra_day_activity_id' => $this->input->post('activityDetailsParentId')
+				);
+				if($this->input->post('activityDetailsFlag') == 'as')
+					$activityDetailsId = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertData);
+				else
+					$this->Front_model->commonUpdate(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , "extra_day_activity_id = ".$this->input->post('activityDetailsParentId')." AND extra_day_activity_details_id = ".$this->input->post('activityDetailsId') , $insertData);
+				echo ($this->input->post('activityDetailsFlag') == 'as') ? $activityDetailsId : $this->input->post('activityDetailsId');
+			}
+		}
+
+		/**
+		*This function is used to delete activity details from database through ajax call
+		*
+		*@param NONE
+		*@return NONE
+		*/
+		public function delete_activity_details()
 		{
 			if($this->input->post('id'))
 			{
-				$result = $this->Front_model->commonGetData('*' , 'fixed_day_activity_details_id = '.$this->input->post('id') , TABLE_FIXED_DAY_ACTIVITY_DETAILS , 1);
-				$data['htmlStr'] = $this->Extra_activity_model->createHtml($result , 2);
-				echo json_encode($data);
+				$this->Front_model->commonDelete(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 'extra_day_activity_details_id = '.$this->input->post('id'));
+				echo '';
 			}
+
+		}
+
+		/**
+		*This function is used to update activity timing through ajax call
+		*
+		*@param NONE
+		*@return NONE
+		*/
+		public function update_activity_time()
+		{
+			if($this->input->post('fieldName'))
+			{
+				$this->Extra_activity_model->updateActivityTiming();
+				echo '';
+			}
+		}
+
+		/**
+		*This function is used to copy one extra activity details and add new activity(for drag/drop)
+		*
+		*@param NONE
+		*@return NONE
+		*/
+		public function copy_activity_details()
+		{
+			$data = array();
+			if($this->input->post('id'))
+			{
+				$result = $this->Front_model->commonGetData("program_name , location , activity , managed_by" , 'extra_day_activity_details_id = '.$this->input->post('id') , TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 1);
+				$insertData = array(
+					'program_name' => $result['program_name'],
+					'location' => $result['location'],
+					'activity' => $result['activity'],
+					'from_time' => $this->input->post('from_time'),
+					'to_time' => $this->input->post('to_time'),
+					'managed_by' => $result['managed_by'],
+					'extra_day_activity_id' => $this->input->post('extra_day_activity_id')
+				);
+				$data['id'] = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertData);
+				$data['name'] = $result['activity'];
+			}
+			echo json_encode($data);
 		}
 	}

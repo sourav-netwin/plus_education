@@ -7,182 +7,116 @@
 			parent::__construct();
 		}
 
-		//This function is used to get the extra activity details for the selected date , centre and group
-		private function getExtraActivity()
-		{
-			$returnArr = $this->db->select('a.*')
-							->from(TABLE_EXTRA_DAY_ACTIVITY_DETAILS.' a')
-							->join(TABLE_EXTRA_DAY_ACTIVITY.' b' , 'a.extra_day_activity_id = b.extra_day_activity_id' , 'left')
-							->where('b.centre_id' , $this->input->post('centre_id'))
-							->where('b.group_name' , $this->input->post('group_name'))
-							->where('b.date' , date('Y-m-d' , strtotime($this->input->post('date'))))
-							->order_by('extra_day_activity_details_id' , 'asc')
-							->get()->result_array();
-			return (!empty($returnArr)) ? $returnArr : $this->getMasterActivity();
-		}
-
-		//This function is used to get the master activity details for the selected date and centre
-		public function getMasterActivity()
-		{
-			return $this->db->select('a.*')
-							->from(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' a')
-							->join(TABLE_FIXED_DAY_ACTIVITY.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
-							->where('b.centre_id' , $this->input->post('centre_id'))
-							->where('b.date' , date('Y-m-d' , strtotime($this->input->post('date'))))
-							->order_by('fixed_day_activity_details_id' , 'asc')
-							->get()->result_array();
-		}
-
-		//This function is used to delete the old extra activity and add the new one
-		public function updateActivity()
-		{
-			$extraActivity = $this->db->select('extra_day_activity_id')
-					->where('centre_id' , $this->input->post('centre_id'))
-					->where('group_name' , $this->input->post('group_name'))
-					->where('date' , date('Y-m-d' , strtotime($this->input->post('date'))))
-					->get(TABLE_EXTRA_DAY_ACTIVITY)->row_array();
-			if(!empty($extraActivity))
-			{
-				$this->db->where('extra_day_activity_id' , $extraActivity['extra_day_activity_id'])
-						->delete(TABLE_EXTRA_DAY_ACTIVITY_DETAILS);
-				$extraActivityId = $extraActivity['extra_day_activity_id'];
-			}
-			else
-			{
-				$data = array(
-					'centre_id' => $this->input->post('centre_id'),
-					'group_name' => $this->input->post('group_name'),
-					'date' => date('Y-m-d' , strtotime($this->input->post('date')))
-				);
-				$this->db->insert(TABLE_EXTRA_DAY_ACTIVITY , $data);
-				$extraActivityId = $this->db->insert_id();
-			}
-			$programNameArr = $this->input->post('program_name');
-			$locationArr = $this->input->post('location');
-			$activityArr = $this->input->post('activity');
-			$fromTimeArr = $this->input->post('from_time');
-			$toTimeArr = $this->input->post('to_time');
-			$managedByArr = $this->input->post('managed_by');
-			if(!empty($programNameArr))
-			{
-				foreach($programNameArr as $key => $value)
-				{
-					$data = array(
-						'program_name' => $value,
-						'location' => $locationArr[$key],
-						'activity' => $activityArr[$key],
-						'from_time' => $fromTimeArr[$key],
-						'to_time' => $toTimeArr[$key],
-						'managed_by' => $managedByArr[$key],
-						'extra_day_activity_id' => $extraActivityId
-					);
-					$this->db->insert(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $data);
-				}
-			}
-		}
-
 		/**
-		*This function is used to get the group reference number from booking table according to -
-		*arrval and departure date , centre name , with active and confirm status - to show in the
-		*group reference dropdown
+		*This function is used to get the activity details - date and time slot wise
 		*
-		*@param NONE
-		*@return Array $returnArr : dropdown array with id as key and reference number as value
+		*@param Array $idArr : id array
+		*@return Array
 		*/
-		public function getGroupReference()
+		public function getActivityDetails($idArr = array())
 		{
-			$returnArr = array(
-				'' => 'Please select group'
-			);
-			$result = $this->db->select("id_book as id , concat(id_year , '_' , id_book) as name" , FALSE)
-								->where("'".date('Y-m-d' , strtotime($this->input->post('date')))."' between arrival_date and departure_date" , NULL , FALSE)
-								->where("(status = 'confirmed' OR status = 'active')")
-								->where('id_centro' , $this->input->post('centre_id'))
-								->get(TABLE_PLUS_BOOK)->result_array();
+			$returnArr = array();
+			$result = $this->db->select('extra_day_activity_details_id as id , activity as name , from_time , to_time , extra_day_activity_id')
+							->where_in('extra_day_activity_id' , $idArr)
+							->order_by('from_time' , 'asc')
+							->get(TABLE_EXTRA_DAY_ACTIVITY_DETAILS)->result_array();
 			if(!empty($result))
 			{
 				foreach($result as $value)
-					$returnArr[$value['id']] = $value['name'];
+					$returnArr[date('H:i' , strtotime($value['from_time'])).'-'.date('H:i' , strtotime($value['to_time']))][$value['extra_day_activity_id']][] = $value;
 			}
 			return $returnArr;
 		}
 
 		/**
-		*This function is used to prepare the html for the extra activity details to show
+		*This function is used to get the master activity details to copy the same to
+		*the extra activity table
 		*
 		*@param NONE
-		*@return String $htmlStr : the html string
+		*@return Array
 		*/
-		public function createActivityDetails()
+		public function getMaterActivityDetails()
 		{
-			$htmlStr = '';
-			$detailsArr = $this->getExtraActivity();
-			if(!empty($detailsArr))
+			$returnArr = array();
+			$dateRange = $this->db->select('arrival_date , departure_date')
+								->where('id_book' , $this->input->post('group_reference_id'))
+								->get(TABLE_PLUS_BOOK)->row_array();
+			$masterDetails = $this->db->select('master_activity_id , arrival_date , departure_date')
+										->where('centre_id' , $this->input->post('centre_id'))
+										->where('student_group' , $this->input->post('student_group'))
+										->where("(
+													(
+														'".date('Y-m-d' , strtotime($dateRange['arrival_date']))."' >= cast(arrival_date AS DATE)
+														AND
+														'".date('Y-m-d' , strtotime($dateRange['arrival_date']))."' <= cast(departure_date AS DATE)
+													)
+													OR
+													(
+														'".date('Y-m-d' , strtotime($dateRange['departure_date']))."' >= cast(arrival_date AS DATE)
+														AND
+														'".date('Y-m-d' , strtotime($dateRange['departure_date']))."' <= cast(departure_date AS DATE)
+													)
+												)")
+										->get(TABLE_MASTER_ACTIVITY)->row_array();
+			if(!empty($masterDetails))
 			{
-				foreach($detailsArr as $value)
-					$htmlStr.= $this->createHtml($value , count($detailsArr));
+				$result = $this->db->select('a.date , b.program_name , b.location , b.activity , b.from_time , b.to_time , b.managed_by')
+								->from(TABLE_FIXED_DAY_ACTIVITY.' a')
+								->join(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
+								->where("cast(a.date as DATE) between '".$dateRange['arrival_date']."' AND '".$dateRange['departure_date']."'")
+								->order_by('cast(a.date as DATE)' , 'asc')
+								->get()->result_array();
+				if(!empty($result))
+				{
+					foreach($result as $value)
+					{
+						if($value['date'] == $dateRange['arrival_date'])
+						{
+							$returnArr[$value['date']] = $this->db->select('b.program_name , b.location , b.activity , b.from_time , b.to_time , b.managed_by')
+																	->from(TABLE_FIXED_DAY_ACTIVITY.' a')
+																	->join(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
+																	->where("cast(a.date as DATE) = '".$masterDetails['arrival_date']."'")
+																	->where('a.master_activity_id' , $masterDetails['master_activity_id'])
+																	->order_by('cast(a.date as DATE)' , 'asc')
+																	->get()->result_array();
+						}
+						elseif($value['date'] == $dateRange['departure_date'])
+						{
+							$returnArr[$value['date']] = $this->db->select('b.program_name , b.location , b.activity , b.from_time , b.to_time , b.managed_by')
+																	->from(TABLE_FIXED_DAY_ACTIVITY.' a')
+																	->join(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
+																	->where("cast(a.date as DATE) = '".$masterDetails['departure_date']."'")
+																	->where('a.master_activity_id' , $masterDetails['master_activity_id'])
+																	->order_by('cast(a.date as DATE)' , 'asc')
+																	->get()->result_array();
+						}
+						else
+						{
+							$returnArr[$value['date']][] = array(
+								'program_name' => $value['program_name'],
+								'location' => $value['location'],
+								'activity' => $value['activity'],
+								'from_time' => $value['from_time'],
+								'to_time' => $value['to_time'],
+								'managed_by' => $value['managed_by']
+							);
+						}
+					}
+				}
 			}
-			return $htmlStr;
+			return $returnArr;
 		}
 
 		/**
-		*This function is used to create the dynamic HTML string for the extra activity details section
+		*This function is used to update timing for activity details
 		*
-		*@param Array $data : the values for the field
-		*@param Array $globalCount : the count of the total element
-		*@return String $htmlStr : the html string
+		*@param NONE
+		*@return NONE
 		*/
-		public function createHtml($data = array() , $globalCount = NULL)
+		public function updateActivityTiming()
 		{
-			$htmlStr = '<div class="addMoreWrapper">
-							<div class="form-group form-border-box-wrapper">
-								<div class="form-group col-lg-4 marginRightClass">
-									<label>Type of activity</label>
-									<input name="program_name[]" value="'.$data['program_name'].'" class="form-control" placeholder="Program Name" type="text">
-									<span class="error showErrorMsg"></span>
-								</div>
-								<div class="form-group col-lg-4 marginRightClass">
-									<label>Location</label>
-									<input name="location[]" value="'.$data['location'].'" class="form-control" placeholder="Location" type="text">
-									<span class="error showErrorMsg"></span>
-								</div>
-								<div class="form-group col-lg-4 marginRightClass">
-									<label>Activity</label>
-									<input name="activity[]" value="'.$data['activity'].'" class="form-control" placeholder="Activity" type="text">
-									<span class="error showErrorMsg"></span>
-								</div>
-								<div class="form-group col-lg-4 marginRightClass">
-									<label>From time</label>
-									<div class="input-append date timepicker" style="width: 90%;">
-										<input name="from_time[]" value="'.$data['from_time'].'" class="form-control" placeholder="From Time" data-format="hh:mm:ss" type="text">
-										<span class="add-on" style="height:34px;">
-											<i class="fa fa-lg fa-clock icon-time"></i>
-										</span>
-									</div>
-									<span class="error showErrorMsg"></span>
-								</div>
-								<div class="form-group col-lg-4 marginRightClass">
-									<label>To time</label>
-									<div class="input-append date timepicker" style="width: 90%;">
-										<input name="to_time[]" value="'.$data['to_time'].'" class="form-control" placeholder="To Time" data-format="hh:mm:ss" type="text">
-										<span class="add-on" style="height:34px;">
-											<i class="fa fa-lg fa-clock icon-time"></i>
-										</span>
-									</div>
-									<span class="error showErrorMsg"></span>
-								</div>
-								<div class="form-group col-lg-4 marginRightClass">
-									<label>Managed by</label>
-									<input name="managed_by[]" value="'.$data['managed_by'].'" class="form-control" placeholder="Managed by" type="text">
-									<span class="error showErrorMsg"></span>
-								</div>
-							</div>
-							<div style="float: right; margin-top:-12px;">
-								<i class="fa fa-lg fa-plus-circle add_section addMoreTable" aria-hidden="true"></i>';
-			if($globalCount > 1)
-				$htmlStr.= '<i class="fa fa-lg fa-minus-circle delete_section removeMoreTable" aria-hidden="true"></i>';
-			$htmlStr.= '</div><br>
-						</div>';
-			return $htmlStr;
+			$data[$this->input->post('fieldName')] = $this->input->post('time');
+			$this->db->where_in('extra_day_activity_details_id' , $this->input->post('activityIdArr'))
+					->update(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $data);
 		}
 	}

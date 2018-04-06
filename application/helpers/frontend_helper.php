@@ -318,4 +318,79 @@
 					->where('delete_flag' , 0)
 					->get(TABLE_PLUS_MANAGE_ADULT_COURSE)->result_array();
 	}
+
+	/**
+	*This function is used to create the from and to time dropdown and return to show in the table section
+	*
+	*@param String $timeSlot : This is the time slot string
+	*@return String : Start and finish time dropdown
+	*/
+	if(!function_exists('createTimingDropdown'))
+	{
+		function createTimingDropdown($timeSlot = NULL)
+		{
+			//For hour
+			$hourArr = array('' => 'HH');
+			for($i = 0 ; $i <= 23 ; $i++)
+			{
+				$j = ($i <= 9) ? '0'.$i : $i;
+				$hourArr[$j] = $j;
+			}
+			//For minute
+			$minArr = array('' => 'MM');
+			for($i = 0 ; $i <= 59 ; $i++)
+			{
+				$j = ($i <= 9) ? '0'.$i : $i;
+				$minArr[$j] = $j;
+			}
+			$timeSlotArr = explode(':' , $timeSlot);
+			return form_dropdown('' , $hourArr , $timeSlotArr[0] , 'class="hourDropdown"')
+					.'&nbsp;&nbsp;'.form_dropdown('' , $minArr , $timeSlotArr[1] , 'class="minDropdown"');
+		}
+	}
+
+	/**
+	*This function is used to get the activity program type dropdown(master activity/group wise activity)
+	*
+	*@param NONE
+	*@return NONE
+	*/
+	if(!function_exists('getReportTypeDropdown'))
+	{
+		function getReportTypeDropdown()
+		{
+			return array(
+				'' => 'Please select type',
+				'1' => 'Master activity',
+				'2' => 'Group wise activity'
+			);
+		}
+	}
+
+	/**
+	*This function is used to get the dropdown values for contact person name(used in the activity program managed by column)
+	*
+	*@param NONE
+	*@return NONE
+	*/
+	if(!function_exists('getContractPersonDropdown'))
+	{
+		function getContractPersonDropdown()
+		{
+			$returnArr = array(
+				'' => 'Please select'
+			);
+			$CI = &get_instance();
+			$result = $CI->db->select("ta_id as id , concat_ws(' ' ,  ta_firstname , ta_lastname) as name" , FALSE)
+								->where('ta_is_deleted' , 0)
+								->order_by("concat_ws(' ' ,  ta_firstname , ta_lastname)")
+								->get(TABLE_TEACHER_APPLICATION)->result_array();
+			if(!empty($result))
+			{
+				foreach($result as $value)
+					$returnArr[$value['id']] = $value['name'];
+			}
+			return $returnArr;
+		}
+	}
 ?>

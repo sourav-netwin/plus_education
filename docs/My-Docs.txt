@@ -226,12 +226,14 @@ function vimeoApi()
 
 Prashant : {(350+150+50+110)-(60+500)}
 Sumeet : 200/-
+Amit : 100/-
 
 Tiffin upto 31st October , 2017 : 340/- (paid)
 Tiffin upto 31st November , 2017 : 375/-(paid) : Balance - 25/-
 Tiffin upto 31st December , 2017 : 500/-(Paid) : Balance - 50/- 
 Tiffin upto 31st January , 2018 : 425/-(Paid) : Balance - 75/-
 Tiffin upto 28th February , 2018 : 400/-(Paid)
+Tiffin upto 31st March , 2018 : 525/-
 
 ===============================================================================================================================
 
@@ -268,9 +270,7 @@ http://netwinindia.net/itsupport/osticket/upload/view.php
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Completed activity report modification .
-(2)Completed extra activity module functionality .
-(3)Upload changes related to the master and extra activity on live .
+(1)Completed export to pdf functionality in activity program section .
 
 
 ===============================================================================================================================
@@ -281,26 +281,31 @@ http://netwinindia.net/itsupport/osticket/upload/view.php
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Before we have shown the activity report as per the centre name and the date range . Now we have shown that activity report as per centre , student group
-, arrival and departure date wise . With the change of the centre we have shown the student group of that centre . Also we have changed in the filter search
- and export to excel functionality as per the new changes in master activity . Completed the changes and tested properly .
- 
-(2)Started working on the extra activity functionality . In the left section we have added one option to manage the extra activity . If admin will click on that
-menu then that particular management will open . In that page there are two section . First is the search section and another one is the manage activity section .
-In the search section , there is select centre , group and group reference option . With the change of the centre dropdown the student group and the group reference
-will selected from database according to the centre id . We have applied the required validation to every field . After successfully done the validation the searched record
-will appear . We get the arrival and departure date according to the group reference number and show in the non editable format . In the second section we have shown the table
-formatted activity details . Also we have saved the activity details in the hidden so that we can retrive them easily to show the details . We have done the add more and remove more
-functionality on click of the plus and minus icon . Also on click of any table column we have opened the activity details . Admin can delete any activity by clicking on the delete
-icon from the table column . Also we have implemented drag and drop functionality . If admin will drag any activity and drop it to any another column then we have saved the details
-in the hidden field as well as in the database too . Completed all the functionality related to manage extra activity and tested properly . 
+(1)Started working on the export to pdf functionality in activity program module . In campus manager's login , activity program module , after search the 
+activity , we have shown the activity details in table format . Also we have shown the export to excel and export to pdf button to export the same data . 
+If the searched result does not find any activity then we hide those buttons . After click on the export in pdf button one pdf file will open . In that file
+header section , we have shown the centre name and the group name . For master activity we have shown the activity name and for extra activity we have shown the 
+group reference number . Also there is one copany logo in the header section . Below that we ahve shown the activity details inthe table format . If more than one
+activity present for one time slot then we have shown them with one slash separator . We have shown the activity details 7 days in one row . For the rest activity
+details we have shown them in another page . Completed that functionality and tested properly .
 
-(3)Upload changes related to the master activity and extra activity on live and tested properly .
+=================================================================================================================================
+Drupal Credentials :
+user name : admin
+password : admin123
+email : sourav.netwin@gmail.com
+
+plused_job_positions
+pulsed_job_contract
+plused_teacher_application
+
 
 =================================================================================================================================
 
+SELECT * FROM `plused_role_menu` where mnu_menu_name like '%Manage master activity%' or mnu_menu_name like '%Manage extra activity%' or mnu_menu_name like '%Activity report%' or mnu_menu_name like '%Manage student group%' 
 
+//Install drush on windows
+https://www.drupal.org/node/594744
 
-
-
-
+//Migrate module documentation
+https://www.drupal.org/node/1006982

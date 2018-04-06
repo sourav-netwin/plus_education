@@ -3,6 +3,8 @@
 <script src="<?php echo base_url(); ?>js/admin/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>js/admin/dataTables.bootstrap.min.js"></script>
 
+<link href="<?php echo base_url(); ?>css/custom.css?v=0.7" rel="stylesheet">
+
 <!------------custom javascript for for master modules------------>
 <script>
 	var pageType = 'list';
@@ -23,7 +25,7 @@
 				</div>
 				<div class="x_content box-body">
 					<h3><?php echo $moduleArr['title']; ?></h3><hr>
-					<table id="datatable" class="table table-striped table-bordered">
+					<table id="datatable" class="table table-striped table-bordered masterTable">
 						<thead>
 							<tr>
 								<th>Si no.</th>

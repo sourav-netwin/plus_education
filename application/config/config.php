@@ -451,6 +451,7 @@ $config['global_xss_filtering'] = FALSE;
 if(stripos($_SERVER["REQUEST_URI"] , 'extra_activity') !== FALSE ||
 	stripos($_SERVER["REQUEST_URI"] , 'day-to-day-activity') !== FALSE ||
 	stripos($_SERVER["REQUEST_URI"] , 'datatable') !== FALSE ||
+	stripos($_SERVER["REQUEST_URI"] , 'activity_program') !== FALSE ||
 	stripos($_SERVER["REQUEST_URI"] , 'master_activity') !== FALSE)
 	$config['csrf_protection'] = FALSE;
 else

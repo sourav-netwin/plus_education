@@ -1,7 +1,7 @@
 <?php
 /*---------------For manage fixed activity module(Start)---------------*/
-	$lang['manage_fixed_activity']['dbName'] = TABLE_FIXED_DAY_ACTIVITY;
-	$lang['manage_fixed_activity']['key'] = 'fixed_day_activity_id';
+	$lang['manage_fixed_activity']['dbName'] = TABLE_MASTER_ACTIVITY;
+	$lang['manage_fixed_activity']['key'] = 'master_activity_id';
 	$lang['manage_fixed_activity']['title'] = 'Master Activity';
 	$lang['manage_fixed_activity']['list'] = array(
 		'centre_id' => array(
@@ -10,14 +10,30 @@
 			'module' => 'centre',
 			'columnNo' => 1
 		),
-		'date' => array(
-			'columnTitle' => 'Date',
-			'type' => 'date',
+		'student_group' => array(
+			'columnTitle' => 'Student\'s group',
+			'type' => 'dropdown',
+			'module' => 'manage_student_group',
 			'columnNo' => 2
+		),
+		'activity_name' => array(
+			'columnTitle' => 'Activity name',
+			'type' => 'text',
+			'columnNo' => 3
+		),
+		'arrival_date' => array(
+			'columnTitle' => 'Arrival date',
+			'type' => 'date',
+			'columnNo' => 4
+		),
+		'departure_date' => array(
+			'columnTitle' => 'Departure date',
+			'type' => 'date',
+			'columnNo' => 5
 		)
 	);
 	$lang['manage_fixed_activity']['list']['actionColumn'] = array(
-		'columnNo' => 3,
+		'columnNo' => 6,
 		'actionType' => array('edit')
 	);
 /*---------------For manage fixed activity module(End)---------------*/
@@ -30,4 +46,13 @@
 		'value' => 'nome_centri'
 	);
 /*---------------For manage Centre(End)---------------*/
+
+/*---------------For manage student group module(Start)---------------*/
+	$lang['manage_student_group']['dbName'] = TABLE_STUDENT_GROUP;
+	$lang['manage_student_group']['key'] = 'student_group_id';
+	$lang['manage_student_group']['dropdown'] = array(
+		'key' => 'student_group_id',
+		'value' => 'group_name'
+	);
+/*---------------For manage student group module(End)---------------*/
 ?>

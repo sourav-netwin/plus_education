@@ -1,4 +1,5 @@
 /********************Custom.css*********************/
+/* Current Version : 0.7 */
 .agent-dropdown-menu{
 	min-width: 160px;
 }
@@ -1035,4 +1036,57 @@ span.icon-bar {
 .changeSequenceIcon{
 	font-size: 25px !important;
 	cursor: pointer;
+}
+
+.masterTable th, .masterTable td{
+	color : black !important;
+}
+
+.activityProgramTable{
+	table-layout: fixed;
+}
+
+.activityProgramTable th, .activityProgramTable td{
+	color : black !important;
+}
+
+.activityProgramTable td{
+	vertical-align: middle !important;
+}
+.activityProgramTable th{
+	width: 180px;
+}
+
+.activityProgramTable .actionColumn{
+	width : 115px;
+	vertical-align: middle !important;
+}
+
+.activityProgramTable .timeColumn{
+	width: 285px;
+}
+
+.enterDetails{
+	cursor : pointer;
+}
+
+.draggableItem{
+	cursor: move;
+	border: 1px solid #d1ddd1;
+	background-color: #d1ddd1;
+	padding: 4px;
+	border-radius: 20px;
+}
+
+.addMoreActivityDetails{
+	color: green;
+	font-size: 20px;
+	float: right;
+	cursor : pointer;
+}
+
+.deleteActivityDetails{
+	float: right;
+	color: red;
+	cursor : pointer;
 }

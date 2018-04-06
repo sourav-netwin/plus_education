@@ -1,19 +1,13 @@
 <!----------Form validation js----------->
 <script src="<?php echo base_url(); ?>js/admin/jquery.validate.min.js"></script>
 
-<!---------------Date picker css and js-------------->
-<link href="<?php echo base_url(); ?>css/datepicker.css" type="text/css" rel="stylesheet" media="all">
-<script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+<link href="<?php echo base_url(); ?>css/custom.css" type="text/css" rel="stylesheet" media="all">
 <script>
-$(document).ready(function(){
-	$('.datepicker').datepicker({
-		format: "dd-mm-yyyy",
-		autoclose: true
-	});
-});
+	var baseUrl = "<?php echo base_url(); ?>";
 </script>
+<script src="<?php echo base_url(); ?>js/admin/activity_program.js"></script>
 
-<div class="col-lg-9 col-md-9 col-sm-6 col-xs-12" style="padding: 0;">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
 	<div class="w3-row-padding customPaddingClass">
 		<div class="w3-col m12 customPaddingClass">
 			<div class="w3-card w3-round w3-white">
@@ -56,7 +50,7 @@ $(document).ready(function(){
 									echo form_open_multipart('' , $formAttribute);
 ?>
 										<input type="hidden" name="flag" value="search" />
-										<div class="col-lg-6">
+										<div class="col-lg-4">
 											<label class="control-label custom-control-label col-lg-3">Centre<span class="required">*</span></label>
 											<div class="col-lg-9">
 <?php
@@ -65,56 +59,79 @@ $(document).ready(function(){
 ?>
 											</div>
 										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-4">
 											<label class="control-label custom-control-label col-lg-3">Group</label>
 											<div class="col-lg-9">
 <?php
-												$groupId = isset($post['group_id']) ? $post['group_id'] : '';
-												echo form_dropdown('group_id' , $groupDropdown , $groupId , 'class="form-control" id="group_id"');
+												$studentGroupId = isset($post['student_group']) ? $post['student_group'] : '';
+												echo form_dropdown('student_group' , $groupDropdown , $studentGroupId , 'class="form-control" id="student_group"');
+?>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<label class="control-label custom-control-label col-lg-3">Type<span class="required">*</span></label>
+											<div class="col-lg-9">
+<?php
+												$reportType = isset($post['reportType']) ? $post['reportType'] : '';
+												echo form_dropdown('reportType' , getReportTypeDropdown() , $reportType , 'class="form-control" id="reportType"');
 ?>
 											</div>
 										</div>
 										<div class="clearfix"></div><br>
-										<div class="col-lg-6">
-											<label class="control-label custom-control-label col-lg-3">From<span class="required">*</span></label>
+										<div class="col-lg-4">
+											<label class="control-label custom-control-label col-lg-3">Activity<span class="required">*</span></label>
 											<div class="col-lg-9">
 <?php
-												$fieldAttribute = array(
-													'name' => 'from_date',
-													'class' => 'form-control datepicker',
-													'value' => isset($post['from_date']) ? $post['from_date'] : '',
-													'placeholder' => 'dd-m-yyyy',
-													'id' => 'from_date'
-												);
-												echo form_input($fieldAttribute);
-?>
-												<span class="error customError"></span>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<label class="control-label custom-control-label col-lg-3">To<span class="required">*</span></label>
-											<div class="col-lg-9">
-<?php
-												$fieldAttribute = array(
-													'name' => 'to_date',
-													'class' => 'form-control datepicker',
-													'value' => isset($post['to_date']) ? $post['to_date'] : '',
-													'placeholder' => 'dd-m-yyyy',
-													'id' => 'to_date'
-												);
-												echo form_input($fieldAttribute);
+												$selectType = isset($post['selectType']) ? $post['selectType'] : '';
+												echo form_dropdown('selectType' , $selectDropdownArr , $selectType , 'class="form-control" id="selectType"');
 ?>
 											</div>
 										</div>
-										<div class="col-lg-6 col-lg-offset-4" style="padding-left: 30px;padding-top: 25px;">
+										<div class="col-lg-4">
+											<label class="control-label custom-control-label col-lg-5">Arrival date</label>
+											<div class="col-lg-7">
+<?php
+												$inputAttribute = array(
+													'name' => 'arrival_date',
+													'class' => 'form-control',
+													'id' => 'arrival_date',
+													'placeholder' => 'dd-mm-yyyy',
+													'value' => isset($post['arrival_date']) ? $post['arrival_date'] : '',
+													'disabled' => 'disabled'
+												);
+												echo form_input($inputAttribute);
+?>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<label class="control-label custom-control-label col-lg-5">Departure date</label>
+											<div class="col-lg-7">
+<?php
+												$inputAttribute = array(
+													'name' => 'departure_date',
+													'class' => 'form-control',
+													'id' => 'departure_date',
+													'placeholder' => 'dd-mm-yyyy',
+													'value' => isset($post['departure_date']) ? $post['departure_date'] : '',
+													'disabled' => 'disabled'
+												);
+												echo form_input($inputAttribute);
+?>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-lg-6 col-lg-offset-5" style="padding-left: 30px;padding-top: 25px;">
 											<button class="btn btn-warning" type="submit">
 												<i class="fa fa-search"></i>  Search
 											</button>
 <?php
-											if(isset($post['htmlStr']))
+											if(!empty($post['datesArr']) && !empty($post['details']))
 											{
 ?>
-												<button class="btn btn-success" type="button" style="margin-left: 10px;" onclick="window.open('<?php echo base_url().'video_gallery/open_pdf'; ?>' , '_blank')">
+												<button class="btn btn-success" type="button" style="margin-left: 10px;" onclick="window.open('<?php echo base_url().'activity_program/export_to_excel'; ?>' , '_blank')">
+													<i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Export to excel
+												</button>
+												<button class="btn btn-danger" type="button" style="margin-left: 10px;" onclick="window.open('<?php echo base_url().'activity_program/export_to_pdf'; ?>' , '_blank')">
 													<i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;Export to pdf
 												</button>
 <?php
@@ -126,10 +143,6 @@ $(document).ready(function(){
 								</div>
 								<div class="clearfix"></div><br>
 								<!----------For search section End---------->
-<?php
-								if(isset($post['htmlStr']))
-									echo $post['htmlStr'];
-?>
 							</div>
 						</div>
 					</div>
@@ -137,50 +150,89 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-</div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		//This is to check the validation for the search fields using jquery validator
-		$('#searchForm').validate({
-			errorElement : 'span',
-			rules : {
-				centre_id : {
-					required : true
-				},
-				from_date : {
-					required : true
-				},
-				to_date : {
-					required : true
-				}
-			},
-			submitHandler : function(){
-				var dateArr1 = $('#from_date').val().split('-');
-				var dateArr2 = $('#to_date').val().split('-');
-				if(new Date(dateArr1[2] , dateArr1[1]-1 , dateArr1[0]) > new Date(dateArr2[2] , dateArr2[1]-1 , dateArr2[0]))
-				{
-					$('.customError').text('<?php echo $this->lang->line('from_to_error_date'); ?>').css('display' , 'block');
-					return false;
-				}
-				else
-				{
-					$('.customError').text('');
-					return true;
-				}
-			}
-		});
 
-		//On change of the centre dropdown , it will get the group dropdown values through ajax call
-		$(document).on('change' , '#centre_id' , function(){
-			$.ajax({
-				url : '<?php echo base_url(); ?>video_gallery/get_group',
-				type : 'POST',
-				data : {'centre_id' : $(this).val() , 'csrf_test_name' : $.cookie('csrf_cookie_name')},
-				success : function(response){
-					$('#group_id').empty();
-					$('#group_id').append(response);
-				}
-			});
-		});
-	});
-</script>
+	<!-----------Show Activity program report Start------------>
+	<div class="x_panel">
+		<div class="x_content">
+			<div class="box box-primary">
+				<div class="box-body">
+					<div class="col-lg-12">
+						<div id="previewContainer">
+<?php
+							if(!empty($post['datesArr']) && !empty($post['details']))
+							{
+?>
+								<div style="width:100%;overflow:scroll;">
+									<table class="table table-striped table-bordered activityProgramTable">
+										<thead>
+											<tr>
+												<th class="timeColumn" colspan="2">Date</th>
+<?php
+												foreach($post['datesArr'] as $dateValue)
+													echo "<th>".date('d-M-Y' , strtotime($dateValue))."</th>";
+?>
+											</tr>
+											<tr>
+												<th>Start</th>
+												<th>Finish</th>
+<?php
+												foreach($post['datesArr'] as $dateValue)
+													echo "<th>".date('l' , strtotime($dateValue))."</th>";
+?>
+											</tr>
+										</thead>
+										<tbody>
+<?php
+											foreach($post['details'] as $timeSlot => $detailsValue)
+											{
+?>
+												<tr>
+
+													<td class="tdStartTime">
+<?php
+														$tempArr = explode('-' , $timeSlot);
+														echo $tempArr[0];
+?>
+													</td>
+													<td class="tdFinishTime">
+<?php
+														$tempArr = explode('-' , $timeSlot);
+														echo $tempArr[1];
+?>
+													</td>
+<?php
+													foreach($post['datesArr'] as $datesId => $dateValue)
+													{
+?>
+														<td>
+<?php
+															if(isset($detailsValue[$datesId]))
+															{
+																echo implode(' / ' , $detailsValue[$datesId]);
+															}
+?>
+														</td>
+<?php
+													}
+?>
+												</tr>
+<?php
+											}
+?>
+										</tbody>
+									</table>
+								</div>
+<?php
+							}
+							elseif(isset($errorMessage))
+								echo '<p style="color: red;font-size: 18px;">'.$errorMessage.'</p>';
+?>
+						</div>
+					</div>
+					<div class="clearfix"></div><br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-----------Show Activity program report End------------>
+</div>

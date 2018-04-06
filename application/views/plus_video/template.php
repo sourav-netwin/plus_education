@@ -60,7 +60,7 @@
 				}
 				else if(currentUrl.indexOf('manage_activity') != -1)
 					$('.manage-activity').css('color' , '#000').css('background-color' , '#fff');
-				else if(currentUrl.indexOf('day-to-day-activity') != -1 || currentUrl.indexOf('extra_activity') != -1 || currentUrl.indexOf('manage_fixed_activity') != -1 || currentUrl.indexOf('master_activity') != -1)
+				else if(currentUrl.indexOf('day-to-day-activity') != -1 || currentUrl.indexOf('extra_activity') != -1 || currentUrl.indexOf('master_activity') != -1 || currentUrl.indexOf('manage_fixed_activity') != -1)
 					$('.day-to-day-activity').css('color' , '#000').css('background-color' , '#fff');
 				else
 				{
