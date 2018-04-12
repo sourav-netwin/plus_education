@@ -14,6 +14,11 @@
 				<div class="w3-container w3-padding">
 					<h6 class="w3-opacity" style="font-weight: bold;font-size: 20px;">
 						<i class="fa fa-calendar" aria-hidden="true" style="margin-right: 10px;"></i>Activity Programme
+						<a style="float: right;margin-left: 10px;" href="<?php echo base_url(); ?>master_activity/report">
+							<button class="btn btn-gap btn-success">
+								<i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Activity Report
+							</button>
+						</a>
 						<a style="float: right;margin-left: 10px;" href="<?php echo base_url(); ?>extra_activity">
 							<button class="btn btn-danger">
 								<i class="fa fa-cogs"></i>&nbsp;&nbsp;Manage Extra Activity

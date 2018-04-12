@@ -18,10 +18,9 @@
 		<script src="<?php echo base_url(); ?>js/admin/jquery.validate.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/admin/jquery.base64.min.js"></script>
 		<script>var baseUrl = "<?php echo base_url(); ?>";</script>
-		<script src="<?php echo base_url(); ?>js/admin/particles_custom.js"></script>
 	</head>
 
-	<body class="login" style="background: url(<?php echo base_url(); ?>/images/banner.jpg)no-repeat 0px 0px;">
+	<body class="login" style="background: url(<?php echo base_url(); ?>/images/banner.jpg?v=1)no-repeat 0px 0px;">
 		<div class="login_wrapper">
 			<div class="container">
 				<div id="login-box">

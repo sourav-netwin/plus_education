@@ -36,6 +36,7 @@
 		'columnNo' => 6,
 		'actionType' => array('edit')
 	);
+	$lang['manage_fixed_activity']['listWhere'] = 'centre_id = '.$_SESSION['centre_id'];
 /*---------------For manage fixed activity module(End)---------------*/
 
 /*---------------For manage Centre(Start)---------------*/
@@ -45,6 +46,7 @@
 		'key' => 'id',
 		'value' => 'nome_centri'
 	);
+	$lang['centre']['listWhere'] = '((attivo = 1) OR (is_mini_stay = 1 AND attivo = 0))';
 /*---------------For manage Centre(End)---------------*/
 
 /*---------------For manage student group module(Start)---------------*/

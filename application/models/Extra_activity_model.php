@@ -5,6 +5,7 @@
 		public function __construct()
 		{
 			parent::__construct();
+			$this->load->model('Front_model' , '' , TRUE);
 		}
 
 		/**
@@ -50,7 +51,7 @@
 														AND
 														'".date('Y-m-d' , strtotime($dateRange['arrival_date']))."' <= cast(departure_date AS DATE)
 													)
-													OR
+													AND
 													(
 														'".date('Y-m-d' , strtotime($dateRange['departure_date']))."' >= cast(arrival_date AS DATE)
 														AND
@@ -60,49 +61,36 @@
 										->get(TABLE_MASTER_ACTIVITY)->row_array();
 			if(!empty($masterDetails))
 			{
-				$result = $this->db->select('a.date , b.program_name , b.location , b.activity , b.from_time , b.to_time , b.managed_by')
+				$result = $this->db->select('a.date , b.fixed_day_activity_details_id , b.program_name , b.location , b.activity , b.from_time , b.to_time')
 								->from(TABLE_FIXED_DAY_ACTIVITY.' a')
 								->join(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
-								->where("cast(a.date as DATE) between '".$dateRange['arrival_date']."' AND '".$dateRange['departure_date']."'")
+								->where('a.master_activity_id' , $masterDetails['master_activity_id'])
+								->where("(cast(a.date as DATE) between '".$dateRange['arrival_date']."' AND '".$dateRange['departure_date']."' OR
+											cast(a.date as DATE) = '".$masterDetails['arrival_date']."' OR
+											cast(a.date as DATE) = '".$masterDetails['departure_date']."')")
 								->order_by('cast(a.date as DATE)' , 'asc')
 								->get()->result_array();
 				if(!empty($result))
 				{
 					foreach($result as $value)
 					{
-						if($value['date'] == $dateRange['arrival_date'])
-						{
-							$returnArr[$value['date']] = $this->db->select('b.program_name , b.location , b.activity , b.from_time , b.to_time , b.managed_by')
-																	->from(TABLE_FIXED_DAY_ACTIVITY.' a')
-																	->join(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
-																	->where("cast(a.date as DATE) = '".$masterDetails['arrival_date']."'")
-																	->where('a.master_activity_id' , $masterDetails['master_activity_id'])
-																	->order_by('cast(a.date as DATE)' , 'asc')
-																	->get()->result_array();
-						}
-						elseif($value['date'] == $dateRange['departure_date'])
-						{
-							$returnArr[$value['date']] = $this->db->select('b.program_name , b.location , b.activity , b.from_time , b.to_time , b.managed_by')
-																	->from(TABLE_FIXED_DAY_ACTIVITY.' a')
-																	->join(TABLE_FIXED_DAY_ACTIVITY_DETAILS.' b' , 'a.fixed_day_activity_id = b.fixed_day_activity_id' , 'left')
-																	->where("cast(a.date as DATE) = '".$masterDetails['departure_date']."'")
-																	->where('a.master_activity_id' , $masterDetails['master_activity_id'])
-																	->order_by('cast(a.date as DATE)' , 'asc')
-																	->get()->result_array();
-						}
-						else
-						{
-							$returnArr[$value['date']][] = array(
-								'program_name' => $value['program_name'],
-								'location' => $value['location'],
-								'activity' => $value['activity'],
-								'from_time' => $value['from_time'],
-								'to_time' => $value['to_time'],
-								'managed_by' => $value['managed_by']
-							);
-						}
+						$managedByArr = (isset($value['fixed_day_activity_details_id'])) ? $this->Front_model->commonGetData('managed_by_name , type' , 'fixed_day_activity_details_id = '.$value['fixed_day_activity_details_id'] , TABLE_FIXED_DAY_MANAGED_BY , 'managed_by_name' , 'asc' , 2) : array();
+						$returnArr[$value['date']][] = array(
+							'program_name' => $value['program_name'],
+							'location' => $value['location'],
+							'activity' => $value['activity'],
+							'from_time' => $value['from_time'],
+							'to_time' => $value['to_time'],
+							'managed_by' => $managedByArr
+						);
 					}
 				}
+				//Set arrival dates activity(for group) to the master activity
+				$returnArr[$dateRange['arrival_date']] = $returnArr[$masterDetails['arrival_date']];
+				unset($returnArr[$masterDetails['arrival_date']]);
+				//Set departure dates activity(for group) to the master activity
+				$returnArr[$dateRange['departure_date']] = $returnArr[$masterDetails['departure_date']];
+				unset($returnArr[$masterDetails['departure_date']]);
 			}
 			return $returnArr;
 		}

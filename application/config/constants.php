@@ -157,6 +157,8 @@ define('TABLE_EXTRA_MASTER_ACTIVITY' , 'frontweb_extra_master_activity');
 define('TABLE_TEACHER_APPLICATION' , 'plused_teacher_application');
 define('TABLE_JOB_POSITION' , 'plused_job_positions');
 define('TABLE_JOB_CONTRACT' , 'pulsed_job_contract');
+define('TABLE_FIXED_DAY_MANAGED_BY' , 'frontweb_fixed_day_managed_by');
+define('TABLE_EXTRA_DAY_MANAGED_BY' , 'frontweb_extra_day_managed_by');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -187,12 +189,6 @@ if($_SERVER['HTTP_HOST'] == "localhost")
 
 	//Define file relative path for dom pdf config file
 	define('DOM_PDF_CONFIG_FILE' , '../stvision/vision/systemplus/plugins/dompdf/dompdf_config.inc.php');
-
-	//Define file relative path for php excel file
-	define('PHP_EXCEL_FILE' , '../stvision/vision/systemplus/application/third_party/PHPExcel_180/Classes/PHPExcel.php');
-
-	//Define file relative path for php excel writer file
-	define('PHP_EXCEL_WRITER_FILE' , '../stvision/vision/systemplus/application/third_party/PHPExcel_180/Classes/PHPExcel/Writer/Excel2007.php');
 }
 elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192.168.21.11")
 {
@@ -213,12 +209,6 @@ elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192
 
 	//Define file relative path for dom pdf config file
 	define('DOM_PDF_CONFIG_FILE' , '../stvision/vision/systemplus/plugins/dompdf/dompdf_config.inc.php');
-
-	//Define file relative path for php excel file
-	define('PHP_EXCEL_FILE' , '../stvision/vision/systemplus/application/third_party/PHPExcel_180/Classes/PHPExcel.php');
-
-	//Define file relative path for php excel writer file
-	define('PHP_EXCEL_WRITER_FILE' , '../stvision/vision/systemplus/application/third_party/PHPExcel_180/Classes/PHPExcel/Writer/Excel2007.php');
 }
 else
 {
@@ -239,12 +229,6 @@ else
 
 	//Define file relative path for dom pdf config file
 	define('DOM_PDF_CONFIG_FILE' , '../vision_ag/systemplus/plugins/dompdf/dompdf_config.inc.php');
-
-	//Define file relative path for php excel file
-	define('PHP_EXCEL_FILE' , '../vision_ag/systemplus/application/third_party/PHPExcel_180/Classes/PHPExcel.php');
-
-	//Define file relative path for php excel writer file
-	define('PHP_EXCEL_WRITER_FILE' , '../vision_ag/systemplus/application/third_party/PHPExcel_180/Classes/PHPExcel/Writer/Excel2007.php');
 }
 
 //Define image location details for program banner module images

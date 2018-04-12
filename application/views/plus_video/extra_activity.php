@@ -6,9 +6,9 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/sweetalert.css">
 <script src="<?php echo base_url(); ?>js/admin/sweetalert.min.js"></script>
 
-<!----------Datepicker CSS and JS--------->
-<link href="<?php echo base_url(); ?>css/datepicker.css" type="text/css" rel="stylesheet" media="all">
-<script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+<!-------------Bootstrap multiselect css and js---------------->
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/bootstrap-multiselect.css" />
+<script src="<?php echo base_url(); ?>js/admin/bootstrap-multiselect.js"></script>
 
 <!----------Jquery ui css/js--------->
 <link href="<?php echo base_url(); ?>css/admin/jquery-ui.css" type="text/css" rel="stylesheet" media="all">
@@ -20,7 +20,7 @@
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
 	var delete_confirmation = "<?php echo $this->lang->line("delete_confirmation"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/extra_activity.js?v=1.3"></script>
+<script src="<?php echo base_url(); ?>js/admin/extra_activity.js?v=1.7"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -317,9 +317,16 @@
 						<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Managed by</label>
 						<div class="col-md-6 col-sm-6 col-xs-12">
 <?php
-							echo form_dropdown('managed_by' , getContractPersonDropdown() , '' , 'class = "form-control" id = "managed_by"');
+							echo form_dropdown('managed_by[]' , getContractPersonDropdown() , '' , 'class = "form-control" id = "managed_by" multiple="multiple"');
 ?>
 						</div>
+					</div>
+					<div class="form-group moreManagedByPerson">
+						<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input name="managed_by_text[]" class="form-control" type="text">
+						</div>
+						<i class="fa fa-lg fa-plus-circle add_section addMorePerson" aria-hidden="true"></i>
 					</div>
 				</div>
 				<div class="modal-footer">

@@ -75,7 +75,16 @@
 						}
 					}
 					else
-						$data['errorMessage'] = 'No activity found';
+					{
+						$referenceArr = $this->Activity_program_model->getMasterActivityForGroup($post['arrival_date'] , $post['departure_date']);
+						if(!empty($referenceArr))
+						{
+							$post['datesArr'] = $referenceArr['datesArr'];
+							$post['details'] = $referenceArr['details'];
+						}
+						else
+							$data['errorMessage'] = 'No activity found';
+					}
 				}
 			}
 			$data['post'] = $post;
@@ -102,7 +111,7 @@
 				if($dropdownType == 1)
 					$data = $this->Front_model->commonGetData("id_book as id , concat(id_year , '_' , id_book) as name" , "(status = 'confirmed' OR status = 'active') AND id_centro = ".$this->input->post('centre_id') , TABLE_PLUS_BOOK , 'id_book' , 'asc' , 2);
 				elseif($dropdownType == 2)
-					$data = $this->Front_model->commonGetData("group_name as name , student_group_id as id" , 'centre_id = '.$this->input->post('centre_id') , TABLE_STUDENT_GROUP , 'group_name' , 'asc' , 2);
+					$data = $this->Front_model->commonGetData("group_name as name , student_group_id as id" , 'centre_id = '.$this->input->post('centre_id').' AND delete_flag=0' , TABLE_STUDENT_GROUP , 'group_name' , 'asc' , 2);
 				elseif($dropdownType == 3)
 					$data = $this->Front_model->commonGetData("activity_name as name , master_activity_id as id" , 'centre_id = '.$this->input->post('centre_id').' AND student_group = '.$this->input->post('student_group') , TABLE_MASTER_ACTIVITY , 'activity_name' , 'asc' , 2);
 			}
@@ -122,21 +131,17 @@
 		{
 			$activityDetails = $this->prepare_export_data();
 
-			//Required php excel files
-			require(PHP_EXCEL_FILE);
-			require(PHP_EXCEL_WRITER_FILE);
+			//Load Library for php excel loader
+			$this->load->library('excel_180');
 
-			//Create object for php excel
-			$objPHPExcel = new PHPExcel();
-
-			//Prepare active sheet
-			$objPHPExcel->setActiveSheetIndex(0);
-			$objPHPExcel->getActiveSheet()->setTitle("Activity Program");
+			//Create object for php excel active sheet
+			$newsheet = $this->excel_180->createSheet(0);
+			$newsheet->setTitle("Activity Program");
 
 			//Prepare header section
-			$objPHPExcel->getActiveSheet()->setCellValue("D1" , $this->session->userdata('centre'));
-			$objPHPExcel->getActiveSheet()->mergeCells('D1:E1');
-			$objPHPExcel->getActiveSheet()->getStyle('D1:E1')->getFont()->setSize(20)->getColor()->setRGB('273878');
+			$newsheet->setCellValue("D1" , $this->session->userdata('centre'));
+			$newsheet->mergeCells('D1:E1');
+			$newsheet->getStyle('D1:E1')->getFont()->setSize(20)->getColor()->setRGB('273878');
 
 			//Place company logo in the header
 			$objDrawing = new PHPExcel_Worksheet_Drawing();
@@ -151,17 +156,17 @@
 			$objDrawing->setResizeProportional(false);
 			$objDrawing->setWidth(186);
 			$objDrawing->setHeight(53);
-			$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
-			$objPHPExcel->getActiveSheet()->mergeCells('B1:C1');
-			$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(45);
+			$objDrawing->setWorksheet($newsheet);
+			$newsheet->mergeCells('B1:C1');
+			$newsheet->getRowDimension(1)->setRowHeight(45);
 
 			//Day column
-			$objPHPExcel->getActiveSheet()->setCellValue("B4" , 'Day');
-			$objPHPExcel->getActiveSheet()->mergeCells('B4:C4');
-			$this->columnStyling($objPHPExcel , 'B4:C4');
-			$this->addCellColor($objPHPExcel , 'B4:C4' , 'ACB7E1');
-			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+			$newsheet->setCellValue("B4" , 'Day');
+			$newsheet->mergeCells('B4:C4');
+			$this->columnStyling($newsheet , 'B4:C4');
+			$this->addCellColor($newsheet , 'B4:C4' , 'ACB7E1');
+			$newsheet->getColumnDimension('B')->setWidth(20);
+			$newsheet->getColumnDimension('C')->setWidth(20);
 
 			//Dynamic dates column
 			if(!empty($activityDetails['datesArr']))
@@ -169,21 +174,21 @@
 				$columnAsciiCode = 68;
 				foreach($activityDetails['datesArr'] as $dateValue)
 				{
-					$objPHPExcel->getActiveSheet()->setCellValue($this->getCellName($columnAsciiCode).'4' , date('d-M-Y' , strtotime($dateValue)));
-					$objPHPExcel->getActiveSheet()->getColumnDimension($this->getCellName($columnAsciiCode))->setWidth(30);
-					$this->columnStyling($objPHPExcel , $this->getCellName($columnAsciiCode).'4');
-					$this->addCellColor($objPHPExcel , $this->getCellName($columnAsciiCode).'4' , 'ACB7E1');
+					$newsheet->setCellValue($this->getCellName($columnAsciiCode).'4' , date('d-M-Y' , strtotime($dateValue)));
+					$newsheet->getColumnDimension($this->getCellName($columnAsciiCode))->setWidth(30);
+					$this->columnStyling($newsheet , $this->getCellName($columnAsciiCode).'4');
+					$this->addCellColor($newsheet , $this->getCellName($columnAsciiCode).'4' , 'ACB7E1');
 					$columnAsciiCode++;
 				}
 			}
 
 			//Add from and To time column
-			$objPHPExcel->getActiveSheet()->setCellValue('B5' , 'From');
-			$this->columnStyling($objPHPExcel , 'B5');
-			$this->addCellColor($objPHPExcel , 'B5' , '95A5A6');
-			$objPHPExcel->getActiveSheet()->setCellValue('C5' , 'To');
-			$this->columnStyling($objPHPExcel , 'C5');
-			$this->addCellColor($objPHPExcel , 'C5' , '95A5A6');
+			$newsheet->setCellValue('B5' , 'From');
+			$this->columnStyling($newsheet , 'B5');
+			$this->addCellColor($newsheet , 'B5' , '95A5A6');
+			$newsheet->setCellValue('C5' , 'To');
+			$this->columnStyling($newsheet , 'C5');
+			$this->addCellColor($newsheet , 'C5' , '95A5A6');
 
 			//Dynamic week names column
 			if(!empty($activityDetails['datesArr']))
@@ -191,9 +196,9 @@
 				$columnAsciiCode = 68;
 				foreach($activityDetails['datesArr'] as $dateValue)
 				{
-					$objPHPExcel->getActiveSheet()->setCellValue($this->getCellName($columnAsciiCode).'5' , date('l' , strtotime($dateValue)));
-					$this->columnStyling($objPHPExcel , $this->getCellName($columnAsciiCode).'5');
-					$this->addCellColor($objPHPExcel , $this->getCellName($columnAsciiCode).'5' , '95A5A6');
+					$newsheet->setCellValue($this->getCellName($columnAsciiCode).'5' , date('l' , strtotime($dateValue)));
+					$this->columnStyling($newsheet , $this->getCellName($columnAsciiCode).'5');
+					$this->addCellColor($newsheet , $this->getCellName($columnAsciiCode).'5' , '95A5A6');
 					$columnAsciiCode++;
 				}
 			}
@@ -206,19 +211,19 @@
 				{
 					//Add from and to time value in the column
 					$tempArr = explode('-' , $timeSlot);
-					$objPHPExcel->getActiveSheet()->setCellValue('B'.$tempRowNo , $tempArr[0]);
-					$this->columnStyling($objPHPExcel , 'B'.$tempRowNo);
-					$objPHPExcel->getActiveSheet()->setCellValue('C'.$tempRowNo , $tempArr[1]);
-					$this->columnStyling($objPHPExcel , 'C'.$tempRowNo);
+					$newsheet->setCellValue('B'.$tempRowNo , $tempArr[0]);
+					$this->columnStyling($newsheet , 'B'.$tempRowNo);
+					$newsheet->setCellValue('C'.$tempRowNo , $tempArr[1]);
+					$this->columnStyling($newsheet , 'C'.$tempRowNo);
 					$columnAsciiCode = 68;
 					foreach($activityDetails['datesArr'] as $dateKey => $dateValue)
 					{
 						$activityNames = (isset($detailsValue[$dateKey]) && !(empty($detailsValue[$dateKey]))) ? implode(' / ' , $detailsValue[$dateKey]) : '';
-						$objPHPExcel->getActiveSheet()->setCellValue($this->getCellName($columnAsciiCode).$tempRowNo , $activityNames);
-						$this->columnStyling($objPHPExcel , $this->getCellName($columnAsciiCode).$tempRowNo);
+						$newsheet->setCellValue($this->getCellName($columnAsciiCode).$tempRowNo , $activityNames);
+						$this->columnStyling($newsheet , $this->getCellName($columnAsciiCode).$tempRowNo);
 						$columnAsciiCode++;
 					}
-					$objPHPExcel->getActiveSheet()->getRowDimension($tempRowNo)->setRowHeight(45);
+					$newsheet->getRowDimension($tempRowNo)->setRowHeight(45);
 					$tempRowNo++;
 				}
 			}
@@ -230,7 +235,7 @@
 			header('Expires : 0');
 
 			//Write into excel and download
-			$writerObj = PHPExcel_IOFactory::CreateWriter($objPHPExcel , 'Excel2007');
+			$writerObj = PHPExcel_IOFactory::CreateWriter($this->excel_180 , 'Excel2007');
 			$writerObj->save('php://output');
 			exit;
 		}
@@ -238,14 +243,14 @@
 		/**
 		*This function is used to add background color to the particular column
 		*
-		*@param Object $objPHPExcel
+		*@param Object $newsheet
 		*@param String $cells
 		*@param String $color
 		*@return NONE
 		*/
-		private function addCellColor($objPHPExcel = NULL , $cells = NULL , $color = NULL)
+		private function addCellColor($newsheet = NULL , $cells = NULL , $color = NULL)
 		{
-			$objPHPExcel->getActiveSheet()->getStyle($cells)->getFill()->applyFromArray(array(
+			$newsheet->getStyle($cells)->getFill()->applyFromArray(array(
 				'type' => PHPExcel_Style_Fill::FILL_SOLID,
 				'startcolor' => array(
 					'rgb' => $color
@@ -256,14 +261,14 @@
 		/**
 		*This function is used to add proper style in the heading columns
 		*
-		*@param Object $objPHPExcel
+		*@param Object $newsheet
 		*@param String $cells
 		*@return NONE
 		*/
-		private function columnStyling($objPHPExcel = NULL , $cells = NULL)
+		private function columnStyling($newsheet = NULL , $cells = NULL)
 		{
 			//Set font size
-			$objPHPExcel->getActiveSheet()->getStyle($cells)->getFont()->setSize(13);
+			$newsheet->getStyle($cells)->getFont()->setSize(13);
 
 			//Make text centre
 			$style = array(
@@ -271,7 +276,7 @@
 					'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
 				)
 			);
-			$objPHPExcel->getActiveSheet()->getStyle($cells)->applyFromArray($style);
+			$newsheet->getStyle($cells)->applyFromArray($style);
 
 			//Add border to the column
 			$border_style= array(
@@ -282,7 +287,7 @@
 					'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
 				)
 			);
-			$objPHPExcel->getActiveSheet()->getStyle($cells)->applyFromArray($border_style);
+			$newsheet->getStyle($cells)->applyFromArray($border_style);
 		}
 
 		/**
@@ -344,6 +349,11 @@
 							$returnArr['datesArr'][$value['id']] = $value['date'];
 						$returnArr['details'] = $this->Activity_program_model->getExtraActivityDetails(array_keys($returnArr['datesArr']));
 					}
+				}
+				else
+				{
+					$result = $this->Front_model->commonGetData("date_format(arrival_date , '%d-%m-%Y') as arrival_date , date_format(departure_date , '%d-%m-%Y') as departure_date" , 'id_book = '.$this->session->userdata('selectType') , TABLE_PLUS_BOOK , 1);
+					$returnArr = $this->Activity_program_model->getMasterActivityGroupExportData($result['arrival_date'] , $result['departure_date']);
 				}
 			}
 			return $returnArr;

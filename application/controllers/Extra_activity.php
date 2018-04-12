@@ -77,7 +77,7 @@
 			if($this->input->post('centre_id'))
 			{
 				$data['groupReference'] = $this->Front_model->commonGetData("id_book as id , concat(id_year , '_' , id_book) as name" , "(status = 'confirmed' OR status = 'active') AND id_centro = ".$this->input->post('centre_id') , TABLE_PLUS_BOOK , 'id_book' , 'asc' , 2);
-				$data['studentGroup'] = $this->Front_model->commonGetData("group_name as name , student_group_id as id" , 'centre_id = '.$this->input->post('centre_id') , TABLE_STUDENT_GROUP , 'group_name' , 'asc' , 2);
+				$data['studentGroup'] = $this->Front_model->commonGetData("group_name as name , student_group_id as id" , 'centre_id = '.$this->input->post('centre_id').' AND delete_flag=0' , TABLE_STUDENT_GROUP , 'group_name' , 'asc' , 2);
 				if($returnType == 1)
 					return $data;
 				else
@@ -113,8 +113,18 @@
 					{
 						if(trim($insertValue['activity']) != '')
 						{
+							$managedByArr = $insertValue['managed_by'];
+							unset($insertValue['managed_by']);
 							$insertValue['extra_day_activity_id'] = $extraActivityId;
-							$this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertValue);
+							$extraActivityDetailsId = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertValue);
+							if(!empty($managedByArr))
+							{
+								foreach($managedByArr as $value)
+								{
+									$value['extra_day_activity_details_id'] = $extraActivityDetailsId;
+									$this->Front_model->commonAdd(TABLE_EXTRA_DAY_MANAGED_BY , $value);
+								}
+							}
 						}
 					}
 				}
@@ -132,7 +142,11 @@
 		{
 			$data = array();
 			if($this->input->post('id'))
+			{
 				$data = $this->Front_model->commonGetData("*" , 'extra_day_activity_details_id = '.$this->input->post('id') , TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 1);
+				$data['managed_by'] = $this->Front_model->commonGetData("managed_by_name" , 'extra_day_activity_details_id = '.$this->input->post('id').' AND type = 1' , TABLE_EXTRA_DAY_MANAGED_BY , 'managed_by_name' , 'asc' , 2);
+				$data['managed_by_text'] = $this->Front_model->commonGetData("managed_by_name" , 'extra_day_activity_details_id = '.$this->input->post('id').' AND type = 2' , TABLE_EXTRA_DAY_MANAGED_BY , 'managed_by_name' , 'asc' , 2);
+			}
 			echo json_encode($data);
 		}
 
@@ -146,19 +160,90 @@
 		{
 			if($this->input->post('activityDetailsFlag'))
 			{
+				$managedByDropdownArr = $this->input->post('managed_by');
+				$managedByTextArr = $this->input->post('managed_by_text');
+
 				$insertData = array(
 					'program_name' => $this->input->post('program_name'),
 					'location' => $this->input->post('location'),
 					'activity' => $this->input->post('activity'),
 					'from_time' => $this->input->post('from_time'),
 					'to_time' => $this->input->post('to_time'),
-					'managed_by' => $this->input->post('managed_by'),
 					'extra_day_activity_id' => $this->input->post('activityDetailsParentId')
 				);
 				if($this->input->post('activityDetailsFlag') == 'as')
+				{
 					$activityDetailsId = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertData);
+					//For managd by dropdown value(save into the database)
+					if(!empty($managedByDropdownArr))
+					{
+						foreach($managedByDropdownArr as $value)
+						{
+							if(isset($value) && $value != '')
+							{
+								$insertData = array(
+									'managed_by_name' => $value,
+									'type' => 1,
+									'extra_day_activity_details_id' => $activityDetailsId
+								);
+								$this->Front_model->commonAdd(TABLE_EXTRA_DAY_MANAGED_BY , $insertData);
+							}
+						}
+					}
+					//For managd by textbox value(save into the database)
+					if(!empty($managedByTextArr))
+					{
+						foreach($managedByTextArr as $value)
+						{
+							if(isset($value) && $value != '')
+							{
+								$insertData = array(
+									'managed_by_name' => $value,
+									'type' => 2,
+									'extra_day_activity_details_id' => $activityDetailsId
+								);
+								$this->Front_model->commonAdd(TABLE_EXTRA_DAY_MANAGED_BY , $insertData);
+							}
+						}
+					}
+				}
 				else
+				{
 					$this->Front_model->commonUpdate(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , "extra_day_activity_id = ".$this->input->post('activityDetailsParentId')." AND extra_day_activity_details_id = ".$this->input->post('activityDetailsId') , $insertData);
+					$this->Front_model->commonDelete(TABLE_EXTRA_DAY_MANAGED_BY , 'extra_day_activity_details_id = '.$this->input->post('activityDetailsId'));
+					//For managd by dropdown value(save into the database)
+					if(!empty($managedByDropdownArr))
+					{
+						foreach($managedByDropdownArr as $value)
+						{
+							if(isset($value) && $value != '')
+							{
+								$insertData = array(
+									'managed_by_name' => $value,
+									'type' => 1,
+									'extra_day_activity_details_id' => $this->input->post('activityDetailsId')
+								);
+								$this->Front_model->commonAdd(TABLE_EXTRA_DAY_MANAGED_BY , $insertData);
+							}
+						}
+					}
+					//For managd by textbox value(save into the database)
+					if(!empty($managedByTextArr))
+					{
+						foreach($managedByTextArr as $value)
+						{
+							if(isset($value) && $value != '')
+							{
+								$insertData = array(
+									'managed_by_name' => $value,
+									'type' => 2,
+									'extra_day_activity_details_id' => $this->input->post('activityDetailsId')
+								);
+								$this->Front_model->commonAdd(TABLE_EXTRA_DAY_MANAGED_BY , $insertData);
+							}
+						}
+					}
+				}
 				echo ($this->input->post('activityDetailsFlag') == 'as') ? $activityDetailsId : $this->input->post('activityDetailsId');
 			}
 		}
@@ -174,6 +259,7 @@
 			if($this->input->post('id'))
 			{
 				$this->Front_model->commonDelete(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 'extra_day_activity_details_id = '.$this->input->post('id'));
+				$this->Front_model->commonDelete(TABLE_EXTRA_DAY_MANAGED_BY , 'extra_day_activity_details_id = '.$this->input->post('id'));
 				echo '';
 			}
 
@@ -205,17 +291,26 @@
 			$data = array();
 			if($this->input->post('id'))
 			{
-				$result = $this->Front_model->commonGetData("program_name , location , activity , managed_by" , 'extra_day_activity_details_id = '.$this->input->post('id') , TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 1);
+				$result = $this->Front_model->commonGetData("program_name , location , activity" , 'extra_day_activity_details_id = '.$this->input->post('id') , TABLE_EXTRA_DAY_ACTIVITY_DETAILS , 1);
+				$managedByResult = $this->Front_model->commonGetData('managed_by_name , type' , 'extra_day_activity_details_id = '.$this->input->post('id') , TABLE_EXTRA_DAY_MANAGED_BY , 'managed_by_name' , 'asc' , 2);
 				$insertData = array(
 					'program_name' => $result['program_name'],
 					'location' => $result['location'],
 					'activity' => $result['activity'],
 					'from_time' => $this->input->post('from_time'),
 					'to_time' => $this->input->post('to_time'),
-					'managed_by' => $result['managed_by'],
 					'extra_day_activity_id' => $this->input->post('extra_day_activity_id')
 				);
-				$data['id'] = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertData);
+				$detailsId = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertData);
+				if(!empty($managedByResult))
+				{
+					foreach($managedByResult as $value)
+					{
+						$value['extra_day_activity_details_id'] = $detailsId;
+						$this->Front_model->commonAdd(TABLE_EXTRA_DAY_MANAGED_BY , $value);
+					}
+				}
+				$data['id'] = $detailsId;
 				$data['name'] = $result['activity'];
 			}
 			echo json_encode($data);

@@ -1,12 +1,19 @@
 /*
 	Description : This js file is used to manage all the javascript related operations
 					for the master activity module
-	Version : 1.3
+	Version : 1.7
 */
 $(document).ready(function(){
 	var $globalTdSelector;
 	//The value of the table row can be dragable and drop to any other td to copy same activity
 	initDrag();
+
+	//Initialize bootstrap multiselect
+	$('#managed_by').multiselect({
+		buttonWidth : '272px',
+		nonSelectedText: 'Please Select',
+		maxHeight: 200
+	});
 
 	//After click on the plus icon it clone the current record and append with the table record
 	$(document).on('click' , '.addMoreTable' , function(){
@@ -68,7 +75,38 @@ $(document).ready(function(){
 					$('#activityDetailsModal').find('#activity').val(response.activity);
 					$('#activityDetailsModal').find('#from_time').val(response.from_time);
 					$('#activityDetailsModal').find('#to_time').val(response.to_time);
-					$('#activityDetailsModal').find('#managed_by').val(response.managed_by);
+
+					//Checked the selected multiselect dropdown values
+					if(response.managed_by.length > 0)
+					{
+						var selectedArr = [];
+						$.each(response.managed_by , function(index , value){
+							selectedArr.push(value.managed_by_name);
+						});
+						$('#activityDetailsModal').find('#managed_by').val(selectedArr);
+						$('#activityDetailsModal').find('#managed_by').multiselect("refresh");
+					}
+
+					//Show all the added records(managed by person names) in the add more format
+					if(response.managed_by_text.length > 0)
+					{
+						$('#activityDetailsModal').find('.moreManagedByPerson').remove()
+						$.each(response.managed_by_text , function(index , value){
+							var htmlStr = '<div class="form-group moreManagedByPerson">\
+												<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>\
+												<div class="col-md-6 col-sm-6 col-xs-12">\
+													<input name="managed_by_text[]" class="form-control" type="text" value="'+value.managed_by_name+'">\
+												</div>\
+												<i class="fa fa-lg fa-plus-circle add_section addMorePerson" aria-hidden="true"></i>';
+							if(response.managed_by_text.length > 1)
+								var htmlStr = htmlStr+'<i class="fa fa-lg fa-minus-circle delete_section removeMorePerson" aria-hidden="true"></i>';
+							var htmlStr = htmlStr+'</div>';
+							$('#activityDetailsModal').find('.modal-body').append(htmlStr);
+						});
+					}
+					else
+						$('#activityDetailsModal').find('.moreManagedByPerson').find('input:text').val('');
+
 					$('#activityDetailsModal').modal();
 				}
 			}
@@ -154,21 +192,26 @@ $(document).ready(function(){
 
 	//On click of the delete activity icon , delete the hidden fields for the activity details
 	$(document).on('click' , ' .deleteActivityDetails' , function(){
-		if(confirm(delete_confirmation.replace('**module**' , 'activity details')))
+		if($('.activityProgramTable').find('.draggableItem').length > 1)
 		{
-			var $tempSelector = $(this);
-			//Delete from database through ajax
-			$.ajax({
-				url : baseUrl+'master_activity/delete_activity_details',
-				type : 'POST',
-				data : {'id' : $tempSelector.parent().find('.draggableItem').data('id')},
-				success : function(response){
-					$tempSelector.parent().next('hr').remove();
-					$tempSelector.parent().remove();
-					initDrag();
-				}
-			});
+			if(confirm(delete_confirmation.replace('**module**' , 'activity details')))
+			{
+				var $tempSelector = $(this);
+				//Delete from database through ajax
+				$.ajax({
+					url : baseUrl+'master_activity/delete_activity_details',
+					type : 'POST',
+					data : {'id' : $tempSelector.parent().find('.draggableItem').data('id')},
+					success : function(response){
+						$tempSelector.parent().next('hr').remove();
+						$tempSelector.parent().remove();
+						initDrag();
+					}
+				});
+			}
 		}
+		else
+			swal('Sorry!' , 'Atleast one activity should present' , 'warning');
 	});
 
 	//On change of the time slot , it will update hidden field as well as database values for activity details
@@ -219,6 +262,20 @@ $(document).ready(function(){
 				});
 			}
 		}
+	});
+
+	//After click on the plus icon it clone the current record and append with the person name(for managed by person name)
+	$(document).on('click' , '.addMorePerson' , function(){
+		if($(this).parent().find('i').length == 1)
+			$(this).parent().append('<i class="fa fa-lg fa-minus-circle delete_section removeMorePerson" aria-hidden="true"></i>');
+		$(this).parent().clone().insertAfter($(this).parent()).find("input:text").val('');
+	});
+
+	//After click on the minus icon , it will remove the current record(for managed by person name)
+	$(document).on('click' , '.removeMorePerson' , function(){
+		$(this).parent().remove();
+		if($('#activityDetailsForm').find('.moreManagedByPerson').length == 1)
+			$('#activityDetailsForm').find('.moreManagedByPerson').find('.removeMorePerson').remove();
 	});
 });
 
@@ -312,6 +369,20 @@ function openAddActivityPopup($tempSelector)
 	$('#activityDetailsModal').find('.modalTitle').text('Activity Details ('+formattedDate($tempSelector.data('date'))+')');
 	$('#activityDetailsModal').find('#activityDetailsParentId').val($tempSelector.data('parent_id'));
 	$('#activityDetailsModal').find('#activityDetailsFlag').val('as');
+
+	//Remove add more fields and keep only one section
+	$('#activityDetailsModal').find('#activityDetailsForm').find('.moreManagedByPerson').remove();
+	var htmlStr = '<div class="form-group moreManagedByPerson">\
+						<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>\
+						<div class="col-md-6 col-sm-6 col-xs-12">\
+							<input name="managed_by_text[]" class="form-control" type="text">\
+						</div>\
+						<i class="fa fa-lg fa-plus-circle add_section addMorePerson" aria-hidden="true"></i>\
+					</div>';
+	$('#activityDetailsModal').find('#activityDetailsForm').find('.modal-body').append(htmlStr);
+
+	//Deselect all the options from multiselect dropdown
+	$('#managed_by').multiselect("deselectAll", false).multiselect("refresh");
 
 	//Set the from and to time field as per the time slot
 	if($tempSelector.parent().find('td:eq(1)').find('.hourDropdown').val() != '' && $tempSelector.parent().find('td:eq(1)').find('.minDropdown').val() != '')
