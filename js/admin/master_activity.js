@@ -1,42 +1,13 @@
 /*
 	Description : This js file is used to manage all the javascript related operations
 					for the master activity module
-	Version : 1.5
+	Version : 1.8
 */
 $(document).ready(function(){
 	//For datepicker
 	$('.datepicker').datepicker({
 		format: "dd-mm-yyyy",
 		autoclose: true
-	});
-
-	//On change of the centre dropdown , change the student group dropdown value
-	$(document).on('change' , '#centre_id' , function(){
-		$.ajax({
-			url : baseUrl+'master_activity/get_group_dropdown',
-			type : 'POST',
-			data : {'centre_id' : $(this).val()},
-			dataType : 'JSON',
-			success : function(response){
-				$('#student_group').empty().append(
-					$('<option></option').attr('value' , '').text('Please slect group')
-				);
-				if(response.length > 0)
-				{
-					$.each(response , function(key , value){
-						$('#student_group').append(
-							$('<option></option>').attr('value' , value.student_group_id).text(value.group_name)
-						);
-					});
-					//Add validation rules
-					$( "#student_group" ).rules( "add", {
-						required : true
-					});
-				}
-				else
-					$("#student_group").rules("remove");
-			}
-		});
 	});
 
 	//Check validation for activity report search through jquery validator
@@ -78,12 +49,7 @@ $(document).ready(function(){
 		$('.filterDropdown').each(function(){
 			if($(this).val() != '')
 			{
-				if($(this).data('field_ref') == 'date')
-					whereConditionArr.push("b.date = '"+$(this).val()+"'");
-				else if($(this).data('field_ref') == 'managed_by')
-					whereConditionArr.push("d.managed_by_name = '"+$(this).val()+"'");
-				else
-					whereConditionArr.push("c."+$(this).data('field_ref')+" = '"+$(this).val()+"'");
+				whereConditionArr.push($(this).data('field_ref')+" = '"+$(this).val()+"'");
 			}
 		});
 		$.ajax({
@@ -91,7 +57,6 @@ $(document).ready(function(){
 			type : 'POST',
 			data : {
 				'centre_id' : $('#centre_id').val(),
-				'student_group' : $('#student_group').val(),
 				'start_date' : $('#start_date').val(),
 				'end_date' : $('#end_date').val(),
 				'whereCondition': whereConditionArr
@@ -103,15 +68,20 @@ $(document).ready(function(){
 					$('.activityreportBody').empty();
 					var htmlStr = '';
 					$.each(response.details , function(index , value){
+						var groupName = (value.group_name != null) ? value.group_name : '';
+						var groupReferenceName = (value.group_reference != null) ? value.group_reference : '';
+						var dateValue = (value.date != null) ? value.date : '';
 						var programName = (value.program_name != null) ? value.program_name : '';
 						var locationName = (value.location != null) ? value.location : '';
 						var activityName = (value.activity != null) ? value.activity : '';
 						var fromTime = (value.from_time != null) ? value.from_time : '';
 						var toTime = (value.to_time != null) ? value.to_time : '';
-						var managedBy = (value.managed_by != null) ? value.managed_by : '';
+						var managedBy = (value.managed_by_name != null) ? value.managed_by_name : '';
 
 						htmlStr+= '<tr>\
-										<td>'+value.date+'</td>\
+										<td>'+groupName+'</td>\
+										<td>'+groupReferenceName+'</td>\
+										<td>'+formattedDate(dateValue)+'</td>\
 										<td>'+programName+'</td>\
 										<td>'+locationName+'</td>\
 										<td>'+activityName+'</td>\
@@ -147,4 +117,12 @@ function dateObject(dateValue)
 {
 	var dateArr = dateValue.split('-');
 	return new Date(dateArr[2] , (dateArr[1] - 1) , dateArr[0]);
+}
+
+//This function is usd to get formatted date(in dd-MM-YYYY format)
+function formattedDate(dateValue)
+{
+	var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	var dateArr = dateValue.split('-');
+	return dateArr[2]+'-'+monthArr[(dateArr[1] - 1)]+'-'+dateArr[0];
 }

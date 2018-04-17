@@ -21,34 +21,23 @@
 		public function report()
 		{
 			$post = array();
-			$groupDropdown = array('' => 'Please select group');
 			if($this->input->post('flag') == 'search')
 			{
 				$post['centre_id'] = $this->input->post('centre_id');
-				$post['student_group'] = $this->input->post('student_group');
 				$post['start_date'] = $this->input->post('start_date');
 				$post['end_date'] = $this->input->post('end_date');
 
-				//Prepare group dropdown
-				$result = $this->get_group_dropdown(1);
-				if(!empty($result))
-				{
-					foreach($result as $value)
-						$groupDropdown[$value['student_group_id']] = $value['group_name'];
-				}
-
 				//Save the post value for in session for the export to excel option
 				$this->session->set_userdata('centre_id' , $this->input->post('centre_id'));
-				$this->session->set_userdata('student_group' , $this->input->post('student_group'));
 				$this->session->set_userdata('start_date' , $this->input->post('start_date'));
 				$this->session->set_userdata('end_date' , $this->input->post('end_date'));
 				$this->session->set_userdata('whereCondition' , '');
 
-				$post['details'] = $this->Master_activity_model->getActivityReport();
-				$post['dropdownArr'] = $this->Master_activity_model->getActivityFilterDropdown();
+				$result = $this->Master_activity_model->getActivityReport($post['centre_id'] , $post['start_date'] , $post['end_date'] , '' , '' , 1);
+				$post['details'] = $result['details'];
+				$post['dropdownArr'] = $result['dropdownArr'];
 			}
 			$data['post'] = $post;
-			$data['groupDropdown'] = $groupDropdown;
 			$data['viewPage'] = 'plus_video/activity_report';
 			$data['showLeftMenu'] = 0;
 			$this->load->view('plus_video/template' , $data);
@@ -63,12 +52,12 @@
 
 				//Save the post value for in session for the export to excel option
 				$this->session->set_userdata('centre_id' , $this->input->post('centre_id'));
-				$this->session->set_userdata('student_group' , $this->input->post('student_group'));
 				$this->session->set_userdata('start_date' , $this->input->post('start_date'));
 				$this->session->set_userdata('end_date' , $this->input->post('end_date'));
 				$this->session->set_userdata('whereCondition' , $whereCondition);
 
-				$data['details'] = $this->Master_activity_model->getActivityReport($whereCondition);
+				$result = $this->Master_activity_model->getActivityReport($this->input->post('centre_id') , $this->input->post('start_date') , $this->input->post('end_date') , $whereCondition);
+				$data['details'] = $result['details'];
 				echo json_encode($data);
 			}
 		}
@@ -77,7 +66,23 @@
 		public function export_to_excel()
 		{
 			$centreDetails = $this->Front_model->commonGetdata('nome_centri' , 'id = '.$this->session->userdata('centre_id') , TABLE_CENTRE , 1);
-			$data = $this->Master_activity_model->getExportActivity();
+			$result = $this->Master_activity_model->getActivityReport($this->session->userdata('centre_id') , $this->session->userdata('start_date') , $this->session->userdata('end_date') , $this->session->userdata('whereCondition'));
+			$data = array();
+			if(!empty($result['details']))
+			{
+				foreach($result['details'] as $key => $value)
+				{
+					$data[$key]['Student\'s group'] = $value['group_name'];
+					$data[$key]['Group reference'] = $value['group_reference'];
+					$data[$key]['Date'] = date('d-M-Y' , strtotime($value['date']));
+					$data[$key]['Type of activity'] = $value['program_name'];
+					$data[$key]['Location'] = $value['location'];
+					$data[$key]['Activity'] = $value['activity'];
+					$data[$key]['From time'] = ($value['from_time'] != '') ? date('H:i' , strtotime($value['from_time'])) : '';
+					$data[$key]['To time'] = ($value['to_time'] != '') ? date('H:i' , strtotime($value['to_time'])) : '';
+					$data[$key]['Managed by'] = $value['managed_by_name'];
+				}
+			}
 			$this->load->library('export');
 			$this->export->to_excel($data , str_replace(' ' , '_' , strtolower($centreDetails['nome_centri'])));
 		}

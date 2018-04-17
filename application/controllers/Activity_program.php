@@ -63,7 +63,7 @@
 					$result = $this->Front_model->commonGetData("date_format(arrival_date , '%d-%m-%Y') as arrival_date , date_format(departure_date , '%d-%m-%Y') as departure_date" , 'id_book = '.$this->input->post('selectType') , TABLE_PLUS_BOOK , 1);
 					$post['arrival_date'] = $result['arrival_date'];
 					$post['departure_date'] = $result['departure_date'];
-					$masterDetails = $this->Front_model->commonGetData('extra_master_activity_id' , 'centre_id = '.$this->input->post('centre_id').' AND student_group = '.$this->input->post('student_group').' AND group_reference_id = '.$this->input->post('selectType') , TABLE_EXTRA_MASTER_ACTIVITY , 1);
+					$masterDetails = $this->Front_model->commonGetData('extra_master_activity_id' , "centre_id = '".$this->input->post('centre_id')."' AND student_group = '".$this->input->post('student_group')."' AND group_reference_id = '".$this->input->post('selectType')."'" , TABLE_EXTRA_MASTER_ACTIVITY , 1);
 					if(isset($masterDetails['extra_master_activity_id']) && $masterDetails['extra_master_activity_id'] != '')
 					{
 						$result = $this->Front_model->commonGetData("extra_day_activity_id as id , date_format(date , '%d-%m-%Y') as date" , 'extra_master_activity_id = '.$masterDetails['extra_master_activity_id'] , TABLE_EXTRA_DAY_ACTIVITY , 'cast(date as DATE)' , 'asc' , 2);

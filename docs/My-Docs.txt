@@ -115,6 +115,11 @@ Username: sourav.dhara
 Password: sourav@gitlab
 http://192.168.43.51/php/pluswebsite.git
 
+Drupal project (Neha) :
+• Url : https://git-codecommit.us-east-1.amazonaws.com/v1/repos/snpcweb
+• username : sylwin@pragmawork.com-at-724753735913
+• password : H6B/Tt3mpWHeVeOHB3rg+i22Bx18j/cJJUOS0rGSGus=
+
 =================================================================================================================================
 
 
@@ -224,16 +229,15 @@ function vimeoApi()
 
 ======================================Office Tiffin========================================================================================
 
-Prashant : {(350+150+50+110)-(60+500)}
-Sumeet : 200/-
-Amit : 100/-
+Prashant : {(350+150+50+110)-(60+500)}(Clear)
+Sumeet : 200/-(Clear)
 
 Tiffin upto 31st October , 2017 : 340/- (paid)
 Tiffin upto 31st November , 2017 : 375/-(paid) : Balance - 25/-
 Tiffin upto 31st December , 2017 : 500/-(Paid) : Balance - 50/- 
 Tiffin upto 31st January , 2018 : 425/-(Paid) : Balance - 75/-
 Tiffin upto 28th February , 2018 : 400/-(Paid)
-Tiffin upto 31st March , 2018 : 525/-
+Tiffin upto 31st March , 2018 : 525/-(Paid)
 
 ===============================================================================================================================
 
@@ -270,7 +274,9 @@ http://netwinindia.net/itsupport/osticket/upload/view.php
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Completed export to pdf functionality in activity program section .
+(1)Completed activity program report in front end .
+
+
 
 
 ===============================================================================================================================
@@ -281,13 +287,13 @@ http://netwinindia.net/itsupport/osticket/upload/view.php
 ==================================Details Daily Task===============================================================================================
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the export to pdf functionality in activity program module . In campus manager's login , activity program module , after search the 
-activity , we have shown the activity details in table format . Also we have shown the export to excel and export to pdf button to export the same data . 
-If the searched result does not find any activity then we hide those buttons . After click on the export in pdf button one pdf file will open . In that file
-header section , we have shown the centre name and the group name . For master activity we have shown the activity name and for extra activity we have shown the 
-group reference number . Also there is one copany logo in the header section . Below that we ahve shown the activity details inthe table format . If more than one
-activity present for one time slot then we have shown them with one slash separator . We have shown the activity details 7 days in one row . For the rest activity
-details we have shown them in another page . Completed that functionality and tested properly .
+(1)Started working on the activity program report section in front end campus manager's login . First we have changed in the designing . Before there 
+was no column to show the student's group and group reference number for booking . Now we have shown those columns . Also from the search section we 
+have removed the student group dropdown . Before we have only shown the master activity details , But now we have shown the all activity details in the
+centre for master activity , extra activity for every group . Before we have get the data from database every time we search from the report section or 
+filter the report through filter dropdown . Now  we have created one database view to get the activity report related data . Also with the change of any
+filter dropdown we get the data from our view and show in the report . After successfully search , we have shown one export to excel button in the search
+section . After click on that button we have downloaded the report in excel format . Completed the functionality and tested properly .
 
 =================================================================================================================================
 Drupal Credentials :
@@ -309,3 +315,31 @@ https://www.drupal.org/node/594744
 
 //Migrate module documentation
 https://www.drupal.org/node/1006982
+
+delete n1 from tbl_test n1 inner join tbl_test n2 where n1.name=n2.name and n1.id>n2.id
+=================================================================================================================================
+
+truncate table frontweb_master_activity;
+truncate table frontweb_fixed_day_activity;
+truncate table frontweb_fixed_day_activity_details;
+truncate table frontweb_fixed_day_managed_by;
+truncate table frontweb_extra_master_activity;
+truncate table frontweb_extra_day_activity;
+truncate table frontweb_extra_day_activity_details;
+truncate table frontweb_extra_day_managed_by;
+truncate table frontweb_student_group;
+
+
+Your login: sourav.netwin@gmail.com
+Your password: l35dacw
+
+http://localhost/drupal_seven_test/crm-core/contact
+
+
+=================================================================================================================================
+
+
+
+
+
+

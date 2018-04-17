@@ -13,7 +13,7 @@
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
 	var start_end_date_validation = "<?php echo $this->lang->line("start_end_date_validation"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/master_activity.js?v=1.5"></script>
+<script src="<?php echo base_url(); ?>js/admin/master_activity.js?v=1.8"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -32,25 +32,6 @@
 ?>
 								<input type="hidden" name="flag" value="search">
 								<div class="col-lg-12">
-									<div class="col-lg-6 form-group">
-										<label class="control-label custom-control-label col-lg-4">Select centre<span class="required">*</span></label>
-										<div class="col-lg-8">
-<?php
-											$centreId = (isset($post['centre_id'])) ? $post['centre_id'] : '';
-											echo form_dropdown('centre_id' , getCentreDropdownForPlusVideo($this->session->userdata('centre_id')) , $centreId , 'class="form-control" id="centre_id"');
-?>
-										</div>
-									</div>
-									<div class="col-lg-6 form-group">
-										<label class="control-label custom-control-label col-lg-4">Select group</label>
-										<div class="col-lg-8">
-<?php
-											$groupId = (isset($post['student_group'])) ? $post['student_group'] : '';
-											echo form_dropdown('student_group' , $groupDropdown , $groupId , 'class="form-control" id="student_group"');
-?>
-										</div>
-									</div>
-									<div class="clearfix"></div>
 									<div class="col-lg-6 form-group">
 										<label class="control-label custom-control-label col-lg-4">Arrival date<span class="required">*</span></label>
 										<div class="col-lg-8">
@@ -82,21 +63,31 @@
 ?>
 										</div>
 									</div>
-								</div>
-								<div class="col-lg-3 col-lg-offset-5 form-group">
-									<button class="btn btn-warning" type="submit">
-										<i class="fa fa-search"></i>&nbsp;&nbsp;Search
-									</button>
+									<div class="clearfix"></div>
+									<div class="col-lg-6 form-group">
+										<label class="control-label custom-control-label col-lg-4">Select centre<span class="required">*</span></label>
+										<div class="col-lg-8">
 <?php
-									if(!empty($post))
-									{
+											$centreId = (isset($post['centre_id'])) ? $post['centre_id'] : '';
+											echo form_dropdown('centre_id' , getCentreDropdownForPlusVideo($this->session->userdata('centre_id')) , $centreId , 'class="form-control" id="centre_id"');
 ?>
-										<button class="btn btn-success" type="button" style="margin-left: 10px;" onclick="window.location='export_to_excel'">
-											<i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Export to excel
+										</div>
+									</div>
+									<div class="col-lg-5 form-group" style="margin-left: 15px;">
+										<button class="btn btn-warning" type="submit">
+											<i class="fa fa-search"></i>&nbsp;&nbsp;Search
 										</button>
 <?php
-									}
+										if(!empty($post))
+										{
 ?>
+											<button class="btn btn-success" type="button" style="margin-left: 10px;" onclick="window.location='export_to_excel'">
+												<i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Export to excel
+											</button>
+<?php
+										}
+?>
+									</div>
 								</div>
 							<?php echo form_close(); ?>
 						</div>
@@ -111,6 +102,8 @@
 						<table id="datatable" class="table table-striped table-bordered masterTable">
 							<thead>
 								<tr>
+									<th>Student's group</th>
+									<th>Group reference</th>
 									<th>Date</th>
 									<th>Type of activity</th>
 									<th>Location</th>
@@ -121,6 +114,36 @@
 								</tr>
 								<tr>
 									<th>
+										<select data-field_ref = 'group_name' class="form-control filterDropdown">
+											<option value="">All</option>
+<?php
+											if(!empty($post['dropdownArr']['groupNameValue']))
+											{
+												foreach($post['dropdownArr']['groupNameValue'] as $value)
+												{
+													if(trim($value['group_name']))
+														echo '<option value="'.$value['group_name'].'">'.$value['group_name'].'</option>';
+												}
+											}
+?>
+										</select>
+									</th>
+									<th>
+										<select data-field_ref = 'group_reference' class="form-control filterDropdown">
+											<option value="">All</option>
+<?php
+											if(!empty($post['dropdownArr']['groupReferenceValue']))
+											{
+												foreach($post['dropdownArr']['groupReferenceValue'] as $value)
+												{
+													if(trim($value['group_reference']))
+														echo '<option value="'.$value['group_reference'].'">'.$value['group_reference'].'</option>';
+												}
+											}
+?>
+										</select>
+									</th>
+									<th>
 										<select data-field_ref = 'date' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
@@ -128,8 +151,8 @@
 											{
 												foreach($post['dropdownArr']['dateValue'] as $value)
 												{
-													if(trim($value))
-														echo '<option value="'.$value.'">'.date('d-M-Y' , strtotime($value)).'</option>';
+													if(trim($value['date']))
+														echo '<option value="'.$value['date'].'">'.date('d-M-Y' , strtotime($value['date'])).'</option>';
 												}
 											}
 ?>
@@ -139,12 +162,12 @@
 										<select data-field_ref = 'program_name' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
-											if(!empty($post['dropdownArr']['proramName']))
+											if(!empty($post['dropdownArr']['programNameValue']))
 											{
-												foreach($post['dropdownArr']['proramName'] as $value)
+												foreach($post['dropdownArr']['programNameValue'] as $value)
 												{
-													if(trim($value))
-														echo '<option value="'.$value.'">'.$value.'</option>';
+													if(trim($value['program_name']))
+														echo '<option value="'.$value['program_name'].'">'.$value['program_name'].'</option>';
 												}
 											}
 ?>
@@ -154,12 +177,12 @@
 										<select data-field_ref = 'location' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
-											if(!empty($post['dropdownArr']['location']))
+											if(!empty($post['dropdownArr']['locationValue']))
 											{
-												foreach($post['dropdownArr']['location'] as $value)
+												foreach($post['dropdownArr']['locationValue'] as $value)
 												{
-													if(trim($value))
-														echo '<option value="'.$value.'">'.$value.'</option>';
+													if(trim($value['location']))
+														echo '<option value="'.$value['location'].'">'.$value['location'].'</option>';
 												}
 											}
 ?>
@@ -169,12 +192,12 @@
 										<select data-field_ref = 'activity' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
-											if(!empty($post['dropdownArr']['activity']))
+											if(!empty($post['dropdownArr']['activityValue']))
 											{
-												foreach($post['dropdownArr']['activity'] as $value)
+												foreach($post['dropdownArr']['activityValue'] as $value)
 												{
-													if(trim($value))
-														echo '<option value="'.$value.'">'.$value.'</option>';
+													if(trim($value['activity']))
+														echo '<option value="'.$value['activity'].'">'.$value['activity'].'</option>';
 												}
 											}
 ?>
@@ -184,12 +207,12 @@
 										<select data-field_ref = 'from_time' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
-											if(!empty($post['dropdownArr']['fromTime']))
+											if(!empty($post['dropdownArr']['fromTimeValue']))
 											{
-												foreach($post['dropdownArr']['fromTime'] as $value)
+												foreach($post['dropdownArr']['fromTimeValue'] as $value)
 												{
-													if(trim($value))
-														echo '<option value="'.$value.'">'.date('H:i' , strtotime($value)).'</option>';
+													if(trim($value['from_time']))
+														echo '<option value="'.$value['from_time'].'">'.date('H:i' , strtotime($value['from_time'])).'</option>';
 												}
 											}
 ?>
@@ -199,27 +222,27 @@
 										<select data-field_ref = 'to_time' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
-											if(!empty($post['dropdownArr']['toTime']))
+											if(!empty($post['dropdownArr']['toTimeValue']))
 											{
-												foreach($post['dropdownArr']['toTime'] as $value)
+												foreach($post['dropdownArr']['toTimeValue'] as $value)
 												{
-													if(trim($value))
-														echo '<option value="'.$value.'">'.date('H:i' , strtotime($value)).'</option>';
+													if(trim($value['to_time']))
+														echo '<option value="'.$value['to_time'].'">'.date('H:i' , strtotime($value['to_time'])).'</option>';
 												}
 											}
 ?>
 										</select>
 									</th>
 									<th>
-										<select data-field_ref = 'managed_by' class="form-control filterDropdown">
+										<select data-field_ref = 'managed_by_name' class="form-control filterDropdown">
 											<option value="">All</option>
 <?php
-											if(!empty($post['dropdownArr']['managedBy']))
+											if(!empty($post['dropdownArr']['managedByValue']))
 											{
-												foreach($post['dropdownArr']['managedBy'] as $key => $value)
+												foreach($post['dropdownArr']['managedByValue'] as $value)
 												{
 													if(trim($value))
-														echo '<option value="'.$key.'">'.$value.'</option>';
+														echo '<option value="'.$value.'">'.$value.'</option>';
 												}
 											}
 ?>
@@ -235,13 +258,15 @@
 									{
 ?>
 										<tr>
+											<td><?php echo $value['group_name']; ?></td>
+											<td><?php echo $value['group_reference']; ?></td>
 											<td><?php echo date('d-M-Y' , strtotime($value['date'])); ?></td>
 											<td><?php echo $value['program_name']; ?></td>
 											<td><?php echo $value['location']; ?></td>
 											<td><?php echo $value['activity']; ?></td>
 											<td><?php echo date('H:i' , strtotime($value['from_time'])); ?></td>
 											<td><?php echo date('H:i' , strtotime($value['to_time'])); ?></td>
-											<td><?php echo $value['managed_by']; ?></td>
+											<td><?php echo $value['managed_by_name']; ?></td>
 										</tr>
 <?php
 									}
