@@ -21,16 +21,36 @@
 		public function getActivityReport($centreId = NULL , $arrivalDate = NULL , $departureDate = NULL , $whereCondition = NULL , $fieldName = NULL , $filterDropdownFlag = NULL)
 		{
 			if($fieldName != '')
-				$this->db->select('distinct '.$fieldName.' as '.$fieldName , FALSE);
-			$this->db->where('centre_id' , $centreId);
-			$this->db->where("cast(date as DATE) between '".date('Y-m-d' , strtotime($arrivalDate))."' and '".date('Y-m-d' , strtotime($departureDate))."' ");
-			if($whereCondition != '')
-				$this->db->where($whereCondition);
-			if($fieldName != '')
-				$this->db->order_by($fieldName);
+			{
+				$selectStr = 'distinct t.'.$fieldName.' as '.$fieldName;
+				$orderByStr = 't.'.$fieldName.' asc';
+			}
 			else
-				$this->db->order_by('date asc , from_time asc');
-			$result = $this->db->get(ACTIVITY_REPORT_PROGRAM)->result_array();
+			{
+				$selectStr = 't.*';
+				$orderByStr = 'date asc , from_time asc';
+			}
+			$whereStr = "centre_id = ".$centreId." AND cast(date as DATE) between '".date('Y-m-d' , strtotime($arrivalDate))."' and '".date('Y-m-d' , strtotime($departureDate))."'";
+			if($whereCondition != '')
+				$whereStr = $whereStr.' AND ('.$whereCondition.')';
+			$sqlStatement = "select ".$selectStr." FROM
+							(select a.centre_id , e.group_name , NULL as group_reference , b.date , c.program_name , c.location , c.activity , c.from_time , c.to_time , d.managed_by_name
+							from frontweb_master_activity a
+							left join frontweb_fixed_day_activity b on a.master_activity_id=b.master_activity_id
+							left join frontweb_fixed_day_activity_details c on b.fixed_day_activity_id=c.fixed_day_activity_id
+							left join frontweb_fixed_day_managed_by d on c.fixed_day_activity_details_id=d.fixed_day_activity_details_id
+							left join frontweb_student_group e on e.student_group_id=a.student_group
+							UNION
+							select a.centre_id , e.group_name , concat(id_year , '_' , id_book) as group_reference , b.date , c.program_name , c.location , c.activity , c.from_time , c.to_time , d.managed_by_name
+							from frontweb_extra_master_activity a
+							left join frontweb_extra_day_activity b on a.extra_master_activity_id=b.extra_master_activity_id
+							left join frontweb_extra_day_activity_details c on b.extra_day_activity_id=c.extra_day_activity_id
+							left join frontweb_extra_day_managed_by d on c.extra_day_activity_details_id=d.extra_day_activity_details_id
+							left join frontweb_student_group e on e.student_group_id=a.student_group
+							left join plused_book f on f.id_book=a.group_reference_id
+							) t
+							where ".$whereStr." order by ".$orderByStr;
+			$result = $this->db->query($sqlStatement)->result_array();
 			if($fieldName != '')
 				return $result;
 			$returnArr = array();

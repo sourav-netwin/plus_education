@@ -160,6 +160,7 @@ define('TABLE_JOB_CONTRACT' , 'pulsed_job_contract');
 define('TABLE_FIXED_DAY_MANAGED_BY' , 'frontweb_fixed_day_managed_by');
 define('TABLE_EXTRA_DAY_MANAGED_BY' , 'frontweb_extra_day_managed_by');
 define('ACTIVITY_REPORT_PROGRAM' , 'activity_report_program');
+define('TABLE_ACTIVITY_PHOTO_GALLERY' , 'frontweb_activity_photo_gallery');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -340,6 +341,9 @@ define('MINISTAY_PROGRAM_IMAGE_PATH' , 'uploads/ministay_program/');
 
 //Define image location for adult course images
 define('ADULT_COURSE_IMAGE_PATH' , 'uploads/adult_course/');
+
+//Define image location for walking tour video images
+define('WALKING_TOUR_VIDEO_IMAGE_PATH' , 'uploads/walking_tour_video/');
 
 //Define image location , height , width , thumb details for adult course images
 define('ACTIVITY_FRONT_IMAGE_PATH' , 'uploads/activity_front/');

@@ -144,7 +144,7 @@
 			$newsheet->getStyle('D1:E1')->getFont()->setSize(20)->getColor()->setRGB('273878');
 
 			//Place company logo in the header
-			$objDrawing = new PHPExcel_Worksheet_Drawing();
+			/*$objDrawing = new PHPExcel_Worksheet_Drawing();
 			$objDrawing->setName('Plus_logo');
 			$objDrawing->setDescription('Plus_logo');
 			$objDrawing->setPath('./images/logo_plus.png');
@@ -158,7 +158,7 @@
 			$objDrawing->setHeight(53);
 			$objDrawing->setWorksheet($newsheet);
 			$newsheet->mergeCells('B1:C1');
-			$newsheet->getRowDimension(1)->setRowHeight(45);
+			$newsheet->getRowDimension(1)->setRowHeight(45);*/
 
 			//Day column
 			$newsheet->setCellValue("B4" , 'Day');
@@ -229,7 +229,7 @@
 			}
 
 			//Set header to download the excel file
-			header('Content-type : application/vnd.ms-excel');
+			/*header('Content-type : application/vnd.ms-excel');
 			header('Content-Disposition : attachment ; filename='.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.xlsx');
 			header('Pragma : no-cache');
 			header('Expires : 0');
@@ -237,6 +237,13 @@
 			//Write into excel and download
 			$writerObj = PHPExcel_IOFactory::CreateWriter($this->excel_180 , 'Excel2007');
 			$writerObj->save('php://output');
+			exit;*/
+
+			$writeObj = PHPExcel_IOFactory::createWriter($this->excel_180, 'Excel5');
+			header('Content-Type: application/application/vnd.ms-excel');
+			header('Content-Disposition : attachment ; filename='.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.xlsx');
+			header('Cache-Control: max-age=0');
+			$writeObj->save('php://output');
 			exit;
 		}
 

@@ -125,25 +125,6 @@ Drupal project (Neha) :
 
 
 
-===============================================Magento==================================================================================
-
-Magento Site Login Credential :
-Name : Sourav Dhara
-Email : sourav.netwin@gmail.com
-Password : Magento@2017
-Screen Name : sourav_netwin
-
-Admin Account :
-User Name - sourav.netwin
-password - Magento@2017
-email - sourav.netwin@gmail.com
-encryption key - 20c938a0ef8f2dcbb109a7aab9897d1e
-
-=================================================================================================================================
-
-
-
-
 =================================External Link=============================================================================================
 
 Download Country flag icon free : 
@@ -179,6 +160,15 @@ https://www.w3schools.com/w3css/w3css_templates.asp
 
 PHP Excel Reader :
 http://coursesweb.net/php-mysql/read-excel-file-data-php_pc
+
+Install drush on windows(For drupal) : 
+https://www.drupal.org/node/594744
+
+Migrate module documentation(For drupal) :
+https://www.drupal.org/node/1006982
+
+Image picker plugin :
+https://rvera.github.io/image-picker/
 
 ==============================================================================================================================
 
@@ -267,6 +257,10 @@ Password : S@123
 (5)OS Ticket :
 http://netwinindia.net/itsupport/osticket/upload/view.php
 
+(6)Hoxx VPN Login Details : 
+Your login: sourav.netwin@gmail.com
+Your password: l35dacw
+
 ===============================================================================================================================
 
 
@@ -274,10 +268,10 @@ http://netwinindia.net/itsupport/osticket/upload/view.php
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Completed activity program report in front end .
-
-
-
+(1)Completed plus walking tour implementation in front end .
+(2)Created one sample page to test image picker plugin .
+(3)Completed the manage activity photo galley functionality in admin panel .
+(4)Started working on the daily activity management section .
 
 ===============================================================================================================================
 
@@ -285,61 +279,40 @@ http://netwinindia.net/itsupport/osticket/upload/view.php
 
 
 ==================================Details Daily Task===============================================================================================
+
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the activity program report section in front end campus manager's login . First we have changed in the designing . Before there 
-was no column to show the student's group and group reference number for booking . Now we have shown those columns . Also from the search section we 
-have removed the student group dropdown . Before we have only shown the master activity details , But now we have shown the all activity details in the
-centre for master activity , extra activity for every group . Before we have get the data from database every time we search from the report section or 
-filter the report through filter dropdown . Now  we have created one database view to get the activity report related data . Also with the change of any
-filter dropdown we get the data from our view and show in the report . After successfully search , we have shown one export to excel button in the search
-section . After click on that button we have downloaded the report in excel format . Completed the functionality and tested properly .
+(1)In front end , campus manager's login , started working on the plus walking tour section . The walking tour videos uploaded from admin panel should
+show in the front end . We have checked the status and delete flag condition to show the plus walking tour videos . Before we have shown the video image
+by generating from the original video . Now we have taken the image from management and show accordingly . Also before we have shown the videos in the popup
+and stored in our server . Now instead of the direct video we have only stored the vimeo link . After click on any video we have opened that video in new tab
+to show the video . Also there is option to download the particular video . Completed the functionality and tested properly .
+
+(2)As per the discussion with Stefano , we need one photo gallery option , so that campus manager can pick any image from the photo gallery . I have searched 
+for one free and light weighted plugin . Then finally found jquery image picker plugin . Created one sample page to implement the same and tested .
+
+(3)Started working on the manage activity photogalley section . First we have created the database table as per our new requirement . Then we have created one listing
+page to show the centre name , image and added date . Also we have shown the edit , delete and change status icon in the action column . After click
+on the  change status icon , admin can change the status of the photo . In add/edit page we have shown the centre name and image . We have applied the required validation
+to all the fields . After successfully validation done , we have saved the record in the database . Also we have completed the delete functionality . Basically we have 
+performed soft delete functionality .
+
+(4)Started implementing the imagepicker plugin in the daily activity management . Before we have shown the upload image option before multiple file upload . Now have shifted that
+next to the upload multiple file . Also we have changed the label choose picture . We have removed the upload file option from there and applied the image picker instead of that . 
+As of now we have applied the static one . THe dynamic one and further functionality is remaining .
+
 
 =================================================================================================================================
-Drupal Credentials :
-user name : admin
-password : admin123
-email : sourav.netwin@gmail.com
 
-plused_job_positions
-pulsed_job_contract
-plused_teacher_application
 
 
 =================================================================================================================================
-
-SELECT * FROM `plused_role_menu` where mnu_menu_name like '%Manage master activity%' or mnu_menu_name like '%Manage extra activity%' or mnu_menu_name like '%Activity report%' or mnu_menu_name like '%Manage student group%' 
-
-//Install drush on windows
-https://www.drupal.org/node/594744
-
-//Migrate module documentation
-https://www.drupal.org/node/1006982
-
-delete n1 from tbl_test n1 inner join tbl_test n2 where n1.name=n2.name and n1.id>n2.id
-=================================================================================================================================
-
-truncate table frontweb_master_activity;
-truncate table frontweb_fixed_day_activity;
-truncate table frontweb_fixed_day_activity_details;
-truncate table frontweb_fixed_day_managed_by;
-truncate table frontweb_extra_master_activity;
-truncate table frontweb_extra_day_activity;
-truncate table frontweb_extra_day_activity_details;
-truncate table frontweb_extra_day_managed_by;
-truncate table frontweb_student_group;
-
-
-Your login: sourav.netwin@gmail.com
-Your password: l35dacw
 
 http://localhost/drupal_seven_test/crm-core/contact
 
-
 =================================================================================================================================
 
 
-
-
+alert(select);console.log(select);alert(select.data("picker"));
 
 

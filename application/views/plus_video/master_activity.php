@@ -25,7 +25,7 @@
 	var start_end_date_validation = "<?php echo $this->lang->line("start_end_date_validation"); ?>";
 	var delete_confirmation = "<?php echo $this->lang->line("delete_confirmation"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/manage_master_activity.js?v=1.7"></script>
+<script src="<?php echo base_url(); ?>js/admin/manage_master_activity.js?v=1.9"></script>
 
 <div class="right_col" role="main">
 	<div class="row">

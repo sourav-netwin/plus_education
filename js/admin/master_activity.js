@@ -1,7 +1,7 @@
 /*
 	Description : This js file is used to manage all the javascript related operations
 					for the master activity module
-	Version : 1.8
+	Version : 1.9
 */
 $(document).ready(function(){
 	//For datepicker
@@ -49,7 +49,7 @@ $(document).ready(function(){
 		$('.filterDropdown').each(function(){
 			if($(this).val() != '')
 			{
-				whereConditionArr.push($(this).data('field_ref')+" = '"+$(this).val()+"'");
+				whereConditionArr.push('t.'+$(this).data('field_ref')+" = '"+$(this).val()+"'");
 			}
 		});
 		$.ajax({

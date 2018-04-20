@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/summernote.css">
 <script src="<?php echo base_url(); ?>js/admin/summernote.js"></script>
 
+<!---------------Imagepicker CSS and JS----------------->
+<link href="<?php echo base_url(); ?>css/image-picker.css" type="text/css" rel="stylesheet" media="all">
+<script src="<?php echo base_url(); ?>js/image-picker.js"></script>
+
 <!------------custom javascript for program course------------>
 <script>
 	var pageType = 'add_edit';
@@ -24,7 +28,7 @@
 	var image_type_error_msg = "<?php echo $this->lang->line("image_type_error_msg"); ?>";
 	var minimum_image_dimension = "<?php echo $this->lang->line("minimum_image_dimension"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/manage_activity.js?v=0.1"></script>
+<script src="<?php echo base_url(); ?>js/admin/manage_activity.js?v=0.5"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -45,6 +49,7 @@
 						<input type="hidden" name="deleteEditFile" id="deleteEditFile" value="" />
 						<input type="hidden" id="globalCount" value="<?php echo ($flag == 'as') ? 0 : count($post['files']); ?>" />
 						<div class="box box-primary"><div class="box-body">
+
 						<div class="form-group">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Activity name<span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
@@ -81,59 +86,6 @@
 									'value' => isset($post['description']) ? $post['description'] : ''
 								);
 								echo form_textarea($inputFieldAttribute);
-?>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="radio" name="show_type" class="show_type" value="1" <?php echo ((!isset($post['show_type']))||(isset($post['show_type']) && $post['show_type'] == 1)) ?  'checked' : ''; ?> />Upload Image
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="radio" name="show_type" class="show_type" value="2" <?php echo (isset($post['show_type']) && $post['show_type'] == 2) ?  'checked' : ''; ?> />Enter Text
-							</div>
-						</div>
-
-						<div class="form-group showOption_1" style="display:<?php echo (isset($post['show_type']) && $post['show_type'] == 2) ? 'none' : ''; ?>">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Upload front image <span class="required">*</span></label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="hidden" name="imageChangeFlag" id="imageChangeFlag" value="1" />
-								<input type="hidden" id="imgWidthErrorFlag" value="1" />
-								<input type="hidden" name="oldImg" id="oldImg" value="<?php echo isset($post['front_image']) ? $post['front_image'] : ''; ?>" />
-								<label for="front_image">
-<?php
-									$imgPath = (isset($post['front_image']) && $post['front_image'] != '') ? ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.getThumbnailName($post['front_image']) : base_url().'images/no_flag.jpg';
-?>
-									<img height="135" width="180" class="uploadImageProgramClass" src="<?php echo $imgPath; ?>"/>
-								</label>
-<?php
-								$inputFieldAttribute = array(
-									'id' => 'front_image',
-									'name' => 'front_image',
-									'type' => 'file',
-									'style' => 'visibility: hidden;'
-								);
-								echo form_input($inputFieldAttribute);
-?>
-								<small style="display:block">
-									( Note: Only JPG|JPEG|PNG images are allowed <br> &amp; Image dimension should be greater or equal to <?php echo ACTIVITY_FRONT_WIDTH; ?> X <?php echo ACTIVITY_FRONT_HEIGHT; ?> pixel )
-								</small>
-								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
-							</div>
-						</div>
-
-						<div class="form-group showOption_2" style="display:<?php echo (isset($post['show_type']) && $post['show_type'] == 2) ? '' : 'none'; ?>">
-							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Enter text to show <span class="required">*</span></label>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-<?php
-								$inputFieldAttribute = array(
-									'id' => 'show_text',
-									'name' => 'show_text',
-									'class' => 'form-control',
-									'placeholder' => 'Enter Text',
-									'value' => isset($post['show_text']) ? $post['show_text'] : ''
-								);
-								echo form_input($inputFieldAttribute);
 ?>
 							</div>
 						</div>
@@ -272,6 +224,60 @@
 						<!-----------Static HTML for the dynamic content End--------->
 
 						<div class="ln_solid"></div>
+						<div class="clearfix"></div>
+
+						<div class="form-group">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12"></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="radio" name="show_type" class="show_type" value="1" <?php echo ((!isset($post['show_type']))||(isset($post['show_type']) && $post['show_type'] == 1)) ?  'checked' : ''; ?> />Pick Image
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="show_type" class="show_type" value="2" <?php echo (isset($post['show_type']) && $post['show_type'] == 2) ?  'checked' : ''; ?> />Enter Text
+							</div>
+						</div>
+
+						<div class="form-group showOption_1" style="display:<?php echo (isset($post['show_type']) && $post['show_type'] == 2) ? 'none' : ''; ?>">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Choose front image <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<select class="image-picker show-html testImageClass">
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="1">Cute Kitten 1 test test test</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="2">Cute Kitten 2</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="3">Cute Kitten 3</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="4">Cute Kitten 1</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="5">Cute Kitten 2</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="6">Cute Kitten 3</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="7">Cute Kitten 1</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="8">Cute Kitten 2</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="9">Cute Kitten 3</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="10">Cute Kitten 1</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="11">Cute Kitten 2</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="12">Cute Kitten 3</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="13">Cute Kitten 1</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="14">Cute Kitten 2</option>
+									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="15">Cute Kitten 3</option>
+								</select>
+								<script>
+									$(".testImageClass").imagepicker();
+								</script>
+								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
+							</div>
+						</div>
+
+						<div class="form-group showOption_2" style="display:<?php echo (isset($post['show_type']) && $post['show_type'] == 2) ? '' : 'none'; ?>">
+							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Enter text to show <span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+<?php
+								$inputFieldAttribute = array(
+									'id' => 'show_text',
+									'name' => 'show_text',
+									'class' => 'form-control',
+									'placeholder' => 'Enter Text',
+									'value' => isset($post['show_text']) ? $post['show_text'] : ''
+								);
+								echo form_input($inputFieldAttribute);
+?>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 <?php

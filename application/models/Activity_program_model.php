@@ -226,19 +226,23 @@
 							'fixed_day_activity_id' => $value['fixed_day_activity_id']
 						);
 					}
-
 					$finalReturnArr['datesArr'] = array_flip($finalReturnArr['datesArr']);
 					//Set arrival dates activity(for group) to the master activity
 					$returnArr[date('Y-m-d' , strtotime($arrivalDate))] = $returnArr[$masterDetails['arrival_date']];
-					unset($returnArr[$masterDetails['arrival_date']]);
-					$finalReturnArr['datesArr'][date('Y-m-d' , strtotime($arrivalDate))] = $finalReturnArr['datesArr'][$masterDetails['arrival_date']];
-					unset($finalReturnArr['datesArr'][$masterDetails['arrival_date']]);
-
+					if(date('Y-m-d' , strtotime($arrivalDate)) != $masterDetails['arrival_date'])
+					{
+						unset($returnArr[$masterDetails['arrival_date']]);
+						$finalReturnArr['datesArr'][date('Y-m-d' , strtotime($arrivalDate))] = $finalReturnArr['datesArr'][$masterDetails['arrival_date']];
+						unset($finalReturnArr['datesArr'][$masterDetails['arrival_date']]);
+					}
 					//Set departure dates activity(for group) to the master activity
 					$returnArr[date('Y-m-d' , strtotime($departureDate))] = $returnArr[$masterDetails['departure_date']];
-					unset($returnArr[$masterDetails['departure_date']]);
-					$finalReturnArr['datesArr'][date('Y-m-d' , strtotime($departureDate))] = $finalReturnArr['datesArr'][$masterDetails['departure_date']];
-					unset($finalReturnArr['datesArr'][$masterDetails['departure_date']]);
+					if(date('Y-m-d' , strtotime($departureDate)) != $masterDetails['departure_date'])
+					{
+						unset($returnArr[$masterDetails['departure_date']]);
+						$finalReturnArr['datesArr'][date('Y-m-d' , strtotime($departureDate))] = $finalReturnArr['datesArr'][$masterDetails['departure_date']];
+						unset($finalReturnArr['datesArr'][$masterDetails['departure_date']]);
+					}
 					$finalReturnArr['datesArr'] = array_flip($finalReturnArr['datesArr']);
 
 					//prepare activity details array date and timeslot wise

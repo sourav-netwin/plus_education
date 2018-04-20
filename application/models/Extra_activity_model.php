@@ -87,10 +87,12 @@
 				}
 				//Set arrival dates activity(for group) to the master activity
 				$returnArr[$dateRange['arrival_date']] = $returnArr[$masterDetails['arrival_date']];
-				unset($returnArr[$masterDetails['arrival_date']]);
+				if($dateRange['arrival_date'] != $masterDetails['arrival_date'])
+					unset($returnArr[$masterDetails['arrival_date']]);
 				//Set departure dates activity(for group) to the master activity
 				$returnArr[$dateRange['departure_date']] = $returnArr[$masterDetails['departure_date']];
-				unset($returnArr[$masterDetails['departure_date']]);
+				if($dateRange['departure_date'] != $masterDetails['departure_date'])
+					unset($returnArr[$masterDetails['departure_date']]);
 			}
 			return $returnArr;
 		}

@@ -18,7 +18,7 @@
 		//This function is used to show the video gallery page
 		function index()
 		{
-			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
+			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description , video_image' , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
 			$data['activityDetails'] = $this->Front_model->commonGetData("plus_activity_id , name , description , front_image , date_format(added_date , '%d-%m-%Y') as added_date , show_type , show_text" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'sequence' , 'asc' , 2);
 			$data['centreDetails'] = $this->Front_model->commonGetData('icon_class , title , details' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_WALKING_TOUR_CENTRE_DETAILS , 'sequence' , 'asc' , 2);
 			$data['viewPage'] = 'plus_video/video_activity';
@@ -106,5 +106,12 @@
 			}
 			fclose($fp);
 			force_download(str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt' , file_get_contents('./'.WALKING_TOUR_CENTRE_DETAILS_FILE.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt'));
+		}
+
+		function testImage()
+		{
+			$data['viewPage'] = 'testimage';
+			$data['showLeftMenu'] = 1;
+			$this->load->view('plus_video/template' , $data);
 		}
 	}

@@ -1,7 +1,7 @@
 /*
 	Description : This js file is used to manage all the javascript related operations
 					for the extra activity module
-	Version : 1.7
+	Version : 1.9
 */
 $(document).ready(function(){
 	var $globalTdSelector;
@@ -164,6 +164,8 @@ $(document).ready(function(){
 						$('#activityDetailsModal').find('#managed_by').val(selectedArr);
 						$('#activityDetailsModal').find('#managed_by').multiselect("refresh");
 					}
+					else
+						$('#activityDetailsModal').find('#managed_by').multiselect("deselectAll", false).multiselect("refresh");
 
 					//Show all the added records(managed by person names) in the add more format
 					if(response.managed_by_text.length > 0)

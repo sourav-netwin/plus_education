@@ -20,7 +20,7 @@
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
 	var delete_confirmation = "<?php echo $this->lang->line("delete_confirmation"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/extra_activity.js?v=1.7"></script>
+<script src="<?php echo base_url(); ?>js/admin/extra_activity.js?v=1.9"></script>
 
 <div class="right_col" role="main">
 	<div class="row">

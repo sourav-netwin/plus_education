@@ -2,6 +2,10 @@
 <link href="<?php echo base_url(); ?>css/plus_video/jquery.custom-scrollbar.css" type="text/css" rel="stylesheet" media="all">
 <script src="<?php echo base_url(); ?>js/admin/jquery.custom-scrollbar.js"></script>
 
+<!-------------------Jquery fancybox CSS and JS--------------------->
+<link href="<?php echo base_url(); ?>css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
+<script src="<?php echo base_url(); ?>js/jquery.fancybox.js"></script>
+
 <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12" style="padding: 0;">
 	<!---------------Plus Video section Start-------------->
 	<div class="plusVideoWraper">
@@ -29,12 +33,15 @@
 								<div style="margin-top: 30px;" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 welcome-w3imgs">
 									<figure class="effect-chico" style="margin: 0;">
 <?php
-										$imgFile = ADMIN_PANEL_URL.WALKING_TOUR_VIDEO_IMAGE_PATH.$value['video_image'];
+										if(file_exists('./'.PLUS_WALKING_TOUR_FRONT_IMAGE.str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video'])))
+											$imgFile = base_url().PLUS_WALKING_TOUR_FRONT_IMAGE.str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video']);
+										else
+											$imgFile = '';
 ?>
 										<img style="width: 100%;" src="<?php echo $imgFile; ?>" id="videoImage_<?php echo ($key+1); ?>" />
 										<figcaption>
 											<div class="figcaptionWrapperClass"><p class="figcaption-title-class-courses">
-												<a target="_blank" href="<?php echo $value['video']; ?>">
+												<a data-fancybox data-refid="<?php echo str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($value['plus_walking_tour_id']))); ?>" href="<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>">
 													<i style="color: #FFFFFF;" class="fa-2x fa fa-play video-icon-class" aria-hidden="true"></i>
 												</a>
 											</p></div>
@@ -149,6 +156,81 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("[data-fancybox]").fancybox({
+			buttons : [
+				'download',
+				'close'
+			],
+			afterShow : function(instance , current){
+				$('.fancybox-button--download').attr('href' , '<?php echo base_url().'video_gallery/force_download/'; ?>'+current.opts.$orig.attr("data-refid"));
+			}
+		});
+
+<?php
+		if(!empty($videoDetails))
+		{
+			foreach($videoDetails as $key => $value)
+			{
+				if(!file_exists('./'.PLUS_WALKING_TOUR_FRONT_IMAGE.str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video'])))
+				{
+?>
+					showImageAt('<?php echo ADMIN_PANEL_URL.PLUS_WALKING_TOUR.$value['video']; ?>' , 8 , 'videoImage_<?php echo ($key+1); ?>' , '<?php echo str_replace(substr($value['video'] , (strpos($value['video'] , '.') + 1) , strlen($value['video'])) , 'png' , $value['video']); ?>');
+<?php
+				}
+			}
+		}
+?>
+		function getVideoImage(path, secs, callback)
+		{
+			var me = this, video = document.createElement('video');
+			video.onloadedmetadata = function(){
+				if('function' === typeof secs){
+					secs = secs(this.duration);
+				}
+				this.currentTime = Math.min(Math.max(0, (secs < 0 ? this.duration : 0) + secs), this.duration);alert('pop = '+currentTime);
+			};
+			video.onseeked = function(e) {
+				var canvas = document.createElement('canvas');
+				canvas.height = 245;
+				canvas.width = 435;
+				var ctx = canvas.getContext('2d');
+				ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+				var img = new Image();
+				img.src = canvas.toDataURL();
+				callback.call(me, img, this.currentTime, e);
+			};
+			video.onerror = function(e) {
+				callback.call(me, undefined, undefined, e);
+			};
+			video.src = path;
+		}
+		function showImageAt(url , secs , wrapperId , fileName)
+		{
+			$('.waitClass').css('display' , 'block');
+			var duration;
+			getVideoImage(
+				url,
+				function(totalTime) {
+					duration = totalTime;
+					return secs;
+				},
+				function(img, secs, event) {
+					if (event.type == 'seeked') {
+						$('#'+wrapperId).attr('src' , img.src);
+						//Save the binary images
+						$.ajax({
+							url : '<?php echo base_url(); ?>video_gallery/save_file',
+							data : {'fileName' : fileName , 'binaryImg' : img.src , csrf_test_name: $.cookie('csrf_cookie_name')},
+							type : 'POST',
+							success : function(response){
+								$('.waitClass').css('display' , 'none');
+							}
+						});
+					}
+				}
+			);
+		}
+
 		//For custom scrolbar
 		$(".demo").customScrollbar();
 	});
