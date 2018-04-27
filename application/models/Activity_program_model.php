@@ -254,6 +254,7 @@
 								$finalReturnArr['details'][date('H:i' , strtotime($value['from_time'])).'-'.date('H:i' , strtotime($value['to_time']))][$value['fixed_day_activity_id']][] = $value['activity'];
 						}
 					}
+					ksort($finalReturnArr['details']);
 				}
 			}
 			return $finalReturnArr;

@@ -21,6 +21,7 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<a class="btn btn-primary" href="<?php echo base_url(); ?>manage_activity/add_edit"><i class="fa fa-plus" aria-hidden="true"></i> Add activity</a>
+				<a class="btn btn-danger" href="<?php echo base_url(); ?>master/index/manage_activity_photogallery"><i class="fa fa-cogs" aria-hidden="true"></i> Manage activity photo gallery</a>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<?php showSessionMessageIfAny($this);?>

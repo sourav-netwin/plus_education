@@ -84,7 +84,7 @@
 						if($value['show_type'] == 1)
 						{
 ?>
-							<div class="w3ls-banner-1" style="background: url(<?php echo ADMIN_PANEL_URL.ACTIVITY_FRONT_IMAGE_PATH.$value['front_image']; ?>)no-repeat center;"></div>
+							<div class="w3ls-banner-1" style="background: url(<?php echo getPhotogalleryFullImagePath($value['front_image']); ?>)no-repeat center;"></div>
 <?php
 
 						}

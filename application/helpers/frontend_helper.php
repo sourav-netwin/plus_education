@@ -192,8 +192,8 @@
 		{
 ?>
 			<div class="session-message">
-				<div class="alert alert-success alert-dismissable text-center">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<div class="alert alert-success alert-dismissable text-center" style="padding: 5px;margin-top: 10px;margin-bottom: 0px;">
+					<button style="right: 0px;" type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 					<?php echo $success_message ?>
 				</div>
 			</div>
@@ -393,6 +393,123 @@
 					$returnArr[$value['name']] = $value['name'];
 			}
 			return $returnArr;
+		}
+	}
+
+	/**
+	*This function is used to return the photo gallery image path with the id of the photo gallery
+	*It is mainly used in daily activity section in front end
+	*
+	*@param Integer $id : The id of  the photo gallery
+	*@return String :  The path of the photogallery image
+	*/
+	if(!function_exists('getPhotogalleryFullImagePath'))
+	{
+		function getPhotogalleryFullImagePath($id = NULL)
+		{
+			$CI = &get_instance();
+			$result = $CI->db->select('image_name')
+							->where('activity_photo_gallery_id' , $id)
+							->get(TABLE_ACTIVITY_PHOTO_GALLERY)->row_array();
+			return ADMIN_PANEL_URL.ACTIVITY_PHOTOGALLERY_IMAGE_PATH.$result['image_name'];
+		}
+	}
+
+	/**
+	*Lets you determine whether an array index is set and whether it has a value.
+	*If the element is empty it returns FALSE (or whatever you specify as the default value.)
+	*
+	*@access public
+	*@param string
+	*@return mixed depends on what the array contains
+	*/
+	if(!function_exists('validateApiKey'))
+	{
+		function validateApiKey($api_key = '')
+		{
+			$CI = &get_instance();
+			$CI->lang->load('message' , 'english');
+			if($api_key)
+			{
+				if($api_key != md5(API_TOKEN))
+				{
+					$data = array(
+						'status' => $CI->lang->line('FAIL'),
+						'message' => $CI->lang->line('INVALID_TOKEN_MESSAGE')
+					);
+					echo json_encode($data);
+					die;
+				}
+			}
+			else
+			{
+				$data = array(
+					'status' => $CI->lang->line('FAIL'),
+					'message' => $CI->lang->line('NO_TOKEN_MESSAGE')
+				);
+				echo json_encode($data);
+				die;
+			}
+		}
+	}
+
+	/**
+	*This function can be use to check is it a valid date or not
+	*
+	*@param Date $date
+	*@param String $dateFormat
+	*@return Boolean
+	*@author S.D
+	*@since Apr 2018
+	*/
+	if(!function_exists('isItValidDate'))
+	{
+		function isItValidDate($date = NULL , $dateFormat = 'Y-m-d')
+		{
+			switch($dateFormat)
+			{
+				// YYYY-MM-DD Format
+				case "Y-m-d" :
+					$date = date("Y-m-d",  strtotime($dateFormat));
+					if(preg_match("/^(\d{4})-(\d{2})-(\d{2})$/" , $date , $matches))
+					{
+						if(checkdate($matches[2], $matches[3], $matches[1]))
+							return true;
+					}
+					break;
+				// DD-MM-YYYY Format
+				case "d-m-Y" :
+					if(preg_match("/^(\d{2})-(\d{2})-(\d{4})$/" , $date , $matches))
+					{
+						if(checkdate($matches[2], $matches[1], $matches[3]))
+							return true;
+					}
+					break;
+				// DD/MM/YYYY Format
+				case "d/m/Y":
+					if(preg_match("/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/" , $date , $matches))
+					{
+						if(checkdate($matches[2] , $matches[1] , $matches[3]))
+							return true;
+					}
+					break;
+				// MM-DD-YYYY Format
+				case "m-d-Y":
+					if(preg_match("/^(\d{2})-(\d{2})-(\d{4})$/" , $date , $matches))
+					{
+						if(checkdate($matches[1], $matches[2], $matches[3]))
+							return true;
+					}
+					break;
+				default :
+					if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $date, $matches))
+					{
+						if(checkdate($matches[2], $matches[3], $matches[1]))
+							return true;
+					}
+					break;
+			}
+			return false;
 		}
 	}
 ?>

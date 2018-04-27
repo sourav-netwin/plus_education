@@ -1,9 +1,8 @@
 /*
 	This JS file is used to manage all custom javascript functionality(applicable for
 	add/edit/list) related to the master module
-	Current Version : 0.2
+	Current Version : 1.3
 */
-
 var pageHighlightMenu = 'frontweb/master/index/'+moduleName;
 $(document).ready(function(){
 	if(pageType == 'list')
@@ -16,7 +15,7 @@ $(document).ready(function(){
 			ajax : {
 				url : baseUrl+'master/datatable',
 				type : 'POST',
-				data : {'moduleName' : moduleName , 'csrf_test_name' : $.cookie('csrf_cookie_name')}
+				data : {'moduleName' : moduleName}
 			},
 			columnDefs : [{"targets" : [0,parseInt(actionColumnNo)] , "orderable" : false}]
 		});
@@ -30,7 +29,7 @@ $(document).ready(function(){
 			confirmAction(message , function(c){
 				if(c){
 					$.ajax({
-						url : baseUrl+'index.php/frontweb/master/update_status',
+						url : baseUrl+'master/update_status',
 						type : 'POST',
 						data : {'id' : id , 'status' : status , 'module' : module},
 						success : function(){
@@ -40,79 +39,6 @@ $(document).ready(function(){
 				}
 			} , true , true);
 		});
-
-		//Operations for master activity module only
-		if(moduleName == 'manage_fixed_activity')
-		{
-			//For master activity module , after click on the copy icon , we have opened one modal to select multiple dates
-			$(document).on('click' , '.copyMasterActivity' , function(){
-				$('#copyMasterActivityModal').find('.modalTitle').text('Copy master activity for '+$(this).parent().parent().parent().find('td').eq(1).text());
-				$('#copyMasterActivityModal').find('#id').val($(this).data('id'));
-				$('#copyMasterActivityModal').find('.customActivityError').text('');
-				$('#copyMasterActivityModal').modal();
-				$('#copyMasterActivityModal').find('input:text').val('');
-			});
-
-			//After click on the add more icon it will clone and append the item
-			$(document).on('click' , '.addMoreTable' , function(){
-				if($(this).parent().find('i').length == 1)
-					$(this).parent().append('<i class="fa fa-lg fa-minus-circle delete_section removeMoreTable" aria-hidden="true"></i>');
-				$(this).parent().parent().after($(this).parent().parent().clone());
-				$(this).parent().parent().next().find('input:text').val('');
-				$(this).parent().parent().next().find('.showErrorMsg').text('');
-				$('.datepicker').datepicker({
-					format: "dd-mm-yyyy",
-					autoclose: true
-				});
-			});
-
-			//After click on the remove more icon it will remove the current content
-			$(document).on('click' , '.removeMoreTable' , function(){
-				$(this).parent().parent().remove();
-				if($('.addMoreWrapper').length == 1)
-					$('.addMoreWrapper').find('.removeMoreTable').remove();
-			});
-
-			//Check required validation for copy ativity form during form submit
-			$('#copyMasterActivityForm').submit(function(e){
-				if($('#copyActivityFlag').val() == 2)
-					return true;
-				e.preventDefault();
-				var errorFlag = 1;
-				var datesArr = [];
-				$('#copyMasterActivityModal').find('.customActivityError').text('');
-				//To check the required validation
-				$('input[name="date[]"]').each(function(){
-					if($(this).val() == '')
-					{
-						errorFlag = 2;
-						$(this).next('.showErrorMsg').text(please_enter_dynamic.replace('**field**' , 'Date')).css('display' , 'block');
-					}
-					else
-					{
-						datesArr.push($(this).val());
-						$(this).next('.showErrorMsg').text('');
-					}
-				});
-				if(errorFlag == 1)
-				{
-					$.ajax({
-						url : baseUrl+'index.php/frontweb/master_activity/copy_duplicate',
-						type : 'POST',
-						data : {'datesArr' : datesArr , 'id' : $('#copyMasterActivityModal').find('#id').val()},
-						success : function(response){
-							if(response == 'true')
-							{
-								$('#copyActivityFlag').val('2');
-								$('#copyMasterActivityForm').submit();
-							}
-							else
-								$('#copyMasterActivityModal').find('.customActivityError').text(duplicate_dynamic.replace('**field**' , 'Date'));
-						}
-					});
-				}
-			});
-		}
 	}
 	else if(pageType == 'add_edit')
 	{
@@ -189,6 +115,18 @@ $(document).ready(function(){
 					{
 						$('#'+fieldKey).rules('add' , {
 							checkImageWidth : true
+						});
+					}
+					else if(alowedTypes == 'url')
+					{
+						$('#'+fieldKey).rules('add' , {
+							url : true
+						});
+					}
+					else if(alowedTypes == 'validVimeoUrl')
+					{
+						$('#'+fieldKey).rules('add' , {
+							validVimeoUrl : true
 						});
 					}
 					else if(alowedTypes.indexOf('duplicate') != -1)
@@ -285,7 +223,7 @@ $(document).ready(function(){
 		jQuery.validator.addMethod("checkImageExt" , function (value , element){
 			if(value)
 			{
-				if(splitByLastDot(value) == 'jpg' || splitByLastDot(value) == 'png' || splitByLastDot(value) == 'jpeg')
+				if(splitByLastDot(value) == 'jpg' || splitByLastDot(value) == 'jpeg')
 					return true;
 				else
 					return false;
@@ -293,6 +231,14 @@ $(document).ready(function(){
 			else
 				return true;
 		} , image_type_error_msg);
+
+		//Add custimize validation to check the entered url is video url or not
+		jQuery.validator.addMethod('validVimeoUrl' , function(value , element){
+			if(value.indexOf('vimeo.com') == -1)
+				return false;
+			else
+				return true;
+		} , enter_vimeo_url);
 
 		$.each(fieldObject , function(fieldKey , fieldValue){
 			if(fieldValue.type == 'file' && fieldValue.fileType == 'image')
@@ -379,4 +325,41 @@ function strip_html_tags(str)
 	else
 		str = str.toString();
 	return str.replace(/<[^>]*>/g , '');
+}
+
+//This function is used to show sweet alert popup box
+function confirmAction(message , callback , closeOnConfirm , closeOnCancel)
+{
+	if(!message){
+		message = 'Are you sure';
+	}
+	if(!closeOnConfirm){
+		closeOnConfirm = false;
+	}
+	else{
+		closeOnConfirm = true;
+	}
+	if(!closeOnCancel){
+		closeOnCancel = false;
+	}
+	else{
+		closeOnCancel = true;
+	}
+	swal({
+		title: '',
+		text: message,
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#00a65a",
+		confirmButtonText: "Yes",
+		closeOnConfirm: closeOnConfirm,
+		closeOnCancel: closeOnCancel
+	}, function(status){
+		if(status){
+			callback(true);
+		}
+		else{
+			callback(false);
+		}
+	});
 }

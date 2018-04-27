@@ -45,31 +45,10 @@
 		//This function is used to perform both add and edit operation for manage activity module
 		function add_edit($id = NULL)
 		{
-			$imageError = '';
 			if($this->input->post('flag'))
 			{
 				$file_name = array();
-				$frontFileName = $this->input->post('oldImg');
-				if($this->input->post('imageChangeFlag') == 2)
-				{
-					$uploadData = $this->image_upload->do_upload('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE , 'front_image' , UPLOAD_IMAGE_SIZE , ACTIVITY_FRONT_WIDTH , ACTIVITY_FRONT_HEIGHT);
-					if($uploadData['errorFlag'] == 0)
-					{
-						if($this->input->post('flag') == 'es')
-						{
-							//Delete old file
-							if(file_exists('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.$frontFileName))
-								unlink('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.$frontFileName);
-							if(file_exists('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.getThumbnailName($frontFileName)))
-								unlink('./'.ACTIVITY_FRONT_IMAGE_ACCESS_FILE.getThumbnailName($frontFileName));
-						}
-						$frontFileName = $uploadData['fileName'];
-					}
-					else
-						$imageError = $uploadData['errorMessage'];
-				}
-
-				//Upload New files
+				//Upload New files(for add multiple files)
 				if(!empty($_FILES['file_name']['name']) && $imageError == '')
 				{
 					$fileArr = $_FILES;
@@ -90,57 +69,50 @@
 					}
 				}
 
-				if($imageError == '')
+				//Add or update record in main table
+				$updateData = array(
+					'name' => $this->input->post('name'),
+					'centre_id' => $this->input->post('centre_id'),
+					'description' => $this->input->post('description'),
+					'front_image' => $this->input->post('front_image'),
+					'show_type' => $this->input->post('show_type'),
+					'show_text' => $this->input->post('show_text')
+				);
+				if($this->input->post('flag') == 'as')
 				{
-					//Add or update record in main table
-					$updateData = array(
-						'name' => $this->input->post('name'),
-						'centre_id' => $this->input->post('centre_id'),
-						'description' => $this->input->post('description'),
-						'front_image' => $frontFileName,
-						'show_type' => $this->input->post('show_type'),
-						'show_text' => $this->input->post('show_text')
-					);
-					if($this->input->post('flag') == 'as')
-					{
-						$countArr = $this->Front_model->commonGetData('count(*) as total' , 'centre_id = '.$this->input->post('centre_id') , TABLE_PLUS_ACTIVITY_MANAGEMENT);
-						$updateData['added_date'] = date('Y-m-d');
-						$updateData['sequence'] = ($countArr['total'] + 1);
-						$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
-						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
-					}
-					elseif($this->input->post('flag') == 'es')
-					{
-						$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
-
-						//Delete files
-						$deleteEditFileArr = ($this->input->post('deleteEditFile') != '') ? explode(',' , $this->input->post('deleteEditFile')) : array();
-						if(!empty($deleteEditFileArr))
-						{
-							foreach($deleteEditFileArr as $value)
-								$this->delete_file($value);
-						}
-						$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('edit_success_message')));
-					}
-
-					//Add new uploaded file recoerd in the database
-					if(!empty($file_name))
-					{
-						foreach($file_name as $value)
-						{
-							$insertData = array(
-								'file_name' => $value,
-								'plus_activity_id' => ($this->input->post('flag') == 'as') ? $insertId : $id
-							);
-							$this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , $insertData);
-						}
-					}
-
-					//For image cropping
-					if($this->input->post('imageChangeFlag') == 2)
-						$this->_handleCropping($frontFileName);
-					redirect('/manage_activity');
+					$countArr = $this->Front_model->commonGetData('count(*) as total' , 'centre_id = '.$this->input->post('centre_id') , TABLE_PLUS_ACTIVITY_MANAGEMENT);
+					$updateData['added_date'] = date('Y-m-d');
+					$updateData['sequence'] = ($countArr['total'] + 1);
+					$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
+					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
 				}
+				elseif($this->input->post('flag') == 'es')
+				{
+					$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$id , $updateData);
+
+					//Delete files
+					$deleteEditFileArr = ($this->input->post('deleteEditFile') != '') ? explode(',' , $this->input->post('deleteEditFile')) : array();
+					if(!empty($deleteEditFileArr))
+					{
+						foreach($deleteEditFileArr as $value)
+							$this->delete_file($value);
+					}
+					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('edit_success_message')));
+				}
+
+				//Add new uploaded file recoerd in the database
+				if(!empty($file_name))
+				{
+					foreach($file_name as $value)
+					{
+						$insertData = array(
+							'file_name' => $value,
+							'plus_activity_id' => ($this->input->post('flag') == 'as') ? $insertId : $id
+						);
+						$this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , $insertData);
+					}
+				}
+				redirect('/manage_activity');
 			}
 			if($id != '')
 			{
@@ -148,11 +120,14 @@
 				$post['files'] = $this->Front_model->commonGetData('plus_activity_file_id , file_name' , 'plus_activity_id = '.$id , TABLE_PLUS_ACTIVITY_MANAGEMENT_FILES , '' , 'asc' , 2);
 				$data['post'] = $post;
 			}
+
+			//Get the images from photo gallery section
+			$data['photoGallery'] = $this->Front_model->commonGetData('activity_photo_gallery_id , image_name' , 'centre_id = '.$this->session->userdata('centre_id').' AND status = 1 AND delete_flag = 0' , TABLE_ACTIVITY_PHOTO_GALLERY , 'added_date' , 'desc' , 2);
+
 			$data['id'] = $id;
 			$data['flag'] = ($id != '') ? 'es' : 'as';
 			$data['viewPage'] = 'plus_video/manage_activity_add_edit';
 			$data['showLeftMenu'] = 0;
-			$data['imageError'] = $imageError;
 			$this->load->view('plus_video/template' , $data);
 		}
 

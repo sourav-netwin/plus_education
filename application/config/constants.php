@@ -93,6 +93,9 @@ define('ENCRYPTKEY' , 'STUDYTOURS@!123456');
 //Constant for create folder permission
 define('DIR_PERMISSION' , 0755);
 
+//Constant to define the api token for webservices
+define('API_TOKEN' , "PLUS_SYSTEM_CONFIGURATION");
+
 //Database table names
 define('TABLE_PROGRAM' , 'frontweb_program_banner');
 define('TABLE_PROGRAM_LANGUAGE' , 'frontweb_program_banner_language');
@@ -161,7 +164,7 @@ define('TABLE_FIXED_DAY_MANAGED_BY' , 'frontweb_fixed_day_managed_by');
 define('TABLE_EXTRA_DAY_MANAGED_BY' , 'frontweb_extra_day_managed_by');
 define('ACTIVITY_REPORT_PROGRAM' , 'activity_report_program');
 define('TABLE_ACTIVITY_PHOTO_GALLERY' , 'frontweb_activity_photo_gallery');
-
+define('TABLE_PLUSED_ROWS' , 'plused_rows');
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
 
@@ -176,6 +179,9 @@ if($_SERVER['HTTP_HOST'] == "localhost")
 {
 	//Admin panel base url path to access images
 	define('ADMIN_PANEL_URL' , 'http://localhost/stvision/vision/');
+
+	//Define file relative path for admin panel
+	define('ADMIN_PANEL_RELATIVE_PATH' , '../stvision/vision/');
 
 	//Define file relative path for plus walking tour videoes
 	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../stvision/vision/uploads/plus_walking_tour/');
@@ -197,6 +203,9 @@ elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192
 	//Admin panel base url path to access images
 	define('ADMIN_PANEL_URL' , 'http://'.$_SERVER['HTTP_HOST'].'/stvision/vision/');
 
+	//Define file relative path for admin panel
+	define('ADMIN_PANEL_RELATIVE_PATH' , '../stvision/vision/');
+
 	//Define file relative path for plus walking tour videoes
 	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../stvision/vision/uploads/plus_walking_tour/');
 
@@ -216,6 +225,9 @@ else
 {
 	//Admin panel base url path to access images
 	define('ADMIN_PANEL_URL' , 'http://plus-ed.com/vision_ag/');
+
+	//Define file relative path for admin panel
+	define('ADMIN_PANEL_RELATIVE_PATH' , '../vision_ag/');
 
 	//Define file relative path for plus walking tour videoes
 	define('PLUS_WALKING_TOUR_DOWNLOAD_FILE' , '../vision_ag/uploads/plus_walking_tour/');
@@ -351,6 +363,13 @@ define('ACTIVITY_FRONT_WIDTH' , 400);
 define('ACTIVITY_FRONT_HEIGHT' , 300);
 define('ACTIVITY_FRONT_THUMB_WIDTH' , 250);
 define('ACTIVITY_FRONT_THUMB_HEIGHT' , 187);
+
+//Define image location , height , width , thumb details for activity photo gallery images
+define('ACTIVITY_PHOTOGALLERY_IMAGE_PATH' , 'uploads/activity_photogallery/');
+define('ACTIVITY_PHOTOGALLERY_IMAGE_WIDTH' , 400);
+define('ACTIVITY_PHOTOGALLERY_IMAGE_HEIGHT' , 300);
+define('ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_WIDTH' , 100);
+define('ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_HEIGHT' , 75);
 
 //Define the upload image size
 define('UPLOAD_IMAGE_SIZE' , 10000);

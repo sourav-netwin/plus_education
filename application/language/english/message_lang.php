@@ -7,7 +7,7 @@
 	$lang['inactive_confirmation'] = 'Do you want to inactive this **module** ?';
 	$lang['valid_data_error_msg'] = 'Please enter valid data.';
 	$lang['exact_image_size'] = 'Image size should be exact **width** X **height** pixel';
-	$lang['image_type_error_msg'] = 'Please upload jpg|png|jpeg image.';
+	$lang['image_type_error_msg'] = 'Please upload jpg|jpeg image.';
 	$lang['required_upload_image'] = 'Please upload image';
 	$lang['delete_confirmation'] = 'Are you sure to delete ?';
 	$lang['minimum_image_dimension'] = 'Image dimension should be greater or equal to **width** X **height** pixel';
@@ -25,5 +25,15 @@
 	$lang['from_to_error_date'] = 'From date should be less than to date';
 	$lang['to_from_error_date'] = 'To date should be greater than from date';
 	$lang['start_end_date_validation'] = 'Start date should be less than or equal to end date';
+	$lang['please_select_dropdown'] = 'Please select';
+
+	//messages for the webservice
+	$lang['SUCCESS'] = 'Success';
+	$lang['FAIL'] = 'Fail';
+	$lang['INVALID_TOKEN_MESSAGE'] = 'Invalid API token.';
+	$lang['NO_TOKEN_MESSAGE'] = 'No API token received.';
+	$lang['VALID_TOKEN_MESSAGE'] = 'API Token validated.';
+	$lang['invalid_credentials'] = 'Error! Invalid credentials.';
+	$lang['booking_not_available'] = 'Booking not available';
 
 ?>

@@ -38,3 +38,6 @@
 	$config['activity_program'] = 'activity-program';
 	$config['menu'] = 'menu';
 	$config['international_mix'] = 'international-mix';
+
+	//This config is for the static section(webservice related)
+	$config['contactUsSlug'] = 'contact-us';

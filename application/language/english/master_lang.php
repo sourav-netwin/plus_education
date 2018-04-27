@@ -37,6 +37,7 @@
 		'actionType' => array('edit')
 	);
 	$lang['manage_fixed_activity']['listWhere'] = 'centre_id = '.$_SESSION['centre_id'];
+	$lang['manage_fixed_activity']['addHide'] = 1;
 /*---------------For manage fixed activity module(End)---------------*/
 
 /*---------------For manage Centre(Start)---------------*/
@@ -46,7 +47,7 @@
 		'key' => 'id',
 		'value' => 'nome_centri'
 	);
-	$lang['centre']['listWhere'] = '((attivo = 1) OR (is_mini_stay = 1 AND attivo = 0))';
+	$lang['centre']['listWhere'] = '(((attivo = 1) OR (is_mini_stay = 1 AND attivo = 0)) AND id='.$_SESSION['centre_id'].')';
 /*---------------For manage Centre(End)---------------*/
 
 /*---------------For manage student group module(Start)---------------*/
@@ -57,4 +58,58 @@
 		'value' => 'group_name'
 	);
 /*---------------For manage student group module(End)---------------*/
+
+/*---------------For manage activity photo gallery module(Start)---------------*/
+	$lang['manage_activity_photogallery']['dbName'] = TABLE_ACTIVITY_PHOTO_GALLERY;
+	$lang['manage_activity_photogallery']['key'] = 'activity_photo_gallery_id';
+	$lang['manage_activity_photogallery']['title'] = 'Activity Photo Gallery';
+	$lang['manage_activity_photogallery']['list'] = array(
+		'image_name' => array(
+			'columnTitle' => 'Image',
+			'type' => 'image',
+			'uploadPath' => ACTIVITY_PHOTOGALLERY_IMAGE_PATH,
+			'columnNo' => 1,
+			'thumbHeight' => ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_HEIGHT,
+			'thumbWidth' => ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_WIDTH
+		),
+		'centre_id' => array(
+			'columnTitle' => 'Centre',
+			'type' => 'dropdown',
+			'module' => 'centre',
+			'columnNo' => 2
+		),
+		'added_date' => array(
+			'columnTitle' => 'Added date',
+			'type' => 'datetime',
+			'columnNo' => 3
+		)
+	);
+	$lang['manage_activity_photogallery']['list']['actionColumn'] = array(
+		'columnNo' => 4,
+		'actionType' => array('edit' , 'delete' , 'status')
+	);
+	$lang['manage_activity_photogallery']['listWhere'] = 'delete_flag = 0';
+	$lang['manage_activity_photogallery']['statusField'] = 'status';
+	$lang['manage_activity_photogallery']['field'] = array(
+		'centre_id' => array(
+			'fieldLabel' => 'Select centre',
+			'type' => 'dropdown',
+			'module' => 'centre',
+			'validation' => 'required'
+		),
+		'image_name' => array(
+			'fieldLabel' => 'Upload image',
+			'type' => 'file',
+			'fileType' => 'image',
+			'validation' => 'imageRequired|checkImageExt|checkImageWidth',
+			'uploadPath' => ACTIVITY_PHOTOGALLERY_IMAGE_PATH,
+			'width' => ACTIVITY_PHOTOGALLERY_IMAGE_WIDTH,
+			'height' => ACTIVITY_PHOTOGALLERY_IMAGE_HEIGHT,
+			'thumbHeight' => ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_HEIGHT,
+			'thumbWidth' => ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_WIDTH
+		)
+	);
+	$lang['manage_activity_photogallery']['addedDateField'] = 'added_date';
+	$lang['manage_activity_photogallery']['listWhere'] = 'centre_id = '.$_SESSION['centre_id'];
+/*---------------For manage activity photo gallery module(End)---------------*/
 ?>

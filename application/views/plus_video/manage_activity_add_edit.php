@@ -238,27 +238,21 @@
 						<div class="form-group showOption_1" style="display:<?php echo (isset($post['show_type']) && $post['show_type'] == 2) ? 'none' : ''; ?>">
 							<label class="control-label custom-control-label col-md-3 col-sm-3 col-xs-12">Choose front image <span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<select class="image-picker show-html testImageClass">
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="1">Cute Kitten 1 test test test</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="2">Cute Kitten 2</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="3">Cute Kitten 3</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="4">Cute Kitten 1</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="5">Cute Kitten 2</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="6">Cute Kitten 3</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="7">Cute Kitten 1</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="8">Cute Kitten 2</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="9">Cute Kitten 3</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="10">Cute Kitten 1</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="11">Cute Kitten 2</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="12">Cute Kitten 3</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="13">Cute Kitten 1</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="14">Cute Kitten 2</option>
-									<option data-img-src="https://dummyimage.com/100x75/000/fff" value="15">Cute Kitten 3</option>
+								<select name="front_image" class="image-picker show-html imageGalleryClass">
+<?php
+									if(!empty($photoGallery))
+									{
+										foreach($photoGallery as $value)
+										{
+											$selectedStr = (isset($post['front_image']) && $value['activity_photo_gallery_id'] == $post['front_image']) ? 'selected' : '';
+											echo '<option data-img-src="'.ADMIN_PANEL_URL.ACTIVITY_PHOTOGALLERY_IMAGE_PATH.getThumbnailName($value['image_name']).'" value="'.$value['activity_photo_gallery_id'].'" '.$selectedStr.'></option>';
+										}
+									}
+?>
 								</select>
 								<script>
-									$(".testImageClass").imagepicker();
+									$(".imageGalleryClass").imagepicker();
 								</script>
-								<span id="imgErrorMessage" style="color:#ff0000"><?php echo ($imageError != '') ? $imageError : ''; ?></span>
 							</div>
 						</div>
 
