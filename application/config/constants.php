@@ -96,6 +96,10 @@ define('DIR_PERMISSION' , 0755);
 //Constant to define the api token for webservices
 define('API_TOKEN' , "PLUS_SYSTEM_CONFIGURATION");
 
+//Constant used to student test
+define('TESTID' , 3);
+define('REMAINING_TIME' , '05:00');
+
 //Database table names
 define('TABLE_PROGRAM' , 'frontweb_program_banner');
 define('TABLE_PROGRAM_LANGUAGE' , 'frontweb_program_banner_language');
@@ -165,6 +169,14 @@ define('TABLE_EXTRA_DAY_MANAGED_BY' , 'frontweb_extra_day_managed_by');
 define('ACTIVITY_REPORT_PROGRAM' , 'activity_report_program');
 define('TABLE_ACTIVITY_PHOTO_GALLERY' , 'frontweb_activity_photo_gallery');
 define('TABLE_PLUSED_ROWS' , 'plused_rows');
+define('TABLE_ADULT_COURSE_FEATURE' , 'frontweb_adult_course_feature');
+define('TABLE_TEST_SUBMITTED' , 'plused_test_submited');
+define('TABLE_TEST_STUDENT' , 'plused_test_student');
+define('TABLE_TEST_QUESTION' , 'plused_test_question');
+define('TABLE_TEST_OPTIONS' , 'plused_test_options');
+define('TABLE_TEST_ANSWERS' , 'plused_test_answers');
+define('TABLE_LANGUAGE_KNOWLEDGE' , 'plused_language_knowledge');
+
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
 
@@ -332,6 +344,7 @@ define('TINYMCE_IMAGE_PATH' , 'uploads/tinymce/');
 
 //Define file upload location details for tinymce editor content
 define('TINYMCE_CURRENT_CONFIG_PATH' , '../../../../uploads/tinymce/');
+define('TINYMCE_ADULT_CONFIG_PATH' , '../../../../../uploads/tinymce/');
 
 //Define image location , height , width , thumb details for program course home page images
 define('PROGRAM_FRONT_IMAGE_PATH' , 'uploads/program_course_front/');
@@ -370,6 +383,9 @@ define('ACTIVITY_PHOTOGALLERY_IMAGE_WIDTH' , 400);
 define('ACTIVITY_PHOTOGALLERY_IMAGE_HEIGHT' , 300);
 define('ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_WIDTH' , 100);
 define('ACTIVITY_PHOTOGALLERY_IMAGE_THUMB_HEIGHT' , 75);
+
+//Define image location
+define('ADULT_COURSE_FEATURE_IMAGE_PATH' , 'uploads/adult_course_feature/');
 
 //Define the upload image size
 define('UPLOAD_IMAGE_SIZE' , 10000);

@@ -35,5 +35,32 @@
 	$lang['VALID_TOKEN_MESSAGE'] = 'API Token validated.';
 	$lang['invalid_credentials'] = 'Error! Invalid credentials.';
 	$lang['booking_not_available'] = 'Booking not available';
+	$lang['no_centre_selected'] = 'No centre selected';
+	$lang['invalid_student_login'] = 'Invalid student login!';
+	$lang['test_attempt_exceed'] = 'You have exceeded the number of possible tests. Please contact your agent.';
+	$lang['testid_missing'] = 'Test id missing';
+	$lang['running_testid_missing'] = 'Running test id missing';
+	$lang['question_option_missing'] = 'Question and option is missing';
+	$lang['unable_save_answer'] = 'Unable to save answer.';
+	$lang['unable_submit_test'] = 'Unable to submit test.';
+	$lang['test_submit_success'] = 'Test has been submitted successfully.';
+	$lang['already_test_submitted'] = 'You have already submitted this test.';
+	$lang['please_pass_required'] = 'Please pass required values';
+
+	//Messages for test instruction static text(For student's test WS)
+	$lang['instructionTitleLang'] = 'Hi PLUS student!';
+	$lang['instructionMessageLang'] = 'Thank you for taking the PLUS placement test. This will help PLUS find the best class for you.';
+	$lang['instructionWarningLang'] = 'Do not close full screen mode or use other windows during the test. This can cause the test to submit automatically.';
+	$lang['instructionNotesLang'] = array(
+		'The test will be 30 minutes. After 30 minutes, the test will close.',
+		'There are 50 questions. ',
+		'You must select ONE answer for each question. When you have finished the question, press ‘Next Question’',
+		'You can only do the test once. ',
+		'Do not exit the test before completing all questions.'
+	);
+
+	//Messages for complete submit test - congratulations static text(For student's test WS)
+	$lang['submit_test_title_text'] = 'Congratulations, you have completed the test.';
+	$lang['submit_test_description_text'] = "We cannot display your test score or level because you have only completed the first half of the test . On your arrival in the summer , we will test your speaking skills , and then we will inform your English language level . \n\n We look forward to seeing you at PLUS this Summer!";
 
 ?>

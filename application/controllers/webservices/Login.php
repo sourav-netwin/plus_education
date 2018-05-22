@@ -48,7 +48,7 @@
 				//For student
 				if($type == 1)
 				{
-					$centreId = $this->post('centre_id');
+					$referenceId = $centreId = $this->post('centre_id');
 					$userData = $this->Login_model->checkStudentLogin($userFirstName , $userSurname , $userDob , $centreId);
 					//502 = Pax users STD(STUDENTS FOR TEST/SURVEY)
 					$roleId = 502;
@@ -62,10 +62,12 @@
 					//501 = Pax users GL(Group Leader)
 					$roleId = 501;
 					$roleName = 'Group Leader';
+					$referenceId = $userData['id_prenotazione'];
 				}
 
 				if(!empty($userData))
 				{
+					$centreInfo = $this->Login_model->getCentreImage($referenceId , $type);
 					$returnArr = array(
 						'username' => "--",
 						'uuid' => $userData['uuid'],
@@ -78,7 +80,10 @@
 						'country' => '',
 						'role' => $roleId,
 						'ruolo' => $roleName,
-						'logged_in' => TRUE
+						'logged_in' => TRUE,
+						'originalCentreImage' => $centreInfo['originalCentreImage'],
+						'thumbCentreImage' => $centreInfo['thumbCentreImage'],
+						'centre_id' => $centreInfo['centreId']
 					);
 					$returnArr['status'] = $this->lang->line('SUCCESS');
 					$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
@@ -116,7 +121,6 @@
 				$returnArr['status'] = $this->lang->line('SUCCESS');
 				$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
 				$returnArr['bookings'] = $this->Login_model->getBookingsForLogin($userFirstName , $userSurname , $userDob);
-				//die($this->db->last_query());
 			}
 			else
 			{

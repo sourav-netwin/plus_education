@@ -9,15 +9,28 @@
 			$this->load->helper('frontend');
 		}
 
-		//This function is used to show CMS dynamic pages
-		public function index($pageName = NULL)
+		/**
+		*This function is used to show CMS dynamic pages / to show the webview
+		*
+		*@access public
+		*@param String $pageName : The page name
+		*@param Integer $typeFlag : If 1 : Then show for app webview
+		*@return NONE
+		*/
+		public function index($pageName = NULL , $typeFlag = NULL)
 		{
 			if($pageName != '')
 			{
 				$data = $this->Content_model->getCmsPageDetailsByName($pageName);
 				$data['show_banner'] = 0;
 				$data['page_title'] = $data['cont_browser_title'];
-				$this->template->view('content' , $data);
+				if($typeFlag == 1)
+				{
+					$data['view_page'] = 'content';
+					$this->load->view('webservice/template' , $data);
+				}
+				else
+					$this->template->view('content' , $data);
 			}
 		}
 	}

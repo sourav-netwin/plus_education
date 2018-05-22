@@ -38,7 +38,7 @@
 						$groupDropdown[$value['id']] = $value['name'];
 				}
 
-				$extraActivityId = $this->Front_model->commonGetData("extra_master_activity_id" , 'centre_id = '.$this->input->post('centre_id').' AND student_group = '.$this->input->post('student_group').' AND group_reference_id = '.$this->input->post('group_reference_id') , TABLE_EXTRA_MASTER_ACTIVITY , 1);
+				$extraActivityId = $this->Front_model->commonGetData("extra_master_activity_id" , "centre_id = '".$this->input->post('centre_id')."' AND student_group = '".$this->input->post('student_group')."' AND group_reference_id = '".$this->input->post('group_reference_id')."'" , TABLE_EXTRA_MASTER_ACTIVITY , 1);
 				if(empty($extraActivityId))
 					$extraActivityId['extra_master_activity_id'] = $this->copyMasterActivity();
 
@@ -173,6 +173,7 @@
 				);
 				if($this->input->post('activityDetailsFlag') == 'as')
 				{
+					$insertData['extra_flag'] = 2;
 					$activityDetailsId = $this->Front_model->commonAdd(TABLE_EXTRA_DAY_ACTIVITY_DETAILS , $insertData);
 					//For managd by dropdown value(save into the database)
 					if(!empty($managedByDropdownArr))

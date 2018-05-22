@@ -13,7 +13,7 @@
 	var please_select_dynamic = "<?php echo $this->lang->line("please_select_dynamic"); ?>";
 	var start_end_date_validation = "<?php echo $this->lang->line("start_end_date_validation"); ?>";
 </script>
-<script src="<?php echo base_url(); ?>js/admin/master_activity.js?v=1.9"></script>
+<script src="<?php echo base_url(); ?>js/admin/master_activity.js?v=2.2"></script>
 
 <div class="right_col" role="main">
 	<div class="row">
@@ -131,6 +131,7 @@
 									<th>
 										<select data-field_ref = 'group_reference' class="form-control filterDropdown">
 											<option value="">All</option>
+											<option value="not_master">Not Master</option>
 <?php
 											if(!empty($post['dropdownArr']['groupReferenceValue']))
 											{
@@ -256,8 +257,9 @@
 								{
 									foreach($post['details'] as $value)
 									{
+										$styleStr = ($value['extra_flag'] == 2) ? 'background-color: #9fb48e' : '';
 ?>
-										<tr>
+										<tr style="<?php echo $styleStr; ?>">
 											<td><?php echo $value['group_name']; ?></td>
 											<td><?php echo $value['group_reference']; ?></td>
 											<td><?php echo date('d-M-Y' , strtotime($value['date'])); ?></td>

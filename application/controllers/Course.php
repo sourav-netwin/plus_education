@@ -128,7 +128,8 @@
 		//This function is used to show the adult course page details
 		function adult_course($slug = NULL)
 		{
-			$data['courseDetails'] = $this->Front_model->commonGetData('title , description , image' , "slug = '".$slug."' and status=1 and delete_flag=0" , TABLE_PLUS_MANAGE_ADULT_COURSE , 1);
+			$data['courseDetails'] = $this->Front_model->commonGetData('adult_course_id as id , title , description , image' , "slug = '".$slug."' and status=1 and delete_flag=0" , TABLE_PLUS_MANAGE_ADULT_COURSE , 1);
+			$data['courseFeature'] = $this->Front_model->commonGetData('feature_title , feature_description , feature_image' , "adult_course_id = '".$data['courseDetails']['id']."'" , TABLE_ADULT_COURSE_FEATURE , 'feature_id' , 'asc' , 2);
 			$data['show_banner'] = 0;
 			$data['page_title'] = $data['courseDetails']['title'];
 			$this->template->view('adult_course' , $data);

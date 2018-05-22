@@ -101,7 +101,48 @@
 			return $this->db->select('id as id , nome_centri as name')
 						->where('attivo' , 1)
 						->or_where('(is_mini_stay = 1 and attivo = 0)')
+						//Statically get centre temporary(To get the LONDON TWICHENHAM centre)
+						->or_where('id' , 45)
 						->order_by('nome_centri' , 'asc')
 						->get(TABLE_CENTRE)->result_array();
+		}
+
+		/**
+		*This function is used to get the full centre image path to show in the dashboard
+		*
+		*@access public
+		*@param Integer $id : Can be centre id or the plused_rows primary key
+		*@param Integer $type : If 1 then centre id & 2 then primary key
+		*@return Array
+		*/
+		public function getCentreImage($id = NULL , $type = NULL)
+		{
+			$returnArr = array();
+			if($type == 1)
+				$centreId = $id;
+			elseif($type == 2)
+			{
+				$result = $this->db->select('b.id_centro')
+								->from(TABLE_PLUSED_ROWS.' a')
+								->join(TABLE_PLUS_BOOK.' b' , 'a.id_book = b.id_book' , 'left')
+								->where('a.id_prenotazione' , $id)
+								->get()->row_array();
+				$centreId = $result['id_centro'];
+			}
+
+			$result = $this->db->select('centre_banner , path')
+							->from(TABLE_CENTRE)
+							->join("((SELECT centre_id , centre_banner , '".JUNIOR_MINISTAY_IMAGE_PATH."' as path from frontweb_junior_ministay)union (select centre_id , centre_banner , '".JUNIOR_CENTRE_IMAGE_PATH."' as path from frontweb_junior_centre))t" , 't.centre_id=id' , 'left')
+							->where('id' , $centreId)
+							->get()->row_array();
+			if(!empty($result))
+			{
+				$returnArr = array(
+					'centreId' => $centreId,
+					'originalCentreImage' => ADMIN_PANEL_URL.$result['path'].$result['centre_banner'],
+					'thumbCentreImage' => ADMIN_PANEL_URL.$result['path'].getThumbnailName($result['centre_banner']),
+				);
+			}
+			return $returnArr;
 		}
 	}

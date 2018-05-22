@@ -34,10 +34,9 @@
 		*/
 		public function get_page_post()
 		{
-			$data = $this->Content_model->getCmsPageDetailsByName($this->config->item('contactUsSlug'));
 			$returnArr['status'] = $this->lang->line('SUCCESS');
 			$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
-			$returnArr['content'] = $data['cont_content'];
+			$returnArr['page_url'] = base_url().'content/'.$this->config->item('contactUsSlug').'/1';
 			$this->response($returnArr , 200);
 		}
 	}

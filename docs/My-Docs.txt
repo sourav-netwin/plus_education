@@ -228,6 +228,7 @@ Tiffin upto 31st December , 2017 : 500/-(Paid) : Balance - 50/-
 Tiffin upto 31st January , 2018 : 425/-(Paid) : Balance - 75/-
 Tiffin upto 28th February , 2018 : 400/-(Paid)
 Tiffin upto 31st March , 2018 : 525/-(Paid)
+Tiffin upto 31st April , 2018 : 525/-
 
 ===============================================================================================================================
 
@@ -268,10 +269,11 @@ Your password: l35dacw
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Worked on plus app webservice (Both WS and documenation) .
-(2)Solved day to day activity module issue .
-(3)Solved pdf time slot issue on activity report .
-(4)Solved export to excel issue for activity program .
+(1)Changed in the survey details webservice and documents .
+(2)Completed the webservice for save student survey and update documents .
+(3)Completed the webservice for submit survey and update documents .
+(4)Completed the changes for user dashboard .
+
 
 ===============================================================================================================================
 
@@ -282,15 +284,15 @@ Your password: l35dacw
 
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the web service section for plus app . First created two web services for getting centre and get the bookings for group leader login .
-Then created web service documents for the web services for login , contact us , get centre details and bookings .
+(1)Started working on the survey details webservice . We have changed the response of the pending and completed array . Also in the questions array ,
+we have make it section wise . Also we have added the status and message in the success response . Completed the changes and tested properly .
+Also updated the webservice documents accordingly .
 
-(2)In front end , daily activity section , after delete any activity it was showing in the student's section . Solved the problem and upload the changes on live .
+(2)Completed the webservice for save survey details after click on any options . Also updated the documents accordingly and tested properly .
 
-(3)In activity report , export to pdf option , the time slot was not showing properly . We have solved that problem and upload on live .
+(3)Completed the webservice for submit survey where we have saved the details of survey . Also updated the documents accordingly and tested properly .
 
-(4)Before the export to excel functionality was not working . Solved that problem by changing on the header setting . After that we have added the images in the
-excel , so that the company logo will show in the excel . Upload the changes on live and tested properly .
+(4)On user dashboard page , we have changed the designing as per the provided work file . Completed the changes and tested properly .
 
 
 =================================================================================================================================
@@ -305,6 +307,12 @@ http://localhost/drupal_seven_test/crm-core/contact
 
 
 
-SELECT a.`nome` , a.`cognome` , a.`pax_dob` , b.id_centro FROM `plused_rows` a left join plused_book b on a.id_book=b.id_book WHEre a.nome is not NULL and nome !='' 
+plused_test_answers
+plused_test_options
+plused_test_question
+plused_test_student
+plused_test_submited
+
+ABC2115_31
 
 
