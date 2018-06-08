@@ -176,6 +176,12 @@ define('TABLE_TEST_QUESTION' , 'plused_test_question');
 define('TABLE_TEST_OPTIONS' , 'plused_test_options');
 define('TABLE_TEST_ANSWERS' , 'plused_test_answers');
 define('TABLE_LANGUAGE_KNOWLEDGE' , 'plused_language_knowledge');
+define('TABLE_USER_DEVICES' , 'frontweb_user_devices');
+define('TABLE_PUSH_NOTIFICATION_HISTORY' , 'frontweb_push_notification_history');
+define('TABLE_USER_NOTIFICATION' , 'frontweb_user_notification');
+define('TABLE_MINISTAY_COURSE_PROGRAM' , 'frontweb_ministay_course_program');
+define('TABLE_GENERAL_INFO' , 'frontweb_plus_general_info');
+define('TABLE_GENERAL_INFO_FILE' , 'frontweb_plus_general_info_file');
 
 //Constants for the junior summer program id
 define('JUNIOR_SUMMER_ID' , 1);
@@ -186,6 +192,21 @@ define('JUNIOR_MINISTAY_ID' , 14);
 //Constants for the Adult course id
 define('ADULT_COURSE_ID' , 13);
 
+/*------------------For push notification (Start)--------------------*/
+
+//Android FCM url
+define('FCM_ANDROID_URL', 'https://fcm.googleapis.com/fcm/send');
+
+//Google FCM key
+define('GOOGLE_FCM_KEY', 'AAAAV-Xmqcc:APA91bGqUhUfabK80gk-z-qWrX_wNSQxGcv4fIqCZr63o6MPka-Eka_IsEDBAmLBvIEol5RmYmvpnBRy6xhdwK1JlR7_2DPpqrFg4C0hFkn8vpAut_-10SQu3zoszm3jo_AbVsJuWN9R');
+
+//IOS FCM key
+define('IOS_FCM_KEY', 'AAAANIGtNK8:APA91bHs0Q5vjB6E-6H6RHplCYmuBNuXZq2LHYwdhwDGCXeouLqbigEL5oOevcrjc_49bdH6aztPUIh7K2746KUxgv-ooJ28P2xWSAZfj9Vr5OJGqarsC2yfFTGWxe5h4INdBDkDxJQL');
+
+//Maximum number of device token able to send in one FCM request
+define('FCM_MAX_LIMIT', 1000);
+
+/*------------------For push notification (End)--------------------*/
 
 if($_SERVER['HTTP_HOST'] == "localhost")
 {
@@ -200,6 +221,9 @@ if($_SERVER['HTTP_HOST'] == "localhost")
 
 	//Define file relative path for plus manage activity section
 	define('ACTIVITY_ACCESS_FILE' , '../stvision/vision/uploads/manage_activity/');
+
+	//Define file relative path for plus manage general info section
+	define('GENERAL_INFO_ACCESS_FILE' , '../stvision/vision/uploads/manage_general_info/');
 
 	//Define file relative path for plus manage activity section(front image)
 	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../stvision/vision/uploads/activity_front/');
@@ -224,6 +248,9 @@ elseif($_SERVER['HTTP_HOST'] == "192.168.43.97" || $_SERVER['HTTP_HOST'] == "192
 	//Define file relative path for plus manage activity section
 	define('ACTIVITY_ACCESS_FILE' , '../stvision/vision/uploads/manage_activity/');
 
+	//Define file relative path for plus manage general info section
+	define('GENERAL_INFO_ACCESS_FILE' , '../stvision/vision/uploads/manage_general_info/');
+
 	//Define file relative path for plus manage activity section(front image)
 	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../stvision/vision/uploads/activity_front/');
 
@@ -246,6 +273,9 @@ else
 
 	//Define file relative path for plus manage activity section
 	define('ACTIVITY_ACCESS_FILE' , '../vision_ag/uploads/manage_activity/');
+
+	//Define file relative path for plus manage general info section
+	define('GENERAL_INFO_ACCESS_FILE' , '../vision_ag/uploads/manage_general_info/');
 
 	//Define file relative path for plus manage activity section(front image)
 	define('ACTIVITY_FRONT_IMAGE_ACCESS_FILE' , '../vision_ag/uploads/activity_front/');
@@ -355,8 +385,11 @@ define('PLUS_WALKING_TOUR' , 'uploads/plus_walking_tour/');
 //Define image file location for plus video gallery images in front end
 define('PLUS_WALKING_TOUR_FRONT_IMAGE' , 'images/plus_walking_tour/');
 
-//Define file upload location details for plus walking tour videoes
+//Define file upload location details for daily activity file path
 define('ACTIVITY_FILE_PATH' , 'uploads/manage_activity/');
+
+//Define file upload location details for general information file path
+define('GENERAL_INFO_FILE_PATH' , 'uploads/manage_general_info/');
 
 //Define file upload location details for extra section content
 define('EXTRA_SECTION_FILE_PATH' , 'uploads/extra_section/');
@@ -392,4 +425,7 @@ define('UPLOAD_IMAGE_SIZE' , 10000);
 
 //For Image cropping - path of css and js
 define('CROPPING_ASSETS_PATH' , 'assets/cropping/');
+
+//Define file path to save the centre details pdf files
+define('CENTRE_DETAILS_FILE_PATH' , 'uploads/centre_details/');
 

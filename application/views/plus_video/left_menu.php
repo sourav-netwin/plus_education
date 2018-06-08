@@ -29,7 +29,7 @@
 				}
 			}
 ?>
-			<a href="<?php echo base_url(); ?>video_gallery/download_centre_details">
+			<a target="_blank" href="<?php echo base_url(); ?>video_gallery/download_centre_details/<?php echo $this->session->userdata('centre_id'); ?>">
 				<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
 					<i class="fa fa-cloud-download"></i> &nbsp;Download
 				</button>

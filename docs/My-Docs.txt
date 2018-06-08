@@ -170,6 +170,9 @@ https://www.drupal.org/node/1006982
 Image picker plugin :
 https://rvera.github.io/image-picker/
 
+Firebase account details for plus : 
+plusedapp@gmail.com / Plus@123
+
 ==============================================================================================================================
 
 
@@ -228,7 +231,8 @@ Tiffin upto 31st December , 2017 : 500/-(Paid) : Balance - 50/-
 Tiffin upto 31st January , 2018 : 425/-(Paid) : Balance - 75/-
 Tiffin upto 28th February , 2018 : 400/-(Paid)
 Tiffin upto 31st March , 2018 : 525/-(Paid)
-Tiffin upto 31st April , 2018 : 525/-
+Tiffin upto 31st April , 2018 : 525/-(Paid)
+Tiffin upto 31st May , 2018 : 550/-
 
 ===============================================================================================================================
 
@@ -269,10 +273,8 @@ Your password: l35dacw
 
 ==================================Short Task(for PMS)=============================================================================================
 
-(1)Changed in the survey details webservice and documents .
-(2)Completed the webservice for save student survey and update documents .
-(3)Completed the webservice for submit survey and update documents .
-(4)Completed the changes for user dashboard .
+(1)Created the documentation for plus project .
+
 
 
 ===============================================================================================================================
@@ -284,18 +286,12 @@ Your password: l35dacw
 
 Today I have done following tasks in Plus Education Development Project :
 
-(1)Started working on the survey details webservice . We have changed the response of the pending and completed array . Also in the questions array ,
-we have make it section wise . Also we have added the status and message in the success response . Completed the changes and tested properly .
-Also updated the webservice documents accordingly .
-
-(2)Completed the webservice for save survey details after click on any options . Also updated the documents accordingly and tested properly .
-
-(3)Completed the webservice for submit survey where we have saved the details of survey . Also updated the documents accordingly and tested properly .
-
-(4)On user dashboard page , we have changed the designing as per the provided work file . Completed the changes and tested properly .
-
+(1)Created the proper documentation for the following modules - Photo gallery(Junior ministay) , Video gallery(Junior ministay) , International mix
+(Junior ministay) , Extra section(Junior ministay) , Centre details(Junior ministay) , Manage video , Change password(Manage video) , Manage walking 
+tour , Section setting , Manage ministay program , Manage adult course , Manage course feature(Adult course) .
 
 =================================================================================================================================
+
 
 
 
@@ -306,13 +302,217 @@ http://localhost/drupal_seven_test/crm-core/contact
 =================================================================================================================================
 
 
-
+//For test module
 plused_test_answers
 plused_test_options
 plused_test_question
 plused_test_student
 plused_test_submited
 
-ABC2115_31
+
+//For GL Survey module
+plused_survey_users
+plused_survey_questions
+plused_survey_answers
+
+
+
+delete FROM `plused_survey_users` where su_group_leader_uuid='0YqHUz52L6im';
+delete FROM `plused_survey_answers` where ans_su_id > 25;
+
+
+=================================================================================================================
+(1)here is the WS for reset the test :
+Link : http://192.168.43.97/plus_educational_development/webservices/student_test/reset_test
+request data : 
+api_key:187c5425e9a98318d05a3288c6f0183d
+testId:3823
+
+(2)Please find the WS to reset the test timing .
+Link : http://192.168.43.97/plus_educational_development/webservices/student_test/reset_test_time
+Parameter :
+api_key:187c5425e9a98318d05a3288c6f0183d
+testSubmitId:3823
+Response : 
+{
+    "status": "Success",
+    "message": "API Token validated."
+}
+
+(3)Please find the WS to reset question & options .
+Link : http://192.168.43.97/plus_educational_development/webservices/student_test/reset_question_option
+Parameter : 
+api_key:187c5425e9a98318d05a3288c6f0183d
+uuid:n1dLNc5ZmU37
+response : 
+{
+    "status": "Success",
+    "message": "API Token validated."
+}
+================================================================================================================================
+(1)Reset the survey(From completed to pending section)
+Link : http://192.168.43.97/plus_educational_development/webservices/student_survey/reset_survey
+Request : 
+api_key:187c5425e9a98318d05a3288c6f0183d
+uuid:n1dLNc5ZmU37
+weekSend:1_2016-07-12
+
+(2)Resset the options of questions
+Link : http://192.168.43.97/plus_educational_development/webservices/student_survey/reset_survey_options
+Request :
+api_key:187c5425e9a98318d05a3288c6f0183d
+uuid:n1dLNc5ZmU37
+weekSend:1_2016-07-12
+================================================================================================================================
+
+2_2016-07-19
+
+WS :http://192.168.43.97/plus_educational_development/webservices/student_survey/survey
+Method : POST
+Request : 
+api_key:187c5425e9a98318d05a3288c6f0183d
+userId:729224
+
+contact-us-aap
+
+
+
+================================================================================================================================
+
+INSERT INTO `frontweb_menumst` (`mnu_parent_menu_id`, `mnu_menu_name`, `mnu_is_content`, `mnu_url`, `mnu_status`, `mnu_level`, `mnu_type`, `mnu_sequence`, `mnu_created_on`, `mnu_created_by`, `mnu_modified_on`, `mnu_modified_by`, `is_deleted`) VALUES
+(0, 'Contact us for aap', 1, '', 1, 1, 'Other', 13, '2018-05-31 11:37:29', 0, '0000-00-00 00:00:00', 0, 0);
+
+INSERT INTO `frontweb_contentmst` (`cont_menuid`, `cont_browser_title`, `cont_page_title`, `cont_url_name`, `cont_meta_description`, `cont_keywords`, `cont_content`, `cont_pdf_file`, `cont_external_url`, `cont_content_type`, `cont_created_on`, `cont_created_by`, `cont_modified_on`, `cont_modified_by`, `is_deleted`) VALUES
+(57, '', '', 'contact-us-aap', '', '', '<p style="padding-left: 15px;">Dear user,&nbsp;</p>\n<p style="padding-left: 15px;">To provide you with the information you require as quickly and as precisely as possible, please select one of the topics listed below:</p>\n<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 30px;">\n<h3 style="font-size: 24px; font-family: ''Roboto Condensed'', sans-serif; color: #000;">PLUS General Enquiries</h3>\n<address class="margin-bottom-30px">\n<ul class="list-unstyled" style="padding-left: 0; list-style: none; font-weight: normal; color: #8f8f8f;">\n<li>Professional Linguistic Upper Studies</li>\n<li>8-10 Grosvenor Gardens,</li>\n<li>Mezzanine floor,</li>\n<li>London, SW1W 0DH</li>\n<li style="font-size: 16px; color: #00b3f0;">Switchboard:</li>\n<li>T. + 44 (0)20 7730 2223</li>\n<li>F: + 44 (0)20 7730 9209</li>\n<li style="font-size: 16px; color: #00b3f0;">Email:</li>\n<li>plus@plus-ed.com</li>\n</ul>\n</address><hr /></div>\n<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 30px;">\n<h3 style="font-size: 24px; font-family: ''Roboto Condensed'', sans-serif; color: #000;">PLUS Academic</h3>\n<address class="margin-bottom-30px">\n<ul class="list-unstyled" style="padding-left: 0; list-style: none; font-weight: normal; color: #8f8f8f;">\n<li>Professional Linguistic Upper Studies</li>\n<li>8-10 Grosvenor Gardens,</li>\n<li>Mezzanine floor,</li>\n<li>London, SW1W 0DH</li>\n<li style="font-size: 16px; color: #00b3f0;">Switchboard:</li>\n<li>T. + 44 (0)20 7730 2223</li>\n<li>F: + 44 (0)20 7730 9209</li>\n<li style="font-size: 16px; color: #00b3f0;">Email:</li>\n<li>recruitment@plus-ed.com</li>\n</ul>\n</address><hr /></div>\n<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 30px;">\n<h3 style="font-size: 24px; font-family: ''Roboto Condensed'', sans-serif; color: #000;">PLUS Management</h3>\n<address class="margin-bottom-30px">\n<ul class="list-unstyled" style="padding-left: 0; list-style: none; font-weight: normal; color: #8f8f8f;">\n<li>Professional Linguistic Upper Studies</li>\n<li>8-10 Grosvenor Gardens,</li>\n<li>Mezzanine floor,</li>\n<li>London, SW1W 0DH</li>\n<li style="font-size: 16px; color: #00b3f0;">Switchboard:</li>\n<li>T. + 44 (0)20 7730 2223</li>\n<li>F: + 44 (0)20 7730 9209</li>\n<li style="font-size: 16px; color: #00b3f0;">Email:</li>\n<li>Leisure@plus-ed.com</li>\n</ul>\n</address><hr /></div>\n<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 30px;">\n<h3 style="font-size: 24px; font-family: ''Roboto Condensed'', sans-serif; color: #000;">PLUS Finance</h3>\n<address class="margin-bottom-30px">\n<ul class="list-unstyled" style="padding-left: 0; list-style: none; font-weight: normal; color: #8f8f8f;">\n<li>Professional Linguistic Upper Studies</li>\n<li>8-10 Grosvenor Gardens,</li>\n<li>Mezzanine floor,</li>\n<li>London, SW1W 0DH</li>\n<li style="font-size: 16px; color: #00b3f0;">Switchboard:</li>\n<li>T. + 44 (0)20 7730 2223</li>\n<li>F: + 44 (0)20 7730 9209</li>\n<li style="font-size: 16px; color: #00b3f0;">Email:</li>\n<li>finance@plus-ed.com</li>\n</ul>\n</address><hr /></div>\n<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 30px;">\n<h3 style="font-size: 24px; font-family: ''Roboto Condensed'', sans-serif; color: #000;">PLUS Operational</h3>\n<address class="margin-bottom-30px">\n<ul class="list-unstyled" style="padding-left: 0; list-style: none; font-weight: normal; color: #8f8f8f;">\n<li>Professional Linguistic Upper Studies</li>\n<li>8-10 Grosvenor Gardens,</li>\n<li>Mezzanine floor,</li>\n<li>London, SW1W 0DH</li>\n<li style="font-size: 16px; color: #00b3f0;">Switchboard:</li>\n<li>T. + 44 (0)20 7730 2223</li>\n<li>F: + 44 (0)20 7730 9209</li>\n<li style="font-size: 16px; color: #00b3f0;">Email:</li>\n<li>bookings@plus-ed.com</li>\n</ul>\n</address><hr /></div>\n<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 30px;">\n<h3 style="font-size: 24px; font-family: ''Roboto Condensed'', sans-serif; color: #000;">PLUS Agencies</h3>\n<address class="margin-bottom-30px">\n<ul class="list-unstyled" style="padding-left: 0; list-style: none; font-weight: normal; color: #8f8f8f;">\n<li>Professional Linguistic Upper Studies</li>\n<li>8-10 Grosvenor Gardens,</li>\n<li>Mezzanine floor,</li>\n<li>London, SW1W 0DH</li>\n<li style="font-size: 16px; color: #00b3f0;">Switchboard:</li>\n<li>T. + 44 (0)20 7730 2223</li>\n<li>F: + 44 (0)20 7730 9209</li>\n<li style="font-size: 16px; color: #00b3f0;">Email:</li>\n<li>plus@plus-ed.com</li>\n</ul>\n</address><hr /></div>', '', '', 1, '2018-05-31 11:53:55', 0, '2018-05-31 11:53:55', 0, 0);
+
+INSERT INTO `frontweb_menumst` (`mnu_parent_menu_id`, `mnu_menu_name`, `mnu_is_content`, `mnu_url`, `mnu_status`, `mnu_level`, `mnu_type`, `mnu_sequence`, `mnu_created_on`, `mnu_created_by`, `mnu_modified_on`, `mnu_modified_by`, `is_deleted`) VALUES
+(0, 'App Introduction', 1, '', 1, 1, 'Other', 14, '2018-05-31 11:37:45', 0, '0000-00-00 00:00:00', 0, 0);
+
+INSERT INTO `frontweb_contentmst` (`cont_menuid`, `cont_browser_title`, `cont_page_title`, `cont_url_name`, `cont_meta_description`, `cont_keywords`, `cont_content`, `cont_pdf_file`, `cont_external_url`, `cont_content_type`, `cont_created_on`, `cont_created_by`, `cont_modified_on`, `cont_modified_by`, `is_deleted`) VALUES
+(58, '', '', 'app-introduction', '', '', '<div class="col-md-12" style="width: 100%; float: left; position: relative;">\n<p style="font-size: 20px;"><u>Welcome</u></p>\n<p>Welcome to the PLUS APP. You should use this app so that you have the best experience with PLUS. You can do the placement test, download walking tours and see all your daily activities. The App is full of useful information. Learn, enjoy and discover!</p>\n<br /><br />\n<p style="font-size: 20px;"><u>Daily Activities</u></p>\n<p>Use this section to see the activities you have each day and the time they start</p>\n<br /><br />\n<p style="font-size: 20px;"><u>Tours/Downloads</u></p>\n<p>Use this section to download videos and maps full of useful and interesting information about the places you will visit with PLUS</p>\n<br /><br />\n<p style="font-size: 20px;"><u>English Test</u></p>\n<p>Use this section to complete the English placement test so that you are in the correct English level. Please read the instructions carefully before you start the test.</p>\n<br /><br />\n<p style="font-size: 20px;"><u>Student Survey</u></p>\n<p>Use this section to tell us what you think about your PLUS experience. Your teacher will tell you when to complete this.</p>\n<br /><br />\n<p style="font-size: 20px;"><u>Phone numbers</u></p>\n<p>For Emergency Services in the UK and Ireland including Police, Fire or Ambulance you should Call <strong>999 (UK) or 112 (Ireland) </strong></p>\n<br />\n<p>If you need to speak to the Police in the <strong>UK</strong> and it is <strong>not</strong> an emergency, you should call <strong>101</strong></p>\n<br />\n<p>If you have an <strong>Emergency</strong> and you need PLUS staff to help you can call The PLUS Emergency phone line on (+ 44) 07956 218 226</p>\n<br />\n<p>24 hrs a day</p>\n<br />\n<p>If you need to call PLUS Head Office you can call: + 44 (0)20 7730 2223</p>\n<br />\n<p>Always check with your Campus manager or Course Director to see if they can help you before calling the Head office phone.</p>\n</div>', '', '', 1, '2018-05-31 12:32:44', 0, '2018-05-31 12:32:44', 0, 0);
+
+INSERT INTO `frontweb_menumst` (`mnu_parent_menu_id`, `mnu_menu_name`, `mnu_is_content`, `mnu_url`, `mnu_status`, `mnu_level`, `mnu_type`, `mnu_sequence`, `mnu_created_on`, `mnu_created_by`, `mnu_modified_on`, `mnu_modified_by`, `is_deleted`) VALUES
+(0, 'FAQ for aap', 1, '', 1, 1, 'Other', 12, '2018-05-31 11:36:38', 0, '2018-05-31 11:37:00', 0, 0);
+
+INSERT INTO `frontweb_contentmst` (`cont_menuid`, `cont_browser_title`, `cont_page_title`, `cont_url_name`, `cont_meta_description`, `cont_keywords`, `cont_content`, `cont_pdf_file`, `cont_external_url`, `cont_content_type`, `cont_created_on`, `cont_created_by`, `cont_modified_on`, `cont_modified_by`, `is_deleted`) VALUES
+(56, '', '', 'faq-aap', '', '', '<br>\n<div class="panel-group" id="accordion">\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<h4 class="panel-title">\n				<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">\n					<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n						 I think I’m in the wrong English Level what should I do?\n						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>\n					</p>\n				</a>\n			</h4>\n		</div>\n		<div id="collapse1" class="panel-collapse collapse collapseBody">\n			<div class="panel-body">\n				<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n					You should speak to the <b>Course Director</b> they can help you to change class if necessary\n				</p>\n			</div>\n		</div>\n	</div>\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<h4 class="panel-title">\n				<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">\n					<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n						I have a problem with my accommodation what should I do?\n						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>\n					</p>\n				</a>\n			</h4>\n		</div>\n		<div id="collapse2" class="panel-collapse collapse collapseBody">\n			<div class="panel-body">\n				<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n					You should speak to the <b>Campus Manager</b> who can help you with this matter\n				</p>\n			</div>\n		</div>\n	</div>\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<h4 class="panel-title">\n				<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">\n					<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n						 I want more information about activities or excursions what should I do?\n						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>\n					</p>\n				</a>\n			</h4>\n		</div>\n		<div id="collapse3" class="panel-collapse collapse collapseBody">\n			<div class="panel-body">\n				<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n					You can speak to the <b>Activities Manager</b> who can help you with this problem\n				</p>\n			</div>\n		</div>\n	</div>\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<h4 class="panel-title">\n				<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">\n					<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n						I have lost my group what should I do?\n						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>\n					</p>\n				</a>\n			</h4>\n		</div>\n		<div id="collapse4" class="panel-collapse collapse collapseBody">\n			<div class="panel-body">\n				<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n					 You can phone the <b>PLUS Emergency phone Line</b> or PLUS head office, the numbers are on your Lanyard and this APP.\n				</p>\n			</div>\n		</div>\n	</div>\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<h4 class="panel-title">\n				<a data-toggle="collapse" data-parent="#accordion" href="#collapse5">\n					<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n						I have hurt myself or I am not feeling well what should I do?\n						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>\n					</p>\n				</a>\n			</h4>\n		</div>\n		<div id="collapse5" class="panel-collapse collapse collapseBody">\n			<div class="panel-body">\n				<p style="font-family: ''Open Sans'', sans-serif;text-transform: none;">\n					You should contact any PLUS member of staff on campus who will help you and they can contact a member of staff who has First Aid training if necessary.\n				</p>\n			</div>\n		</div>\n	</div>\n</div>\n<script>\n	$(document).ready(function(){\n		$(".collapseBody").on("hide.bs.collapse", function(){\n			$(this).parent().find(''.hideShowIcon'').attr(''class'' , ''fa fa-angle-down hideShowIcon'');\n		});\n		$(".collapseBody").on("show.bs.collapse", function(){\n			$(this).parent().find(''.hideShowIcon'').attr(''class'' , ''fa fa-angle-up hideShowIcon'');\n		});\n	});\n</script>', '', '', 1, '2018-05-31 14:11:29', 0, '2018-05-31 14:11:29', 0, 0);
+
+
+================================================================================================================================
+
+
+
+<br>
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+					<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+						 I think I’m in the wrong English Level what should I do?
+						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>
+					</p>
+				</a>
+			</h4>
+		</div>
+		<div id="collapse1" class="panel-collapse collapse collapseBody">
+			<div class="panel-body">
+				<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+					You should speak to the <b>Course Director</b> they can help you to change class if necessary
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+					<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+						I have a problem with my accommodation what should I do?
+						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>
+					</p>
+				</a>
+			</h4>
+		</div>
+		<div id="collapse2" class="panel-collapse collapse collapseBody">
+			<div class="panel-body">
+				<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+					You should speak to the <b>Campus Manager</b> who can help you with this matter
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+					<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+						 I want more information about activities or excursions what should I do?
+						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>
+					</p>
+				</a>
+			</h4>
+		</div>
+		<div id="collapse3" class="panel-collapse collapse collapseBody">
+			<div class="panel-body">
+				<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+					You can speak to the <b>Activities Manager</b> who can help you with this problem
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+					<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+						I have lost my group what should I do?
+						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>
+					</p>
+				</a>
+			</h4>
+		</div>
+		<div id="collapse4" class="panel-collapse collapse collapseBody">
+			<div class="panel-body">
+				<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+					 You can phone the <b>PLUS Emergency phone Line</b> or PLUS head office, the numbers are on your Lanyard and this APP.
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+					<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+						I have hurt myself or I am not feeling well what should I do?
+						<i style="float: right;font-size: 35px;color: #00477C;position: absolute;right: 5%;" class="fa fa-angle-down hideShowIcon" aria-hidden="true"></i>
+					</p>
+				</a>
+			</h4>
+		</div>
+		<div id="collapse5" class="panel-collapse collapse collapseBody">
+			<div class="panel-body">
+				<p style="font-family: 'Open Sans', sans-serif;text-transform: none;">
+					You should contact any PLUS member of staff on campus who will help you and they can contact a member of staff who has First Aid training if necessary.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$(".collapseBody").on("hide.bs.collapse", function(){
+			$(this).parent().find('.hideShowIcon').attr('class' , 'fa fa-angle-down hideShowIcon');
+		});
+		$(".collapseBody").on("show.bs.collapse", function(){
+			$(this).parent().find('.hideShowIcon').attr('class' , 'fa fa-angle-up hideShowIcon');
+		});
+	});
+</script>
+
+
+
+
 
 

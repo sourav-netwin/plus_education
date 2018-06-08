@@ -90,5 +90,22 @@
 						->delete($tableName);
 			}
 		}
+
+		/**
+		*This function is used to get the centre details to show in the centre details pdf
+		*
+		*@author S.D
+		*@since 4th June , 2018
+		*@access public
+		*@param Integer $centreId : The centre id
+		*@return NONE
+		*/
+		public function getCentreDetails($centreId = NULL)
+		{
+			return $this->db->select('nome_centri , centre_banner , path')
+							->join("((SELECT centre_id , centre_banner , '".JUNIOR_MINISTAY_IMAGE_PATH."' as path from frontweb_junior_ministay)union (select centre_id , centre_banner , '".JUNIOR_CENTRE_IMAGE_PATH."' as path from frontweb_junior_centre))t" , 't.centre_id=id' , 'left')
+							->where('id' , $centreId)
+							->get(TABLE_CENTRE)->row_array();
+		}
 	}
 ?>

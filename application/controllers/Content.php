@@ -23,12 +23,9 @@
 			{
 				$data = $this->Content_model->getCmsPageDetailsByName($pageName);
 				$data['show_banner'] = 0;
-				$data['page_title'] = $data['cont_browser_title'];
+				$data['page_title'] = (isset($data['cont_browser_title'])) ? $data['cont_browser_title'] : '';
 				if($typeFlag == 1)
-				{
-					$data['view_page'] = 'content';
 					$this->load->view('webservice/template' , $data);
-				}
 				else
 					$this->template->view('content' , $data);
 			}

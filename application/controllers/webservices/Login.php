@@ -18,6 +18,7 @@
 			$this->load->helper('frontend');
 			$this->lang->load('message' , 'english');
 			$this->load->model('webservices/Login_model' , '' , TRUE);
+			$this->load->model('Front_model' , '' , TRUE);
 
 			$apiKey = $this->post('api_key');
 			validateApiKey($apiKey);
@@ -67,6 +68,12 @@
 
 				if(!empty($userData))
 				{
+					//Save the device information(for both android and ios in the database
+					$deviceType = $this->post('deviceType');
+					$deviceId = $this->post('deviceId');
+					if(!empty($deviceType) && !empty($deviceId))
+						$this->Login_model->saveDeviceInfo($deviceType , $deviceId , $userData['uuid']);
+
 					$centreInfo = $this->Login_model->getCentreImage($referenceId , $type);
 					$returnArr = array(
 						'username' => "--",
@@ -83,7 +90,8 @@
 						'logged_in' => TRUE,
 						'originalCentreImage' => $centreInfo['originalCentreImage'],
 						'thumbCentreImage' => $centreInfo['thumbCentreImage'],
-						'centre_id' => $centreInfo['centreId']
+						'centre_id' => $centreInfo['centreId'],
+						'centreName' => $centreInfo['centreName']
 					);
 					$returnArr['status'] = $this->lang->line('SUCCESS');
 					$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
@@ -142,6 +150,63 @@
 			$returnArr['status'] = $this->lang->line('SUCCESS');
 			$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
 			$returnArr['centre'] = $this->Login_model->getCentreDetails();
+			$this->response($returnArr , 200);
+		}
+
+		/**
+		*This function is used to get the user profile details to show in the my profile section
+		*
+		*@access public
+		*@author S.D
+		*@since 23rd May , 2018
+		*@param NONE
+		*@return NONE
+		*/
+		public function my_profile_post()
+		{
+			$userId = $this->post('userId');
+			if(!empty($userId))
+			{
+				$userData = $this->Login_model->getUserData($userId);
+				$returnArr['status'] = $this->lang->line('SUCCESS');
+				$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
+				$returnArr['userPhoto'] = ADMIN_PANEL_URL.'lte/dist/img/avatar5.png';
+				$returnArr['userName'] = $userData['user_name'];
+				$returnArr['userDob'] = $userData['dob'];
+				$returnArr['userUuid'] = $userData['uuid'];
+			}
+			else
+			{
+				$returnArr['status'] = $this->lang->line('FAIL');
+				$returnArr['message'] = $this->lang->line('invalid_credentials');
+			}
+			$this->response($returnArr , 200);
+		}
+
+		/**
+		*This function is used to complete the logout functionality
+		*
+		*@access public
+		*@author S.D
+		*@since 6th June , 2018
+		*@param NONE
+		*@return NONE
+		*/
+		public function logout_post()
+		{
+			$uuid = $this->post('uuid');
+			$deviceType = $this->post('deviceType');
+			if(!empty($uuid) && !empty($deviceType))
+			{
+				$this->Front_model->commonDelete(TABLE_USER_DEVICES , "user_id = '".$uuid."' AND device_type = '".$deviceType."'");
+				$returnArr['status'] = $this->lang->line('SUCCESS');
+				$returnArr['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
+			}
+			else
+			{
+				$returnArr['status'] = $this->lang->line('FAIL');
+				$returnArr['message'] = $this->lang->line('please_pass_required');
+			}
 			$this->response($returnArr , 200);
 		}
 	}

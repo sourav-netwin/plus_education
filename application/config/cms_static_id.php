@@ -40,4 +40,6 @@
 	$config['international_mix'] = 'international-mix';
 
 	//This config is for the static section(webservice related)
-	$config['contactUsSlug'] = 'contact-us';
+	$config['contactUsSlug'] = 'contact-us-aap';
+	$config['faqSlug'] = 'faq-aap';
+	$config['aapIntroSlug'] = 'app-introduction';

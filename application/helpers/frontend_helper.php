@@ -511,5 +511,122 @@
 			}
 			return false;
 		}
+
+		/**
+		*This function is used to convert the html to pdf format using dompdf
+		*
+		*@author S.D
+		*@since 5th June , 2018
+		*@access public
+		*@param Mixed $htmlStr : The html string
+		*@param String $fileName : The pdf file name
+		*@param Boolean $stream : TRUE/FALSE
+		*@return NONE
+		*/
+		if(!function_exists('create_pdf'))
+		{
+			function create_pdf($htmlStr = NULL , $fileName = NULL , $stream = TRUE)
+			{
+				require_once(DOM_PDF_CONFIG_FILE);
+				spl_autoload_register('DOMPDF_autoload');
+				$dompdf = new DOMPDF();
+				$dompdf->load_html($htmlStr);
+				$dompdf->render();
+
+				if($stream === TRUE)
+					$dompdf->stream($fileName , array("Attachment" => 0 , 'compress' => 0));
+				else
+				{
+					$CI = &get_instance();
+					if(!is_dir('./'.CENTRE_DETAILS_FILE_PATH))
+						mkdir('./'.CENTRE_DETAILS_FILE_PATH , DIR_PERMISSION , TRUE);
+					$CI->load->helper('file');
+					write_file('./'.CENTRE_DETAILS_FILE_PATH.$fileName , $dompdf->output());
+				}
+			}
+		}
+
+		/**
+		*This function is used to get the extra course program to show in the about
+		*program section in the header
+		*
+		*@author S.D
+		*@since 5th June , 2018
+		*@access public
+		*@param Integer $id : mini stay program id
+		*@return String
+		*/
+		if(!function_exists('getMinistayCourseProgram'))
+		{
+			function getMinistayCourseProgram($id = NULL)
+			{
+				$htmlStr = '';
+				$CI = &get_instance();
+				$result = $CI->db->select('program_course_name as name')
+								->from(TABLE_MINISTAY_COURSE_PROGRAM)
+								->join(TABLE_PROGRAM_COURSE , 'program_course_id = course_program_id' , 'left')
+								->where('ministay_program_id' , $id)
+								->get()->result_array();
+				if(!empty($result))
+				{
+					foreach($result as $value)
+					{
+						$referenceUrl = str_replace(' ' , '-' , strtolower($value['name']));
+						$referenceText = ucfirst(strtolower($value['name']));
+						$htmlStr.= '<li><a target="_blank" class="about-experience-class" href="'.base_url().'program#'.$referenceUrl.'">Available '.$referenceText.'</a></li>';
+					}
+				}
+				return $htmlStr;
+			}
+		}
+
+		/**
+		*This function is used to get the all file details from DB and show in the
+		*general information section
+		*
+		*@author S.D
+		*@since 7th June , 2018
+		*@access public
+		*@param Integer $id : The general info id
+		*@return Array
+		*/
+		if(!function_exists('showGeneralInfoFiles'))
+		{
+			function showGeneralInfoFiles($id = NULL)
+			{
+				if($id)
+				{
+					$CI = &get_instance();
+					$result = $CI->Front_model->commonGetData('plus_general_info_file_id , file_name' , 'plus_general_info_id = '.$id , TABLE_GENERAL_INFO_FILE , '' , 'asc' , 2);
+					$returnArr = array();
+					if(!empty($result))
+					{
+						foreach($result as $value)
+						{
+							if(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'jpg'
+							||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'jpeg'
+							||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'png'
+							)
+								$className = 'fa fa-image';
+							elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'doc'
+							||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'docx'
+							)
+								$className = 'fa fa-file-text-o';
+							elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'xls'
+							||strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'xlsx'
+							)
+								$className = 'fa fa-file-excel-o';
+							elseif(strtolower(pathinfo($value['file_name'] , PATHINFO_EXTENSION)) == 'pdf')
+								$className = 'fa fa-file-pdf-o';
+							$returnArr[] = array(
+								'id' => $value['plus_general_info_file_id'],
+								'className' => $className
+							);
+						}
+					}
+					return $returnArr;
+				}
+			}
+		}
 	}
 ?>

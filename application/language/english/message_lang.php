@@ -46,6 +46,9 @@
 	$lang['test_submit_success'] = 'Test has been submitted successfully.';
 	$lang['already_test_submitted'] = 'You have already submitted this test.';
 	$lang['please_pass_required'] = 'Please pass required values';
+	$lang['invalid_gl_login'] = 'Invalid group leader login!';
+	$lang['invalid_report_type'] = 'Invalid report type!';
+	$lang['gl_survey_error_msg'] = 'You will have access to this survey starting from ';
 
 	//Messages for test instruction static text(For student's test WS)
 	$lang['instructionTitleLang'] = 'Hi PLUS student!';
@@ -62,5 +65,15 @@
 	//Messages for complete submit test - congratulations static text(For student's test WS)
 	$lang['submit_test_title_text'] = 'Congratulations, you have completed the test.';
 	$lang['submit_test_description_text'] = "We cannot display your test score or level because you have only completed the first half of the test . On your arrival in the summer , we will test your speaking skills , and then we will inform your English language level . \n\n We look forward to seeing you at PLUS this Summer!";
+
+	//Notification messages
+	$lang['dynamic_module_added'] = 'New **module** is added';
+	$lang['video_notification_type'] = 'Walking tour video';
+	$lang['video_notification_message'] = 'Admin has added a new video . Please check now .';
+	$lang['activity_notification_type'] = 'Activity Program';
+	$lang['activity_notification_message'] = 'Admin has added a new activity program . Please check now .';
+	$lang['available_survey_title'] = 'Please fill the survey .';
+	$lang['survey_notification_type'] = 'Student\'s survey';
+	$lang['survey_notification_message'] = 'New survey is available for you . Please fill the survey .';
 
 ?>

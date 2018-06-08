@@ -145,6 +145,94 @@
 ?>
 	</div>
 	<!----------------Daily Activity Section End---------------->
+
+	<!----------------Genaral info Section Start---------------->
+	<div class="generalInfoWrapper" style="display: none;">
+		<div class="w3-row-padding customPaddingClass">
+			<div class="w3-col m12 customPaddingClass">
+				<div class="w3-card w3-round w3-white">
+					<div class="w3-container w3-padding">
+						<h6 class="w3-opacity" style="font-weight: bold;font-size: 20px;">
+							<i class="fa fa-info-circle" aria-hidden="true" style="margin-right: 10px;"></i>General Info
+						</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+<?php
+		if($generalInfoDetails)
+		{
+			foreach($generalInfoDetails as $key => $value)
+			{
+?>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="w3-container w3-card w3-white w3-round w3-margin customMarginClass" style="margin-left: 0 !important;margin-right: 0!important;min-height: 697px;"><br>
+<?php
+						if($value['show_type'] == 1)
+						{
+?>
+							<div class="w3ls-banner-1" style="background: url(<?php echo getPhotogalleryFullImagePath($value['front_image']); ?>)no-repeat center;"></div>
+<?php
+
+						}
+						else
+						{
+?>
+							<div class="w3ls-banner-1 figcaptionWrapperClass" style="background: url(<?php echo base_url().'images/bg_image.jpg'; ?>)no-repeat center;">
+								<p class="figcaption-title-class-courses text-center" style="color: #fff;font-size: 20px;">
+<?php
+									echo implode(' ' , array_map(function($value){
+																	if(strlen($value) > 20)
+																		return chunk_split($value , 20).' ';
+																	else
+																		return $value;
+																} , explode(' ' , $value['show_text'])));
+?>
+								</p>
+							</div>
+<?php
+						}
+?>
+						<span class="w3-right w3-opacity" style="margin-top:10px;">
+							<i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>
+							Posted On : <span style="color: #000;"><?php echo $value['added_date']; ?></span>
+						</span>
+						<h4><?php echo $value['name']; ?></h4>
+						<hr class="w3-clear">
+						<div style="overflow-y: scroll;height: 150px;">
+							<?php echo $value['description']; ?>
+						</div><br>
+<?php
+						$filesArr = showGeneralInfoFiles($value['plus_general_info_id']);
+						if(!empty($filesArr))
+						{
+							foreach($filesArr as $filesArrValue)
+							{
+?>
+								<a href="<?php echo base_url().'video_gallery/download_general_info_file/'.str_replace('=' , '_' , preg_replace_callback('/[A-Z]/' , function($match){return '-'.strtolower($match[0]).'-';} , base64_encode($filesArrValue['id']))); ?>">
+									<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+										<i class="<?php echo $filesArrValue['className']; ?>"></i>  Download file
+									</button>
+								</a>
+<?php
+							}
+						}
+						else
+							echo "<div class='w3-margin-bottom' style='font-size: 16px;color: red;text-align: center;'>".$this->lang->line('no_file_available')."</div>";
+?>
+					</div>
+				</div>
+<?php
+				if(($key+1)%2 == 0)
+					echo '<div class="clearfix"></div>';
+			}
+		}
+		else
+			echo "<div style='font-size: 16px;color: red;text-align: center;'>".$this->lang->line('no_activity_available')."</div>";
+?>
+	</div>
+	<!----------------Genaral info Section End---------------->
+
 </div>
 
 <script type="text/javascript">

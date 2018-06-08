@@ -162,6 +162,13 @@
 
 		function test()
 		{
+			$this->load->library('notification');
+			$data = array(
+				'title' => 'Test title',
+				'message' => 'Test message',
+				'notification_type' => 'Testing purpose'
+			);
+			$this->notification->initialize(array('0YqHUz52L6im') , $data);
 			// $this->load->library('email');
 			// $this->email->from('genknooz9@gmail.com', 'plus-ed.com');
 			// $this->email->to('myfkact786@gmail.com');

@@ -58,8 +58,17 @@
 					$('.plusVideoWraper').css('display' , 'none');
 					$('.dailyActivityWrapper').css('display' , 'block');
 				}
+				else if(currentUrl.indexOf('general-info') != -1)
+				{
+					$('.general-info').css('color' , '#000').css('background-color' , '#fff');
+					$('.plusVideoWraper').css('display' , 'none');
+					$('.dailyActivityWrapper').css('display' , 'none');
+					$('.generalInfoWrapper').css('display' , 'block');
+				}
 				else if(currentUrl.indexOf('manage_activity') != -1)
 					$('.manage-activity').css('color' , '#000').css('background-color' , '#fff');
+				else if(currentUrl.indexOf('manage_general_info') != -1)
+					$('.manage-general-info').css('color' , '#000').css('background-color' , '#fff');
 				else if(currentUrl.indexOf('day-to-day-activity') != -1 || currentUrl.indexOf('extra_activity') != -1 || currentUrl.indexOf('master_activity') != -1 || currentUrl.indexOf('manage_fixed_activity') != -1)
 					$('.day-to-day-activity').css('color' , '#000').css('background-color' , '#fff');
 				else

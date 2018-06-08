@@ -23,6 +23,11 @@
 						<i class="fa fa-tasks" aria-hidden="true"></i> Daily Activity
 					</a>
 				</li>
+				<li>
+					<a href="<?php echo base_url().'plus-walking-tour?general-info'; ?>" class="w3-hover-white general-info">
+						<i class="fa fa-info-circle" aria-hidden="true"></i> General Info
+					</a>
+				</li>
 <?php
 				if($this->session->userdata('campusManager') == 1)
 				{
@@ -30,6 +35,11 @@
 					<li>
 						<a href="<?php echo base_url().'manage_activity'; ?>" class="w3-hover-white manage-activity">
 							<i class="fa fa-cog" aria-hidden="true"></i> Manage Activity
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url().'manage_general_info'; ?>" class="w3-hover-white manage-general-info">
+							<i class="fa fa-cogs" aria-hidden="true"></i> Manage General Info
 						</a>
 					</li>
 					<li>

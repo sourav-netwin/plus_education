@@ -130,7 +130,7 @@
 				$centreId = $result['id_centro'];
 			}
 
-			$result = $this->db->select('centre_banner , path')
+			$result = $this->db->select('centre_banner , path , nome_centri')
 							->from(TABLE_CENTRE)
 							->join("((SELECT centre_id , centre_banner , '".JUNIOR_MINISTAY_IMAGE_PATH."' as path from frontweb_junior_ministay)union (select centre_id , centre_banner , '".JUNIOR_CENTRE_IMAGE_PATH."' as path from frontweb_junior_centre))t" , 't.centre_id=id' , 'left')
 							->where('id' , $centreId)
@@ -139,10 +139,64 @@
 			{
 				$returnArr = array(
 					'centreId' => $centreId,
+					'centreName' => $result['nome_centri'],
 					'originalCentreImage' => ADMIN_PANEL_URL.$result['path'].$result['centre_banner'],
 					'thumbCentreImage' => ADMIN_PANEL_URL.$result['path'].getThumbnailName($result['centre_banner']),
 				);
 			}
 			return $returnArr;
+		}
+
+		/**
+		*This function is used to get the user details using the user id
+		*
+		*@access public
+		*@author S.D
+		*@since 23rd May , 2018
+		*@param Integer $userId
+		*@return Array
+		*/
+		public function getUserData($userId = NULL)
+		{
+			return $this->db->select("concat(nome , ' ' , cognome) as user_name , uuid , date_format(pax_dob , '%d/%m/%Y') as dob" , FALSE)
+							->where('id_prenotazione' , $userId)
+							->get(TABLE_PLUSED_ROWS)->row_array();
+		}
+
+		/**
+		*This function is used to save the device information into the database
+		*
+		*@author S.D
+		*@since 30th May , 2018
+		*@access public
+		*@param String $deviceType : (A = for android & I = for ios)
+		*@param String $deviceId : The device id
+		*@param Integer $userId : The user id
+		*@return NONE
+		*/
+		public function saveDeviceInfo($deviceType = NULL , $deviceId = NULL , $userId = NULL)
+		{
+			$result = $this->db->select('user_device_id')
+							->where('user_id' , $userId)
+							->where('device_type' , $deviceType)
+							->get(TABLE_USER_DEVICES)->row_array();
+			if(!empty($result))
+			{
+				$updateData = array(
+					'device_id' => $deviceId
+				);
+				$this->db->where('user_device_id' , $result['user_device_id'])
+						->update(TABLE_USER_DEVICES , $updateData);
+			}
+			else
+			{
+				$insertData = array(
+					'user_id' => $userId,
+					'device_id' => $deviceId,
+					'device_type' => $deviceType,
+					'created_on' => date('Y-m-d H:i:s')
+				);
+				$this->db->insert(TABLE_USER_DEVICES , $insertData);
+			}
 		}
 	}

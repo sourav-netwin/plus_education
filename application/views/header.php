@@ -139,6 +139,7 @@
 													foreach($value as $centreValue)
 														echo '<li><a href="'.base_url().'junior-mini-stay/'.strtolower(str_replace(' ' , '-' , $centreValue)).'">'.ucwords(strtolower($centreValue)).'</a></li>';
 													echo '<li><a target="_blank" class="about-experience-class" href="'.base_url().'program#add-on">Available Add on</a></li>';
+													echo getMinistayCourseProgram($key);
 ?>
 												</ul>
 											</div>

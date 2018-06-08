@@ -38,6 +38,24 @@
 					'status' => ($this->input->post('status') == 1) ? 0 : 1
 				);
 				$this->Front_model->commonUpdate(TABLE_PLUS_ACTIVITY_MANAGEMENT , 'plus_activity_id = '.$this->input->post('activity_id') , $data);
+
+				//After active an activity , send push notification
+				if($data['status'] == 1)
+				{
+					$result = $this->Front_model->commonGetData('centre_id' , 'plus_activity_id = '.$this->input->post('activity_id') , TABLE_PLUS_ACTIVITY_MANAGEMENT);
+					$userIdArr = $this->Manage_activity_model->getUserUuid($result['centre_id']);
+					if(!empty($userIdArr))
+					{
+						$this->load->library('notification');
+						$notificationData = array(
+							'title' => str_replace('**module**' , 'walking tour video' , $this->lang->line('dynamic_module_added')),
+							'message' => $this->lang->line('video_notification_message'),
+							'notification_type' => $this->lang->line('video_notification_type')
+						);
+						$this->notification->initialize($userIdArr , $notificationData);
+					}
+				}
+
 				echo TRUE;
 			}
 		}
@@ -85,6 +103,19 @@
 					$updateData['sequence'] = ($countArr['total'] + 1);
 					$insertId = $this->Front_model->commonAdd(TABLE_PLUS_ACTIVITY_MANAGEMENT , $updateData);
 					$this->session->set_flashdata('success_message', str_replace('**module**' , 'Activity' , $this->lang->line('add_success_message')));
+
+					//For manage activity module , after add new activity , send push notification
+					$userIdArr = $this->Manage_activity_model->getUserUuid($this->input->post('centre_id'));
+					if(!empty($userIdArr))
+					{
+						$this->load->library('notification');
+						$notificationData = array(
+							'title' => str_replace('**module**' , 'activity program' , $this->lang->line('dynamic_module_added')),
+							'message' => $this->lang->line('activity_notification_message'),
+							'notification_type' => $this->lang->line('activity_notification_type')
+						);
+						$this->notification->initialize($userIdArr , $notificationData);
+					}
 				}
 				elseif($this->input->post('flag') == 'es')
 				{

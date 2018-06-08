@@ -44,6 +44,11 @@
 					concat('".ADMIN_PANEL_URL.WALKING_TOUR_VIDEO_IMAGE_PATH."' , video_image) as
 					video_image" , 'centre_id = '.$centreId.' AND status = 1 AND delete_flag = 0' ,
 					TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
+				if(!empty($data['video_details']))
+				{
+					foreach($data['video_details'] as $key => $value)
+						$data['video_details'][$key]['videoName'] = basename($value['video_url']);
+				}
 			}
 			else
 			{

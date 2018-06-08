@@ -20,6 +20,7 @@
 		{
 			$data['videoDetails'] = $this->Front_model->commonGetData('plus_walking_tour_id , video , description , video_image' , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_WALKING_TOUR , 'plus_walking_tour_id' , 'asc' , 2);
 			$data['activityDetails'] = $this->Front_model->commonGetData("plus_activity_id , name , description , front_image , date_format(added_date , '%d-%m-%Y') as added_date , show_type , show_text" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_PLUS_ACTIVITY_MANAGEMENT , 'sequence' , 'asc' , 2);
+			$data['generalInfoDetails'] = $this->Front_model->commonGetData("plus_general_info_id , name , description , front_image , date_format(added_date , '%d-%m-%Y') as added_date , show_type , show_text" , 'centre_id = '.$this->session->userdata('centre_id').' AND status=1 AND delete_flag=0' , TABLE_GENERAL_INFO , 'sequence' , 'asc' , 2);
 			$data['centreDetails'] = $this->Front_model->commonGetData('icon_class , title , details' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_WALKING_TOUR_CENTRE_DETAILS , 'sequence' , 'asc' , 2);
 			$data['viewPage'] = 'plus_video/video_activity';
 			$data['showLeftMenu'] = 1;
@@ -76,8 +77,16 @@
 			return $status;
 		}
 
-		//This function is used to download activity files
-		function download_activity_file($id = NULL)
+		/**
+		*This function is used to download activity files
+		*
+		*@author S.D
+		*@since 7th June , 2018
+		*@access public
+		*@param Integer $id : The file id
+		*@return NONE
+		*/
+		public function download_activity_file($id = NULL)
 		{
 			if($id)
 			{
@@ -88,30 +97,45 @@
 			}
 		}
 
-		//This function is used to get the centre detila for any centre and download the details in a text file .
-		function download_centre_details()
+		/**
+		*This function is used to download the file for the general info section
+		*
+		*@author S.D
+		*@since 7th June , 2018
+		*@access public
+		*@param Integer $id : The file id
+		*@return NONE
+		*/
+		public function download_general_info_file($id = NULL)
 		{
-			if(!is_dir('./'.WALKING_TOUR_CENTRE_DETAILS_FILE))
-				mkdir('./'.WALKING_TOUR_CENTRE_DETAILS_FILE , DIR_PERMISSION , TRUE);
-			$result = $this->Front_model->commonGetData('icon_class , title , details' , 'centre_id = '.$this->session->userdata('centre_id') , TABLE_WALKING_TOUR_CENTRE_DETAILS , 'sequence' , 'asc' , 2);
-			$fp = fopen('./'.WALKING_TOUR_CENTRE_DETAILS_FILE.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt' , 'w');
-			if(!empty($result))
+			if($id)
 			{
-				foreach($result as $value)
-				{
-					$text = strip_tags($value['title']).' : '."\n";
-					$text.= trim(strip_tags($value['details']))."\n\n\n";
-					fwrite($fp , $text);
-				}
+				$id = base64_decode(str_replace('_' , '=' , preg_replace_callback('/-[a-z]-/' , function($match){return strtoupper(str_replace('-' , '' , $match[0]));} , $id)));
+				$result = $this->Front_model->commonGetData('file_name' , 'plus_general_info_file_id = '.$id , TABLE_GENERAL_INFO_FILE , '' , 'asc' , 1);
+				if(file_exists('./'.GENERAL_INFO_ACCESS_FILE.$result['file_name']))
+					force_download($result['file_name'] , file_get_contents('./'.GENERAL_INFO_ACCESS_FILE.$result['file_name']));
 			}
-			fclose($fp);
-			force_download(str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt' , file_get_contents('./'.WALKING_TOUR_CENTRE_DETAILS_FILE.str_replace(' ' , '_' , strtolower($this->session->userdata('centre'))).'.txt'));
 		}
 
-		function testImage()
+		/**
+		*This function is used to download the centre details in the pdf file
+		*
+		*@author S.D
+		*@since 4th June , 2018
+		*@access public
+		*@param Integer $centreId : The centre id
+		*@return NONE
+		*/
+		public function download_centre_details($centreId = NULL)
 		{
-			$data['viewPage'] = 'testimage';
-			$data['showLeftMenu'] = 1;
-			$this->load->view('plus_video/template' , $data);
+			if(!empty($centreId))
+			{
+				ini_set('max_execution_time' , 0);
+				$data['centreInfo'] = $this->Front_model->getCentreDetails($centreId);
+				$data['centreDetails'] = $this->Front_model->commonGetData('icon_class , title , details' , 'centre_id = '.$centreId , TABLE_WALKING_TOUR_CENTRE_DETAILS , 'sequence' , 'asc' , 2);
+				$viewPageContent = $this->load->view('plus_video/download_centre_details' , $data , TRUE);
+				create_pdf($viewPageContent , strtolower($data['centreInfo']['nome_centri']).'.pdf' , TRUE);
+
+			}
 		}
 	}

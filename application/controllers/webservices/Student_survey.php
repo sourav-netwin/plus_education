@@ -157,19 +157,6 @@
 		{
 			$returnArr = array();
 			$questionArr = $this->Student_survey_model->getQuestions('Survey' , $uuid , $weekSend);
-			/*if(!empty($questionArr))
-			{
-				foreach ($questionArr as $question)
-				{
-					$returnArr[$question['tque_section']][] = array(
-						'id' => $question['opt_id'],
-						'question' => $question['tque_question'],
-						'starNo' => $question['opt_text'],
-						'filled' => $question['trans_survey_value']
-					);
-				}
-			}
-			return $returnArr;*/
 			return $questionArr;
 		}
 
@@ -256,6 +243,61 @@
 					$data['status'] = $this->lang->line('FAIL');
 					$data['message'] = $this->lang->line('unable_save_answer');
 				}
+			}
+			else
+			{
+				$data['status'] = $this->lang->line('FAIL');
+				$data['message'] = $this->lang->line('please_pass_required');
+			}
+			$this->response($data , 200);
+		}
+
+		/**
+		*This function is used to reset the survey attempt(Only for our testing reference)
+		*
+		*@access public
+		*@param NONE
+		*@return NONE
+		*/
+		public function reset_survey_post()
+		{
+			$uuid = $this->post('uuid');
+			$weekSend = $this->post('weekSend');
+			if(!empty($uuid) && !empty($weekSend))
+			{
+				$this->db->where('ts_uuid' , $uuid)
+						->where('ts_week' , $weekSend)
+						->where('ts_test_id' , 1)
+						->delete('plused_test_submited');
+				$data['status'] = $this->lang->line('SUCCESS');
+				$data['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
+			}
+			else
+			{
+				$data['status'] = $this->lang->line('FAIL');
+				$data['message'] = $this->lang->line('please_pass_required');
+			}
+			$this->response($data , 200);
+		}
+
+		/**
+		*This function is used to reset the attempt options(Only for our testing reference)
+		*
+		*@access public
+		*@param NONE
+		*@return NONE
+		*/
+		public function reset_survey_options_post()
+		{
+			$uuid = $this->post('uuid');
+			$weekSend = $this->post('weekSend');
+			if(!empty($uuid) && !empty($weekSend))
+			{
+				$this->db->where('tans_uuid' , $uuid)
+						->where('tans_week' , $weekSend)
+						->delete('plused_test_answers');
+				$data['status'] = $this->lang->line('SUCCESS');
+				$data['message'] = $this->lang->line('VALID_TOKEN_MESSAGE');
 			}
 			else
 			{
